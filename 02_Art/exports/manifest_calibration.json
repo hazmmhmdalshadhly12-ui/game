@@ -1,0 +1,84 @@
+{
+  "project": "THE LAST SIN: The Sin-Eater",
+  "stage": "M0 calibration assets (Blender-side)",
+  "blender_version": "5.0.1",
+  "generated_at": "2026-10-21T23:25:00.306347+00:00",
+  "duration_sec": 0.3,
+  "export_settings": {
+    "axis_forward": "-Y",
+    "axis_up": "Z",
+    "apply_scale_options": "FBX_UNITS_SCALE",
+    "global_scale": 1.0,
+    "note": "1 m في Blender = 100 uu في Unreal Engine؛ استيراد UE معلق حتى M0 (لا يوجد UE في هذه البيئة)"
+  },
+  "assets": [
+    {
+      "asset_id": "TLS-ENV-001",
+      "object_name": "tls_env_001_calibration_gnomon",
+      "blend_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/blender/source/env/tls_env_001_calibration_gnomon.blend",
+      "fbx_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/exports/fbx/tls_env_001_calibration_gnomon_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 65,
+        "polygons": 57,
+        "material_slots": [
+          "TLS_M_Gnomon_Base",
+          "TLS_M_Gnomon_Body",
+          "TLS_M_Gnomon_AxisX",
+          "TLS_M_Gnomon_AxisY",
+          "TLS_M_Gnomon_AxisZ"
+        ],
+        "dimensions_m": [
+          1.35,
+          1.0,
+          0.77
+        ],
+        "bbox_min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "bbox_max": [
+          0.85,
+          0.5,
+          0.77
+        ]
+      }
+    },
+    {
+      "asset_id": "TLS-ENV-002",
+      "object_name": "tls_env_002_reference_figure",
+      "blend_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/blender/source/env/tls_env_002_reference_figure.blend",
+      "fbx_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/exports/fbx/tls_env_002_reference_figure_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 802,
+        "polygons": 682,
+        "material_slots": [
+          "TLS_M_Reference_Body"
+        ],
+        "dimensions_m": [
+          0.57,
+          0.25,
+          1.75
+        ],
+        "bbox_min": [
+          -0.285,
+          -0.125,
+          0.0
+        ],
+        "bbox_max": [
+          0.285,
+          0.125,
+          1.75
+        ]
+      }
+    }
+  ]
+}
