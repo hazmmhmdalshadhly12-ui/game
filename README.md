@@ -12,7 +12,7 @@ THE_LAST_SIN/
 │   ├── GAME_BIBLE.md             وثيقة اللعبة الأم (القصة/العالم/الأسلوب/النطاق)
 │   ├── CHARACTER_REGISTRY.md     سجل الشخصيات (T1–T4) والعلاقات والمعرفة
 │   ├── WORLD_REGISTRY.md         سجل المناطق والمباني والمعالم
-│   ├── ASSET_REGISTRY.csv        السجل المركزي للأصول (79 أصلًا مسجلًا)
+│   ├── ASSET_REGISTRY.csv        السجل المركزي للأصول (80 أصلًا مسجلًا)
 │   ├── TECHNICAL_PIPELINE.md     خط الإنتاج Blender←UE5 (معايير وإعدادات معتمدة)
 │   ├── QUEST_ARCHITECTURE.md     بنية المهام والأدلة والحوار والنهايات
 │   ├── NPC_SIMULATION.md         محاكاة حياة القرية (جداول/إشاعات/ثقة)
@@ -40,11 +40,28 @@ python3 tools/validate_project.py
 ```
 الفحص يشمل: وجود الوثائق ومقاسها، سلامة سجل الأصول CSV (معرفات فريدة/قيم شرعية)، الاتساق العابر للوثائق (الأسماء المعتمدة)، وسلامة أصول المعايرة المصدرة فعليًا.
 
-## إعادة توليد أصول المعايرة (يتطلب Blender كوحدة bpy على Python 3.11)
+## إعادة توليد أصول المعايرة (يتطلب Blender — وحدة bpy)
+جذر المشروع يُكتشف تلقائيًا من موقع السكريبت (`tools/`)؛ للتحديد اليدوي: `--root <مسار>`.
+السكريبت **يرفض استبدال مخرجات موجودة** حمايةً لملفاتك — أضف `--force` لإعادة التوليد فوقها.
+عند غياب Blender/bpy يخرج برسالة خطأ واضحة (كود 2) تشرح خياري التثبيت.
+
+**Linux/macOS (مُختبر فعليًا في بيئة المرحلة الأولى — bpy 5.0.1 على Python 3.11):**
 ```bash
+# عبر Blender المثبت:
+blender --background --python tools/make_calibration_assets.py
+# أو عبر حزمة bpy (يفضل Python 3.11):
 python3 tools/make_calibration_assets.py
 # ينتج: ملفي .blend + ملفي FBX + manifest_calibration.json
 ```
+
+**Windows (لم يُختبر بعد — أول تشغيل مخطط ضمن بوابة M0):**
+```powershell
+# المتطلبات: Blender 4.x/5.x مثبت ومضاف إلى PATH (أو وحدة bpy متوافقة مع Python 3.11)
+blender --background --python tools/make_calibration_assets.py
+# أو بمسار تثبيت صريح وجذر بديل:
+& "C:\Program Files\Blender Foundation\Blender 5.0\blender.exe" --background --python tools/make_calibration_assets.py -- --root D:\Projects\THE_LAST_SIN
+```
+> ⚠️ صيغة Windows أعلاه مماثلة منطقيًا للنمط المُختبر لكنها **غير مُتحقق منها في بيئة Windows**؛ لا تُعتبر ناجحة إلا بعد أول تشغيل موثق داخل M0.
 
 ## مبادئ العمل في هذا المستودع
 1. **لا نمذجة بلا سجل:** كل أصل جديد يدخل `docs/ASSET_REGISTRY.csv` قبل فتح ملفه.

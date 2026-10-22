@@ -1,38 +1,111 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-THE LAST SIN: The Sin-Eater — Calibration Asset Generator
-=========================================================
+THE LAST SIN: The Sin-Eater — Calibration Asset Generator (portable)
+====================================================================
 يجري تشغيله عبر Blender headless (bpy) لإنتاج أول أصلين من أصول المعايرة
 الخاصة بالمرحلة M0 واختبار خط الإنتاج Blender -> FBX فعليًا:
 
   TLS-ENV-001  gnomon المعايرة (اختبار المحاور/المقياس/المحور الارتكاز)
   TLS-ENV-002  شخصية مرجعية بارتفاع 1.75 م (مرجع مقياس الإنسان)
 
-المخرجات لكل أصل:
+المخرجات لكل أصل (نسبية إلى جذر المشروع، لا مسارات مطلقة):
   - ملف مصدر .blend   (02_Art/blender/source/env/)
   - ملف تصدير .fbx    (02_Art/exports/fbx/) بإعدادات التصدير المعيارية
-  - إحصاءات هندسية داخل manifest_calibration.json للتحقق البرمجي
+  - إحصاءات هندسية داخل 02_Art/exports/manifest_calibration.json
 
-التشغيل:
-  /home/z/my-project/scripts/.venv-bpy/bin/python make_calibration_assets.py
+جذر المشروع يُكتشف تلقائيًا نسبةً إلى موقع هذا السكريبت (tools/)،
+ويمكن تجاوزه بالخيار --root.
+
+التشغيل (Linux/macOS — الطريقة المُختبرة فعليًا في بيئة المرحلة الأولى):
+  # عبر Blender مثبت:
+  blender --background --python tools/make_calibration_assets.py
+  # عبر حزمة bpy كوحدة بايثون (Python 3.11):
+  python tools/make_calibration_assets.py
+
+الخيارات (تمرَّر بعد "--" عند استخدام executable بلندر):
+  blender --background --python tools/make_calibration_assets.py -- --root /path/to/THE_LAST_SIN --force
+  python tools/make_calibration_assets.py --root /path/to/THE_LAST_SIN --force
+
+  --root PATH   جذر مشروع بديل (افتراضيًا: الأب لمجلد tools/ حيث يقيم السكريبت)
+  --force       السماح باستبدال مخرجات موجودة (المستودع يحمي ملفاتك افتراضيًا)
+
+ملاحظة صدق: هذا السكريبت اختُبر فعليًا على Linux (bpy 5.0.1 عبر Python 3.11).
+صيغة الأوامر على Windows مماثلة (بدّل الشرطة المائلة إن لزم) لكنها لم تُختبر
+في بيئة Windows بعد — أول تشغيل لها مخطط داخل بوابة M0.
 """
 
-import bpy
+import argparse
 import json
 import struct
 import sys
 import time
 from datetime import datetime, timezone
+from pathlib import Path
 
-PROJECT = "/home/z/my-project/download/THE_LAST_SIN"
-SRC_DIR = f"{PROJECT}/02_Art/blender/source/env"
-FBX_DIR = f"{PROJECT}/02_Art/exports/fbx"
-MANIFEST = f"{PROJECT}/02_Art/exports/manifest_calibration.json"
+# ---------------------------------------------------------------- bpy guard
+try:
+    import bpy
+except ImportError:
+    sys.stderr.write(
+        "\n[TLS-ERROR] هذا السكريبت يتطلب Blender أو وحدة bpy، وليسا متوفرين "
+        "في بيئة Python الحالية.\n"
+        "الحلول:\n"
+        "  1) شغّله عبر Blender المثبت:\n"
+        "     blender --background --python tools/make_calibration_assets.py\n"
+        "  2) أو ثبّت وحدة bpy المناسبة لإصدار بايثون لديك (يفضل 3.11):\n"
+        "     pip install bpy\n"
+        "لا يمكن إنتاج أصول المعايرة بدونه.\n"
+    )
+    sys.exit(2)
+
+# ---------------------------------------------------------------- CLI / paths
+def discover_root() -> Path:
+    """جذر المشروع = أب مجلد tools/ حيث يقيم هذا السكريبت (مع بدائل أمان)."""
+    try:
+        here = Path(__file__).resolve().parent
+    except NameError:
+        here = Path(sys.argv[0]).resolve().parent if sys.argv[0].endswith(".py") else Path.cwd()
+    return here.parent
+
+
+def parse_cli() -> argparse.Namespace:
+    """وسائط السكريبت: بعد "--" عند التشغيل عبر executable بلندر، أو الطبيعية عبر بايثون."""
+    if "--" in sys.argv:
+        argv = sys.argv[sys.argv.index("--") + 1:]
+    else:
+        argv = sys.argv[1:]
+    parser = argparse.ArgumentParser(
+        prog="make_calibration_assets.py",
+        description="مولد أصول معايرة M0 لـ THE LAST SIN (Blender headless)",
+    )
+    parser.add_argument("--root", default=None,
+                        help="جذر مشروع بديل (افتراضيًا: الأب لمجلد tools/)")
+    parser.add_argument("--force", action="store_true",
+                        help="السماح باستبدال مخرجات موجودة (حماية افتراضية بدونها)")
+    return parser.parse_args(argv)
+
+
+args = parse_cli()
+ROOT = Path(args.root).resolve() if args.root else discover_root()
+
+if not ((ROOT / "README.md").exists() or (ROOT / "docs").is_dir()):
+    sys.stderr.write(
+        f"\n[TLS-ERROR] المجلد المحدد لا يبدو جذر مشروع THE LAST SIN:\n"
+        f"  {ROOT}\n"
+        f"الجذر الصحيح يجب أن يحوي README.md أو docs/ (وفيه tools/ و02_Art/).\n"
+        f"صحّح المسار عبر:  --root /path/to/THE_LAST_SIN\n"
+    )
+    sys.exit(2)
+
+SRC_DIR = ROOT / "02_Art" / "blender" / "source" / "env"
+FBX_DIR = ROOT / "02_Art" / "exports" / "fbx"
+MANIFEST = ROOT / "02_Art" / "exports" / "manifest_calibration.json"
 
 # --------------------------------------------------------------- helpers
 def log(msg):
     print(f"[TLS] {msg}", flush=True)
+
 
 def new_material(name, color):
     mat = bpy.data.materials.new(name)
@@ -41,6 +114,7 @@ def new_material(name, color):
     if bsdf and "Base Color" in bsdf.inputs:
         bsdf.inputs["Base Color"].default_value = (color[0], color[1], color[2], 1.0)
     return mat
+
 
 def clear_scene():
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -51,6 +125,7 @@ def clear_scene():
         log(f"save_version pref note: {e}")
     log("scene cleared (factory empty)")
 
+
 def make_box(name, location, scale, material):
     bpy.ops.mesh.primitive_cube_add(size=1.0, location=location)
     obj = bpy.context.active_object
@@ -59,10 +134,12 @@ def make_box(name, location, scale, material):
     obj.data.materials.append(material)
     return obj
 
+
 def select_all(objects, active):
     for o in bpy.data.objects:
         o.select_set(o in objects)
     bpy.context.view_layer.objects.active = active
+
 
 def finalize_mesh(name, objects):
     """يجمع الكائنات في mesh واحد، يضبط المحور الارتكاز عند نقطة الأصل، ويطبق التحويلات."""
@@ -74,6 +151,7 @@ def finalize_mesh(name, objects):
     bpy.ops.object.origin_set(type="ORIGIN_CURSOR")
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     return obj
+
 
 def mesh_stats(obj):
     mesh = obj.data
@@ -90,11 +168,12 @@ def mesh_stats(obj):
         "bbox_max": [round(v, 4) for v in bbox_max],
     }
 
+
 def export_fbx(obj, filepath):
     """التصدير المعياري: Forward=-Y / Up=Z / FBX Units Scale (1 م = 100 uu)."""
     select_all([obj], active=obj)
     bpy.ops.export_scene.fbx(
-        filepath=filepath,
+        filepath=str(filepath),
         use_selection=True,
         object_types={"MESH"},
         axis_forward="-Y",
@@ -104,6 +183,7 @@ def export_fbx(obj, filepath):
         mesh_smooth_type="OFF",
         bake_space_transform=False,
     )
+
 
 def fbx_header_info(filepath):
     """قراءة ترويسة FBX الثنائية للتحقق من الصلاحية ورقم الإصدار."""
@@ -173,6 +253,35 @@ def build_reference_figure():
 # --------------------------------------------------------------- main
 def main():
     started = time.time()
+    log(f"project root: {ROOT}")
+
+    # حماية ملفات المستخدم: رفض استبدال مخرجات موجودة إلا بطلب صريح
+    targets = [
+        SRC_DIR / "tls_env_001_calibration_gnomon.blend",
+        SRC_DIR / "tls_env_002_reference_figure.blend",
+        FBX_DIR / "tls_env_001_calibration_gnomon_v001.fbx",
+        FBX_DIR / "tls_env_002_reference_figure_v001.fbx",
+        MANIFEST,
+    ]
+    existing = [t for t in targets if t.exists()]
+    if existing and not args.force:
+        sys.stderr.write(
+            "\n[TLS-ERROR] مخرجات معايرة موجودة مسبقًا — لن أستبدلها دون طلب صريح:\n"
+        )
+        for t in existing:
+            sys.stderr.write(f"  {t}\n")
+        sys.stderr.write(
+            "إن أردت إعادة التوليد فوقها أضف الخيار:  --force\n"
+            "(للإصدار الجديد بدل الاستبدال، انقل الملفات القديمة يدويًا أولًا.)\n"
+        )
+        sys.exit(3)
+    if existing:
+        log(f"--force given: replacing {len(existing)} existing output file(s)")
+
+    # إنشاء مجلدات الإخراج عند غيابها (نسخة نظيفة من المستودع مثلًا)
+    for d in (SRC_DIR, FBX_DIR):
+        d.mkdir(parents=True, exist_ok=True)
+
     jobs = [
         ("TLS-ENV-001", build_gnomon),
         ("TLS-ENV-002", build_reference_figure),
@@ -182,17 +291,17 @@ def main():
         obj = builder()
         stats = mesh_stats(obj)
 
-        blend_path = f"{SRC_DIR}/{obj.name}.blend"
-        bpy.ops.wm.save_as_mainfile(filepath=blend_path)
+        blend_path = SRC_DIR / f"{obj.name}.blend"
+        bpy.ops.wm.save_as_mainfile(filepath=blend_path.as_posix())
 
-        fbx_path = f"{FBX_DIR}/{obj.name}_v001.fbx"
+        fbx_path = FBX_DIR / f"{obj.name}_v001.fbx"
         export_fbx(obj, fbx_path)
 
         entry = {
             "asset_id": asset_id,
             "object_name": obj.name,
-            "blend_path": blend_path,
-            "fbx_path": fbx_path,
+            "blend_path": blend_path.relative_to(ROOT).as_posix(),
+            "fbx_path": fbx_path.relative_to(ROOT).as_posix(),
             "fbx_info": fbx_header_info(fbx_path),
             "geometry": stats,
         }
@@ -209,13 +318,13 @@ def main():
         "export_settings": {
             "axis_forward": "-Y", "axis_up": "Z",
             "apply_scale_options": "FBX_UNITS_SCALE", "global_scale": 1.0,
-            "note": "1 m في Blender = 100 uu في Unreal Engine؛ استيراد UE معلق حتى M0 (لا يوجد UE في هذه البيئة)",
+            "note": "1 m في Blender = 100 uu في Unreal Engine؛ استيراد UE معلق حتى M0 (لا يوجد UE في هذه البيئة) — وجود FBX لا يعني نجاح الاستيراد",
         },
         "assets": results,
     }
     with open(MANIFEST, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
-    log(f"manifest written: {MANIFEST}")
+    log(f"manifest written: {MANIFEST.relative_to(ROOT).as_posix()}")
 
     # بوابات قبول ذاتية: الأبعاد المتوقعة
     g, rf = results[0]["geometry"], results[1]["geometry"]
@@ -233,6 +342,7 @@ def main():
         log(f"SELF-CHECK FAILED: {failed}")
         sys.exit(1)
     log("ALL SELF-CHECKS PASSED")
+
 
 if __name__ == "__main__":
     main()
