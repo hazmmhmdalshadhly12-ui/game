@@ -256,6 +256,42 @@ def main():
     if py_path.is_file() and (UE_DIR / "Scripts" / "02_import_and_calibrate.bat").is_file():
         ok("02_import_and_calibrate.bat references import_and_calibrate.py")
 
+    # Regression guards for the Windows automation (real failure modes found
+    # by code review; they must never silently come back).
+    build_bat = UE_DIR / "Scripts" / "01_build_editor.bat"
+    if build_bat.is_file():
+        text = build_bat.read_text(encoding="utf-8")
+        if 'set "UEROOT=%%~dp0' in text:
+            fail("01_build_editor.bat derives UEROOT from %%~dp0 (script folder) - "
+                 "breaks the Build.bat path; derive it from UEBIN instead")
+        elif '%%~dpI..\\..\\..' in text and '%%~fI' in text:
+            ok("01_build_editor.bat: UEROOT derived from UEBIN (3 levels up, normalized)")
+        else:
+            fail("01_build_editor.bat: UEROOT derivation pattern not recognized")
+        if 'if not exist "%UEBUILD%\\Build.bat"' in text:
+            ok("01_build_editor.bat: Build.bat existence checked before call")
+        else:
+            fail("01_build_editor.bat: no Build.bat existence check (misleading failure)")
+    import_bat = UE_DIR / "Scripts" / "02_import_and_calibrate.bat"
+    if import_bat.is_file():
+        text = import_bat.read_text(encoding="utf-8")
+        tokens_ok = ("if errorlevel 1" in text and "findstr" in text
+                     and 'findstr /C:"true"' in text and "overall_pass" in text)
+        if tokens_ok:
+            ok("02_import_and_calibrate.bat: checks errorlevel + report overall_pass "
+               "before claiming success")
+        else:
+            fail("02_import_and_calibrate.bat: missing failure handling "
+                 "(errorlevel / overall_pass verification)")
+    for bat in ("03_play_test.bat", "04_play_slice.bat"):
+        path = UE_DIR / "Scripts" / bat
+        if path.is_file():
+            text = path.read_text(encoding="utf-8")
+            if 'if not exist "%UEBIN%\\UnrealEditor.exe"' in text:
+                ok(f"{bat}: UnrealEditor.exe existence checked before start")
+            else:
+                fail(f"{bat}: no UnrealEditor.exe existence check (bad TLS_UE_ROOT goes unnoticed)")
+
     # ---------------------------------------------------------- FBX inputs
     section("8) FBX inputs exist")
     if py_path.is_file():
@@ -355,6 +391,41 @@ def main():
             ok(f"{name}: class declared as designed")
         else:
             fail(f"{name} missing tokens: {missing}")
+
+    # Regression guards for UE-layer compile blockers found by review (round 2).
+    # Each of these was a real would-not-compile / latent-crash issue.
+    gm_hdr = (UE_DIR / "Source" / "TLS" / "TLSVillageGameMode.h").read_text(encoding="utf-8")
+    gm_src = (UE_DIR / "Source" / "TLS" / "TLSVillageGameMode.cpp").read_text(encoding="utf-8")
+    npc_hdr = (UE_DIR / "Source" / "TLS" / "TLSNPC.h").read_text(encoding="utf-8")
+    inter_hdr = (UE_DIR / "Source" / "TLS" / "TLSInteractable.h").read_text(encoding="utf-8")
+    save_hdr = (UE_DIR / "Source" / "TLS" / "TLSSaveGame.h").read_text(encoding="utf-8")
+    for line in gm_hdr.splitlines():
+        if "static FColor PaletteColor" in line:
+            if line.rstrip().endswith("const;"):
+                fail("TLSVillageGameMode.h: static PaletteColor declared const (ill-formed C++)")
+                break
+    else:
+        ok("TLSVillageGameMode.h: static PaletteColor is not const-qualified")
+    if "Actor->NameLabel" in gm_src or "Actor->PromptLabel" in gm_src:
+        fail("TLSVillageGameMode.cpp: reaches protected labels directly (use the public setters)")
+    else:
+        ok("TLSVillageGameMode.cpp: protected labels only touched via public setters")
+    if "SetNameLabelText" in npc_hdr:
+        ok("TLSNPC.h: public SetNameLabelText present")
+    else:
+        fail("TLSNPC.h: public SetNameLabelText missing (protected-access regression)")
+    if "SetPromptLabelText" in inter_hdr:
+        ok("TLSInteractable.h: public SetPromptLabelText present")
+    else:
+        fail("TLSInteractable.h: public SetPromptLabelText missing (protected-access regression)")
+    if "namespace TLSSave" in save_hdr and "WriteSlot" in save_hdr and "ReadSlot" in save_hdr:
+        ok("TLSSaveGame.h: TLSSave slot helpers declared for other units")
+    else:
+        fail("TLSSaveGame.h: TLSSave helpers undeclared (game mode cannot link)")
+    if "UnregisterConsoleObject" in gm_src:
+        ok("TLSVillageGameMode.cpp: TLS.NewGame console command unregistered in EndPlay")
+    else:
+        fail("TLSVillageGameMode.cpp: console command never unregistered (dangling delegate risk)")
 
     build_cs = (UE_DIR / "Source" / "TLS" / "TLS.Build.cs").read_text(encoding="utf-8")
     for dep in ('"UMG"', '"Slate"', '"SlateCore"'):

@@ -31,15 +31,29 @@ if not defined UEBIN (
     exit /b 1
 )
 
-for %%I in ("%UEBIN%") do set "UEROOT=%%~dp0..\.."
+REM UEBIN = <UEROOT>\Engine\Binaries\Win64 - derive UEROOT from UEBIN by going
+REM three levels up (Win64 - Binaries - Engine). Regression note: this line once
+REM used %%~dp0 (this script's own folder), which made UEROOT the repo root and
+REM broke the Build.bat path - never derive the engine root from %%~dp0 here.
+for %%I in ("%UEBIN%") do set "UEROOT=%%~dpI..\..\.."
+for %%I in ("%UEROOT%") do set "UEROOT=%%~fI"
 set "UEBUILD=%UEROOT%\Engine\Build\BatchFiles"
+
+if not exist "%UEBUILD%\Build.bat" (
+    echo [ERROR] Build.bat not found under "%UEBUILD%".
+    echo   The engine install looks incomplete - check TLS_UE_ROOT or reinstall UE.
+    pause
+    exit /b 1
+)
 
 echo [TLS M0] Using engine: %UEBIN%
 echo [TLS M0] Building TLSEditor (Win64 Development)...
 call "%UEBUILD%\Build.bat" TLSEditor Win64 Development -project="%PROJ%" -waitmutex
 
 if errorlevel 1 (
-    echo [ERROR] Build failed. Make sure Visual Studio 2022 with "Game development with C++" is installed.
+    echo [ERROR] Build failed - read the compiler errors above.
+    echo   Common causes: Visual Studio 2022 without the "Game development with C++"
+    echo   workload, or a UE/VS version mismatch. Fix and re-run this script.
     pause
     exit /b 1
 )

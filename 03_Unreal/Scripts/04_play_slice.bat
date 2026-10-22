@@ -37,5 +37,12 @@ if not defined UEBIN (
     exit /b 1
 )
 
+if not exist "%UEBIN%\UnrealEditor.exe" (
+    echo [ERROR] UnrealEditor.exe not found under "%UEBIN%".
+    echo   Check the TLS_UE_ROOT value or run 01_build_editor.bat first.
+    pause
+    exit /b 1
+)
+
 echo [TLS M1] Opening the editor (startup map: L_TLS_Blackthorne)...
 start "" "%UEBIN%\UnrealEditor.exe" "%PROJ%"
