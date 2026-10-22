@@ -1,8 +1,9 @@
 # THE LAST SIN: The Sin-Eater — مستودع المشروع
 **لعبة مغامرات وتحقيق وغموض تاريخي قوطي | UE5 + Blender | Blackthorne، ويلز 1847**
 
-> الحالة: **المرحلة الأولى (التأسيس والتوثيق) مكتملة** — بتاريخ 22 أكتوبر 2026.
-> ⚠️ لم يُبنَ أي إصدار قابل للعب بعد. أول مرحلة قابلة للاختبار هي **M0** (انظر `docs/MILESTONE_PLAN.md`).
+> الحالة: **المرحلة الأولى (التأسيس والتوثيق) مكتملة + تدقيق الجودة منفذ** — بتاريخ 22 أكتوبر 2026.
+> **M0 جارية**: هيكل مشروع UE5 (`03_Unreal/`) بُني فعليًا وتم التحقق منه آليًا (39/39)؛ البناء/الاستيراد داخل UE يتطلبان محطة Windows (خطوات مؤتمتة جاهزة — انظر `reports/M0_IMPLEMENTATION_REPORT.md`).
+> ⚠️ لم يُبنَ أي إصدار قابل للعب بعد — أول إصدار قابل للاختبار ينتج عن بوابة M0 على محطة Windows.
 
 ## بنية المستودع — ما هو موجود فعلًا الآن مقابل ما هو مخطط
 ```
@@ -18,16 +19,19 @@ THE_LAST_SIN/
 │   ├── NPC_SIMULATION.md         محاكاة حياة القرية (جداول/إشاعات/ثقة)
 │   ├── PLATFORM_STRATEGY.md      خطة Windows/macOS/PlayStation
 │   └── MILESTONE_PLAN.md         خطة M0..M5 والاعتماديات والمخاطر
-├── reports/                      ← [موجود] تقارير المراحل (PHASE_1_REPORT.md)
+├── reports/                      ← [موجود] تقارير المراحل (PHASE_1_REPORT.md + PHASE_1_AUDIT.md + M0_IMPLEMENTATION_REPORT.md)
+├── .github/workflows/            ← [موجود] CI: فاحصا المشروع يُشغلان على كل push (GitHub Actions)
 ├── tools/                        ← [موجود] أدوات التحقق:
-│   ├── validate_project.py       فاحص سلامة المشروع (وثائق+سجل+اتساق)
-│   └── make_calibration_assets.py مولد أصول المعايرة (Blender headless)
+│   ├── validate_project.py       فاحص سلامة المشروع (68 فحصًا — وثائق+سجل+اتساق)
+│   ├── make_calibration_assets.py مولد أصول المعايرة (Blender headless)
+│   ├── test_fbx_roundtrip.py     اختبار FBX ذهابًا وإيابًا (bpy)
+│   └── validate_unreal_scaffold.py فاحص هيكل مشروع UE (39 فحصًا)
 ├── 02_Art/                       ← [موجود جزئيًا — أول أصول فعلية]
 │   ├── blender/source/env/       tls_env_001_calibration_gnomon.blend ✅
 │   │                             tls_env_002_reference_figure.blend ✅
 │   ├── exports/fbx/              ملفا FBX 7.4 سليمان ✅
 │   └── exports/manifest_calibration.json  (بيان التحقق الهندسي) ✅
-├── 03_Unreal/                    ← [مخطط M0] مشروع UE5 (TLS.uproject)
+├── 03_Unreal/                    ← [موجود — هيكل M0] مشروع UE5 (TLS.uproject + كود C++ + إعدادات + سكربتات أتمتة Windows؛ يُبنى داخل المحرك على محطة Windows)
 ├── 04_Audio/                     ← [مخطط] الصوتيات
 ├── 05_Narrative/                 ← [مخطط M2] جداول الحوار والمحاكاة
 └── 06_Build/                     ← [مخطط M4] إعدادات بناء المنصات
