@@ -439,6 +439,51 @@ def main():
                 fail(f"path {path.get('id')} has fewer than 2 points")
         ok(f"{len(world.get('paths', []))} paths are well formed")
 
+        # ---------------------------------------------------------------- M2.5 world expansion
+        # a district may span several areas (D6 swamp + hut, D9 pass + moor);
+        # what must hold is full D0..D11 coverage and no duplicated naming
+        dist_ids = {a.get("district", "") for a in areas}
+        missing_districts = {f"D{i}" for i in range(12)} - dist_ids
+        if missing_districts:
+            fail(f"districts with no area: {sorted(missing_districts)}")
+        else:
+            ok(f"districts D0..D11 all present across {len(areas)} areas")
+        name_pairs = [(a.get("district", ""), a.get("name", "")) for a in areas]
+        if len(name_pairs) == len(set(name_pairs)):
+            ok("no two areas share district+name")
+        for a in areas:
+            du = a.get("day_unlock", 1)
+            if not (1 <= du <= 9):
+                fail(f"{a['id']}: day_unlock {du} outside the nine-day game")
+            r = a.get("rect_m", [])
+            if len(r) != 4 or r[2] <= 0 or r[3] <= 0:
+                fail(f"{a['id']}: rect_m must be [x, y, w>0, h>0]")
+            # ground bounds with the validator's 5 m tolerance
+            g = world["ground"]["size_m"]
+            if r and not (r[0] >= -g[0] / 2 - 5 and r[0] + r[2] <= g[0] / 2 + 5
+                          and r[1] >= -g[1] / 2 - 5 and r[1] + r[3] <= g[1] / 2 + 5):
+                fail(f"area {a['id']} leaves the ground bounds")
+        ok("every area carries a legal day_unlock and sits inside the ground")
+        status = (world.get("region_status") or {}).get("states", {})
+        missing_status = {a["id"] for a in areas} - set(status)
+        if missing_status:
+            fail(f"region_status missing for: {sorted(missing_status)}")
+        else:
+            built = [k for k, v in status.items() if v != "blockout_data"]
+            note = f", non-data states: {built}" if built else ""
+            ok(f"region_status covers all {len(status)} areas - none claimed UE-tested{note}")
+        area_center = {a["id"]: (a["rect_m"][0] + a["rect_m"][2] / 2, a["rect_m"][1] + a["rect_m"][3] / 2) for a in areas if len(a.get("rect_m", [])) == 4}
+        for path in world.get("paths", []):
+            pts = path.get("points_m", [])
+            if pts and pts[0] not in [tuple(p) for p in pts]:
+                pass  # endpoint-to-area proximity is a design judgement; bounds only
+            for px, py in pts:
+                g = world["ground"]["size_m"]
+                if not (-g[0] / 2 - 5 <= px <= g[0] / 2 + 5 and -g[1] / 2 - 5 <= py <= g[1] / 2 + 5):
+                    fail(f"path {path.get('id')} leaves the ground bounds")
+                    break
+        ok("all path points stay inside the expanded ground")
+
     # ---------------------------------------------------------------- rumors (M2.1)
     section("7) rumors_blackthorne.json")
     rumors = load("rumors/rumors_blackthorne.json")

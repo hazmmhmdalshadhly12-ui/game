@@ -19,8 +19,8 @@
   },
   "ground": {
     "size_m": [
-      140,
-      160
+      240,
+      250
     ],
     "material": "MSS"
   },
@@ -145,6 +145,123 @@
         30,
         14
       ]
+    },
+    {
+      "id": "AREA-CHAPEL",
+      "name": "Capel Seion and the School",
+      "district": "D5",
+      "rect_m": [
+        -32,
+        26,
+        24,
+        18
+      ],
+      "day_unlock": 2,
+      "note": "Welsh lessons, hymns, chapel/church friction (WORLD_REGISTRY D5)"
+    },
+    {
+      "id": "AREA-SWAMP",
+      "name": "Cors Wyllt",
+      "district": "D6",
+      "rect_m": [
+        -90,
+        -110,
+        50,
+        30
+      ],
+      "day_unlock": 4,
+      "note": "wide, low-visibility marshland; folklore and hiding (D6); full freedom day 5"
+    },
+    {
+      "id": "AREA-NANS-HUT",
+      "name": "Nan's Hut",
+      "district": "D6",
+      "rect_m": [
+        -64,
+        -102,
+        12,
+        10
+      ],
+      "day_unlock": 4,
+      "note": "the herbalist's hut inside the swamp"
+    },
+    {
+      "id": "AREA-MINE",
+      "name": "Blackthorne Level",
+      "district": "D7",
+      "rect_m": [
+        62,
+        -40,
+        26,
+        40
+      ],
+      "day_unlock": 4,
+      "note": "the only 'danger' district (D7); gate kept by Griffiths"
+    },
+    {
+      "id": "AREA-MINE-DEEP",
+      "name": "The Deep Level and Y Porth",
+      "district": "D8",
+      "rect_m": [
+        88,
+        -40,
+        26,
+        28
+      ],
+      "day_unlock": 4,
+      "note": "interior workings; the frozen flood of 1839 (D8), night with a lamp"
+    },
+    {
+      "id": "AREA-PASS",
+      "name": "Pen y Bwlch Pass",
+      "district": "D9",
+      "rect_m": [
+        -12,
+        50,
+        12,
+        24
+      ],
+      "day_unlock": 5,
+      "note": "the pass between the high lane and the moor; opens after Q-S05"
+    },
+    {
+      "id": "AREA-MOOR",
+      "name": "The Ill-Omened Moor",
+      "district": "D9",
+      "rect_m": [
+        -40,
+        74,
+        100,
+        46
+      ],
+      "day_unlock": 5,
+      "note": "harsh weather, sheep, standing stones; the E2 escape route"
+    },
+    {
+      "id": "AREA-PLAS",
+      "name": "Plas Blackthorne",
+      "district": "D10",
+      "rect_m": [
+        -116,
+        -8,
+        48,
+        44
+      ],
+      "day_unlock": 3,
+      "note": "Harris confrontation; chantry papers; day 3 formal invitation, day 6 night break-in"
+    },
+    {
+      "id": "AREA-POORHOUSE",
+      "name": "The Poorhouse and the Outskirts",
+      "district": "D11",
+      "rect_m": [
+        -46,
+        -36,
+        32,
+        22
+      ],
+      "day_unlock": 1,
+      "note": "social tasks and trade (FN-01); opens gradually across days 1-2"
     }
   ],
   "buildings": [
@@ -247,10 +364,10 @@
     {
       "id": "W-05",
       "name": "Capel Seion",
-      "area": "AREA-CHURCH",
+      "area": "AREA-CHAPEL",
       "rect_m": [
         -22,
-        24,
+        28,
         10,
         14
       ],
@@ -267,10 +384,10 @@
     },
     {
       "id": "W-06",
-      "name": "Engine House (silhouette)",
-      "area": "AREA-MILL",
+      "name": "Engine House",
+      "area": "AREA-MINE",
       "rect_m": [
-        52,
+        66,
         -30,
         12,
         14
@@ -386,6 +503,234 @@
       },
       "features": [
         "oven_chimney"
+      ]
+    },
+    {
+      "id": "W-07",
+      "name": "The Parish School",
+      "area": "AREA-CHAPEL",
+      "rect_m": [
+        -12,
+        30,
+        8,
+        8
+      ],
+      "height_m": 3.8,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "schoolroom",
+        "chalkboard_note"
+      ]
+    },
+    {
+      "id": "W-09",
+      "name": "The Poorhouse",
+      "area": "AREA-POORHOUSE",
+      "rect_m": [
+        -40,
+        -32,
+        12,
+        10
+      ],
+      "height_m": 4.0,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "dormitory",
+        "count_the_mouths"
+      ]
+    },
+    {
+      "id": "W-10",
+      "name": "The Stable",
+      "area": "AREA-POORHOUSE",
+      "rect_m": [
+        -22,
+        -32,
+        8,
+        8
+      ],
+      "height_m": 3.5,
+      "style": "timber",
+      "palette": {
+        "walls": "BRF",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "cart_bay"
+      ]
+    },
+    {
+      "id": "W-11",
+      "name": "Plas Blackthorne",
+      "area": "AREA-PLAS",
+      "rect_m": [
+        -108,
+        4,
+        20,
+        16
+      ],
+      "height_m": 7.5,
+      "style": "mansion",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "harris_study",
+        "formal_hall",
+        "chantry_papers"
+      ]
+    },
+    {
+      "id": "W-12",
+      "name": "The Ice House",
+      "area": "AREA-PLAS",
+      "rect_m": [
+        -76,
+        -6,
+        6,
+        6
+      ],
+      "height_m": 3.0,
+      "style": "stone",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "INK"
+      },
+      "features": [
+        "cold_store"
+      ]
+    },
+    {
+      "id": "W-13",
+      "name": "The Shepherd's Hut",
+      "area": "AREA-MOOR",
+      "rect_m": [
+        20,
+        96,
+        8,
+        8
+      ],
+      "height_m": 3.2,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "peat_fire"
+      ]
+    },
+    {
+      "id": "W-14",
+      "name": "The Adit Mouth",
+      "area": "AREA-MINE",
+      "rect_m": [
+        80,
+        -10,
+        8,
+        8
+      ],
+      "height_m": 3.4,
+      "style": "stone",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "INK"
+      },
+      "features": [
+        "tram_rail",
+        "griffiths_gate"
+      ]
+    },
+    {
+      "id": "W-15",
+      "name": "Y Porth (the Old Gate)",
+      "area": "AREA-MINE-DEEP",
+      "rect_m": [
+        100,
+        -30,
+        8,
+        10
+      ],
+      "height_m": 4.0,
+      "style": "stone",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "SBL"
+      },
+      "features": [
+        "folklore_door",
+        "1839_flood_marker"
+      ]
+    },
+    {
+      "id": "W-16",
+      "name": "The Powder Store",
+      "area": "AREA-MINE",
+      "rect_m": [
+        70,
+        -38,
+        8,
+        6
+      ],
+      "height_m": 3.0,
+      "style": "stone",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "INK"
+      },
+      "features": [
+        "blast_shield",
+        "no_lanterns"
+      ]
+    },
+    {
+      "id": "W-17",
+      "name": "Nan's Hut",
+      "area": "AREA-NANS-HUT",
+      "rect_m": [
+        -60,
+        -100,
+        8,
+        7
+      ],
+      "height_m": 3.0,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "MSS",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "herb_racks",
+        "hearth"
       ]
     }
   ],
@@ -963,14 +1308,148 @@
         ]
       ],
       "width_m": 2.5
+    },
+    {
+      "id": "PATH-CHAPEL",
+      "points_m": [
+        [
+          0,
+          30
+        ],
+        [
+          -8,
+          32
+        ],
+        [
+          -20,
+          33
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-MINE",
+      "points_m": [
+        [
+          40,
+          -12
+        ],
+        [
+          54,
+          -20
+        ],
+        [
+          66,
+          -24
+        ]
+      ],
+      "width_m": 4
+    },
+    {
+      "id": "PATH-MINE-DEEP",
+      "points_m": [
+        [
+          84,
+          -20
+        ],
+        [
+          92,
+          -22
+        ],
+        [
+          100,
+          -24
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-SWAMP",
+      "points_m": [
+        [
+          -28,
+          -50
+        ],
+        [
+          -40,
+          -64
+        ],
+        [
+          -50,
+          -84
+        ],
+        [
+          -56,
+          -96
+        ]
+      ],
+      "width_m": 2
+    },
+    {
+      "id": "PATH-MOOR",
+      "points_m": [
+        [
+          0,
+          60
+        ],
+        [
+          0,
+          76
+        ],
+        [
+          4,
+          96
+        ],
+        [
+          18,
+          98
+        ]
+      ],
+      "width_m": 2
+    },
+    {
+      "id": "PATH-PLAS",
+      "points_m": [
+        [
+          -30,
+          10
+        ],
+        [
+          -50,
+          12
+        ],
+        [
+          -66,
+          12
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-POORHOUSE",
+      "points_m": [
+        [
+          -16,
+          -14
+        ],
+        [
+          -26,
+          -20
+        ],
+        [
+          -36,
+          -24
+        ]
+      ],
+      "width_m": 3
     }
   ],
   "water": {
     "river_name": "Afon Ddu",
     "band_m": [
-      -70,
+      -120,
       -78,
-      140,
+      240,
       16
     ],
     "material": "SBL"
@@ -978,5 +1457,36 @@
   "fog": {
     "day1": "thick valley fog, visibility 60 m",
     "day2": "rain haze, visibility 90 m"
+  },
+  "region_status": {
+    "legend": {
+      "data": "defined in this file only",
+      "blockout_data": "layout, footprints and building specs complete; Blender blockout not built, UE not imported, not engine-tested",
+      "blockout_built": "Blender/FBX blockout exists in 02_Art",
+      "ue_tested": "opened and played inside UE 5.4"
+    },
+    "states": {
+      "AREA-SQUARE": "blockout_data",
+      "AREA-LANE": "blockout_data",
+      "AREA-INN": "blockout_data",
+      "AREA-CHURCH": "blockout_data",
+      "AREA-CHURCHYARD": "blockout_data",
+      "AREA-BOUNDARY": "blockout_data",
+      "AREA-COTTAGE": "blockout_data",
+      "AREA-HOUSES": "blockout_data",
+      "AREA-MILL": "blockout_data",
+      "AREA-BRIDGE": "blockout_data",
+      "AREA-RIVERBANK": "blockout_data",
+      "AREA-CHAPEL": "blockout_data",
+      "AREA-SWAMP": "blockout_data",
+      "AREA-NANS-HUT": "blockout_data",
+      "AREA-MINE": "blockout_data",
+      "AREA-MINE-DEEP": "blockout_data",
+      "AREA-PASS": "blockout_data",
+      "AREA-MOOR": "blockout_data",
+      "AREA-PLAS": "blockout_data",
+      "AREA-POORHOUSE": "blockout_data"
+    },
+    "honesty_note": "M0/M1/M2 produced calibration assets only (02_Art/blender/source/env). No district blockout has been built in Blender and no map has been opened in UE - engine work stays honestly marked NOT RUN until a UE 5.4 station runs it."
   }
 }

@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 
@@ -823,6 +824,85 @@ void TestCorruptSubsystemPayloads(Game& G)
         }
 }
 
+// ---------------------------------------------------------------- M2.5 expanded world integration
+
+std::unique_ptr<VillageState> MakeMiniVillage(const std::string& Json, std::string& Err)
+{
+        JsonParseResult P = JsonParse(Json);
+        if (!P.Ok) { Err = P.Error; return nullptr; }
+        auto V = std::make_unique<VillageState>();
+        if (!V->Load(P.Value, Err)) { return nullptr; }
+        return V;
+}
+
+void TestExpandedWorldZones()
+{
+        TLS_SECTION("M2.5 world - the engine consumes the expanded districts D5-D11");
+
+        // the real world file defines the areas; the core consumes zone STRINGS
+        std::string Content;
+        TLS_CHECK_MSG(ReadFileToString("05_Narrative/world/blackthorne_blockout.json", Content), "world file");
+        JsonParseResult P = JsonParse(Content);
+        TLS_CHECK_MSG(P.Ok, "world json: " + P.Error);
+        std::set<std::string> WorldAreas;
+        std::set<std::string> Districts;
+        if (const JsonValue* Areas = P.Value.Find("areas"))
+        {
+                for (size_t I = 0; I < Areas->Size(); ++I)
+                {
+                        const JsonValue* A = Areas->At(I);
+                        if (!A) { continue; }
+                        WorldAreas.insert(A->GetString("id", ""));
+                        Districts.insert(A->GetString("district", ""));
+                }
+        }
+        TLS_CHECK(WorldAreas.count("AREA-SWAMP") && WorldAreas.count("AREA-MINE") && WorldAreas.count("AREA-MOOR")
+                && WorldAreas.count("AREA-PLAS") && WorldAreas.count("AREA-CHAPEL") && WorldAreas.count("AREA-POORHOUSE"));
+        for (int I = 0; I <= 11; ++I) { TLS_CHECK_MSG(Districts.count("D" + std::to_string(I)) == 1, "district D" + std::to_string(I) + " present"); }
+
+        // a villager scheduled into the new districts resolves like any zone
+        std::string Err;
+        const char* Explorer = R"json({
+          "npcs": [
+            { "id": "W", "name": "Walker", "tier": 3, "faction": "none", "initial_trust": 0, "relationship_bias": 0.1,
+              "tone_weights": { "silent": 0 },
+              "schedule": [ { "from_hour": 8, "to_hour": 12, "zone": "AREA-PLAS", "activity": "errand" },
+                            { "from_hour": 12, "to_hour": 16, "zone": "AREA-SWAMP", "activity": "gathering" },
+                            { "from_hour": 16, "to_hour": 20, "zone": "AREA-MINE", "activity": "walking" },
+                            { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep" },
+                            { "from_hour": 0, "to_hour": 8, "zone": "AREA-HOUSES", "activity": "sleep" } ] },
+            { "id": "S", "name": "Static", "tier": 3, "faction": "none", "initial_trust": 0, "relationship_bias": 0.1,
+              "tone_weights": { "silent": 0 },
+              "schedule": [ { "from_hour": 8, "to_hour": 20, "zone": "AREA-SQUARE", "activity": "loiter" },
+                            { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep" },
+                            { "from_hour": 0, "to_hour": 8, "zone": "AREA-HOUSES", "activity": "sleep" } ] }
+          ]
+        })json";
+        auto V = MakeMiniVillage(Explorer, Err);
+        TLS_CHECK_MSG(V != nullptr, "expanded-zone schedule loads: " + Err);
+        if (V)
+        {
+                TLS_CHECK(V->NpcZoneAt("W", 9) == "AREA-PLAS");
+                TLS_CHECK(V->NpcZoneAt("W", 14) == "AREA-SWAMP");
+                TLS_CHECK(V->NpcZoneAt("W", 18) == "AREA-MINE");
+        }
+
+        // the new districts are NOT gossip zones: nobody gossips in the swamp
+        {
+                JsonParseResult PR = JsonParse(
+                        "{\"gossip_zones\":[\"AREA-SQUARE\"],\"rumors\":[{\"id\":\"RUM-W\","
+                        "\"origin\":\"w\",\"day_created\":1,\"variants\":[\"a\"],"
+                        "\"seeds\":[{\"npc\":\"S\",\"kind\":\"direct\"}]}]}");
+                TLS_CHECK(PR.Ok);
+                RumorSystem Sys;
+                TLS_CHECK_MSG(Sys.Load(PR.Value, Err), "mini rumor data: " + Err);
+                Sys.ActivateDue(1);
+                Rng Rng(1);
+                for (int Hour = 8; Hour <= 19; ++Hour) { Sys.TickHour(1, Hour, *V, Rng); }
+                TLS_CHECK_MSG(!Sys.NpcKnows("W", "RUM-W"), "the walker never heard the rumor - the swamp is not a gossip zone");
+        }
+}
+
 int main()
 {
         std::printf("THE LAST SIN - M1+M2 core-logic test harness (standalone g++ build)\n");
@@ -845,6 +925,7 @@ int main()
         TestRumorGameIntegration(*G);
         tls_test_quests::RunAll(*G);
         tls_test_settings::RunAll(*G);
+        TestExpandedWorldZones();
 
         {
                 Game* GSIM = MakeLoadedGame();
