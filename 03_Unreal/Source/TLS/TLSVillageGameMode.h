@@ -108,7 +108,9 @@ private:
         void TryContinueFromSlot();
 
         // ---- helpers ----
-        static FColor PaletteColor(const std::string& Key, const FColor& Default) const;
+        // NOTE: static member functions cannot be const-qualified (C++ rule) -
+        // an earlier draft declared this 'const' and would not compile.
+        static FColor PaletteColor(const std::string& Key, const FColor& Default);
         static FString ToFString(const std::string& S);
 
         // ---- core state (engine-agnostic; see Core/TLSGameState.h) ----

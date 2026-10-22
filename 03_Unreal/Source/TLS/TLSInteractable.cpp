@@ -70,3 +70,11 @@ void ATLSInteractable::MarkConsumed()
                 PromptLabel->SetVisibility(false);
         }
 }
+
+void ATLSInteractable::SetPromptLabelText(const FString& Text)
+{
+        if (PromptLabel)
+        {
+                PromptLabel->SetText(FText::FromString(Text));
+        }
+}

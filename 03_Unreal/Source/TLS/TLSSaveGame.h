@@ -28,3 +28,12 @@ public:
         UPROPERTY(VisibleAnywhere, Category = "TLS")
         int64 Timestamp = 0;
 };
+
+// Slot helpers used by ATLSVillageGameMode (defined in TLSSaveGame.cpp).
+// Declared here so other translation units can save/load the slice slot.
+namespace TLSSave
+{
+        UTLSSaveGame* CreateSavePayload(const FString& Payload, int32 Day);
+        bool WriteSlot(const FString& Payload, int32 Day);
+        bool ReadSlot(FString& OutPayload, int32& OutDay);
+}

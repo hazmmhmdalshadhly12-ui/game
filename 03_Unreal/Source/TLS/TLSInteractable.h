@@ -61,6 +61,9 @@ public:
         void SetInteractScale(float ScaleXY, float ScaleZ);
         void MarkConsumed();
 
+        /** Public setter - the game mode may not touch the protected label. */
+        void SetPromptLabelText(const FString& Text);
+
 protected:
         UPROPERTY(VisibleAnywhere, Category = "TLS")
         UStaticMeshComponent* BodyVisual;

@@ -57,3 +57,11 @@ void ATLSNPC::SetBlockoutColor(const FColor& Color)
                         *DisplayName);
         }
 }
+
+void ATLSNPC::SetNameLabelText(const FString& Text)
+{
+        if (NameLabel)
+        {
+                NameLabel->SetText(FText::FromString(Text));
+        }
+}

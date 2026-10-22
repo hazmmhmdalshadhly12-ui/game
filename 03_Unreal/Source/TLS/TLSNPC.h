@@ -40,6 +40,9 @@ public:
 
         void SetBlockoutColor(const FColor& Color);
 
+        /** Public setter - the game mode may not touch the protected label. */
+        void SetNameLabelText(const FString& Text);
+
 protected:
         UPROPERTY(VisibleAnywhere, Category = "TLS")
         UStaticMeshComponent* BodyVisual;

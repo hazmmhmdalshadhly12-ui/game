@@ -98,6 +98,9 @@ ATLSVillageGameMode::~ATLSVillageGameMode()
 
 void ATLSVillageGameMode::EndPlay(const EEndPlayReason::Type Reason)
 {
+        // The console command binds a UObject delegate - it MUST be unregistered
+        // here or it dangles across PIE sessions (the console manager is global).
+        IConsoleManager::Get().UnregisterConsoleObject(TEXT("TLS.NewGame"));
         if (Audio) { Audio->DestroyComponent(); }
         Super::EndPlay(Reason);
 }
@@ -261,7 +264,7 @@ FString ATLSVillageGameMode::ToFString(const std::string& S)
         return FString(UTF8_TO_TCHAR(S.c_str()));
 }
 
-FColor ATLSVillageGameMode::PaletteColor(const std::string& Key, const FColor& Default) const
+FColor ATLSVillageGameMode::PaletteColor(const std::string& Key, const FColor& Default)
 {
         if (!WorldLayout) { return Default; }
         const tls::JsonValue* Palette = WorldLayout->Find("palette");
@@ -723,10 +726,7 @@ void ATLSVillageGameMode::SpawnNPCs()
                 Actor->DisplayName = Npc ? ToFString(Npc->Name) : ToFString(NpcId);
                 Actor->DialogueId = DialogueForNpc(Actor->NpcId);
                 Actor->SetBlockoutColor(TierColor(Npc ? Npc->Tier : 3));
-                if (Actor->NameLabel)
-                {
-                        Actor->NameLabel->SetText(FText::FromString(Actor->DisplayName));
-                }
+                Actor->SetNameLabelText(Actor->DisplayName);
                 Villagers.Add(Actor);
         }
 }
@@ -773,10 +773,7 @@ void ATLSVillageGameMode::SpawnInteractables(bool bRespawnForNewDay)
                 Actor->DisplayName = Actor->Note.Left(60);
                 Actor->SetBlockoutColor(KindColor(Kind));
                 Actor->SetInteractScale(0.5f, 0.5f);
-                if (Actor->PromptLabel)
-                {
-                        Actor->PromptLabel->SetText(FText::FromString(ToFString(Id)));
-                }
+                Actor->SetPromptLabelText(ToFString(Id));
                 Interactables.Add(Actor);
         }
 }
@@ -1443,6 +1440,11 @@ void ATLSVillageGameMode::TryContinueFromSlot()
 void ATLSVillageGameMode::TLSNewGame()
 {
         Core->NewGame();
+        // reset slice-local state so day-1 story beats (the burial bell) can
+        // happen again on the fresh run
+        bBellRung = false;
+        FirstSelectedIndex = INDEX_NONE;
+        LastVerdictLine.Reset();
         SpawnInteractables(false);
         ApplyDayPresentation();
         RefreshHUD();
