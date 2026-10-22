@@ -22,5 +22,26 @@ jobs:
       - name: Project validator (docs / registry / consistency)
         run: python tools/validate_project.py
 
-      - name: UE scaffold validator (M0 project structure)
+      - name: UE scaffold validator (M0+M1 project structure)
         run: python tools/validate_unreal_scaffold.py
+
+      - name: Narrative data validator (05_Narrative cross-references)
+        run: python tools/validate_narrative.py
+
+  core-logic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compiler check
+        run: g++ --version | head -1
+
+      - name: Build and run the game-logic core tests (C++17)
+        run: |
+          chmod +x tools/core_tests/run_core_tests.sh
+          tools/core_tests/run_core_tests.sh
+
+      - name: Test summary
+        if: always()
+        run: echo "Core-logic suite: the same C++ that compiles into the UE module (03_Unreal/Source/TLS/Core) built and executed here on Linux with g++."

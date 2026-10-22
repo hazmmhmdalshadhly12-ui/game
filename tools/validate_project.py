@@ -373,10 +373,24 @@ else:
 # ------------------------------------------------------------------ 6) أصول المعايرة الفعلية
 section("6) أصول المعايرة المصدرة فعليًا (Blender→FBX) — المسارات مشتقة من السجل")
 
-# مشتق من CSV لا من مسارات مكتوبة يدويًا: أصل EXPORTED يجب أن يملك .blend و.fbx سليمي الترويسة
+# مشتق من CSV لا من مسارات مكتوبة يدويًا: أصل EXPORTED يجب أن يملك ملفاته الفعلية.
+# خطان منفصلان (M1): الفن (ENV/غير SND) = .blend + .fbx؛ الصوت (SND) = ملف .wav فعلي في 04_Audio.
 cal_checked = 0
+snd_checked = 0
 for r in rows:
     if r["Status"] != "EXPORTED":
+        continue
+    if r["Category"] == "SND":
+        # مسار الصوت في عمود BlenderPath (عمود المصدر الموحد) — تحقق من الملف الفعلي + حجم معقول
+        snd_checked += 1
+        wp = ROOT / r["BlenderPath"]
+        if not wp.exists():
+            fail(f"{r['AssetID']}: ملف الصوت مفقود رغم حالة EXPORTED — {r['BlenderPath']}")
+            continue
+        if wp.stat().st_size < 1_000:
+            fail(f"{r['AssetID']}: ملف الصوت أصغر من المتوقع — {r['BlenderPath']} ({wp.stat().st_size}B)")
+        else:
+            ok(f"{r['AssetID']}: {r['BlenderPath']} ({wp.stat().st_size // 1024}KB) — wav مولّد إجرائيًا (placeholder موثق)")
         continue
     cal_checked += 1
     bp = ROOT / r["BlenderPath"]
@@ -399,7 +413,24 @@ for r in rows:
     else:
         fail(f"{r['AssetID']}: ترويسة FBX غير سليمة في 02_Art/exports/fbx/{stem}_v001.fbx: {head!r}")
 if cal_checked == 0:
-    fail("لا توجد أصول بحالة EXPORTED للتحقق الفعلي من القرص")
+    fail("لا توجد أصول فنية بحالة EXPORTED للتحقق الفعلي من القرص")
+if snd_checked > 0:
+    # بيان الصوت: كل SND مُصدَّر يجب أن يظهر في manifest_audio.json
+    AUDIO_MANIFEST = ROOT / "04_Audio" / "manifest_audio.json"
+    try:
+        am = json.loads(AUDIO_MANIFEST.read_text(encoding="utf-8"))
+        am_assets = {f["asset"] for f in am.get("files", [])}
+        snd_exported = {r["AssetID"] for r in rows if r["Status"] == "EXPORTED" and r["Category"] == "SND"}
+        if snd_exported <= am_assets:
+            ok(f"بيان الصوت يغطي كل SND EXPORTED ({len(snd_exported)}) — الوضع placeholder موثق في الملف")
+        else:
+            fail(f"أصول صوت EXPORTED بلا إدخال في manifest_audio.json: {sorted(snd_exported - am_assets)}")
+        if "PLACEHOLDER" in am.get("note", "").upper():
+            ok("manifest_audio.json يوثق بوضوح أن الأصوات placeholders مولّدة إجرائيًا")
+        else:
+            fail("manifest_audio.json لا يوثق حالة placeholder")
+    except Exception as e:
+        fail(f"04_Audio/manifest_audio.json غير قابل للتحليل: {e}")
 
 MANIFEST = ROOT / "02_Art" / "exports" / "manifest_calibration.json"
 if MANIFEST.exists():
@@ -421,9 +452,9 @@ if MANIFEST.exists():
             ok("كل ملفات FBX سليمة الترويسة وفق البيان (تصدير Blender فقط — لا يثبت استيراد UE)")
         else:
             fail("FBX غير سليم وفق manifest_calibration.json")
-        # مطابقة معرفات البيان مع السجل
+        # مطابقة معرفات بيان المعايرة (خط الفن فقط) مع السجل — الصوت له بيان مستقل
         man_ids = {a["asset_id"] for a in m.get("assets", [])}
-        exp_ids = {r["AssetID"] for r in rows if r["Status"] == "EXPORTED"}
+        exp_ids = {r["AssetID"] for r in rows if r["Status"] == "EXPORTED" and r["Category"] != "SND"}
         if man_ids == exp_ids:
             ok("معرفات البيان مطابقة تمامًا للأصول EXPORTED في السجل")
         else:
