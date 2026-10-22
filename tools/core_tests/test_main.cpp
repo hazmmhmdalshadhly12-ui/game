@@ -22,9 +22,14 @@ namespace tls_test_rumors
 void RunAll();
 }
 
-namespace
+namespace tls_test_quests
 {
+void RunAll(Game& G);
+}
 
+// Builds a Game with every 05_Narrative data file loaded (evidence, quests,
+// sim, rumors, dialogues). Declared in test_fixtures.h - shared by all test
+// translation units. The data-loading checks run through the shared framework.
 Game* MakeLoadedGame()
 {
         Game* G = new Game();
@@ -813,8 +818,6 @@ void TestCorruptSubsystemPayloads(Game& G)
         }
 }
 
-} // anonymous namespace
-
 int main()
 {
         std::printf("THE LAST SIN - M1+M2 core-logic test harness (standalone g++ build)\n");
@@ -835,6 +838,7 @@ int main()
         TestVillageSim(*G);
         TestQuestAndDialogueRules(*G);
         TestRumorGameIntegration(*G);
+        tls_test_quests::RunAll(*G);
 
         {
                 Game* GSIM = MakeLoadedGame();

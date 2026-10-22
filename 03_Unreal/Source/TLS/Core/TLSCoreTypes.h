@@ -42,14 +42,18 @@ enum class ETaskType
         Restore,       // page restored with the etching skill
         Dialogue,      // a dialogue flag/node was reached
         Flag,          // a named flag reached a value
-        Insight        // an insight was unlocked on the ledger board
+        Insight,       // an insight was unlocked on the ledger board
+        NpcRumor,      // M2.3: a named NPC actually knows a rumor ("NPC=RUMOR")
+        PlayerRumor,   // M2.3: the player has heard a rumor (rumor id)
+        TensionBelow   // M2.3: village tension is below "value" (emergent state)
 };
 
 enum class EQuestStatus
 {
         NotStarted,
         Active,
-        Completed
+        Completed,
+        Failed
 };
 
 enum class ETimeOfDay
@@ -179,8 +183,9 @@ struct ObjectiveDef
 {
         std::string Id;
         std::string Description;
-        std::vector<TaskDef> Tasks;              // all must pass
+        std::vector<TaskDef> Tasks;
         bool bOptional = false;
+        bool bAnyOf = false;                     // M2.3: any single task passing completes the objective (branch)
 };
 
 struct QuestDef
@@ -193,6 +198,8 @@ struct QuestDef
         bool bAutoStart = true;                  // activates when inside day window
         std::vector<ObjectiveDef> Objectives;
         std::map<std::string, int> FlagsOnComplete;
+        bool bFailsOnExpiry = false;             // M2.3: still Active when the window closes -> Failed
+        std::map<std::string, int> FlagsOnFail;  // M2.3: story consequence flags applied on failure
 };
 
 // ------------------------------------------------------------- village sim
@@ -247,6 +254,8 @@ public:
         // M2.1: rumor-aware conditions. Implemented by tls::Game; default no.
         virtual bool NpcKnowsRumor(const std::string& NpcId, const std::string& RumorId) const { (void)NpcId; (void)RumorId; return false; }
         virtual bool PlayerHeardRumor(const std::string& RumorId) const { (void)RumorId; return false; }
+        // M2.3: village tension for emergent quest conditions (0..5).
+        virtual double GetTension() const { return 0.0; }
 };
 
 const char* ToString(EEvidenceType T);

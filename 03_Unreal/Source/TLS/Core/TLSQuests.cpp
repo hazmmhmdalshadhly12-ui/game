@@ -57,19 +57,31 @@ bool QuestSystem::Load(const JsonValue& Root, std::string& OutError)
                                 if (!ParseTaskType(TypeStr, Task.Type)) { OutError = "bad task type '" + TypeStr + "' in " + Obj.Id; return false; }
                                 Task.Target = Tj->GetString("target", "");
                                 Task.RequiredCount = Tj->GetInt("value", 1);
-                                if (Task.Target.empty()) { OutError = "task missing target in " + Obj.Id; return false; }
+                                if (Task.Target.empty() && Task.Type != ETaskType::TensionBelow) { OutError = "task missing target in " + Obj.Id; return false; }
+                                if (Task.Type == ETaskType::NpcRumor && Task.Target.find('=') == std::string::npos)
+                                {
+                                        OutError = "npc_rumor task needs 'NPC=RUMOR' target in " + Obj.Id; return false;
+                                }
                                 if (Task.Type == ETaskType::Dialogue && Task.Target.find(':') == std::string::npos)
                                 {
                                         // bare dialogue id = "any node of that dialogue"
                                 }
                                 Obj.Tasks.push_back(Task);
                         }
+                        Obj.bAnyOf = Oj->GetBool("any_of", false);
                         Def.Objectives.push_back(Obj);
                 }
 
                 if (const JsonValue* F = Q->Find("flags_on_complete"))
                 {
+                        if (!F->IsObject()) { OutError = "flags_on_complete must be an object on " + Def.Id; return false; }
                         for (const auto& KV : F->AsObject()) { Def.FlagsOnComplete[KV.first] = KV.second.IsNumber() ? KV.second.AsInt() : 1; }
+                }
+                Def.bFailsOnExpiry = Q->GetBool("fails_on_expiry", false);
+                if (const JsonValue* F = Q->Find("flags_on_fail"))
+                {
+                        if (!F->IsObject()) { OutError = "flags_on_fail must be an object on " + Def.Id; return false; }
+                        for (const auto& KV : F->AsObject()) { Def.FlagsOnFail[KV.first] = KV.second.IsNumber() ? KV.second.AsInt() : 1; }
                 }
 
                 QuestDefs[Def.Id] = Def;
@@ -147,6 +159,15 @@ bool QuestSystem::EvaluateTask(const TaskDef& Task, const IGameContext& C) const
         case ETaskType::Restore: return C.EvidenceRestored(Task.Target);
         case ETaskType::Insight: return C.InsightKnown(Task.Target);
         case ETaskType::Flag: return C.GetFlag(Task.Target) == Task.RequiredCount;
+        case ETaskType::NpcRumor:
+        {
+                // target form "NPC=RUMOR": that villager must actually know the rumor
+                const size_t Eq = Task.Target.find('=');
+                if (Eq == std::string::npos) { return false; }
+                return C.NpcKnowsRumor(Task.Target.substr(0, Eq), Task.Target.substr(Eq + 1));
+        }
+        case ETaskType::PlayerRumor: return C.PlayerHeardRumor(Task.Target);
+        case ETaskType::TensionBelow: return C.GetTension() < static_cast<double>(Task.RequiredCount);
         case ETaskType::Dialogue:
         {
                 const size_t Colon = Task.Target.find(':');
@@ -190,12 +211,26 @@ std::vector<std::string> QuestSystem::Refresh(IGameContext& Context)
                         if (ObjState.bDone) { continue; }
 
                         bool bObjDone = true;
-                        for (size_t T = 0; T < Obj.Tasks.size(); ++T)
+                        if (Obj.bAnyOf)
                         {
-                                if (!ObjState.Tasks[T].bDone)
+                                // branch objective: any single satisfied task completes it
+                                bool bAny = false;
+                                for (size_t T = 0; T < Obj.Tasks.size(); ++T)
                                 {
-                                        if (EvaluateTask(Obj.Tasks[T], Context)) { ObjState.Tasks[T].bDone = true; }
-                                        else { bObjDone = false; }
+                                        if (!ObjState.Tasks[T].bDone && EvaluateTask(Obj.Tasks[T], Context)) { ObjState.Tasks[T].bDone = true; }
+                                        if (ObjState.Tasks[T].bDone) { bAny = true; }
+                                }
+                                bObjDone = bAny;
+                        }
+                        else
+                        {
+                                for (size_t T = 0; T < Obj.Tasks.size(); ++T)
+                                {
+                                        if (!ObjState.Tasks[T].bDone)
+                                        {
+                                                if (EvaluateTask(Obj.Tasks[T], Context)) { ObjState.Tasks[T].bDone = true; }
+                                                else { bObjDone = false; }
+                                        }
                                 }
                         }
                         if (bObjDone) { ObjState.bDone = true; }
@@ -210,6 +245,29 @@ std::vector<std::string> QuestSystem::Refresh(IGameContext& Context)
                 }
         }
         return OutCompleted;
+}
+
+std::vector<std::string> QuestSystem::ProcessExpiry(IGameContext& Context)
+{
+        // urgent quests that outlived their day window without completing fail
+        // with story consequence flags (M2.3: failure must be resumable, not a
+        // dead end - the world carries the consequence forward)
+        std::vector<std::string> OutFailed;
+        const int Day = Context.CurrentDay();
+        for (const auto& KV : QuestDefs)
+        {
+                const QuestDef& Def = KV.second;
+                if (!Def.bFailsOnExpiry) { continue; }
+                auto StateIt = QuestStates.find(KV.first);
+                if (StateIt == QuestStates.end() || StateIt->second.Status != EQuestStatus::Active) { continue; }
+                if (Day > Def.DayWindowMax)
+                {
+                        StateIt->second.Status = EQuestStatus::Failed;
+                        StateIt->second.DayCompleted = Day;
+                        OutFailed.push_back(KV.first);
+                }
+        }
+        return OutFailed;
 }
 
 std::vector<QuestSystem::QuestProgressLine> QuestSystem::ProgressLines() const
@@ -285,6 +343,7 @@ bool QuestSystem::DeserializeState(const JsonValue& Root, std::string& OutError)
                 std::string StatusStr = Q->GetString("status", "not_started");
                 if (StatusStr == "active") { R.Status = EQuestStatus::Active; }
                 else if (StatusStr == "completed") { R.Status = EQuestStatus::Completed; }
+                else if (StatusStr == "failed") { R.Status = EQuestStatus::Failed; }
                 else { R.Status = EQuestStatus::NotStarted; }
                 R.DayStarted = Q->GetInt("day_started", 0);
                 R.DayCompleted = Q->GetInt("day_completed", 0);

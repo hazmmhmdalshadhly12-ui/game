@@ -51,6 +51,7 @@ public:
         const RumorSystem& Rumors() const { return *RumorSys; }
         EvidenceSystem& EvidenceMut() { return *EvidenceSys; }
         VillageState& VillageMut() { return *VillageSys; }
+        QuestSystem& QuestsMut() { return *QuestSys; }
 
         // ---- M2.1 rumor / witness driving (UE layer or test harness) ----
         // One hour of village gossip. Deterministic given the sim RNG state.
@@ -110,6 +111,7 @@ public:
         int GetWelshLevel() const override { return GetFlag("FLG_EDMUND_WELSH_LEVEL"); }
         bool NpcKnowsRumor(const std::string& NpcId, const std::string& RumorId) const override { return RumorSys->NpcKnows(NpcId, RumorId); }
         bool PlayerHeardRumor(const std::string& RumorId) const override;
+        double GetTension() const override { return VillageSys->Tension(); }
 
         // ---- journal ----
         struct JournalEntry

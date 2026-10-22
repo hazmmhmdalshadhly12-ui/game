@@ -245,6 +245,7 @@ bool Game::NotifyPlayerHeardRumor(const std::string& RumorId, const std::string&
         {
                 const RumorDef* Def = RumorSys->FindDef(RumorId);
                 if (Def) { AddJournalEntry("Heard in the village: " + Def->Variants.front()); }
+                RefreshAfterChange();
         }
         return true;
 }
@@ -266,7 +267,10 @@ int Game::NotifyPlayerLeakRumor(const std::string& RumorId, const std::string& Z
         const int Heard = RumorSys->NotifyPlayerLeak(RumorId, VillageSys->Day(), 12, Zone, *VillageSys, OutError);
         if (Heard > 0)
         {
+                // the player knows what they are spreading
+                RumorSys->NotifyPlayerHeard(RumorId, VillageSys->Day(), 12, "PLAYER");
                 AddJournalEntry("I let it slip where ears were waiting. No name attached to it. Mine.");
+                RefreshAfterChange();
         }
         return Heard;
 }
@@ -298,6 +302,18 @@ void Game::AdvanceSimDay()
         // a new day: memory fades, rumors born today enter circulation
         RumorSys->ApplyDailyDecay(NextDay);
         RumorSys->ActivateDue(NextDay);
+        // urgent quests whose day window closed fail with story consequences
+        for (const std::string& FailedId : QuestSys->ProcessExpiry(*this))
+        {
+                const QuestDef* Def = QuestSys->FindDef(FailedId);
+                if (Def)
+                {
+                        for (const auto& KV : Def->FlagsOnFail) { FlagValues[KV.first] = KV.second; }
+                        AddJournalEntry("Failed: " + Def->Title + " (" + Def->Chapter + ")");
+                }
+        }
+        // quests whose day window opens today enter play
+        QuestSys->ActivateDue(*this);
 }
 
 // ------------------------------------------------------------ dialogue

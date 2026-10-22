@@ -42,6 +42,9 @@ const char* ToString(ETaskType T)
         case ETaskType::Dialogue: return "dialogue";
         case ETaskType::Flag: return "flag";
         case ETaskType::Insight: return "insight";
+        case ETaskType::NpcRumor: return "npc_rumor";
+        case ETaskType::PlayerRumor: return "player_rumor";
+        case ETaskType::TensionBelow: return "tension_below";
         }
         return "?";
 }
@@ -53,6 +56,7 @@ const char* ToString(EQuestStatus S)
         case EQuestStatus::NotStarted: return "not_started";
         case EQuestStatus::Active: return "active";
         case EQuestStatus::Completed: return "completed";
+        case EQuestStatus::Failed: return "failed";
         }
         return "?";
 }
@@ -119,6 +123,9 @@ bool ParseTaskType(const std::string& S, ETaskType& Out)
         if (S == "dialogue") { Out = ETaskType::Dialogue; return true; }
         if (S == "flag") { Out = ETaskType::Flag; return true; }
         if (S == "insight") { Out = ETaskType::Insight; return true; }
+        if (S == "npc_rumor") { Out = ETaskType::NpcRumor; return true; }
+        if (S == "player_rumor") { Out = ETaskType::PlayerRumor; return true; }
+        if (S == "tension_below") { Out = ETaskType::TensionBelow; return true; }
         return false;
 }
 

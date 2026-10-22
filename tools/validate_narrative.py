@@ -82,6 +82,7 @@ def main():
     quests = load("quests/quests_slice.json")
     sim = load("sim/sim_blackthorne.json")
     world = load("world/blackthorne_blockout.json")
+    rumors = load("rumors/rumors_blackthorne.json")
     dialogue_files = sorted((NARR / "dialogues").glob("*.json"))
     dialogues = []
     for df in dialogue_files:
@@ -191,14 +192,21 @@ def main():
             ok(f"{len(qids)} quests, unique ids")
         else:
             fail("duplicate quest ids")
+        sim_npc_ids = {n["id"] for n in sim["npcs"]} if sim else set()
+        rumor_id_set = {r["id"] for r in (rumors or {}).get("rumors", [])}
         for q in quests["quests"]:
             if q["day_window_min"] > q["day_window_max"]:
                 fail(f"{q['id']} inverted day window")
             optional = [o for o in q["objectives"] if o.get("optional")]
+            urgent = q.get("fails_on_expiry", False)
             if optional:
                 ok(f"{q['id']}: {len(optional)} optional objective(s) never block completion")
+            elif urgent:
+                ok(f"{q['id']}: urgent side quest (fails_on_expiry) is itself the optional thread")
             else:
                 fail(f"{q['id']} has no optional objective (design: the slice teaches optional threads)")
+            if urgent and not q.get("flags_on_fail"):
+                fail(f"{q['id']}: urgent quest fails without a story consequence flag")
             if not q.get("flags_on_complete"):
                 fail(f"{q['id']} completes without setting a landmark flag")
             for obj in q["objectives"]:
@@ -220,7 +228,27 @@ def main():
                     elif ttype == "flag":
                         if not target:
                             fail(f"{q['id']}/{obj['id']}: empty flag target")
-        ok("quest task targets resolve against world/evidence/insights/dialogues")
+                    elif ttype == "player_rumor":
+                        if target not in rumor_id_set:
+                            fail(f"{q['id']}/{obj['id']}: player_rumor target {target} unknown")
+                    elif ttype == "npc_rumor":
+                        if "=" not in target:
+                            fail(f"{q['id']}/{obj['id']}: npc_rumor target needs NPC=RUMOR form")
+                        else:
+                            npc_part, rumor_part = target.split("=", 1)
+                            if npc_part not in sim_npc_ids:
+                                fail(f"{q['id']}/{obj['id']}: npc_rumor npc {npc_part} unknown")
+                            if rumor_part not in rumor_id_set:
+                                fail(f"{q['id']}/{obj['id']}: npc_rumor rumor {rumor_part} unknown")
+                    elif ttype == "tension_below":
+                        v = task.get("value", 1)
+                        if not (1 <= v <= 5):
+                            fail(f"{q['id']}/{obj['id']}: tension_below value {v} outside 1..5")
+        ok("quest task targets resolve against world/evidence/insights/dialogues/rumors")
+        # M2.3: an urgent quest's whole window must not exceed one game day
+        for q in quests["quests"]:
+            if q.get("fails_on_expiry") and q["day_window_max"] - q["day_window_min"] > 2:
+                fail(f"{q['id']}: urgent window spans {q['day_window_max'] - q['day_window_min'] + 1} days - not urgent")
 
     # ---------------------------------------------------------------- dialogues
     section("4) dialogue files")

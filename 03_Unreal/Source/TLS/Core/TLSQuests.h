@@ -44,6 +44,11 @@ public:
         // Returns ids of quests that transitioned to Completed during this call.
         std::vector<std::string> Refresh(IGameContext& Context);
 
+        // M2.3: fails every Active quest whose day window closed (fails_on_expiry).
+        // Returns the ids that transitioned to Failed; the caller applies the
+        // def's flags_on_fail so the story carries the consequence forward.
+        std::vector<std::string> ProcessExpiry(IGameContext& Context);
+
         // Activates auto-start quests whose day window is open.
         // Returns ids of quests that became Active during this call.
         std::vector<std::string> ActivateDue(const IGameContext& Context);

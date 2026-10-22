@@ -138,6 +138,80 @@
       "flags_on_complete": {
         "FLG_CASE_OPENED": 1
       }
+    },
+    {
+      "id": "Q-M-C3",
+      "title": "The Coming Inspector",
+      "chapter": "C3",
+      "day_window_min": 3,
+      "day_window_max": 3,
+      "auto_start": true,
+      "objectives": [
+        {
+          "id": "OBJ-C3-ACCUSATION",
+          "description": "Hear the county's theory: the tinker did it, and the village repeats it.",
+          "optional": false,
+          "tasks": [
+            { "type": "player_rumor", "target": "RUM-SHONI-SUSPECT" }
+          ]
+        },
+        {
+          "id": "OBJ-C3-METHOD",
+          "description": "Answer the constable's shortcut with the physical record on the father's table.",
+          "optional": false,
+          "tasks": [
+            { "type": "inspect", "target": "EVD-FOOTPRINTS" },
+            { "type": "inspect", "target": "EVD-SALT-SACK" }
+          ]
+        },
+        {
+          "id": "OBJ-C3-CALM",
+          "description": "Optional: keep the square from boiling over while the county watches.",
+          "optional": true,
+          "tasks": [
+            { "type": "tension_below", "target": "village", "value": 4 }
+          ]
+        }
+      ],
+      "flags_on_complete": {
+        "FLG_METHOD_SHOWN": 1
+      }
+    },
+    {
+      "id": "Q-S-C3-SHONI",
+      "title": "A Day for the Tinker",
+      "chapter": "C3 (urgent side)",
+      "day_window_min": 3,
+      "day_window_max": 3,
+      "auto_start": true,
+      "fails_on_expiry": true,
+      "objectives": [
+        {
+          "id": "OBJ-SHONI-HEARD",
+          "description": "Know exactly what the village is saying about Shoni Gwyn.",
+          "optional": false,
+          "tasks": [
+            { "type": "player_rumor", "target": "RUM-SHONI-SUSPECT" }
+          ]
+        },
+        {
+          "id": "OBJ-SHONI-ALIBI",
+          "description": "Put the moor-road account into circulation - carry it yourself, or let a witness's word travel.",
+          "optional": false,
+          "any_of": true,
+          "tasks": [
+            { "type": "player_rumor", "target": "RUM-SHONI-HILL" },
+            { "type": "npc_rumor", "target": "T3-07=RUM-SHONI-HILL" },
+            { "type": "npc_rumor", "target": "T3-01=RUM-SHONI-HILL" }
+          ]
+        }
+      ],
+      "flags_on_complete": {
+        "FLG_SHONI_DOUBTED": 1
+      },
+      "flags_on_fail": {
+        "FLG_SHONI_TAKEN": 1
+      }
     }
   ]
 }
