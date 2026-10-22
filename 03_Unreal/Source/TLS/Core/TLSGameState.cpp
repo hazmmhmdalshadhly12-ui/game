@@ -518,25 +518,37 @@ bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
         FlagValues.clear();
         if (const JsonValue* F = Root.Find("flags"))
         {
-                for (const auto& KV : F->AsObject()) { FlagValues[KV.first] = KV.second.AsInt(); }
+                if (!F->IsObject()) { OutError = "flags not an object"; return false; }
+                for (const auto& KV : F->AsObject())
+                {
+                        if (!KV.second.IsNumber()) { OutError = "flag value not a number: " + KV.first; return false; }
+                        FlagValues[KV.first] = KV.second.AsInt();
+                }
         }
         ReachedAreas.clear();
         if (const JsonValue* A = Root.Find("reached_areas"))
         {
+                if (!A->IsArray()) { OutError = "reached_areas not an array"; return false; }
                 for (size_t I = 0; I < A->Size(); ++I)
                 {
-                        if (const JsonValue* Item = A->At(I)) { ReachedAreas.insert(Item->AsString()); }
+                        const JsonValue* Item = A->At(I);
+                        if (!Item || !Item->IsString()) { OutError = "reached_areas item not a string"; return false; }
+                        ReachedAreas.insert(Item->AsString());
                 }
         }
         DialogueHistory.clear();
         if (const JsonValue* H = Root.Find("dialogue_history"))
         {
+                if (!H->IsObject()) { OutError = "dialogue_history not an object"; return false; }
                 for (const auto& KV : H->AsObject())
                 {
+                        if (!KV.second.IsArray()) { OutError = "dialogue_history entry not an array"; return false; }
                         std::set<std::string> Nodes;
                         for (size_t I = 0; I < KV.second.Size(); ++I)
                         {
-                                if (const JsonValue* N = KV.second.At(I)) { Nodes.insert(N->AsString()); }
+                                const JsonValue* N = KV.second.At(I);
+                                if (!N || !N->IsString()) { OutError = "dialogue_history node not a string"; return false; }
+                                Nodes.insert(N->AsString());
                         }
                         DialogueHistory[KV.first] = Nodes;
                 }
@@ -544,13 +556,15 @@ bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
         JournalEntries.clear();
         if (const JsonValue* J = Root.Find("journal"))
         {
+                if (!J->IsArray()) { OutError = "journal not an array"; return false; }
                 for (size_t I = 0; I < J->Size(); ++I)
                 {
                         const JsonValue* Entry = J->At(I);
-                        if (!Entry) { continue; }
+                        if (!Entry || !Entry->IsObject()) { OutError = "journal entry not an object"; return false; }
                         JournalEntry JE;
                         JE.Day = Entry->GetInt("day", 1);
                         JE.Text = Entry->GetString("text", "");
+                        if (JE.Day < 1 || JE.Day > 9) { OutError = "journal entry day out of range"; return false; }
                         JournalEntries.push_back(JE);
                 }
         }

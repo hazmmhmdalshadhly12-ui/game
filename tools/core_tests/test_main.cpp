@@ -656,6 +656,163 @@ void TestSaveVersionGate(Game& G)
         }
 }
 
+// ---------------------------------------------------------------- M2.2 five-point save/load
+
+namespace
+{
+
+// ticks the world forward from the CURRENT village day/hour to the end of day 7
+void RunSimForward(Game& G, int FromHour)
+{
+        const int StartDay = G.Village().Day();
+        for (int Hour = FromHour; Hour <= 21; ++Hour) { G.TickVillageGossip(StartDay, Hour); }
+        for (int Day = StartDay + 1; Day <= 7; ++Day)
+        {
+                G.AdvanceSimDay();
+                for (int Hour = 8; Hour <= 21; ++Hour) { G.TickVillageGossip(Day, Hour); }
+        }
+}
+
+} // anonymous namespace
+
+void TestFivePointSaveLoad(Game& G)
+{
+        TLS_SECTION("M2.2 save - five-point save/load round trip, zero drift (NPC_SIMULATION 10.2)");
+
+        struct SavePoint { int Day; int Hour; const char* Label; };
+        const SavePoint Points[] = {
+                { 1, 10, "day 1 mid-morning" },
+                { 2, 14, "day 2 afternoon (tension 3)" },
+                { 3, 9,  "day 3 morning (shoni rumor born)" },
+                { 5, 12, "day 5 noon" },
+                { 7, 18, "day 7 evening" },
+        };
+
+        for (const SavePoint& P : Points)
+        {
+                // drive a fresh world up to the save point
+                Game* GA = MakeLoadedGame();
+                TLS_CHECK(GA != nullptr);
+                if (!GA) { return; }
+                GA->NewGame();
+                for (int Day = 1; Day < P.Day; ++Day)
+                {
+                        for (int Hour = 8; Hour <= 21; ++Hour) { GA->TickVillageGossip(Day, Hour); }
+                        GA->AdvanceSimDay();
+                }
+                for (int Hour = 8; Hour < P.Hour; ++Hour) { GA->TickVillageGossip(P.Day, Hour); }
+
+                const std::string Payload = GA->SaveToString();
+
+                // load into a fresh world, then run BOTH to the end of day 7
+                Game* GB = MakeLoadedGame();
+                TLS_CHECK(GB != nullptr);
+                if (!GB) { delete GA; return; }
+                GB->NewGame();
+                std::string Err;
+                TLS_CHECK_MSG(GB->LoadFromString(Payload, Err), std::string(P.Label) + " load: " + Err);
+                RunSimForward(*GA, P.Hour);
+                RunSimForward(*GB, P.Hour);
+
+                TLS_CHECK_MSG(JsonSerialize(GA->Save(), false) == JsonSerialize(GB->Save(), false),
+                        std::string(P.Label) + ": interrupted and loaded worlds end identical");
+                TLS_CHECK_MSG(JsonSerialize(GA->Rumors().SerializeState(), false) == JsonSerialize(GB->Rumors().SerializeState(), false),
+                        std::string(P.Label) + ": rumor history identical after the seam");
+                TLS_CHECK_MSG(GA->SimRngState() == GB->SimRngState(),
+                        std::string(P.Label) + ": sim rng streams re-converged");
+                delete GA; delete GB;
+        }
+}
+
+// ---------------------------------------------------------------- M2.2 corrupt subsystem payloads
+
+void TestCorruptSubsystemPayloads(Game& G)
+{
+        TLS_SECTION("M2.2 save - corrupt subsystem payloads refused, session state intact");
+
+        G.NewGame();
+        G.TickVillageGossip(1, 8);
+        G.NotifyPlayerHeardRumor("RUM-HUNGER-RETURNS", "T3-06");
+        const std::string Good = G.SaveToString();
+
+        // helper lambda: corrupt a top-level key's value, try to load, verify refusal
+        auto CorruptAndTry = [&Good](const char* Key, const char* Replacement, const char* What)
+        {
+                Game* G2 = MakeLoadedGame();
+                if (!G2) { TLS_CHECK_MSG(false, "fixture"); return; }
+                G2->NewGame();
+                std::string Mangled = Good;
+                const size_t KeyPos = Mangled.find(std::string("\"") + Key + "\":");
+                TLS_CHECK_MSG(KeyPos != std::string::npos, std::string("found key ") + Key);
+                if (KeyPos != std::string::npos)
+                {
+                        const size_t ValueStart = Mangled.find(':', KeyPos) + 1;
+                        // find the end of the current value: strings end at the closing quote,
+                        // objects/arrays at the matching brace - Replacement carries its own value
+                        const char First = Mangled[ValueStart];
+                        size_t ValueEnd = ValueStart;
+                        if (First == '"')
+                        {
+                                ValueEnd = Mangled.find('"', ValueStart + 1);
+                        }
+                        else if (First == '{' || First == '[')
+                        {
+                                const char Open = First, Close = (First == '{') ? '}' : ']';
+                                int Depth = 0;
+                                for (size_t S = ValueStart; S < Mangled.size(); ++S)
+                                {
+                                        if (Mangled[S] == Open) { ++Depth; }
+                                        else if (Mangled[S] == Close) { --Depth; if (Depth == 0) { ValueEnd = S; break; } }
+                                }
+                        }
+                        else
+                        {
+                                ValueEnd = Mangled.find(',', ValueStart) - 1;
+                                if (Mangled[ValueEnd + 1] != ',') { ValueEnd = Mangled.find('}', ValueStart) - 1; }
+                        }
+                        Mangled.replace(ValueStart, ValueEnd - ValueStart + 1, Replacement);
+                }
+                std::string Err;
+                TLS_CHECK_MSG(!G2->LoadFromString(Mangled, Err), std::string("refused: ") + What);
+                // the refused load must not have wrecked the session's existing state
+                TLS_CHECK_MSG(G2->Rumors().NpcKnows("T3-06", "RUM-HUNGER-RETURNS"),
+                        std::string(What) + ": session rumor state survives a refused load");
+                TLS_CHECK_MSG(G2->Village().Day() == 1, std::string(What) + ": village state survives");
+                delete G2;
+        };
+
+        CorruptAndTry("village", "5", "village payload replaced by a number");
+        CorruptAndTry("evidence", "[]", "evidence payload replaced by an array");
+        CorruptAndTry("quests", "\"gone\"", "quests payload replaced by a string");
+        CorruptAndTry("rumors", "{\"knowledge\":{\"T3-06\":[{\"rumor\":\"RUM-GHOST\"}]}}", "rumors referencing an unknown rumor");
+        CorruptAndTry("flags", "3", "flags payload replaced by a number");
+        CorruptAndTry("reached_areas", "{\"AREA-INN\":1}", "reached_areas replaced by an object");
+        CorruptAndTry("dialogue_history", "7", "dialogue_history replaced by a number");
+        CorruptAndTry("journal", "{\"day\":2}", "journal replaced by an object");
+
+        // deep corruption: a trust value out of range inside the village payload
+        {
+                Game* G2 = MakeLoadedGame();
+                if (!G2) { TLS_CHECK_MSG(false, "fixture"); return; }
+                G2->NewGame();
+                std::string Mangled = Good;
+                const size_t TrustPos = Mangled.find("\"trust\":[");
+                TLS_CHECK(TrustPos != std::string::npos);
+                if (TrustPos != std::string::npos)
+                {
+                        const size_t ValuePos = Mangled.find("\"value\":", TrustPos);
+                        TLS_CHECK(ValuePos != std::string::npos);
+                        if (ValuePos != std::string::npos)
+                        {
+                                Mangled.replace(ValuePos, 8, "\"value\":999");
+                        }
+                }
+                std::string Err;
+                TLS_CHECK_MSG(!G2->LoadFromString(Mangled, Err), "village trust value out of range refused");
+                delete G2;
+        }
+}
+
 } // anonymous namespace
 
 int main()
@@ -684,6 +841,10 @@ int main()
                 if (GSIM) { TestSevenDayRumorSimulation(*GSIM); delete GSIM; }
                 Game* GSAVE = MakeLoadedGame();
                 if (GSAVE) { TestSaveVersionGate(*GSAVE); delete GSAVE; }
+                Game* GSAVE2 = MakeLoadedGame();
+                if (GSAVE2) { TestFivePointSaveLoad(*GSAVE2); delete GSAVE2; }
+                Game* GCORRUPT = MakeLoadedGame();
+                if (GCORRUPT) { TestCorruptSubsystemPayloads(*GCORRUPT); delete GCORRUPT; }
         }
 
         int Insights = 0, Collected = 0;

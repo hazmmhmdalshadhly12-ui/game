@@ -299,6 +299,8 @@ bool VillageState::DeserializeState(const JsonValue& Root, std::string& OutError
         if (!Root.IsObject()) { OutError = "village state root not an object"; return false; }
         CurrentDay = Root.GetInt("day", 1);
         CurrentHour = Root.GetInt("hour", 8);
+        if (CurrentDay < 1 || CurrentDay > 9) { OutError = "village day out of range"; return false; }
+        if (CurrentHour < 0 || CurrentHour > 23) { OutError = "village hour out of range"; return false; }
         std::string TimeStr = Root.GetString("time", "morning");
         if (!ParseTimeOfDay(TimeStr, CurrentTime)) { OutError = "bad time key " + TimeStr; return false; }
         std::string WeatherStr = Root.GetString("weather", "overcast_fog");
@@ -311,12 +313,16 @@ bool VillageState::DeserializeState(const JsonValue& Root, std::string& OutError
         for (const auto& KV : NpcDefs) { Trust[KV.first] = KV.second.InitialTrust; }
         if (const JsonValue* Arr = Root.Find("trust"))
         {
+                if (!Arr->IsArray()) { OutError = "trust must be an array"; return false; }
                 for (size_t I = 0; I < Arr->Size(); ++I)
                 {
                         const JsonValue* T = Arr->At(I);
-                        if (!T) { continue; }
+                        if (!T || !T->IsObject()) { OutError = "trust entry not an object"; return false; }
                         const std::string Npc = T->GetString("npc", "");
-                        Trust[Npc] = T->GetNumber("value", 0.0);
+                        if (!Npc.empty() && !NpcDefs.count(Npc)) { OutError = "trust entry for unknown npc " + Npc; return false; }
+                        const double Value = T->GetNumber("value", 0.0);
+                        if (Value < -100.0 || Value > 100.0) { OutError = "trust value out of range for " + Npc; return false; }
+                        if (!Npc.empty()) { Trust[Npc] = Value; }
                 }
         }
         return true;
