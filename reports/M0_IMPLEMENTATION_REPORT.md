@@ -159,9 +159,18 @@ git ls-remote origin-https       # تحقق مستقل 1
 # تحقق 2: صفحة المستودع (HTTP 200) — تحقق 3: raw content للملفات الجديدة
 ```
 
-الالتزام: **`<HASH>`** (يُستكمل بعد التنفيذ) — الملفات الجديدة/المعدلة (21):
+الالتزام الأساسي: **`22b0a84`** (22b0a849b117fba330dfe9aefa9a0717622c5d37) — الملفات الجديدة/المعدلة (23 مع هذا التحديث):
 - **جديد (18):** `03_Unreal/TLS.uproject`، `Config/` ×2، `Source/` ×8، `Scripts/` ×4 (3 bat + py)، `03_Unreal/.gitignore`، `.github/workflows/validate.yml`، `tools/validate_unreal_scaffold.py`، `tools/test_fbx_roundtrip.py`، `reports/M0_IMPLEMENTATION_REPORT.md` (هذا الملف)
 - **معدَّل (5):** `README.md` (حالة M0 + البنية)، `docs/TECHNICAL_PIPELINE.md` و`docs/MILESTONE_PLAN.md` و`reports/PHASE_1_REPORT.md` (تصحيح "4 مواد" → 5 الموثق §8)، ولا شيء آخر.
+
+**التحقق الثلاثي بعد الدفع (منفَّذ):** `ls-remote` = `22b0a84` مطابق محليًا؛ صفحة المستودع HTTP 200؛ `raw.githubusercontent` يعيد `TLS.uproject` و`TLSGameMode.cpp` وتقرير M0 بمحتوى حقيقي (HTTP 200).
+
+**حالة CI الفعلية (متحقق منها عبر واجهة GitHub API بعد الدفع):**
+```
+workflow: validate | head=22b0a84 | status=completed | conclusion=success
+run: https://github.com/hazmmhmdalshadhly12-ui/game/actions/runs/39767890941
+```
+الفاحصان (68 + 39) اشتغلا أخضرين على بنية GitHub نفسها — معيار M0 رقم 4 محقق للجزء المتاح هنا.
 
 ---
 
