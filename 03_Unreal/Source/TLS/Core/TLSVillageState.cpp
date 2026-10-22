@@ -53,9 +53,11 @@ bool VillageState::Load(const JsonValue& Root, std::string& OutError)
                 Def.InitialTrust = N->GetNumber("initial_trust", 0.0);
                 Def.RelationshipBias = N->GetNumber("relationship_bias", 0.0);
                 Def.VisualFamily = N->GetString("visual_family", "T3");
+                Def.Reticence = N->GetNumber("reticence", 0.0);
                 if (Def.Id.empty()) { OutError = "npc missing id"; return false; }
                 if (Def.InitialTrust < -100.0 || Def.InitialTrust > 100.0) { OutError = "npc " + Def.Id + " trust out of range"; return false; }
                 if (Def.RelationshipBias < 0.0 || Def.RelationshipBias > 1.0) { OutError = "npc " + Def.Id + " bias out of range"; return false; }
+                if (Def.Reticence < 0.0 || Def.Reticence > 1.0) { OutError = "npc " + Def.Id + " reticence out of range"; return false; }
 
                 if (const JsonValue* Tw = N->Find("tone_weights"))
                 {

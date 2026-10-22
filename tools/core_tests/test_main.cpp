@@ -11,9 +11,16 @@
 #include "TLSGameState.h"
 
 #include <cmath>
+#include <map>
+#include <set>
 #include <string>
 
 using namespace tls;
+
+namespace tls_test_rumors
+{
+void RunAll();
+}
 
 namespace
 {
@@ -37,6 +44,11 @@ Game* MakeLoadedGame()
         P = JsonParse(Content);
         TLS_CHECK_MSG(P.Ok, "sim json: " + P.Error);
         TLS_CHECK_MSG(G->LoadSimData(P.Value, Err), "sim load: " + Err);
+
+        TLS_CHECK_MSG(ReadFileToString("05_Narrative/rumors/rumors_blackthorne.json", Content), "rumors file");
+        P = JsonParse(Content);
+        TLS_CHECK_MSG(P.Ok, "rumors json: " + P.Error);
+        TLS_CHECK_MSG(G->LoadRumorData(P.Value, Err), "rumor load: " + Err);
 
         const char* Dialogues[] = {
                 "05_Narrative/dialogues/dlg_chr003_gwendolyn_c1.json",
@@ -332,15 +344,328 @@ void TestQuestAndDialogueRules(Game& G)
         TLS_CHECK_MSG(bDenyAfter, "Crane's denial is recorded on the dish's chain of custody");
 }
 
+// ---------------------------------------------------------------- M2.1 game integration
+
+void TestRumorGameIntegration(Game& G)
+{
+        TLS_SECTION("M2.1 rumors - game integration: seeding, tools, conditions");
+
+        G.NewGame();
+
+        // day-1 rumors enter with their seeds; later-day rumors stay dark
+        TLS_CHECK(G.Rumors().NpcKnows("T3-06", "RUM-HUNGER-RETURNS"));
+        TLS_CHECK(G.Rumors().NpcKnows("T3-03", "RUM-HUNGER-RETURNS"));
+        TLS_CHECK(G.Rumors().NpcKnows("T3-05", "RUM-GUINEA-SILENCE"));
+        TLS_CHECK(G.Rumors().KnowerCount("RUM-NOTT-SALT") == 0);        // born day 2
+        TLS_CHECK(G.Rumors().KnowerCount("RUM-SHONI-SUSPECT") == 0);    // born day 3
+        TLS_CHECK(G.Rumors().KnowerCount("RUM-SHONI-HILL") == 0);       // leak-only
+
+        // condition context reads the same truth the engine holds
+        TLS_CHECK(G.NpcKnowsRumor("T3-06", "RUM-HUNGER-RETURNS"));
+        TLS_CHECK(!G.NpcKnowsRumor("CHR-03", "RUM-HUNGER-RETURNS"));
+        TLS_CHECK(!G.PlayerHeardRumor("RUM-HUNGER-RETURNS"));
+
+        // player tool: heard (journal entry recorded once)
+        {
+                const size_t JournalBefore = G.Journal().size();
+                TLS_CHECK(G.NotifyPlayerHeardRumor("RUM-HUNGER-RETURNS", "T3-06"));
+                TLS_CHECK(!G.NotifyPlayerHeardRumor("RUM-GHOST", "T3-06"));
+                TLS_CHECK(G.PlayerHeardRumor("RUM-HUNGER-RETURNS"));
+                TLS_CHECK(G.Journal().size() == JournalBefore + 1);
+                TLS_CHECK(G.NotifyPlayerHeardRumor("RUM-HUNGER-RETURNS", "T3-06"));   // no duplicate journal
+                TLS_CHECK(G.Journal().size() == JournalBefore + 1);
+        }
+
+        // player tool: witness event registers direct testimony, duplicates ignored
+        {
+                std::string Err;
+                TLS_CHECK(G.NotifyWitnessEvent("RUM-SHONI-HILL", 1, 10, "AREA-INN", { "CHR-03" }, Err));
+                const RumorKnowledge* KW = G.Rumors().NpcKnowledge("CHR-03", "RUM-SHONI-HILL");
+                TLS_CHECK_MSG(KW != nullptr && KW->Kind == ETestimonyKind::Direct,
+                        "witness of a world event holds direct testimony");
+                const int Before = G.Rumors().KnowerCount("RUM-SHONI-HILL");
+                TLS_CHECK(G.NotifyWitnessEvent("RUM-SHONI-HILL", 1, 10, "AREA-INN", { "CHR-03" }, Err));
+                TLS_CHECK(G.Rumors().KnowerCount("RUM-SHONI-HILL") == Before);   // no duplicate event
+        }
+
+        // player tool: the anonymous leak into the market square at noon
+        {
+                std::string Err;
+                const int Heard = G.NotifyPlayerLeakRumor("RUM-SHONI-HILL", "AREA-SQUARE", Err);
+                TLS_CHECK_MSG(Heard >= 1, "the leak reaches somebody in the square at noon");
+                bool PlayerInChain = false;
+                for (const RumorTransmission& T : G.Rumors().TransmissionLog())
+                {
+                        if (T.RumorId == "RUM-SHONI-HILL" && T.FromNpc == "PLAYER") { PlayerInChain = true; }
+                }
+                TLS_CHECK(PlayerInChain);
+                // the leak cannot land in a non-gossip zone
+                TLS_CHECK(G.NotifyPlayerLeakRumor("RUM-SHONI-HILL", "AREA-COTTAGE", Err) == -1);
+        }
+
+        // player tool: public denial raises reputation and dents every holder
+        {
+                int Holders = 0;
+                for (const std::string& R : G.Rumors().ActiveRumorIds()) { Holders += G.Rumors().KnowerCount(R); }
+                const double RepBefore = G.Village().Reputation();
+                const int Affected = G.NotifyPlayerRumorDenial();
+                TLS_CHECK(Affected == Holders);
+                TLS_CHECK_MSG(G.Village().Reputation() == RepBefore + 2.0, "the village rewards a public stand");
+        }
+
+        // gossip tick: transmissions stay inside gossip zones
+        {
+                auto Result = G.TickVillageGossip(1, 8);
+                for (const RumorTransmission& T : Result.NewTransmissions)
+                {
+                        TLS_CHECK_MSG(G.Rumors().IsGossipZone(T.Zone), "transmission zone is a gossip zone");
+                }
+        }
+}
+
+// ---------------------------------------------------------------- M2.1 seven-day simulation
+
+namespace
+{
+
+struct SimTrace
+{
+        int Transmissions = 0;
+        std::map<int, int> NewKnowersByDay;
+        bool bZonesClean = true;
+        bool bMairNeverSpoke = true;
+        bool bBrookSilentOnTenseDays = true;
+        int MaxKnowersOfOneRumor = 0;
+};
+
+SimTrace RunSevenDaySim(Game& G)
+{
+        SimTrace Trace;
+        const std::set<std::string> Gossip = { "AREA-SQUARE", "AREA-INN", "AREA-CHURCH", "AREA-CHURCHYARD" };
+        for (int Day = 1; Day <= 7; ++Day)
+        {
+                RumorSystem::TickResult Result;
+                int DayNewKnowers = 0;
+                for (int Hour = 8; Hour <= 21; ++Hour)
+                {
+                        Result = G.TickVillageGossip(Day, Hour);
+                        DayNewKnowers += Result.NewKnowersToday;
+                        for (const RumorTransmission& T : Result.NewTransmissions)
+                        {
+                                ++Trace.Transmissions;
+                                if (!Gossip.count(T.Zone)) { Trace.bZonesClean = false; }
+                                if (T.FromNpc == "CHR-06") { Trace.bMairNeverSpoke = false; }            // reticence 0.9
+                                if (T.FromNpc == "T3-11" && Day >= 2) { Trace.bBrookSilentOnTenseDays = false; }  // 0.6+0.15 tension
+                        }
+                }
+                Trace.NewKnowersByDay[Day] = DayNewKnowers;
+                for (const std::string& R : G.Rumors().ActiveRumorIds())
+                {
+                        Trace.MaxKnowersOfOneRumor = std::max(Trace.MaxKnowersOfOneRumor, G.Rumors().KnowerCount(R));
+                }
+                if (Day < 7) { G.AdvanceSimDay(); }
+        }
+        return Trace;
+}
+
+} // anonymous namespace
+
+void TestSevenDayRumorSimulation(Game& G)
+{
+        TLS_SECTION("M2.1 rumors - seven-day headless village simulation (NPC_SIMULATION 10)");
+
+        G.NewGame();
+        const SimTrace Trace = RunSevenDaySim(G);
+
+        // spread stays inside the daily cap: floor(0.30 * 17) = 5 new knowers/day
+        for (const auto& KV : Trace.NewKnowersByDay)
+        {
+                TLS_CHECK_MSG(KV.second <= 5, "day " + std::to_string(KV.first) + " new knowers "
+                        + std::to_string(KV.second) + " <= cap 5");
+        }
+        TLS_CHECK_MSG(Trace.Transmissions > 0, "gossip actually happened over seven days");
+        TLS_CHECK(Trace.bZonesClean);
+        TLS_CHECK_MSG(Trace.bMairNeverSpoke, "Mair (reticence 0.9) never carries gossip");
+        TLS_CHECK_MSG(Trace.bBrookSilentOnTenseDays, "John Brook (0.6 + tension 3*0.05 = 0.75) falls silent on tense days");
+        TLS_CHECK_MSG(Trace.MaxKnowersOfOneRumor < 17, "no rumor reaches the whole village instantly");
+
+        // rumors born later actually activate on their day
+        TLS_CHECK_MSG(G.Rumors().KnowerCount("RUM-NOTT-SALT") > 0, "the day-2 mill death entered circulation");
+        TLS_CHECK_MSG(G.Rumors().KnowerCount("RUM-SHONI-SUSPECT") > 0, "the day-3 constable theory entered circulation");
+
+        // provenance integrity after seven days of churn: every chain step is a real transfer
+        bool AllReal = true;
+        for (const auto& KV : G.Rumors().Defs())
+        {
+                for (const std::string& Holder : G.Rumors().NpcsKnowing(KV.first))
+                {
+                        for (const RumorTransmission& Step : G.Rumors().TraceProvenance(KV.first, Holder))
+                        {
+                                bool Found = false;
+                                for (const RumorTransmission& T : G.Rumors().TransmissionLog())
+                                {
+                                        if (T.RumorId == Step.RumorId && T.FromNpc == Step.FromNpc && T.ToNpc == Step.ToNpc
+                                                && T.Day == Step.Day && T.Hour == Step.Hour) { Found = true; break; }
+                                }
+                                if (!Found) { AllReal = false; }
+                        }
+                }
+        }
+        TLS_CHECK_MSG(AllReal, "every provenance chain after 7 days is made of recorded transmissions");
+
+        // determinism: an identical replay reproduces the identical state
+        {
+                Game* G2 = MakeLoadedGame();
+                TLS_CHECK(G2 != nullptr);
+                if (G2)
+                {
+                        G2->NewGame();
+                        RunSevenDaySim(*G2);
+                        TLS_CHECK_MSG(JsonSerialize(G.Rumors().SerializeState(), false) == JsonSerialize(G2->Rumors().SerializeState(), false),
+                                "two identical runs produce identical rumor history");
+                        delete G2;
+                }
+        }
+
+        // a different seed tells a different story (deterministic divergence)
+        {
+                Game* G3 = MakeLoadedGame();
+                TLS_CHECK(G3 != nullptr);
+                if (G3)
+                {
+                        G3->NewGame();
+                        G3->SetSimRngState(kDefaultSimSeed ^ 0xA5A5A5A5A5A5A5A5ULL);
+                        RunSevenDaySim(*G3);
+                        TLS_CHECK_MSG(JsonSerialize(G.Rumors().SerializeState(), false) != JsonSerialize(G3->Rumors().SerializeState(), false),
+                                "a different sim seed diverges");
+                        delete G3;
+                }
+        }
+}
+
+// ---------------------------------------------------------------- M2 save version gate
+
+void TestSaveVersionGate(Game& G)
+{
+        TLS_SECTION("M2 save - version gate, legacy v1, and the save/load/continue seam");
+
+        G.NewGame();
+        G.TickVillageGossip(1, 8);
+        G.TickVillageGossip(1, 9);
+        G.NotifyPlayerHeardRumor("RUM-HUNGER-RETURNS", "T3-06");
+        const std::string V2 = G.SaveToString();
+
+        // future version refused with a clear message
+        {
+                Game* G2 = MakeLoadedGame();
+                TLS_CHECK(G2 != nullptr);
+                if (G2)
+                {
+                        G2->NewGame();
+                        std::string V3 = V2;
+                        V3.replace(V3.find("\"save_version\":2"), 16, "\"save_version\":3");
+                        std::string Err;
+                        TLS_CHECK_MSG(!G2->LoadFromString(V3, Err), "a save from a newer version is refused");
+                        TLS_CHECK_MSG(Err.find("save_version") != std::string::npos, "the error names the version problem");
+                        delete G2;
+                }
+        }
+
+        // v2 missing sim_rng refused
+        {
+                Game* G2 = MakeLoadedGame();
+                TLS_CHECK(G2 != nullptr);
+                if (G2)
+                {
+                        G2->NewGame();
+                        std::string Mangled = V2;
+                        const size_t Key = Mangled.find("\"sim_rng\":");
+                        TLS_CHECK(Key != std::string::npos);
+                        if (Key != std::string::npos) { Mangled.erase(Key, 29); }   // "sim_rng":"<16hex>",
+                        std::string Err;
+                        TLS_CHECK_MSG(!G2->LoadFromString(Mangled, Err), "v2 without the sim rng is refused");
+                        delete G2;
+                }
+        }
+
+        // legacy v1 loads, rumor layer starts clean
+        {
+                Game* G2 = MakeLoadedGame();
+                TLS_CHECK(G2 != nullptr);
+                if (G2)
+                {
+                        G2->NewGame();
+                        std::string V1 = V2;
+                        V1.replace(V1.find("\"save_version\":2"), 16, "\"save_version\":1");
+                        // strip the v2-only payloads (rumors object, then the rng key)
+                        const size_t RumorKey = V1.find("\"rumors\":");
+                        TLS_CHECK(RumorKey != std::string::npos);
+                        size_t Scan = V1.find('{', RumorKey), Depth = 0, End = Scan;
+                        for (; Scan < V1.size(); ++Scan)
+                        {
+                                if (V1[Scan] == '{') { ++Depth; }
+                                else if (V1[Scan] == '}') { --Depth; if (Depth == 0) { End = Scan; break; } }
+                        }
+                        V1.erase(RumorKey, End - RumorKey + 2);   // object + trailing comma
+                        const size_t RngKey = V1.find("\"sim_rng\":");
+                        TLS_CHECK(RngKey != std::string::npos);
+                        if (RngKey != std::string::npos) { V1.erase(RngKey, 29); }   // "sim_rng":"<16hex>",
+                        std::string Err;
+                        TLS_CHECK_MSG(G2->LoadFromString(V1, Err), "legacy v1 payload loads: " + Err);
+                        if (G2->LoadFromString(V1, Err))
+                        {
+                                TLS_CHECK_MSG(G2->Rumors().ActiveRumorIds().empty(), "v1 has no rumor history - layer starts clean");
+                                TLS_CHECK(!G2->PlayerHeardRumor("RUM-HUNGER-RETURNS"));
+                        }
+                        delete G2;
+                }
+        }
+
+        // full round trip: save mid-simulation, load into a fresh game, continue -
+        // both roads must reach the identical world (M2.2 core guarantee)
+        {
+                Game* GA = MakeLoadedGame();
+                Game* GB = MakeLoadedGame();
+                TLS_CHECK(GA && GB);
+                if (GA && GB)
+                {
+                        GA->NewGame();
+                        for (int Hour = 8; Hour <= 12; ++Hour) { GA->TickVillageGossip(1, Hour); }
+                        const std::string Mid = GA->SaveToString();
+
+                        GB->NewGame();
+                        std::string Err;
+                        TLS_CHECK_MSG(GB->LoadFromString(Mid, Err), "mid-sim v2 load: " + Err);
+                        TLS_CHECK_MSG(GB->SimRngState() == GA->SimRngState(), "the sim rng state travels with the save");
+                        TLS_CHECK_MSG(JsonSerialize(GB->Rumors().SerializeState(), false) == JsonSerialize(GA->Rumors().SerializeState(), false),
+                                "rumor state identical after load");
+
+                        // continue both worlds for the rest of the day + two more days
+                        for (int Hour = 13; Hour <= 21; ++Hour) { GA->TickVillageGossip(1, Hour); GB->TickVillageGossip(1, Hour); }
+                        GA->AdvanceSimDay(); GB->AdvanceSimDay();
+                        for (int Hour = 8; Hour <= 21; ++Hour) { GA->TickVillageGossip(2, Hour); GB->TickVillageGossip(2, Hour); }
+                        GA->AdvanceSimDay(); GB->AdvanceSimDay();
+                        for (int Hour = 8; Hour <= 21; ++Hour) { GA->TickVillageGossip(3, Hour); GB->TickVillageGossip(3, Hour); }
+
+                        TLS_CHECK_MSG(JsonSerialize(GA->Rumors().SerializeState(), false) == JsonSerialize(GB->Rumors().SerializeState(), false),
+                                "save -> load -> continue equals never interrupted (zero drift)");
+                        TLS_CHECK_MSG(JsonSerialize(GA->Save(), false) == JsonSerialize(GB->Save(), false),
+                                "the whole world state is identical after the save/load seam");
+                        delete GA; delete GB;
+                }
+        }
+}
+
 } // anonymous namespace
 
 int main()
 {
-        std::printf("THE LAST SIN - M1 core-logic test harness (standalone g++ build)\n");
+        std::printf("THE LAST SIN - M1+M2 core-logic test harness (standalone g++ build)\n");
         std::printf("same source files as the UE module: 03_Unreal/Source/TLS/Core/*\n");
 
         TestJson();
         TestWelshLayer();
+        tls_test_rumors::RunAll();
 
         Game* G = MakeLoadedGame();
         if (!G)
@@ -352,6 +677,14 @@ int main()
         TestEvidenceRules(*G);
         TestVillageSim(*G);
         TestQuestAndDialogueRules(*G);
+        TestRumorGameIntegration(*G);
+
+        {
+                Game* GSIM = MakeLoadedGame();
+                if (GSIM) { TestSevenDayRumorSimulation(*GSIM); delete GSIM; }
+                Game* GSAVE = MakeLoadedGame();
+                if (GSAVE) { TestSaveVersionGate(*GSAVE); delete GSAVE; }
+        }
 
         int Insights = 0, Collected = 0;
         tls_test_sim::RunFullPlaythrough(*G, Insights, Collected);

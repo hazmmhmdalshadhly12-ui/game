@@ -1,0 +1,155 @@
+{
+  "schema": "tls.rumors.v1",
+  "slice": "M2.1 - Blackthorne rumor layer: six rumors grounded in GAME_BIBLE days 1-3 (C1-C2 scope)",
+  "notes": "Gossip zones follow NPC_SIMULATION 5 (bakehouse/market square, inn kitchen and public room, church porch, the burying ground). RUM-SHONI-HILL is the player leak tool's counter-rumor: it enters the village only through the leak, never from data seeds.",
+  "gossip_zones": [
+    "AREA-SQUARE",
+    "AREA-INN",
+    "AREA-CHURCH",
+    "AREA-CHURCHYARD"
+  ],
+  "rules": {
+    "max_active": 6,
+    "daily_spread_cap": 0.30,
+    "base_chance": 0.60,
+    "mutation_chance": 0.25,
+    "hop_confidence": 0.80,
+    "speaker_hourly_budget": 1,
+    "speaker_daily_budget": 3,
+    "reticence_block": 0.75
+  },
+  "npc_relationships": {
+    "CHR-04": { "CHR-03": -15 },
+    "CHR-17": { "CHR-03": 40 },
+    "T3-07": { "T3-08": -10 }
+  },
+  "rumors": [
+    {
+      "id": "RUM-HUNGER-RETURNS",
+      "topic": "hunger",
+      "subject": "HUNGER",
+      "valence": -0.6,
+      "origin": "world:funeral-whispers",
+      "day_created": 1,
+      "hour_created": 11,
+      "place_zone": "AREA-CHURCHYARD",
+      "origin_confidence": 0.75,
+      "decay": 0.20,
+      "tension_on_spread": 0.5,
+      "variants": [
+        "Three funerals in a month. The Hunger walks again, so the old people say.",
+        "The Hunger walks - and it was the sin-eater's bread that kept it fed, mind.",
+        "Y Newyn came back the day they buried Josias Vale. You can write that down."
+      ],
+      "seeds": [
+        { "npc": "T3-06", "kind": "hearsay", "confidence": 0.75 },
+        { "npc": "T3-03", "kind": "hearsay", "confidence": 0.70 }
+      ]
+    },
+    {
+      "id": "RUM-GUINEA-SILENCE",
+      "topic": "guinea",
+      "subject": "HUNGER",
+      "valence": -0.3,
+      "origin": "world:anniversary-talk",
+      "day_created": 1,
+      "hour_created": 19,
+      "place_zone": "AREA-INN",
+      "origin_confidence": 0.80,
+      "decay": 0.15,
+      "tension_on_spread": 0.0,
+      "variants": [
+        "Forty guineas the village paid Josias Vale to swallow Blackthorne's sins whole.",
+        "Forty guineas for the silence, and the Quiet Guinea families still count their dead.",
+        "They bought the village's quiet once. Quiet's what came back for it."
+      ],
+      "seeds": [
+        { "npc": "T3-05", "kind": "hearsay", "confidence": 0.80 },
+        { "npc": "T3-10", "kind": "inference", "confidence": 0.50 }
+      ]
+    },
+    {
+      "id": "RUM-NOTT-SALT",
+      "topic": "nott-death",
+      "subject": "HUNGER",
+      "valence": -0.5,
+      "origin": "world:nott-found-in-mill",
+      "day_created": 2,
+      "hour_created": 9,
+      "place_zone": "AREA-SQUARE",
+      "origin_confidence": 1.0,
+      "decay": 0.10,
+      "tension_on_spread": 0.5,
+      "variants": [
+        "Tobias Nott is dead in his own mill, mouth packed with salt.",
+        "Salt in Nott's mouth, they say - the miller who thieved the weights.",
+        "The Hunger took Nott for the orphan's flour. Ate the sin out of him."
+      ],
+      "seeds": [
+        { "npc": "T3-02", "kind": "direct", "confidence": 1.0 },
+        { "npc": "T3-01", "kind": "hearsay", "confidence": 0.85 }
+      ]
+    },
+    {
+      "id": "RUM-EDMUND-BROUGHT",
+      "topic": "edmund",
+      "subject": "EDMUND",
+      "valence": -0.7,
+      "origin": "T3-04",
+      "day_created": 2,
+      "hour_created": 14,
+      "place_zone": "AREA-SQUARE",
+      "origin_confidence": 0.45,
+      "decay": 0.20,
+      "tension_on_spread": 0.0,
+      "variants": [
+        "The sin-eater's son comes home after seventeen years, and the dead won't stay down.",
+        "It's the Vale lad. Bad blood came back to Blackthorne with him.",
+        "Mark me - the Hunger followed the son like it followed the father."
+      ],
+      "seeds": [
+        { "npc": "T3-04", "kind": "inference", "confidence": 0.45 }
+      ]
+    },
+    {
+      "id": "RUM-SHONI-SUSPECT",
+      "topic": "shoni",
+      "subject": "SHONI",
+      "valence": -0.8,
+      "origin": "world:pritchard-theory",
+      "day_created": 3,
+      "hour_created": 11,
+      "place_zone": "AREA-SQUARE",
+      "origin_confidence": 0.80,
+      "decay": 0.10,
+      "tension_on_spread": 1.0,
+      "variants": [
+        "The county constable wants Shoni Gwyn for the salt-death. The tinker, of all people.",
+        "Pritchard says the tinker did it. Pritchard arrived this morning and says so.",
+        "Shoni Gwyn will swing for Nott unless somebody speaks for him."
+      ],
+      "seeds": [
+        { "npc": "T3-07", "kind": "hearsay", "confidence": 0.80 }
+      ]
+    },
+    {
+      "id": "RUM-SHONI-HILL",
+      "topic": "shoni",
+      "subject": "SHONI",
+      "valence": 0.6,
+      "origin": "world:player-leak",
+      "day_created": 3,
+      "hour_created": 12,
+      "place_zone": "AREA-SQUARE",
+      "origin_confidence": 0.55,
+      "decay": 0.25,
+      "tension_on_spread": 0.0,
+      "variants": [
+        "Somebody says Shoni was up on the moor road that night - two miles from the mill.",
+        "There's talk the tinker's lantern was seen on the hill, not at the mill.",
+        "A voice at the well says the tinker never came down to the mill at all."
+      ],
+      "seeds": []
+    }
+  ]
+}

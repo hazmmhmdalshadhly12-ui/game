@@ -1,8 +1,9 @@
-// THE LAST SIN: The Sin-Eater - M1
+// THE LAST SIN: The Sin-Eater - M1 core + M2 rumor integration
 // TLSGameState.cpp
 
 #include "TLSGameState.h"
 
+#include <cstdio>
 #include <cstdlib>
 
 namespace tls
@@ -14,6 +15,7 @@ Game::Game()
         QuestSys = new QuestSystem();
         VillageSys = new VillageState();
         DialogueSys = new DialogueSystem();
+        RumorSys = new RumorSystem();
 }
 
 Game::~Game()
@@ -22,6 +24,7 @@ Game::~Game()
         delete QuestSys;
         delete VillageSys;
         delete DialogueSys;
+        delete RumorSys;
 }
 
 bool Game::LoadEvidenceData(const JsonValue& Root, std::string& OutError)
@@ -46,6 +49,11 @@ bool Game::LoadDialogueData(const JsonValue& Root, std::string& OutError)
         return DialogueSys->Load(Root, OutError);
 }
 
+bool Game::LoadRumorData(const JsonValue& Root, std::string& OutError)
+{
+        return RumorSys->Load(Root, OutError);
+}
+
 void Game::NewGame()
 {
         FlagValues.clear();
@@ -59,12 +67,19 @@ void Game::NewGame()
         JsonValue Empty = JsonValue::MakeObject();
         EvidenceSys->DeserializeState(Empty, Ignored);
         QuestSys->DeserializeState(Empty, Ignored);
+        RumorSys->DeserializeState(Empty, Ignored);
         VillageSys->ResetToDayOne();
         }
+
+        // every new game starts from the same simulation stream (M2 determinism)
+        SimRngStream.Seed(kDefaultSimSeed);
 
         FlagValues["FLG_EDMUND_WELSH_LEVEL"] = 0;
 
         JournalEntries.push_back({ 1, "Day 1. The coach left me at the bridge. Father is to be buried at noon - a sin-eater's funeral. I have not seen him in seventeen years." });
+
+        // rumors born on day 1 enter the village's mouth-to-mouth layer
+        RumorSys->ActivateDue(VillageSys->Day());
 
         QuestSys->ActivateDue(*this);
         RefreshAfterChange();
@@ -199,6 +214,63 @@ void Game::NotifyDecision(const std::string& FlagId, int Value)
         RefreshAfterChange();
 }
 
+// ------------------------------------------------------------ M2.1 rumor driving
+
+RumorSystem::TickResult Game::TickVillageGossip(int Day, int Hour)
+{
+        RumorSystem::TickResult Result = RumorSys->TickHour(Day, Hour, *VillageSys, SimRngStream);
+        // a rumor crossing its first mouth moves the village (tension event, once)
+        for (const std::string& RumorId : Result.RumorsThatFirstSpread)
+        {
+                const RumorDef* Def = RumorSys->FindDef(RumorId);
+                if (Def && Def->TensionOnSpread != 0.0)
+                {
+                        VillageSys->ApplyTensionDelta(Def->TensionOnSpread);
+                }
+        }
+        return Result;
+}
+
+bool Game::NotifyWitnessEvent(const std::string& RumorId, int Day, int Hour, const std::string& Zone,
+        const std::vector<std::string>& WitnessNpcIds, std::string& OutError)
+{
+        return RumorSys->RegisterWitnessEvent(RumorId, Day, Hour, Zone, WitnessNpcIds, OutError);
+}
+
+bool Game::NotifyPlayerHeardRumor(const std::string& RumorId, const std::string& FromNpc)
+{
+        const bool bAlreadyKnown = PlayerHeardRumor(RumorId);
+        if (!RumorSys->NotifyPlayerHeard(RumorId, VillageSys->Day(), 0, FromNpc)) { return false; }
+        if (!bAlreadyKnown)
+        {
+                const RumorDef* Def = RumorSys->FindDef(RumorId);
+                if (Def) { AddJournalEntry("Heard in the village: " + Def->Variants.front()); }
+        }
+        return true;
+}
+
+int Game::NotifyPlayerRumorDenial()
+{
+        const int Affected = RumorSys->NotifyPlayerDenial(VillageSys->Day(), 0);
+        if (Affected > 0)
+        {
+                // the rational villager's tool: the village rewards a public stand (NPC_SIMULATION 5)
+                VillageSys->ApplyReputationDelta(2.0);
+                AddJournalEntry("I named the Hunger a lie, out loud. Some nodded. Some did not.");
+        }
+        return Affected;
+}
+
+int Game::NotifyPlayerLeakRumor(const std::string& RumorId, const std::string& Zone, std::string& OutError)
+{
+        const int Heard = RumorSys->NotifyPlayerLeak(RumorId, VillageSys->Day(), 12, Zone, *VillageSys, OutError);
+        if (Heard > 0)
+        {
+                AddJournalEntry("I let it slip where ears were waiting. No name attached to it. Mine.");
+        }
+        return Heard;
+}
+
 bool Game::NotifySleep(std::string& OutReason)
 {
         const int Day = VillageSys->Day();
@@ -212,12 +284,20 @@ bool Game::NotifySleep(std::string& OutReason)
                 OutReason = "The fog beyond the second morning is not yet written. (M1 slice boundary)";
                 return false;
         }
-        const int NextDay = Day + 1;
-        VillageSys->BeginDay(NextDay);
-        AddJournalEntry("Day " + std::to_string(NextDay) + ". The village wakes to " + std::string(ToString(VillageSys->Weather())) + ".");
+        AdvanceSimDay();
+        AddJournalEntry("Day " + std::to_string(VillageSys->Day()) + ". The village wakes to " + std::string(ToString(VillageSys->Weather())) + ".");
         QuestSys->ActivateDue(*this);
         RefreshAfterChange();
         return true;
+}
+
+void Game::AdvanceSimDay()
+{
+        const int NextDay = VillageSys->Day() + 1;
+        VillageSys->BeginDay(NextDay);
+        // a new day: memory fades, rumors born today enter circulation
+        RumorSys->ApplyDailyDecay(NextDay);
+        RumorSys->ActivateDue(NextDay);
 }
 
 // ------------------------------------------------------------ dialogue
@@ -332,15 +412,31 @@ bool Game::DialogueAutoAdvance(std::string& OutEnteredNodeId)
         return true;
 }
 
+bool Game::PlayerHeardRumor(const std::string& RumorId) const
+{
+        for (const std::string& R : RumorSys->PlayerKnownRumors())
+        {
+                if (R == RumorId) { return true; }
+        }
+        return false;
+}
+
 // ------------------------------------------------------------ save/load
 
 JsonValue Game::Save() const
 {
         JsonValue Root = JsonValue::MakeObject();
-        Root.Set("save_version", JsonValue(1));
+        Root.Set("save_version", JsonValue(2));   // v2: rumors + deterministic sim RNG (M2)
         Root.Set("village", VillageSys->SerializeState());
         Root.Set("evidence", EvidenceSys->SerializeState());
         Root.Set("quests", QuestSys->SerializeState());
+        Root.Set("rumors", RumorSys->SerializeState());
+        // 64-bit RNG state travels as hex text - a double would lose bits above 2^53
+        {
+                char RngBuf[32];
+                std::snprintf(RngBuf, sizeof(RngBuf), "%016llx", static_cast<unsigned long long>(SimRngStream.State64()));
+                Root.Set("sim_rng", JsonValue(std::string(RngBuf)));
+        }
 
         JsonValue Flags = JsonValue::MakeObject();
         for (const auto& KV : FlagValues) { Flags.Set(KV.first, JsonValue(KV.second)); }
@@ -384,12 +480,40 @@ bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
         const JsonValue& Root = P.Value;
         if (!Root.IsObject()) { OutError = "save root not an object"; return false; }
 
+        // ---- version gate: 1 = M1 legacy, 2 = M2 (rumors + sim RNG) ----
+        const int SaveVersion = Root.Find("save_version") ? Root.Find("save_version")->AsInt() : 0;
+        if (SaveVersion <= 0 || SaveVersion > 2)
+        {
+                OutError = "unsupported save_version " + std::to_string(SaveVersion)
+                        + " (this build reads 1 and 2)";
+                return false;
+        }
+
         const JsonValue* V = Root.Find("village");
         if (!V || !VillageSys->DeserializeState(*V, OutError)) { OutError = "village: " + OutError; return false; }
         const JsonValue* E = Root.Find("evidence");
         if (!E || !EvidenceSys->DeserializeState(*E, OutError)) { OutError = "evidence: " + OutError; return false; }
         const JsonValue* Q = Root.Find("quests");
         if (!Q || !QuestSys->DeserializeState(*Q, OutError)) { OutError = "quests: " + OutError; return false; }
+
+        if (SaveVersion >= 2)
+        {
+                // v2 must carry the rumor layer and the sim RNG - refuse a silent
+                // downgrade that would resurrect a contradicting world state.
+                const JsonValue* R = Root.Find("rumors");
+                if (!R || !RumorSys->DeserializeState(*R, OutError)) { OutError = "rumors: " + OutError; return false; }
+                const JsonValue* RNG = Root.Find("sim_rng");
+                if (!RNG || !RNG->IsString()) { OutError = "rumors: save v2 missing sim_rng"; return false; }
+                SimRngStream.SetState(std::strtoull(RNG->AsString().c_str(), nullptr, 16));
+        }
+        else
+        {
+                // legacy v1: no rumor layer in the payload - start it clean rather
+                // than resurrect stale knowledge from the current session.
+                std::string Ignored;
+                JsonValue Empty = JsonValue::MakeObject();
+                RumorSys->DeserializeState(Empty, Ignored);
+        }
 
         FlagValues.clear();
         if (const JsonValue* F = Root.Find("flags"))

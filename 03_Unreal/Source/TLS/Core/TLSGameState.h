@@ -11,6 +11,8 @@
 #include "TLSQuests.h"
 #include "TLSVillageState.h"
 #include "TLSDialogue.h"
+#include "TLSRumors.h"
+#include "TLSRng.h"
 
 #include <map>
 #include <set>
@@ -31,9 +33,14 @@ public:
         bool LoadQuestData(const JsonValue& Root, std::string& OutError);
         bool LoadSimData(const JsonValue& Root, std::string& OutError);
         bool LoadDialogueData(const JsonValue& Root, std::string& OutError);
+        bool LoadRumorData(const JsonValue& Root, std::string& OutError);
 
         // ---- session ----
         void NewGame();
+        // Pure simulation day advance (no story gates): BeginDay + rumor decay
+        // + rumor activation. Used by the 7-day sim test and by a headless UE
+        // day script; the QUEST layer keeps its own gate in NotifySleep.
+        void AdvanceSimDay();
         bool IsValid() const { return bDataLoaded; }
 
         // ---- subsystem access (read-only for callers) ----
@@ -41,8 +48,24 @@ public:
         const QuestSystem& Quests() const { return *QuestSys; }
         const VillageState& Village() const { return *VillageSys; }
         const DialogueSystem& Dialogue() const { return *DialogueSys; }
+        const RumorSystem& Rumors() const { return *RumorSys; }
         EvidenceSystem& EvidenceMut() { return *EvidenceSys; }
         VillageState& VillageMut() { return *VillageSys; }
+
+        // ---- M2.1 rumor / witness driving (UE layer or test harness) ----
+        // One hour of village gossip. Deterministic given the sim RNG state.
+        RumorSystem::TickResult TickVillageGossip(int Day, int Hour);
+        bool NotifyWitnessEvent(const std::string& RumorId, int Day, int Hour, const std::string& Zone,
+                const std::vector<std::string>& WitnessNpcIds, std::string& OutError);
+        bool NotifyPlayerHeardRumor(const std::string& RumorId, const std::string& FromNpc);
+        int NotifyPlayerRumorDenial();
+        // Anonymous leak (NPC_SIMULATION 5c): feeds the rumor into a gossip zone.
+        // Returns the number of NPCs that heard it, or -1 with OutError set.
+        int NotifyPlayerLeakRumor(const std::string& RumorId, const std::string& Zone, std::string& OutError);
+        // Deterministic simulation stream for gameplay systems that must roll.
+        Rng& SimRng() { return SimRngStream; }
+        void SetSimRngState(std::uint64_t S) { SimRngStream.SetState(S); }
+        std::uint64_t SimRngState() const { return SimRngStream.State64(); }
 
         // ---- world notifications (from the UE layer or the test harness) ----
         void NotifyReachArea(const std::string& AreaId);
@@ -85,6 +108,8 @@ public:
         bool IsQuestCompleted(const std::string& QuestId) const override { return QuestSys->Status(QuestId) == EQuestStatus::Completed; }
         double GetTrust(const std::string& NpcId) const override { return VillageSys->GetTrust(NpcId); }
         int GetWelshLevel() const override { return GetFlag("FLG_EDMUND_WELSH_LEVEL"); }
+        bool NpcKnowsRumor(const std::string& NpcId, const std::string& RumorId) const override { return RumorSys->NpcKnows(NpcId, RumorId); }
+        bool PlayerHeardRumor(const std::string& RumorId) const override;
 
         // ---- journal ----
         struct JournalEntry
@@ -113,6 +138,8 @@ private:
         QuestSystem* QuestSys = nullptr;
         VillageState* VillageSys = nullptr;
         DialogueSystem* DialogueSys = nullptr;
+        RumorSystem* RumorSys = nullptr;
+        Rng SimRngStream;
 
         bool bDataLoaded = false;
         std::map<std::string, int> FlagValues;

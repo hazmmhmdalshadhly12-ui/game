@@ -411,13 +411,91 @@ def main():
                 fail(f"path {path.get('id')} has fewer than 2 points")
         ok(f"{len(world.get('paths', []))} paths are well formed")
 
+    # ---------------------------------------------------------------- rumors (M2.1)
+    section("7) rumors_blackthorne.json")
+    rumors = load("rumors/rumors_blackthorne.json")
+    if rumors:
+        area_id_set = {a["id"] for a in world.get("areas", [])} if world else set()
+        if rumors.get("schema") != "tls.rumors.v1":
+            fail(f"rumors schema is {rumors.get('schema')}, expected tls.rumors.v1")
+        else:
+            ok("rumors schema tls.rumors.v1")
+        rules = rumors.get("rules") or {}
+        cap = rules.get("max_active", 6)
+        rumor_list = rumors.get("rumors", [])
+        if len(rumor_list) <= cap:
+            ok(f"{len(rumor_list)} rumors within the active cap {cap} (NPC_SIMULATION 11)")
+        else:
+            fail(f"{len(rumor_list)} rumors exceed the active cap {cap}")
+        spread_cap = rules.get("daily_spread_cap", 0.30)
+        if spread_cap <= 0.30:
+            ok(f"daily spread cap {spread_cap} <= 30% of the population per day (NPC_SIMULATION 10)")
+        else:
+            fail(f"daily spread cap {spread_cap} exceeds the 30% rule")
+        for z in rumors.get("gossip_zones", []):
+            if z not in area_id_set:
+                fail(f"gossip zone {z} is not a world area")
+        ok("gossip zones resolve to world areas")
+        rumor_ids = set()
+        topic_valence = {}
+        for r in rumor_list:
+            rid = r.get("id", "")
+            if not rid:
+                fail("rumor without id")
+                continue
+            if rid in rumor_ids:
+                fail(f"duplicate rumor id {rid}")
+            rumor_ids.add(rid)
+            if r.get("valence", 0.0) < -1.0 or r.get("valence", 0.0) > 1.0:
+                fail(f"{rid}: valence out of range")
+            if not r.get("origin"):
+                fail(f"{rid}: missing origin")
+            if not (1 <= r.get("day_created", 0) <= 9):
+                fail(f"{rid}: day_created outside the nine-day game")
+            if not (0 <= r.get("hour_created", 0) <= 23):
+                fail(f"{rid}: hour_created out of range")
+            if r.get("place_zone") not in area_id_set:
+                fail(f"{rid}: place_zone {r.get('place_zone')} is not a world area")
+            if not r.get("variants"):
+                fail(f"{rid}: no wording variants (mutation needs material)")
+            for seed in r.get("seeds", []):
+                if seed.get("npc") not in npc_ids:
+                    fail(f"{rid}: seed npc {seed.get('npc')} is not in the sim data")
+                if seed.get("kind", "hearsay") not in ("direct", "hearsay", "inference", "unverified"):
+                    fail(f"{rid}: bad seed kind {seed.get('kind')}")
+                conf = seed.get("confidence", 1.0)
+                if not (0.0 <= conf <= 1.0):
+                    fail(f"{rid}: seed confidence out of range")
+                variants = r.get("variants", [])
+                if not (0 <= seed.get("variant", 0) < max(1, len(variants))):
+                    fail(f"{rid}: seed variant index out of range")
+            topic = r.get("topic", rid)
+            topic_valence.setdefault(topic, []).append((rid, r.get("valence", 0.0)))
+        ok("rumor entries well formed (ids, origins, zones, seeds, variants)")
+        for a_rel, inner in (rumors.get("npc_relationships") or {}).items():
+            if a_rel not in npc_ids:
+                fail(f"npc_relationships: unknown NPC {a_rel}")
+            for b_rel, v in inner.items():
+                if b_rel not in npc_ids:
+                    fail(f"npc_relationships: unknown NPC {b_rel}")
+                if not (-100.0 <= v <= 100.0):
+                    fail(f"npc_relationships {a_rel}->{b_rel}: value {v} out of range")
+        ok("relationship matrix resolves to sim NPCs")
+        conflict_topics = {t: v for t, v in topic_valence.items() if len(v) > 1}
+        if conflict_topics:
+            for t, entries in conflict_topics.items():
+                signs = {1 if v > 0 else -1 if v < 0 else 0 for _, v in entries}
+                if len(signs) < 2:
+                    fail(f"topic {t}: {len(entries)} rumors share one valence sign - no real conflict")
+            ok(f"conflict topics carry opposite valences: {sorted(conflict_topics)}")
+
     # ---------------------------------------------------------------- finish
     print()
     total = CHECKS[0] + CHECKS[1]
     if CHECKS[1] == 0:
         print(f"ALL CHECKS PASSED ({CHECKS[0]}/{total})")
         print("NOTE: this validates the narrative data's internal consistency;")
-        print("the game LOGIC itself is exercised by tools/core_tests (418 checks).")
+        print("the game LOGIC itself is exercised by tools/core_tests (run_core_tests.sh).")
         return 0
     print(f"FAILED: {CHECKS[1]} of {total} checks failed")
     return 1

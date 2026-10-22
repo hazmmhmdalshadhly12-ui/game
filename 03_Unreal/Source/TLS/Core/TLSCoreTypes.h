@@ -214,6 +214,7 @@ struct NPCDef
         std::string Faction;                     // inn / church / chapel / estate / mine / moor / none
         double InitialTrust = 0.0;               // -100..100 toward Edmund
         double RelationshipBias = 0.0;           // 0..1 - protects strong relations (NPC_SIM 3)
+        double Reticence = 0.0;                  // 0..1 - how much this NPC holds their tongue (M2.1)
         std::map<ETone, double> ToneWeights;     // tone -> trust bonus/penalty
         std::vector<ScheduleSegment> Schedule;
         std::vector<ScheduleSegment> ScheduleTension;  // used when tension >= 3
@@ -243,6 +244,9 @@ public:
         virtual bool IsQuestCompleted(const std::string& QuestId) const = 0;
         virtual double GetTrust(const std::string& NpcId) const = 0;
         virtual int GetWelshLevel() const = 0;
+        // M2.1: rumor-aware conditions. Implemented by tls::Game; default no.
+        virtual bool NpcKnowsRumor(const std::string& NpcId, const std::string& RumorId) const { (void)NpcId; (void)RumorId; return false; }
+        virtual bool PlayerHeardRumor(const std::string& RumorId) const { (void)RumorId; return false; }
 };
 
 const char* ToString(EEvidenceType T);

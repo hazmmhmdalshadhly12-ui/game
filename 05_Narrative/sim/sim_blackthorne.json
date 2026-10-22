@@ -69,6 +69,7 @@
       "faction": "inn",
       "initial_trust": 0,
       "relationship_bias": 0.5,
+      "reticence": 0.9,
       "tone_weights": { "gentle": 1, "formal": 0, "pressing": -5, "silent": 2 },
       "visual_family": "T1-Mair",
       "schedule": [
@@ -295,6 +296,7 @@
       "faction": "none",
       "initial_trust": 0,
       "relationship_bias": 0.1,
+      "reticence": 0.6,
       "tone_weights": { "gentle": 1, "formal": 0, "pressing": -1, "silent": 2 },
       "visual_family": "T3-C",
       "schedule": [
@@ -310,6 +312,7 @@
       "faction": "none",
       "initial_trust": 0,
       "relationship_bias": 0.1,
+      "reticence": 0.5,
       "tone_weights": { "gentle": 1, "formal": 0, "pressing": -2, "silent": 1 },
       "visual_family": "T3-A",
       "schedule": [
