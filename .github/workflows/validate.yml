@@ -44,4 +44,6 @@ jobs:
 
       - name: Test summary
         if: always()
-        run: echo "Core-logic suite: the same C++ that compiles into the UE module (03_Unreal/Source/TLS/Core) built and executed here on Linux with g++."
+        run: |
+          echo "Core-logic suite: the same C++ that compiles into the UE module"
+          echo "(03_Unreal/Source/TLS/Core) built and executed here on Linux with g++."
