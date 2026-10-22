@@ -243,8 +243,12 @@ bool Game::NotifyPlayerHeardRumor(const std::string& RumorId, const std::string&
         if (!RumorSys->NotifyPlayerHeard(RumorId, VillageSys->Day(), 0, FromNpc)) { return false; }
         if (!bAlreadyKnown)
         {
-                const RumorDef* Def = RumorSys->FindDef(RumorId);
-                if (Def) { AddJournalEntry("Heard in the village: " + Def->Variants.front()); }
+                // accessibility: auto-journal can be switched off (clutter assist)
+                if (SettingsCfg.RumorJournalAuto())
+                {
+                        const RumorDef* Def = RumorSys->FindDef(RumorId);
+                        if (Def) { AddJournalEntry("Heard in the village: " + Def->Variants.front()); }
+                }
                 RefreshAfterChange();
         }
         return true;

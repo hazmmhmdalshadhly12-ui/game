@@ -27,6 +27,11 @@ namespace tls_test_quests
 void RunAll(Game& G);
 }
 
+namespace tls_test_settings
+{
+void RunAll(Game& G);
+}
+
 // Builds a Game with every 05_Narrative data file loaded (evidence, quests,
 // sim, rumors, dialogues). Declared in test_fixtures.h - shared by all test
 // translation units. The data-loading checks run through the shared framework.
@@ -839,6 +844,7 @@ int main()
         TestQuestAndDialogueRules(*G);
         TestRumorGameIntegration(*G);
         tls_test_quests::RunAll(*G);
+        tls_test_settings::RunAll(*G);
 
         {
                 Game* GSIM = MakeLoadedGame();

@@ -12,6 +12,7 @@
 #include "TLSVillageState.h"
 #include "TLSDialogue.h"
 #include "TLSRumors.h"
+#include "TLSSettings.h"
 #include "TLSRng.h"
 
 #include <map>
@@ -49,6 +50,8 @@ public:
         const VillageState& Village() const { return *VillageSys; }
         const DialogueSystem& Dialogue() const { return *DialogueSys; }
         const RumorSystem& Rumors() const { return *RumorSys; }
+        const SettingsModel& Settings() const { return SettingsCfg; }
+        SettingsModel& SettingsMut() { return SettingsCfg; }
         EvidenceSystem& EvidenceMut() { return *EvidenceSys; }
         VillageState& VillageMut() { return *VillageSys; }
         QuestSystem& QuestsMut() { return *QuestSys; }
@@ -141,6 +144,7 @@ private:
         VillageState* VillageSys = nullptr;
         DialogueSystem* DialogueSys = nullptr;
         RumorSystem* RumorSys = nullptr;
+        SettingsModel SettingsCfg;
         Rng SimRngStream;
 
         bool bDataLoaded = false;
