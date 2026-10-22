@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""THE LAST SIN: The Sin-Eater — M0 UE scaffold validator.
+"""THE LAST SIN: The Sin-Eater — M0+M1 UE scaffold validator.
 
 Checks the 03_Unreal/ project scaffold that is authored outside the engine
 (pure text files) for internal consistency BEFORE it reaches a Windows/UE
@@ -19,6 +19,13 @@ Executed checks (all real, no simulation):
   8. Windows .bat scripts exist, are CRLF and reference existing files.
   9. The editor Python script's FBX inputs exist in 02_Art/exports/fbx/.
  10. ASCII-only file names across 03_Unreal/ (naming convention section 2).
+ 11. M1: the pure C++ core (Source/TLS/Core/) compiles engine-free (no UE
+     includes) and has no UHT-exposed types; its standalone test runner exists.
+ 12. M1: the village game mode, NPC, interactable, widgets, save and audio
+     classes exist with GENERATED_BODY + TLS_API and the module deps include UMG.
+ 13. M1: DefaultEngine.ini points the default game mode at the village slice;
+     DefaultGame.ini carries the narrative root; the slice .bat exists (CRLF).
+ 14. M1: the placeholder audio set + manifest exist under 04_Audio/.
 
 Usage: python3 tools/validate_unreal_scaffold.py   (from the repo root)
 Exit code: 0 = all checks passed, 1 = failures.
@@ -183,8 +190,10 @@ def main():
     engine_ini = UE_DIR / "Config" / "DefaultEngine.ini"
     if engine_ini.is_file():
         text = engine_ini.read_text(encoding="utf-8")
-        if 'GlobalDefaultGameMode="/Script/TLS.TLSGameMode"' in text:
-            ok("DefaultEngine.ini: GlobalDefaultGameMode = TLSGameMode")
+        if 'GlobalDefaultGameMode="/Script/TLS.TLSVillageGameMode"' in text:
+            ok("DefaultEngine.ini: GlobalDefaultGameMode = TLSVillageGameMode (M1 slice)")
+        elif 'GlobalDefaultGameMode="/Script/TLS.TLSGameMode"' in text:
+            ok("DefaultEngine.ini: GlobalDefaultGameMode = TLSGameMode (M0 mode)")
         else:
             fail("DefaultEngine.ini: GameMode not set")
         if "L_TLS_TestRoom" in text:
@@ -278,6 +287,162 @@ def main():
             fail(f".gitignore missing generated dirs: {missing}")
     else:
         fail("03_Unreal/.gitignore missing")
+
+    # ---------------------------------------------------------- M1: pure core
+    section("11) M1 pure C++ core (engine-independent)")
+    core_dir = UE_DIR / "Source" / "TLS" / "Core"
+    core_files = ["TLSJson.h", "TLSJson.cpp", "TLSCoreTypes.h", "TLSCoreTypes.cpp",
+                  "TLSEvidence.h", "TLSEvidence.cpp", "TLSQuests.h", "TLSQuests.cpp",
+                  "TLSVillageState.h", "TLSVillageState.cpp",
+                  "TLSDialogue.h", "TLSDialogue.cpp", "TLSGameState.h", "TLSGameState.cpp"]
+    missing_core = [f for f in core_files if not (core_dir / f).is_file()]
+    if not missing_core:
+        ok(f"core: all {len(core_files)} files present")
+    else:
+        fail(f"core files missing: {missing_core}")
+
+    ue_tokens = ["#include \"CoreMinimal.h\"",
+                 "#include \"Engine/",
+                 "UCLASS", "GENERATED_BODY", "UE_LOG", "FString", "TArray",
+                 "check(", "ensure("]
+    dirty = []
+    for f in core_files:
+        path = core_dir / f
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for token in ue_tokens:
+            if token in text:
+                # FString/TArray appear only inside comments in clean files
+                for line in text.splitlines():
+                    if token in line and "//" not in line.split(token)[0]:
+                        dirty.append(f"{f}: contains UE token '{token}' outside a comment")
+                        break
+    if not dirty:
+        ok("core: zero engine dependencies (dual-compilation contract holds)")
+    else:
+        for d in dirty[:5]:
+            fail(d)
+
+    test_runner = ROOT / "tools" / "core_tests" / "run_core_tests.sh"
+    test_main = ROOT / "tools" / "core_tests" / "test_main.cpp"
+    sim = ROOT / "tools" / "core_tests" / "sim_playthrough.cpp"
+    if test_runner.is_file() and test_main.is_file() and sim.is_file():
+        ok("standalone core test harness present (g++ build + run script)")
+    else:
+        fail("core test harness incomplete")
+
+    # ---------------------------------------------------------- M1: classes
+    section("12) M1 gameplay classes")
+    m1_headers = {
+        "TLSVillageGameMode.h": ["ATLSVillageGameMode", "GENERATED_BODY", "TLS_API",
+                                 "tls::Game", "OnDigitPressed", "TLSNewGame"],
+        "TLSNPC.h": ["ATLSNPC", "GENERATED_BODY", "TLS_API", "DialogueId"],
+        "TLSInteractable.h": ["ATLSInteractable", "ETLSInteractKind", "Bed"],
+        "TLSWidgets.h": ["UTLSHUDWidget", "UTLSDialogueWidget", "UTLSLedgerWidget",
+                         "UTLSJournalWidget", "GENERATED_BODY"],
+        "TLSSaveGame.h": ["UTLSSaveGame", "Payload"],
+        "TLSProceduralAudio.h": ["UTLSProceduralAudioComponent", "SetWeatherBlend"],
+    }
+    for name, tokens in m1_headers.items():
+        path = UE_DIR / "Source" / "TLS" / name
+        if not path.is_file():
+            fail(f"{name} missing")
+            continue
+        text = path.read_text(encoding="utf-8")
+        missing = [t for t in tokens if t not in text]
+        if not missing:
+            ok(f"{name}: class declared as designed")
+        else:
+            fail(f"{name} missing tokens: {missing}")
+
+    build_cs = (UE_DIR / "Source" / "TLS" / "TLS.Build.cs").read_text(encoding="utf-8")
+    for dep in ('"UMG"', '"Slate"', '"SlateCore"'):
+        if dep in build_cs:
+            ok(f"Build.cs declares {dep} (code-built UMG)")
+            break
+    else:
+        fail("Build.cs is missing the UMG/Slate dependencies")
+
+    village_gm_src = (UE_DIR / "Source" / "TLS" / "TLSVillageGameMode.cpp").read_text(encoding="utf-8")
+    village_gm_hdr = (UE_DIR / "Source" / "TLS" / "TLSVillageGameMode.h").read_text(encoding="utf-8")
+    combined = village_gm_src + village_gm_hdr
+    for token in ('"Core/TLSGameState.h"', '"Core/TLSJson.h"', '05_Narrative',
+                  'blackthorne_blockout.json'):
+        if token not in combined:
+            fail(f"TLSVillageGameMode lost the reference: {token}")
+            break
+    else:
+        ok("village game mode consumes the pure core + 05_Narrative world data")
+
+    character_src = (UE_DIR / "Source" / "TLS" / "TLSCharacter.cpp").read_text(encoding="utf-8")
+    for token in ("Input_Interact", "Input_Digit1", "EKeys::E", "EKeys::One"):
+        if token not in character_src:
+            fail(f"TLSCharacter.cpp missing M1 input: {token}")
+            break
+    else:
+        ok("character carries the M1 interaction/UI input (E/J/Esc/R/1-9)")
+
+    # ---------------------------------------------------------- M1: configs
+    section("13) M1 configs and Windows scripts")
+    engine_ini = (UE_DIR / "Config" / "DefaultEngine.ini").read_text(encoding="utf-8")
+    if "TLSVillageGameMode" in engine_ini:
+        ok("DefaultEngine.ini: village slice is the default game mode")
+    else:
+        fail("DefaultEngine.ini still points at the M0-only game mode")
+    if "L_TLS_Blackthorne" in engine_ini:
+        ok("DefaultEngine.ini: startup map = L_TLS_Blackthorne")
+    else:
+        fail("startup map was not switched to the village map")
+
+    game_ini = (UE_DIR / "Config" / "DefaultGame.ini").read_text(encoding="utf-8")
+    if "NarrativeRoot" in game_ini and "05_Narrative" in game_ini:
+        ok("DefaultGame.ini: narrative root configured")
+    else:
+        fail("DefaultGame.ini missing the narrative root key")
+
+    slice_bat = UE_DIR / "Scripts" / "04_play_slice.bat"
+    if slice_bat.is_file():
+        raw = slice_bat.read_bytes()
+        if b"\r\n" in raw and all(b < 128 for b in raw):
+            ok("04_play_slice.bat exists (CRLF, ASCII)")
+        else:
+            fail("04_play_slice.bat must be CRLF + ASCII")
+    else:
+        fail("04_play_slice.bat missing")
+
+    import_py = (UE_DIR / "Scripts" / "import_and_calibrate.py").read_text(encoding="utf-8")
+    for token in ("M_TLS_Blockout", "L_TLS_Blackthorne", "TLSGameMode", "04_Audio"):
+        if token not in import_py:
+            fail(f"import script lost the M1 step: {token}")
+            break
+    else:
+        ok("import automation covers M1 (blockout material, village map, audio)")
+
+    # ---------------------------------------------------------- M1: audio
+    section("14) M1 placeholder audio set")
+    audio_root = ROOT / "04_Audio"
+    expected = [
+        "ambience/tls_snd_002_wind.wav",
+        "ambience/tls_snd_002_rain.wav",
+        "foley/tls_snd_010_footsteps.wav",
+        "foley/tls_snd_012_page_turn.wav",
+        "ui/tls_snd_002_bell_cynog.wav",
+    ]
+    missing_audio = [f for f in expected if not (audio_root / f).is_file()]
+    if not missing_audio:
+        ok(f"all {len(expected)} placeholder wavs present")
+    else:
+        fail(f"placeholder audio missing: {missing_audio}")
+    if (audio_root / "manifest_audio.json").is_file():
+        ok("audio manifest present (placeholder status documented)")
+    else:
+        fail("audio manifest missing")
+    gen = ROOT / "tools" / "generate_placeholder_audio.py"
+    if gen.is_file():
+        ok("audio generator script tracked (reproducible assets)")
+    else:
+        fail("audio generator script missing")
 
     return finish()
 

@@ -1,8 +1,9 @@
-// THE LAST SIN: The Sin-Eater - M0
-// TLSCharacter: temporary blockout stand-in for Edmund Vale (175 cm).
+// THE LAST SIN: The Sin-Eater - M1
+// TLSCharacter: blockout stand-in for Edmund Vale (175 cm).
 // Movement contract per MILESTONE_PLAN M0: walk / run / crouch - NO jump.
-// Enhanced Input (KB+M and gamepad), with the mapping context and input
-// actions built entirely in code (no .uasset input files required).
+// M1 additions: interaction / UI input (E interact, J journal, Esc cancel,
+// R restore page, 1-9 selection) forwarded to the village game mode.
+// Enhanced Input (KB+M and gamepad), built entirely in code (no .uasset).
 
 #pragma once
 

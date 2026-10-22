@@ -2,6 +2,8 @@
 
 #include "TLSCharacter.h"
 
+#include "TLSVillageGameMode.h"
+
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -106,6 +108,30 @@ void ATLSCharacter::BuildInputAssets()
         CrouchAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Crouch"));
         CrouchAction->ValueType = EInputActionValueType::Boolean;
 
+        // --- M1 interaction / UI actions ---
+        InteractAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Interact"));
+        InteractAction->ValueType = EInputActionValueType::Boolean;
+
+        JournalAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Journal"));
+        JournalAction->ValueType = EInputActionValueType::Boolean;
+
+        CancelAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Cancel"));
+        CancelAction->ValueType = EInputActionValueType::Boolean;
+
+        RestoreAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Restore"));
+        RestoreAction->ValueType = EInputActionValueType::Boolean;
+
+        const FKey DigitKeys[9] = {
+                EKeys::One, EKeys::Two, EKeys::Three, EKeys::Four, EKeys::Five,
+                EKeys::Six, EKeys::Seven, EKeys::Eight, EKeys::Nine
+        };
+        for (int32 I = 0; I < 9; ++I)
+        {
+                UInputAction* DigitAction = NewObject<UInputAction>(this, *FString::Printf(TEXT("IA_TLS_Digit%d"), I + 1));
+                DigitAction->ValueType = EInputActionValueType::Boolean;
+                DigitActions.Add(DigitAction);
+        }
+
         // --- Mapping context: keyboard + mouse ---
         DefaultContext = NewObject<UInputMappingContext>(this, TEXT("IMC_TLS_Default"));
 
@@ -122,6 +148,16 @@ void ATLSCharacter::BuildInputAssets()
         DefaultContext->MapKey(RunAction, EKeys::LeftShift);
         DefaultContext->MapKey(CrouchAction, EKeys::C);
 
+        // M1: E interact, J journal, Esc cancel, R restore, 1-9 select.
+        DefaultContext->MapKey(InteractAction, EKeys::E);
+        DefaultContext->MapKey(JournalAction, EKeys::J);
+        DefaultContext->MapKey(CancelAction, EKeys::Escape);
+        DefaultContext->MapKey(RestoreAction, EKeys::R);
+        for (int32 I = 0; I < 9; ++I)
+        {
+                DefaultContext->MapKey(DigitActions[I], DigitKeys[I]);
+        }
+
         // --- Mapping context: gamepad ---
         // Sticks are signed axes: no negate modifiers needed.
         DefaultContext->MapKey(MoveForwardAction, EKeys::Gamepad_LeftY);
@@ -130,6 +166,9 @@ void ATLSCharacter::BuildInputAssets()
         DefaultContext->MapKey(LookUpAction, EKeys::Gamepad_RightY);
         DefaultContext->MapKey(RunAction, EKeys::Gamepad_FaceButton_Bottom);
         DefaultContext->MapKey(CrouchAction, EKeys::Gamepad_LeftThumbstick);
+        DefaultContext->MapKey(InteractAction, EKeys::Gamepad_FaceButton_Right);
+        DefaultContext->MapKey(JournalAction, EKeys::Gamepad_FaceButton_Left);
+        DefaultContext->MapKey(CancelAction, EKeys::Gamepad_Special_Right);
 
         UE_LOG(LogTemp, Log, TEXT("[M0] TLSCharacter: Enhanced Input context built (KB+M and gamepad)."));
 }
@@ -194,8 +233,26 @@ void ATLSCharacter::BindInputActions()
         EnhancedInput->BindAction(CrouchAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_CrouchStart);
         EnhancedInput->BindAction(CrouchAction, ETriggerEvent::Completed, this, &ATLSCharacter::Input_CrouchEnd);
 
+        EnhancedInput->BindAction(InteractAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Interact);
+        EnhancedInput->BindAction(JournalAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Journal);
+        EnhancedInput->BindAction(CancelAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Cancel);
+        EnhancedInput->BindAction(RestoreAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Restore);
+
+        void (ATLSCharacter::*DigitHandlers[9])(const FInputActionValue&) = {
+                &ATLSCharacter::Input_Digit1, &ATLSCharacter::Input_Digit2, &ATLSCharacter::Input_Digit3,
+                &ATLSCharacter::Input_Digit4, &ATLSCharacter::Input_Digit5, &ATLSCharacter::Input_Digit6,
+                &ATLSCharacter::Input_Digit7, &ATLSCharacter::Input_Digit8, &ATLSCharacter::Input_Digit9
+        };
+        for (int32 I = 0; I < 9; ++I)
+        {
+                if (DigitActions.IsValidIndex(I) && DigitActions[I])
+                {
+                        EnhancedInput->BindAction(DigitActions[I], ETriggerEvent::Started, this, DigitHandlers[I]);
+                }
+        }
+
         bInputBound = true;
-        UE_LOG(LogTemp, Log, TEXT("[M0] TLSCharacter: input bound (move/look/run/crouch)."));
+        UE_LOG(LogTemp, Log, TEXT("[TLS] TLSCharacter: input bound (move/look/run/crouch + interact/UI)."));
 }
 
 void ATLSCharacter::Input_MoveForward(const FInputActionValue& Value)
@@ -256,3 +313,54 @@ void ATLSCharacter::Input_CrouchEnd(const FInputActionValue& Value)
 {
         UnCrouch(false);
 }
+
+
+// ------------------------------------------------------------------ M1 interaction
+
+ATLSVillageGameMode* ATLSCharacter::GetVillageGameMode() const
+{
+        UWorld* World = GetWorld();
+        return World ? Cast<ATLSVillageGameMode>(World->GetAuthGameMode()) : nullptr;
+}
+
+void ATLSCharacter::Input_Interact(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnInteractPressed();
+        }
+}
+
+void ATLSCharacter::Input_Journal(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnJournalToggle();
+        }
+}
+
+void ATLSCharacter::Input_Cancel(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnCancelPressed();
+        }
+}
+
+void ATLSCharacter::Input_Restore(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnRestorePressed();
+        }
+}
+
+void ATLSCharacter::Input_Digit1(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(1); } }
+void ATLSCharacter::Input_Digit2(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(2); } }
+void ATLSCharacter::Input_Digit3(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(3); } }
+void ATLSCharacter::Input_Digit4(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(4); } }
+void ATLSCharacter::Input_Digit5(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(5); } }
+void ATLSCharacter::Input_Digit6(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(6); } }
+void ATLSCharacter::Input_Digit7(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(7); } }
+void ATLSCharacter::Input_Digit8(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(8); } }
+void ATLSCharacter::Input_Digit9(const FInputActionValue& Value) { if (ATLSVillageGameMode* GM = GetVillageGameMode()) { GM->OnDigitPressed(9); } }
