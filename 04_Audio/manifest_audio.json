@@ -1,0 +1,50 @@
+{
+  "schema": "tls.audio.placeholder.v1",
+  "note": "PLACEHOLDER set - procedurally synthesized (stdlib only). Final ambience/foley is an M3 concern. In-engine runtime equivalent: TLSProceduralAudio (USoundWaveProcedural).",
+  "generated_by": "tools/generate_placeholder_audio.py",
+  "sample_rate": 44100,
+  "channels": 1,
+  "format": "16-bit PCM",
+  "files": [
+    {
+      "path": "ambience/tls_snd_002_wind.wav",
+      "asset": "TLS-SND-002",
+      "note": "wind ambience placeholder (loopable layer 1)",
+      "status": "generated",
+      "bytes": 529244,
+      "seconds": 6.0
+    },
+    {
+      "path": "ambience/tls_snd_002_rain.wav",
+      "asset": "TLS-SND-002",
+      "note": "rain ambience placeholder (loopable layer 2)",
+      "status": "generated",
+      "bytes": 529244,
+      "seconds": 6.0
+    },
+    {
+      "path": "foley/tls_snd_010_footsteps.wav",
+      "asset": "TLS-SND-010",
+      "note": "stone footstep placeholder",
+      "status": "generated",
+      "bytes": 30912,
+      "seconds": 0.35
+    },
+    {
+      "path": "foley/tls_snd_012_page_turn.wav",
+      "asset": "TLS-SND-012",
+      "note": "ledger page turn placeholder",
+      "status": "generated",
+      "bytes": 70604,
+      "seconds": 0.8
+    },
+    {
+      "path": "ui/tls_snd_002_bell_cynog.wav",
+      "asset": "TLS-SND-002",
+      "note": "St. Cynog's bell placeholder (ambience layer)",
+      "status": "generated",
+      "bytes": 211724,
+      "seconds": 2.4
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "schema": "tls.evidence.v1",
+  "slice": "M1 vertical slice - Day 1 (C1 complete) + Day 2 opening (C2 start)",
+  "evidence": [
+    {
+      "id": "EVD-GRAVE",
+      "name": "The Burial Register Entry",
+      "description": "St. Cynog's register, Josiah Vale: 'decline of years'. Dr Bellamy's hand, dated three days before the burial.",
+      "examine_detail": "The ink is Bellamy's, but the phrasing is not a doctor's. 'Decline of years' for a man who walked the moor road weekly. Someone chose the words for him.",
+      "type": "documentary",
+      "reliability": 0.7,
+      "day_acquired": 1,
+      "source": "St. Cynog's churchyard - the open register"
+    },
+    {
+      "id": "EVD-DISH",
+      "name": "The Untouched Sin-Dish",
+      "description": "The bread and salt plate found whole beside the boundary stone. A sin-eater's fee, refused.",
+      "examine_detail": "The crust is dry but unbroken. Salt still crusted in the ring. No animal has touched it - even the crows keep away from this one. He set it down and walked away from his own rite.",
+      "type": "physical",
+      "reliability": 0.9,
+      "day_acquired": 1,
+      "source": "Boundary stone Tŷ Uchel, the north road"
+    },
+    {
+      "id": "EVD-LEDGER",
+      "name": "The Register of Sins",
+      "description": "Father's ledger, shut with seventeen cheap locks. The book the whole valley is afraid of.",
+      "examine_detail": "Seventeen locks, each cheaper than the last - a farmer's padlocks, a saddle-lock, ahasp of bent nail. Locks bought one at a time, over years. The book was never meant to open again.",
+      "type": "physical",
+      "reliability": 0.95,
+      "day_acquired": 1,
+      "source": "The sin-eater's cottage - under the engraving table"
+    },
+    {
+      "id": "EVD-RITE-PAPER",
+      "name": "The Rite Paper",
+      "description": "The sin-eating formula in Father's hand, with Welsh corrections in a second, older hand.",
+      "examine_detail": "Bread, salt, and the spoken Welsh. The corrections are Nan Llewelyn's - he could not write the old words alone. The final line is crossed out and rewritten: the rite as this village performs it is not quite the rite of the books.",
+      "type": "documentary",
+      "reliability": 0.8,
+      "day_acquired": 1,
+      "source": "The sin-eater's cottage - the shelf above the hearth"
+    },
+    {
+      "id": "EVD-TORN-PAGE",
+      "name": "The Torn First Page",
+      "description": "A page torn from the ledger's beginning. The tear is old; the hiding is not.",
+      "examine_detail": "Restored under charcoal and weight: a column of names begins - Nott, Coles, Prosser... and a marginal note in Father's hand: 'The bread stayed on the stone.'",
+      "type": "documentary",
+      "reliability": 0.75,
+      "day_acquired": 1,
+      "restorable": true,
+      "source": "The sin-eater's cottage - beneath the floor stone"
+    },
+    {
+      "id": "EVD-COLES-RITE",
+      "name": "Coles on the Last Months",
+      "description": "The gravedigger's account: Josiah stopped answering the night calls this past spring.",
+      "examine_detail": "A sworn shape, not a sworn statement: Coles will say it under the churchyard yew, not on paper. Still - he has no reason to lie about the man he buried.",
+      "type": "testimonial",
+      "reliability": 0.55,
+      "day_acquired": 1,
+      "source": "Bedwyr Coles, gravedigger"
+    },
+    {
+      "id": "EVD-GWEN-GUINEA",
+      "name": "Gwendolyn on the Paper of '39",
+      "description": "The innkeeper's admission: a settlement paper with seventeen names exists, and hers is one of them.",
+      "examine_detail": "She does not have the paper - 'the bank of the counter and the bottom of my heart' is where she keeps hers. But the count she gives is precise: seventeen guineas, seventeen names, one October night in 1839.",
+      "type": "testimonial",
+      "reliability": 0.6,
+      "day_acquired": 1,
+      "source": "Gwendolyn Meredith, the Black Ram (trust 20)"
+    },
+    {
+      "id": "EVD-GWEN-LASTNIGHT",
+      "name": "The Last Tray",
+      "description": "Gwendolyn prepared Josiah's nightly brandy herself, four nights before his death. The bottle came by Griffiths' boy, with the doctor's blessing.",
+      "examine_detail": "An ordinary kindness with an odd pedigree: the bottle's path ran Squire's agent, then doctor, then tray. She remembers the boy's gloves were too fine for a miner's son.",
+      "type": "testimonial",
+      "reliability": 0.65,
+      "day_acquired": 1,
+      "source": "Gwendolyn Meredith, the Black Ram"
+    },
+    {
+      "id": "EVD-CRANE-SERMON",
+      "name": "The Spring Sermon Line",
+      "description": "Rev. Crane, since spring: 'This village dwells in sin.' Preached before any death, after he read the strangeness of the 1839 burial register.",
+      "examine_detail": "A preacher's opinion - but the dating matters. He named the sickness months before the first man died of it, and he read the same register I now hold.",
+      "type": "hearsay",
+      "reliability": 0.35,
+      "day_acquired": 1,
+      "source": "Rev. Silas Crane, St. Cynog's"
+    },
+    {
+      "id": "EVD-COLES-HUNGER",
+      "name": "Coles' 'Hunger'",
+      "description": "The gravedigger's whisper: 'It is the Hunger come back, mark me.' Folk fear, not fact.",
+      "examine_detail": "The village's oldest story, worn smooth as a river stone: the shadow of sins uneaten. Useful to the frightened. Worthless to a magistrate.",
+      "type": "hearsay",
+      "reliability": 0.2,
+      "day_acquired": 1,
+      "source": "Bedwyr Coles, churchyard"
+    },
+    {
+      "id": "EVD-SINLIST",
+      "name": "The Restored List",
+      "description": "The ledger's first page, restored: the names of 1839 in Josiah's iron hand, each beside a line of sin.",
+      "examine_detail": "Nott - 'ate the orphan's bread.' Coles - 'the ring.' Prosser - 'the silenced bell.' And thirteen more lines the charcoal has not yet fully raised.",
+      "type": "documentary",
+      "reliability": 0.85,
+      "day_acquired": 1,
+      "source": "insight:INS-SINLIST"
+    },
+    {
+      "id": "EVD-NOTT-BODY",
+      "name": "The Miller's Death - Scene Notes",
+      "description": "Tobias Nott, dead across his own scale-board. Mouth packed with salt. My sketches and measurements of the mill floor.",
+      "examine_detail": "No wound. Flour in his lungs from the struggle to breathe through the salt - he drowned in dry ground. The scale weights sit level; the man does not.",
+      "type": "physical",
+      "reliability": 0.85,
+      "day_acquired": 2,
+      "source": "The mill on Afon Ddu - the floor"
+    },
+    {
+      "id": "EVD-SALT-SACK",
+      "name": "The Miller's Salt Sack",
+      "description": "Coarse salt from the mill's own stores - the same grain that packed the dead man's mouth.",
+      "examine_detail": "Bay salt, mill-bought, damp from the river air. The sack sits open by the door as if set down in haste - or in contempt.",
+      "type": "physical",
+      "reliability": 0.7,
+      "day_acquired": 2,
+      "source": "The mill - by the door"
+    },
+    {
+      "id": "EVD-SCALE-WEIGHTS",
+      "name": "The Tampered Weights",
+      "description": "The mill's counter-weights: hollowed, packed with tallow. Every poorhouse sack weighed light for years.",
+      "examine_detail": "Drilled from beneath, plugged with wax, blackened to match. Nott defrauded the poorest mouths in the parish - and the parish paid him in silence to keep doing it.",
+      "type": "physical",
+      "reliability": 0.9,
+      "day_acquired": 2,
+      "source": "The mill - the scale-board"
+    },
+    {
+      "id": "EVD-FOOTPRINTS",
+      "name": "Prints by the Wheel-Race",
+      "description": "Small, bare footprints in the river mud below the wheel. A child's size - or a slight woman's.",
+      "examine_detail": "Heel-deep at the race's edge where only someone who knows the sluice would stand. The prints come from the water side and return to it. Not a ghost's path: a worker's.",
+      "type": "physical",
+      "reliability": 0.6,
+      "day_acquired": 2,
+      "source": "The mill - the wheel-race mud"
+    },
+    {
+      "id": "EVD-COLES-FRAUD",
+      "name": "Coles on the Miller's Fraud",
+      "description": "The gravedigger carried the poorhouse sacks: 'Nott weighed light on the orphan's bread since the hunger years.'",
+      "examine_detail": "He will not swear it - he carried the sacks, he did not read the scale. But Missus Hawke's winter count of the dead children makes the arithmetic for him.",
+      "type": "testimonial",
+      "reliability": 0.55,
+      "day_acquired": 2,
+      "source": "Bedwyr Coles, day 2"
+    }
+  ],
+  "link_rules": [
+    {
+      "id": "LNK-DISH-COLES",
+      "a": "EVD-DISH",
+      "b": "EVD-COLES-RITE",
+      "valid": true,
+      "insight": "INS-REFUSAL",
+      "note": "The witness saw the change in his habits; the plate proves the refusal. Object and testimony agree."
+    },
+    {
+      "id": "LNK-DISH-PAGE",
+      "a": "EVD-DISH",
+      "b": "EVD-TORN-PAGE",
+      "valid": true,
+      "insight": "INS-REFUSAL",
+      "note": "His own margin admits it: 'The bread stayed on the stone.'"
+    },
+    {
+      "id": "LNK-LEDGER-COLES",
+      "a": "EVD-LEDGER",
+      "b": "EVD-COLES-RITE",
+      "valid": true,
+      "insight": "INS-REFUSAL",
+      "note": "A record sealed shut, and a ritualist who stopped answering the night calls. The last sin was never eaten."
+    },
+    {
+      "id": "LNK-PAGE-GUINEA",
+      "a": "EVD-TORN-PAGE",
+      "b": "EVD-GWEN-GUINEA",
+      "valid": true,
+      "insight": "INS-SINLIST",
+      "note": "Her paper and his page count the same seventeen names."
+    },
+    {
+      "id": "LNK-RITE-GUINEA",
+      "a": "EVD-RITE-PAPER",
+      "b": "EVD-GWEN-GUINEA",
+      "valid": true,
+      "insight": "INS-SINLIST",
+      "note": "One rite bought for a whole village, one paper signed by seventeen hands."
+    },
+    {
+      "id": "LNK-PAGE-COLES",
+      "a": "EVD-TORN-PAGE",
+      "b": "EVD-COLES-RITE",
+      "valid": true,
+      "insight": "INS-SINLIST",
+      "note": "Seventeen boxes the gravedigger nailed, and one long pit by the north wall - the page counts the same dead."
+    },
+    {
+      "id": "LNK-SINLIST-BODY",
+      "a": "EVD-SINLIST",
+      "b": "EVD-NOTT-BODY",
+      "valid": true,
+      "insight": "INS-PATTERN",
+      "note": "The first to die is the first name on the restored list."
+    },
+    {
+      "id": "LNK-RITE-BODY",
+      "a": "EVD-RITE-PAPER",
+      "b": "EVD-NOTT-BODY",
+      "valid": true,
+      "insight": "INS-PATTERN",
+      "note": "Salt in the mouth of a man dead by bread-and-salt: the rite, inverted against its own sinner."
+    },
+    {
+      "id": "LNK-FRAUD-BODY",
+      "a": "EVD-COLES-FRAUD",
+      "b": "EVD-NOTT-BODY",
+      "valid": true,
+      "insight": "INS-PATTERN",
+      "note": "The miller's registered sin was eating the orphan's bread; his death was arranged as an accusation."
+    },
+    {
+      "id": "LNK-SACK-BODY",
+      "a": "EVD-SALT-SACK",
+      "b": "EVD-NOTT-BODY",
+      "valid": true,
+      "insight": "",
+      "note": "Consistent: the mouthful matches the mill's own stores. The source, not the hand."
+    },
+    {
+      "id": "LNK-TRAY-RITE",
+      "a": "EVD-GWEN-LASTNIGHT",
+      "b": "EVD-RITE-PAPER",
+      "valid": true,
+      "insight": "",
+      "note": "Consistent: the tray was his nightly custom. Nothing more - yet."
+    },
+    {
+      "id": "LNK-HUNGER-DISH",
+      "a": "EVD-COLES-HUNGER",
+      "b": "EVD-DISH",
+      "valid": false,
+      "contradiction_reason": "Folklore gives the Hunger no hands to leave a chosen thing untouched. Nothing establishes it exists at all."
+    },
+    {
+      "id": "LNK-HUNGER-FOOT",
+      "a": "EVD-COLES-HUNGER",
+      "b": "EVD-FOOTPRINTS",
+      "valid": false,
+      "contradiction_reason": "The prints are human, small, and bare. Folklore gives the Hunger no feet."
+    },
+    {
+      "id": "LNK-SERMON-WEIGHTS",
+      "a": "EVD-CRANE-SERMON",
+      "b": "EVD-SCALE-WEIGHTS",
+      "valid": false,
+      "contradiction_reason": "Tampered weights are theft discovered; a sermon is an opinion about sin. One cannot weigh the other."
+    }
+  ],
+  "insights": [
+    {
+      "id": "INS-REFUSAL",
+      "name": "A Refused Sin",
+      "description": "Josiah Vale died refusing to eat a final sin. The locked ledger, the untouched plate, and his broken habit of the night calls all say the same thing: someone asked, and he said no.",
+      "link_paths": [
+        ["LNK-DISH-COLES"],
+        ["LNK-DISH-PAGE"],
+        ["LNK-LEDGER-COLES"]
+      ],
+      "requires_examined": []
+    },
+    {
+      "id": "INS-SINLIST",
+      "name": "The List of the Silence",
+      "description": "In 1839 this village paid seventeen guineas for seventeen signatures of silence. The ledger is the debt book of the drowned.",
+      "link_paths": [
+        ["LNK-PAGE-GUINEA"],
+        ["LNK-RITE-GUINEA"],
+        ["LNK-PAGE-COLES"]
+      ],
+      "requires_examined": ["EVD-TORN-PAGE"]
+    },
+    {
+      "id": "INS-PATTERN",
+      "name": "The First Death Follows a Registered Sin",
+      "description": "Nott's death at the mill was staged as an accusation: salt in the mouth of the man whose registered sin was eating the orphan's bread. The register is being read aloud by someone - in flesh, not in spirit.",
+      "link_paths": [
+        ["LNK-SINLIST-BODY"],
+        ["LNK-RITE-BODY"],
+        ["LNK-FRAUD-BODY"]
+      ],
+      "requires_examined": ["EVD-NOTT-BODY"]
+    }
+  ]
+}

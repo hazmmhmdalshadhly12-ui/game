@@ -1,0 +1,72 @@
+{
+  "schema": "tls.dialogue.v1",
+  "id": "DLG-MAIR-C1",
+  "npc": "CHR-06",
+  "root": "ROOT",
+  "nodes": [
+    {
+      "id": "ROOT",
+      "speaker": "CHR-06",
+      "text": "She does not look up from the pot she is scouring. After a moment, flat, in Welsh: [w1:Bore da].",
+      "on_enter": { "set_flags": { "MET_MAIR": 1 } },
+      "choices": [
+        {
+          "id": "M1",
+          "tone": "gentle",
+          "text": "I don't speak Welsh, I'm afraid. But good morning to you.",
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_LOOK"
+        },
+        {
+          "id": "M2",
+          "tone": "formal",
+          "text": "You're the kitchen girl. Cardiff, Mrs Meredith says. You've come far for scouring pots.",
+          "next": "NODE_CARDIFF"
+        },
+        {
+          "id": "M3",
+          "tone": "pressing",
+          "text": "Look at me when I'm speaking to you.",
+          "effects": { "trust_delta": -3 },
+          "next": "NODE_LOOKAWAY"
+        },
+        {
+          "id": "M4",
+          "tone": "silent",
+          "text": "(Take the bread she nudges toward you along the board. Eat in silence.)",
+          "next": "NODE_BREAD"
+        }
+      ]
+    },
+    {
+      "id": "NODE_LOOK",
+      "speaker": "CHR-06",
+      "text": "She looks up then - grey eyes that take inventory and file it. A rope scar, old and white, crosses her right palm. 'You have his hands,' she says. Not the face. The hands. Then the pot has her attention again, and the conversation, such as it was, is over.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_CARDIFF",
+      "speaker": "CHR-06",
+      "text": "'Aye.' A single syllable, closed like a drawer. The scouring resumes. Her accent, you notice, is not Cardiganshire - the vowels are valley vowels, local ones, worn thin and hidden like a coin under a floorboard.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_LOOKAWAY",
+      "speaker": "CHR-06",
+      "text": "She sets the pot down. Turns. Looks at you - not at your eyes the way people do, but at your hands, your coat seams, the engraving tools printed through the canvas of your bag. It goes on one full breath too long. Then she turns back to the pot, and the kitchen is louder for it.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_BREAD",
+      "speaker": "CHR-06",
+      "text": "You eat. She does not look at you once, but the bread is warm, and it is the best bread in the house, and she has never once sold it at the morning counter. '[w1:Diolch],' she says, to the pot. Thanks. For nothing in particular. For everything, maybe.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_END",
+      "speaker": "CHR-06",
+      "text": "The kitchen closes around its own quiet. Somewhere above, the inn goes on being an inn.",
+      "next": ""
+    }
+  ]
+}

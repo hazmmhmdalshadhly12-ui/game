@@ -1,0 +1,168 @@
+{
+  "schema": "tls.dialogue.v1",
+  "id": "DLG-GWENDOLYN-C1",
+  "npc": "CHR-03",
+  "root": "ROOT",
+  "nodes": [
+    {
+      "id": "ROOT",
+      "speaker": "CHR-03",
+      "text": "Mr Vale. The London coat, is it? You'll be the small room under the eaves tonight - your father's kettle is still on its hook. What can I bring you first?",
+      "on_enter": { "set_flags": { "MET_GWENDOLYN": 1 } },
+      "choices": [
+        {
+          "id": "G01",
+          "tone": "gentle",
+          "text": "A pot of tea - and whatever you remember of him.",
+          "effects": { "trust_delta": 2 },
+          "next": "NODE_MEMORY"
+        },
+        {
+          "id": "G02",
+          "tone": "formal",
+          "text": "Information, Mrs Meredith. Who stood the ground this morning?",
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_ATTENDANCE"
+        },
+        {
+          "id": "G03",
+          "tone": "pressing",
+          "text": "You knew him better than any of them. You'll tell me what this village buried today.",
+          "effects": { "trust_delta": -2 },
+          "next": "NODE_PRESSED"
+        },
+        {
+          "id": "G04",
+          "tone": "gentle",
+          "text": "[ Present the untouched sin-dish ]",
+          "present_evidence": "EVD-DISH",
+          "reaction": "accept",
+          "conditions": { "has_evidence": ["EVD-DISH"] },
+          "effects": { "trust_delta": 3, "tension_delta": 0.5 },
+          "next": "NODE_DISH"
+        },
+        {
+          "id": "G05",
+          "tone": "formal",
+          "text": "I'll take the room. And the silence, if that's what's on offer.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_MEMORY",
+      "speaker": "CHR-03",
+      "text": "Tea, then. He sat there - that corner bench, every market day for eighteen years. Paid his shot to the penny, spoke to nobody past the weather. Four nights past he took his brandy from my tray like always, and I'd swear on Ifor's head the man already had one foot in the churchyard. 'Night, Gwen,' he says. Not 'good night'. Just 'night'.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_ATTENDANCE",
+      "speaker": "CHR-03",
+      "text": "Six, counting you. Six and the reverend, who made it brief - I've heard him preach harder over a christening. The ground was wet, the guineas are gone, and this village buried its sin-eater the way it lived with him: at arm's length, upwind.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_PRESSED",
+      "speaker": "CHR-03",
+      "text": "You'll not press me, boy. I buried a husband out of that mine while your father ate the parish's guilt for supper. Ask your questions gently or take them somewhere else - the door is behind you and the fog is patient.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_DISH",
+      "speaker": "CHR-03",
+      "text": "Mary and Joseph keep us... whole. The salt still crusted in the ring. Seventeen years I poured that man's brandy and he never once left a fee on a plate. Whatever was asked of him at the end - he refused it. And now I've said it aloud, and I'll not sleep for it.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_HUB",
+      "speaker": "CHR-03",
+      "text": "The kettle's still warm. What else, cariad?",
+      "choices": [
+        {
+          "id": "H1",
+          "tone": "gentle",
+          "text": "The last tray - who sent the brandy he drank that night?",
+          "conditions": { "flags": { "TOP_LASTNIGHT": 0 } },
+          "effects": { "trust_delta": 1, "set_flags": { "TOP_LASTNIGHT": 1 }, "give_evidence": ["EVD-GWEN-LASTNIGHT"] },
+          "next": "NODE_LASTNIGHT"
+        },
+        {
+          "id": "H2",
+          "tone": "gentle",
+          "text": "The paper of '39. The one with the names on it.",
+          "conditions": { "flags": { "TOP_GUINEA": 0 }, "trust_min": 20 },
+          "effects": { "trust_delta": 1, "set_flags": { "TOP_GUINEA": 1 }, "give_evidence": ["EVD-GWEN-GUINEA"] },
+          "next": "NODE_GUINEA"
+        },
+        {
+          "id": "H3",
+          "tone": "formal",
+          "text": "The silent girl in your kitchen - the one from Cardiff, they say.",
+          "conditions": { "flags": { "TOP_MAIR": 0 } },
+          "effects": { "set_flags": { "TOP_MAIR": 1 } },
+          "next": "NODE_MAIR"
+        },
+        {
+          "id": "H4",
+          "tone": "formal",
+          "text": "[ Present the locked ledger ]",
+          "present_evidence": "EVD-LEDGER",
+          "reaction": "accept",
+          "conditions": { "has_evidence": ["EVD-LEDGER"], "flags": { "TOP_LEDGER": 0 } },
+          "effects": { "trust_delta": 1, "set_flags": { "TOP_LEDGER": 1 } },
+          "next": "NODE_LEDGER"
+        },
+        {
+          "id": "H5",
+          "tone": "gentle",
+          "text": "The mill - they've stopped the wheel. What's the word on the path?",
+          "conditions": { "day_min": 2, "flags": { "TOP_MILL2": 0 } },
+          "effects": { "set_flags": { "TOP_MILL2": 1 } },
+          "next": "NODE_MILL2"
+        },
+        {
+          "id": "H6",
+          "tone": "formal",
+          "text": "Nothing else. Thank you, Mrs Meredith.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_LASTNIGHT",
+      "speaker": "CHR-03",
+      "text": "I poured it myself - his custom, four nights running, a small brandy with the laudanum the doctor allows old bones. But the bottle wasn't mine. Griffiths' boy carried it in with the coal, said it came by the doctor's instruction... and I remember thinking the boy's gloves were too fine for a miner's son.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_GUINEA",
+      "speaker": "CHR-03",
+      "text": "You've a right to ask - you've his eyes and you ask like a man counting. There was a paper, October of '39. Seventeen names, seventeen guineas, one quiet night after the water went down. Mine's on it - Gwendolyn Meredith, and God help me, Ifor's schooling came out of it. The paper still exists. That's all I'll swear to you tonight.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_MAIR",
+      "speaker": "CHR-03",
+      "text": "Mair. Came to me fifteen months back with a Cardigan accent and not a reference to her name. Cooks better than her silence suggests, keeps her tongue behind her teeth, and if she's got a story, it's hers - I don't buy people's pasts, Mr Vale, only their work.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_LEDGER",
+      "speaker": "CHR-03",
+      "text": "The book... He showed me the box once, years back. Seventeen locks, he said, and the keyhole count matters more than the key. I laughed then. I don't now. Whatever's in it, he weighed it against every coin this valley ever paid him - and he kept it anyway.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_MILL2",
+      "speaker": "CHR-03",
+      "text": "They're saying Nott's dead in his own flour with his mouth full of salt. The men on the path say 'the Hunger' under their breath like it's catching. I've shut the shutters and told Ifor to stay where the lamps are. Go carefully, Mr Vale - that crowd out there wants a ghost, and it'll take a man's neck if the ghost is slow.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_END",
+      "speaker": "CHR-03",
+      "text": "Stairs are to the left, mind the fourth step. And Mr Vale... your father asked after you, at the end. Out loud, to the fire. I thought you'd want that, and I thought you'd want to hit something for it. Both, likely.",
+      "next": ""
+    }
+  ]
+}

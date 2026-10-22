@@ -1,0 +1,143 @@
+{
+  "schema": "tls.quests.v1",
+  "slice": "M1 vertical slice - Day 1 (C1) + Day 2 opening (C2)",
+  "quests": [
+    {
+      "id": "Q-M-C1",
+      "title": "The Burial and the Dish",
+      "chapter": "C1",
+      "day_window_min": 1,
+      "day_window_max": 1,
+      "auto_start": true,
+      "objectives": [
+        {
+          "id": "OBJ-C1-FUNERAL",
+          "description": "Attend the burial at St. Cynog's churchyard.",
+          "optional": false,
+          "tasks": [
+            { "type": "reach", "target": "AREA-CHURCHYARD" },
+            { "type": "observe", "target": "EVD-GRAVE" }
+          ]
+        },
+        {
+          "id": "OBJ-C1-DISH",
+          "description": "Find what remains at the boundary stone.",
+          "optional": false,
+          "tasks": [
+            { "type": "reach", "target": "AREA-BOUNDARY" },
+            { "type": "collect", "target": "EVD-DISH" }
+          ]
+        },
+        {
+          "id": "OBJ-C1-COTTAGE",
+          "description": "Take possession of the sin-eater's cottage - and what it hides.",
+          "optional": false,
+          "tasks": [
+            { "type": "reach", "target": "AREA-COTTAGE" },
+            { "type": "collect", "target": "EVD-LEDGER" },
+            { "type": "collect", "target": "EVD-RITE-PAPER" },
+            { "type": "collect", "target": "EVD-TORN-PAGE" }
+          ]
+        },
+        {
+          "id": "OBJ-C1-VILLAGE",
+          "description": "Learn what the village remembers of him - the Black Ram keeps its ears open.",
+          "optional": false,
+          "tasks": [
+            { "type": "flag", "target": "MET_GWENDOLYN", "value": 1 }
+          ]
+        },
+        {
+          "id": "OBJ-C1-TABLE",
+          "description": "Set up the father's table: restore the torn page, examine dish, ledger and page.",
+          "optional": false,
+          "tasks": [
+            { "type": "restore", "target": "EVD-TORN-PAGE" },
+            { "type": "inspect", "target": "EVD-DISH" },
+            { "type": "inspect", "target": "EVD-LEDGER" },
+            { "type": "inspect", "target": "EVD-TORN-PAGE" }
+          ]
+        },
+        {
+          "id": "OBJ-C1-BOARD",
+          "description": "Draw the first conclusions on the ledger board.",
+          "optional": false,
+          "tasks": [
+            { "type": "insight", "target": "INS-REFUSAL" },
+            { "type": "insight", "target": "INS-SINLIST" }
+          ]
+        },
+        {
+          "id": "OBJ-C1-SIDE",
+          "description": "Optional: hear the priest, the gravedigger, and the silent kitchen girl.",
+          "optional": true,
+          "tasks": [
+            { "type": "flag", "target": "MET_CRANE", "value": 1 },
+            { "type": "flag", "target": "MET_COLES", "value": 1 },
+            { "type": "flag", "target": "MET_MAIR", "value": 1 }
+          ]
+        }
+      ],
+      "flags_on_complete": {
+        "FLG_LEDGER_FOUND": 1
+      }
+    },
+    {
+      "id": "Q-M-C2a",
+      "title": "The Miller and the Salt",
+      "chapter": "C2 (opening)",
+      "day_window_min": 2,
+      "day_window_max": 9,
+      "auto_start": true,
+      "objectives": [
+        {
+          "id": "OBJ-C2-SCENE",
+          "description": "Reach the mill on Afon Ddu and record the scene.",
+          "optional": false,
+          "tasks": [
+            { "type": "reach", "target": "AREA-MILL" },
+            { "type": "collect", "target": "EVD-NOTT-BODY" },
+            { "type": "observe", "target": "EVD-FOOTPRINTS" }
+          ]
+        },
+        {
+          "id": "OBJ-C2-EVID",
+          "description": "Secure the physical evidence before the crowd tramples it.",
+          "optional": false,
+          "tasks": [
+            { "type": "collect", "target": "EVD-SCALE-WEIGHTS" },
+            { "type": "collect", "target": "EVD-SALT-SACK" }
+          ]
+        },
+        {
+          "id": "OBJ-C2-TABLE",
+          "description": "Examine the scene notes and the weights on the father's table.",
+          "optional": false,
+          "tasks": [
+            { "type": "inspect", "target": "EVD-NOTT-BODY" },
+            { "type": "inspect", "target": "EVD-SCALE-WEIGHTS" }
+          ]
+        },
+        {
+          "id": "OBJ-C2-BOARD",
+          "description": "Name the pattern: the first death follows a registered sin.",
+          "optional": false,
+          "tasks": [
+            { "type": "insight", "target": "INS-PATTERN" }
+          ]
+        },
+        {
+          "id": "OBJ-C2-COLES",
+          "description": "Optional: the gravedigger knows the miller's fraud.",
+          "optional": true,
+          "tasks": [
+            { "type": "collect", "target": "EVD-COLES-FRAUD" }
+          ]
+        }
+      ],
+      "flags_on_complete": {
+        "FLG_CASE_OPENED": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "schema": "tls.dialogue.v1",
+  "id": "DLG-COLES-C1",
+  "npc": "CHR-13",
+  "root": "ROOT",
+  "nodes": [
+    {
+      "id": "ROOT",
+      "speaker": "CHR-13",
+      "text": "You're... aye, you're the son, aren't you. Same set to the shoulders. I dug his plot this morning - east corner, where the sun catches first. Ground was wet. Digging's slow in October... begging your pardon, sir, I'll stop talking about the digging.",
+      "on_enter": { "set_flags": { "MET_COLES": 1 } },
+      "choices": [
+        {
+          "id": "B1",
+          "tone": "gentle",
+          "text": "You buried him gently. Whoever else came or didn't - thank you for that.",
+          "effects": { "trust_delta": 3 },
+          "next": "NODE_BURIAL"
+        },
+        {
+          "id": "B2",
+          "tone": "formal",
+          "text": "The register says 'decline of years'. Whose hand wrote it?",
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_SIGN"
+        },
+        {
+          "id": "B3",
+          "tone": "silent",
+          "text": "(Say nothing. Let him fill the silence.)",
+          "next": "NODE_BABBLE"
+        },
+        {
+          "id": "B4",
+          "tone": "gentle",
+          "text": "[ Present the burial register entry ]",
+          "present_evidence": "EVD-GRAVE",
+          "reaction": "accept",
+          "conditions": { "has_evidence": ["EVD-GRAVE"] },
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_REGACCEPT"
+        },
+        {
+          "id": "B5",
+          "tone": "formal",
+          "text": "I'll leave you to your work, Mr Coles.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_BURIAL",
+      "speaker": "CHR-13",
+      "text": "Gently, aye. Seventeen I buried after the water came up in '39 - one long pit by the north wall, no markers but the one stone. Seventeen boxes I nailed myself, and... there was an eighteenth, sir. An empty one. Never filled it. Never burned it either. It's behind the shed if ever you want to see a thing like that.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_SIGN",
+      "speaker": "CHR-13",
+      "text": "Doctor Bellamy's hand, like all of them that autumn. He'd sign his own name 'decline' if the squire asked it kindly enough. Not that I'd know, sir. Not that I'd say. I just carry the boxes and keep the gate, and the gate keeps me.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_BABBLE",
+      "speaker": "CHR-13",
+      "text": "It's the Hunger, you know. Come back. That's what the old ones are saying - the shadow of sins uneaten, and it's picked the miller first because... because... you didn't hear it from me. I never said Hunger. I say nothing. I'm the silent sort, ask anyone.",
+      "on_enter": { "give_evidence": ["EVD-COLES-HUNGER"] },
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_REGACCEPT",
+      "speaker": "CHR-13",
+      "text": "Aye, that's the doctor's writing, sure enough - he holds his pen like a spade. Seventeen in that register for one week in '39, all the same water, all the same certainty. You can count the names if the vicar lets you touch it. Numbers don't lie, sir. People do. Numbers just get written by them.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_HUB",
+      "speaker": "CHR-13",
+      "text": "Was there... is there anything else? Only the gate wants oiling before dark.",
+      "choices": [
+        {
+          "id": "BH1",
+          "tone": "gentle",
+          "text": "His last months - did he seem himself?",
+          "conditions": { "flags": { "TOP_LASTMONTHS": 0 } },
+          "effects": { "trust_delta": 2, "set_flags": { "TOP_LASTMONTHS": 1 }, "give_evidence": ["EVD-COLES-RITE"] },
+          "next": "NODE_LASTMONTHS"
+        },
+        {
+          "id": "BH2",
+          "tone": "gentle",
+          "text": "Tell me about the Hunger - properly, not in a whisper.",
+          "conditions": { "flags": { "TOP_HUNGER": 0 }, "has_evidence": ["EVD-COLES-HUNGER"] },
+          "effects": { "set_flags": { "TOP_HUNGER": 1 } },
+          "next": "NODE_HUNGER2"
+        },
+        {
+          "id": "BH3",
+          "tone": "formal",
+          "text": "The miller's scales - did Nott weigh honest?",
+          "conditions": { "day_min": 2, "flags": { "TOP_FRAUD": 0 } },
+          "effects": { "trust_delta": 1, "set_flags": { "TOP_FRAUD": 1 }, "give_evidence": ["EVD-COLES-FRAUD"] },
+          "next": "NODE_FRAUD"
+        },
+        {
+          "id": "BH4",
+          "tone": "formal",
+          "text": "Nothing else. Thank you, Mr Coles.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_LASTMONTHS",
+      "speaker": "CHR-13",
+      "text": "Himself? No, sir, and I'll tell you plain since you asked gentle. Since spring he'd not answer the night calls. Twice I went to fetch him - plate on the sill, family waiting - and both times he sat inside with the lamp out, saying nothing till I left. And more than once of a morning, walking back from that stone of his up the moor road... troubled, sir. White. Left the bread, more than once, they do say.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_HUNGER2",
+      "speaker": "CHR-13",
+      "text": "Properly? Properly it's this: my mother's mother said the Hunger walks when a sin goes uneaten, and it walks to the sinner's door. Salt on a doorstep is an invitation, bread is a debt. The old ones know the shapes of it. I don't say I believe... I just oil the gate before dark. That's all it is. Oil.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_FRAUD",
+      "speaker": "CHR-13",
+      "text": "Honest as a fox at a hen count, sir. I carried the poorhouse sacks to his floor this year past - light as widows' promises, every one. Missus Hawke counted the mouths, Nott counted the flour, and only one of them was counting true. I'd not swear it - I carried sacks, I didn't read the scale. But there it is.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_END",
+      "speaker": "CHR-13",
+      "text": "Good night to you, sir. And - I'm glad you came back for the burying. Whatever else. Nobody should go in the ground with nobody. Even a sin-eater. Especially, maybe.",
+      "next": ""
+    }
+  ]
+}

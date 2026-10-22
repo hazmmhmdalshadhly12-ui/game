@@ -1,0 +1,140 @@
+{
+  "schema": "tls.dialogue.v1",
+  "id": "DLG-CRANE-C1",
+  "npc": "CHR-04",
+  "root": "ROOT",
+  "nodes": [
+    {
+      "id": "ROOT",
+      "speaker": "CHR-04",
+      "text": "Edmund Vale. The son returns after seventeen years - London keeps what it takes, I see. I spoke this morning over your father's ground. A thin congregation, for a man who carried so very much of this parish.",
+      "on_enter": { "set_flags": { "MET_CRANE": 1 } },
+      "choices": [
+        {
+          "id": "C01",
+          "tone": "formal",
+          "text": "You knew him, then. Truly knew him.",
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_KNEW"
+        },
+        {
+          "id": "C02",
+          "tone": "gentle",
+          "text": "A thin congregation indeed. Why does a village avoid its own dead?",
+          "effects": { "trust_delta": 1 },
+          "next": "NODE_AVOID"
+        },
+        {
+          "id": "C03",
+          "tone": "gentle",
+          "text": "[ Present the untouched sin-dish ]",
+          "present_evidence": "EVD-DISH",
+          "reaction": "deny",
+          "conditions": { "has_evidence": ["EVD-DISH"] },
+          "effects": {},
+          "next": "NODE_DISH_DENY"
+        },
+        {
+          "id": "C04",
+          "tone": "formal",
+          "text": "The burial register of 1839. I've read the entry your curate wrote.",
+          "conditions": { "has_evidence": ["EVD-GRAVE"] },
+          "effects": { "tension_delta": 0.5 },
+          "next": "NODE_REGISTER"
+        },
+        {
+          "id": "C05",
+          "tone": "formal",
+          "text": "Forgive the intrusion, Reverend. I'll leave you to the hours.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_KNEW",
+      "speaker": "CHR-04",
+      "text": "I knew OF him, which in this parish is the greater intimacy. A man who trades in other men's sins makes himself an arithmetic to the pulpit. Since spring I have preached that this village dwells in sin - and mark me, Mr Vale, I did not need a ghost to tell me. I needed only the register and a little courage, both rarer than ghosts here.",
+      "on_enter": { "give_evidence": ["EVD-CRANE-SERMON"] },
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_AVOID",
+      "speaker": "CHR-04",
+      "text": "They avoid what he reminded them of - sin, given a face and a spoon and a price. Your father was this valley's conscience kept in a cottage, Mr Vale. Cheap to pay, impossible to love. That is not my sermon; that is merely the weather of this place.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_DISH_DENY",
+      "speaker": "CHR-04",
+      "text": "Bread, Mr Vale, is bread. Untouched bread is thrift, or rats, or an old man's stomach failing - the Church does not try crumbs. You've crossed the country with a plate of superstition and you'd have me elevate it to evidence? Go and bury your father's theatrics with the man.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_REGISTER",
+      "speaker": "CHR-04",
+      "text": "The register is parish property, sir - and so is its silence. Seventeen entries in one October, all one hand, all 'accident by water'. If the hand was certain, it was certain because certainty was ordered. You'll get no amen from me today, and no indictment either.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_HUB",
+      "speaker": "CHR-04",
+      "text": "The light goes early in October. Ask what you came to ask.",
+      "choices": [
+        {
+          "id": "CH1",
+          "tone": "formal",
+          "text": "You preach of sin. Do you also keep a list of sinners?",
+          "conditions": { "flags": { "TOP_LIST": 0 } },
+          "effects": { "set_flags": { "TOP_LIST": 1 } },
+          "next": "NODE_LIST"
+        },
+        {
+          "id": "CH2",
+          "tone": "formal",
+          "text": "The tower - you keep the valley's hours from up there, they say.",
+          "conditions": { "flags": { "TOP_TOWER": 0 } },
+          "effects": { "set_flags": { "TOP_TOWER": 1 } },
+          "next": "NODE_TOWER"
+        },
+        {
+          "id": "CH3",
+          "tone": "pressing",
+          "text": "And the night the miller died - what did your tower see?",
+          "conditions": { "day_min": 2, "flags": { "TOP_TOWERNIGHT": 0 }, "knows_insight": ["INS-PATTERN"] },
+          "effects": { "set_flags": { "TOP_TOWERNIGHT": 1 } },
+          "next": "NODE_TOWER_NIGHT"
+        },
+        {
+          "id": "CH4",
+          "tone": "formal",
+          "text": "Nothing further, Reverend.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_LIST",
+      "speaker": "CHR-04",
+      "text": "I keep souls, not lists - lists are your father's trade, and look where it kept him. Though I'll say this much: a village that needs a sin-eater had best ask who is doing the sinning. The mathematics of that pulpit write themselves, Mr Vale. They always have.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_TOWER",
+      "speaker": "CHR-04",
+      "text": "From the tower I see the whole valley confess: the mill's smoke, the mine's bells, the late lanterns on the swamp road. Everything that moves in this parish moves beneath my sight. It is the one mercy of the appointment - God lent me a tall window and no company.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_TOWER_NIGHT",
+      "speaker": "CHR-04",
+      "text": "You have your father's ledger-voice, sir, and I'll thank you to leave my tower out of your arithmetic. I keep the tower's hours... to myself. The tower and I keep the valley's hours between us. Is that all?",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_END",
+      "speaker": "CHR-04",
+      "text": "Go carefully with that book you're clearly carrying, Mr Vale. A parish can forgive its sins one at a time. It cannot forgive them all at once - it hasn't the knees for it.",
+      "next": ""
+    }
+  ]
+}

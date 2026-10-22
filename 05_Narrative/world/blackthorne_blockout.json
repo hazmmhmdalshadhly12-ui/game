@@ -1,0 +1,982 @@
+{
+  "schema": "tls.world.v1",
+  "name": "Blackthorne",
+  "slice": "M1 vertical slice - D0/D1/D2/D3 + mill exterior (WORLD_REGISTRY 2)",
+  "cardinal": {
+    "river": "south",
+    "moor": "north",
+    "estate": "west",
+    "mine": "east"
+  },
+  "palette": {
+    "SLT": "#3A4550",
+    "MSS": "#5A6B4A",
+    "BRF": "#6E5340",
+    "CDL": "#E8A34D",
+    "SBL": "#7FA8C9",
+    "INK": "#1C2226",
+    "PPR": "#D9CBB2"
+  },
+  "ground": {
+    "size_m": [
+      140,
+      160
+    ],
+    "material": "MSS"
+  },
+  "areas": [
+    {
+      "id": "AREA-SQUARE",
+      "name": "Village Square",
+      "district": "D0",
+      "rect_m": [
+        0,
+        -10,
+        60,
+        60
+      ]
+    },
+    {
+      "id": "AREA-LANE",
+      "name": "The High Lane",
+      "district": "D0",
+      "rect_m": [
+        0,
+        3,
+        8,
+        110
+      ]
+    },
+    {
+      "id": "AREA-INN",
+      "name": "The Black Ram",
+      "district": "D2",
+      "rect_m": [
+        23,
+        -6,
+        18,
+        16
+      ]
+    },
+    {
+      "id": "AREA-CHURCH",
+      "name": "St. Cynog's Church",
+      "district": "D3",
+      "rect_m": [
+        8,
+        36,
+        16,
+        24
+      ]
+    },
+    {
+      "id": "AREA-CHURCHYARD",
+      "name": "The Churchyard",
+      "district": "D3",
+      "rect_m": [
+        25,
+        36,
+        18,
+        24
+      ]
+    },
+    {
+      "id": "AREA-BOUNDARY",
+      "name": "Boundary Stone Ty Uchel",
+      "district": "D0-outer",
+      "rect_m": [
+        39,
+        53,
+        14,
+        14
+      ]
+    },
+    {
+      "id": "AREA-COTTAGE",
+      "name": "The Sin-Eater's Cottage",
+      "district": "D1",
+      "rect_m": [
+        -38,
+        -51,
+        20,
+        14
+      ]
+    },
+    {
+      "id": "AREA-HOUSES",
+      "name": "Workers' Row and Gardens",
+      "district": "D11",
+      "rect_m": [
+        -28,
+        -10,
+        24,
+        36
+      ]
+    },
+    {
+      "id": "AREA-MILL",
+      "name": "The Mill on Afon Ddu",
+      "district": "D4",
+      "rect_m": [
+        21,
+        -66,
+        26,
+        20
+      ]
+    },
+    {
+      "id": "AREA-BRIDGE",
+      "name": "The Stone Bridge",
+      "district": "D0-outer",
+      "rect_m": [
+        0,
+        -60,
+        14,
+        12
+      ]
+    },
+    {
+      "id": "AREA-RIVERBANK",
+      "name": "The Washing Bank",
+      "district": "D11",
+      "rect_m": [
+        -31,
+        -67,
+        30,
+        14
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "W-01",
+      "name": "The Sin-Eater's Cottage",
+      "area": "AREA-COTTAGE",
+      "rect_m": [
+        -42,
+        -54,
+        8,
+        10
+      ],
+      "height_m": 4.2,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "low_door",
+        "one_north_window",
+        "hearth_chimney"
+      ]
+    },
+    {
+      "id": "W-02",
+      "name": "The Black Ram Inn",
+      "area": "AREA-INN",
+      "rect_m": [
+        16,
+        -12,
+        14,
+        12
+      ],
+      "height_m": 11.0,
+      "style": "inn",
+      "palette": {
+        "walls": "PPR",
+        "roof": "SLT",
+        "trim": "BRF",
+        "window_light": "CDL"
+      },
+      "features": [
+        "three_floors",
+        "carved_ram_sign",
+        "yard_and_stables"
+      ]
+    },
+    {
+      "id": "W-03",
+      "name": "St. Cynog's Church",
+      "area": "AREA-CHURCH",
+      "rect_m": [
+        2,
+        26,
+        12,
+        20
+      ],
+      "height_m": 9.0,
+      "style": "church",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK",
+        "window_light": "CDL"
+      },
+      "features": [
+        "square_tower",
+        "east_window",
+        "oak_benches"
+      ]
+    },
+    {
+      "id": "W-04",
+      "name": "The Mill",
+      "area": "AREA-MILL",
+      "rect_m": [
+        12,
+        -72,
+        14,
+        10
+      ],
+      "height_m": 6.0,
+      "style": "mill",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "BRF",
+        "wheel": "BRF"
+      },
+      "features": [
+        "water_wheel_south",
+        "scale_platform",
+        "flour sacks"
+      ]
+    },
+    {
+      "id": "W-05",
+      "name": "Capel Seion",
+      "area": "AREA-CHURCH",
+      "rect_m": [
+        -22,
+        24,
+        10,
+        14
+      ],
+      "height_m": 5.0,
+      "style": "chapel",
+      "palette": {
+        "walls": "PPR",
+        "roof": "SLT",
+        "trim": "INK"
+      },
+      "features": [
+        "plain_hall"
+      ]
+    },
+    {
+      "id": "W-06",
+      "name": "Engine House (silhouette)",
+      "area": "AREA-MILL",
+      "rect_m": [
+        52,
+        -30,
+        12,
+        14
+      ],
+      "height_m": 12.0,
+      "style": "industry",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "INK"
+      },
+      "features": [
+        "battent_frame",
+        "beyond_fence"
+      ]
+    },
+    {
+      "id": "W-08",
+      "name": "Plas Blackthorne (gate view)",
+      "area": "AREA-HOUSES",
+      "rect_m": [
+        -64,
+        4,
+        16,
+        22
+      ],
+      "height_m": 8.0,
+      "style": "estate",
+      "palette": {
+        "walls": "PPR",
+        "roof": "SLT",
+        "trim": "SLT"
+      },
+      "features": [
+        "georgian_front",
+        "beyond_wall"
+      ]
+    },
+    {
+      "id": "KIT-A-1",
+      "name": "Worker's Cottage 1",
+      "area": "AREA-HOUSES",
+      "rect_m": [
+        -36,
+        -22,
+        7,
+        9
+      ],
+      "height_m": 4.0,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "BRF"
+      },
+      "features": []
+    },
+    {
+      "id": "KIT-A-2",
+      "name": "Worker's Cottage 2",
+      "area": "AREA-HOUSES",
+      "rect_m": [
+        -27,
+        -22,
+        7,
+        9
+      ],
+      "height_m": 4.0,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "BRF"
+      },
+      "features": []
+    },
+    {
+      "id": "KIT-A-3",
+      "name": "Worker's Cottage 3",
+      "area": "AREA-HOUSES",
+      "rect_m": [
+        -36,
+        -6,
+        7,
+        9
+      ],
+      "height_m": 4.0,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "BRF"
+      },
+      "features": []
+    },
+    {
+      "id": "KIT-A-4",
+      "name": "The Bakery (Bowick)",
+      "area": "AREA-HOUSES",
+      "rect_m": [
+        -27,
+        -6,
+        7,
+        9
+      ],
+      "height_m": 4.5,
+      "style": "cottage",
+      "palette": {
+        "walls": "SLT",
+        "roof": "SLT",
+        "trim": "BRF",
+        "window_light": "CDL"
+      },
+      "features": [
+        "oven_chimney"
+      ]
+    }
+  ],
+  "props": [
+    {
+      "id": "PROP-GREAT-TREE",
+      "name": "The Great Blackthorn",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        0,
+        -10
+      ],
+      "kind": "tree"
+    },
+    {
+      "id": "PROP-WELL",
+      "name": "The Parish Well",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        -12,
+        -16
+      ],
+      "kind": "well"
+    },
+    {
+      "id": "PROP-MARKET-CROSSES",
+      "name": "Market Posts",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        10,
+        2
+      ],
+      "kind": "posts"
+    },
+    {
+      "id": "PROP-BOUNDARY-STONE",
+      "name": "Boundary Stone Ty Uchel",
+      "area": "AREA-BOUNDARY",
+      "pos_m": [
+        38,
+        52
+      ],
+      "kind": "stone"
+    },
+    {
+      "id": "PROP-JOSIAH-GRAVE",
+      "name": "Josiah Vale's Fresh Grave",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        19,
+        30
+      ],
+      "kind": "grave"
+    },
+    {
+      "id": "PROP-COMMUNAL-STONE",
+      "name": "The Communal Stone of 1839",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        25,
+        38
+      ],
+      "kind": "gravestone"
+    },
+    {
+      "id": "PROP-GRAVES-ROW",
+      "name": "Churchyard Graves",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        23,
+        28
+      ],
+      "kind": "graves_row"
+    },
+    {
+      "id": "PROP-BRIDGE",
+      "name": "The Stone Bridge",
+      "area": "AREA-BRIDGE",
+      "pos_m": [
+        0,
+        -59
+      ],
+      "kind": "bridge"
+    },
+    {
+      "id": "PROP-WHEEL-RACE",
+      "name": "The Wheel-Race",
+      "area": "AREA-MILL",
+      "pos_m": [
+        22,
+        -74
+      ],
+      "kind": "race"
+    },
+    {
+      "id": "PROP-HEDGES-W",
+      "name": "Blackthorn Hedges (west fields)",
+      "area": "AREA-HOUSES",
+      "pos_m": [
+        -38,
+        10
+      ],
+      "kind": "hedge_row"
+    },
+    {
+      "id": "PROP-HEDGES-N",
+      "name": "Blackthorn Hedges (north lane)",
+      "area": "AREA-LANE",
+      "pos_m": [
+        4,
+        46
+      ],
+      "kind": "hedge_row"
+    }
+  ],
+  "interactables": [
+    {
+      "id": "INT-GRAVE-REGISTER",
+      "kind": "observe_evidence",
+      "evidence": "EVD-GRAVE",
+      "area": "AREA-CHURCH",
+      "pos_m": [
+        16,
+        42
+      ],
+      "day": 1,
+      "note": "The register lies open on the vestry shelf by the church door."
+    },
+    {
+      "id": "INT-JOSIAH-GRAVE",
+      "kind": "flavor",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        19,
+        30
+      ],
+      "day": 1,
+      "note": "Fresh earth, no flowers, six sets of boot prints."
+    },
+    {
+      "id": "INT-DISH",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-DISH",
+      "area": "AREA-BOUNDARY",
+      "pos_m": [
+        37,
+        51
+      ],
+      "day": 1,
+      "note": "The bread and salt plate sits whole beside the boundary stone."
+    },
+    {
+      "id": "INT-LEDGER",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-LEDGER",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -41,
+        -50
+      ],
+      "day": 1,
+      "note": "A strongbox of seventeen cheap locks under the engraving table."
+    },
+    {
+      "id": "INT-RITE-PAPER",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-RITE-PAPER",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -38,
+        -53
+      ],
+      "day": 1,
+      "note": "The rite paper, curled on the shelf above the hearth."
+    },
+    {
+      "id": "INT-TORN-PAGE",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-TORN-PAGE",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -44,
+        -52
+      ],
+      "day": 1,
+      "note": "A torn page kept flat beneath the loose floor stone."
+    },
+    {
+      "id": "INT-TABLE",
+      "kind": "examine_table",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -40,
+        -51
+      ],
+      "day": 1,
+      "note": "The father's engraving table: lamp, lenses, charcoal."
+    },
+    {
+      "id": "INT-BOARD",
+      "kind": "ledger_board",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -38,
+        -50
+      ],
+      "day": 1,
+      "note": "A frame of stretched cord above the table - the deduction board."
+    },
+    {
+      "id": "INT-DESK",
+      "kind": "save_desk",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -41,
+        -49
+      ],
+      "day": 1,
+      "note": "The writing desk. Save the day's work here. (Manual save)"
+    },
+    {
+      "id": "INT-BED",
+      "kind": "bed",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -44,
+        -54
+      ],
+      "day": 1,
+      "note": "His narrow bed. Sleep when the day's work is done."
+    },
+    {
+      "id": "INT-NOTT-BODY",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-NOTT-BODY",
+      "area": "AREA-MILL",
+      "pos_m": [
+        16,
+        -67
+      ],
+      "day": 2,
+      "note": "The miller, dead across his scale-board. Record the scene."
+    },
+    {
+      "id": "INT-FOOTPRINTS",
+      "kind": "observe_evidence",
+      "evidence": "EVD-FOOTPRINTS",
+      "area": "AREA-MILL",
+      "pos_m": [
+        24,
+        -71
+      ],
+      "day": 2,
+      "note": "Small bare prints in the wheel-race mud."
+    },
+    {
+      "id": "INT-SCALE-WEIGHTS",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-SCALE-WEIGHTS",
+      "area": "AREA-MILL",
+      "pos_m": [
+        18,
+        -65
+      ],
+      "day": 2,
+      "note": "The counter-weights, hollowed and plugged with tallow."
+    },
+    {
+      "id": "INT-SALT-SACK",
+      "kind": "evidence_pickup",
+      "evidence": "EVD-SALT-SACK",
+      "area": "AREA-MILL",
+      "pos_m": [
+        13,
+        -63
+      ],
+      "day": 2,
+      "note": "A sack of coarse bay salt, open by the door."
+    }
+  ],
+  "doors": [
+    {
+      "id": "DOOR-CHAPEL",
+      "building": "W-05",
+      "locked": true,
+      "reason": "Locked. The chapel folk are at the burial - Deacon Evans keeps the key."
+    },
+    {
+      "id": "DOOR-TOWER",
+      "building": "W-03",
+      "locked": true,
+      "reason": "The tower stair is barred. Aled Wyn rings the hours and keeps the key."
+    },
+    {
+      "id": "DOOR-PLAS",
+      "building": "W-08",
+      "locked": true,
+      "reason": "A groom watches the gate. Invitation only - the Squire's, not yours."
+    },
+    {
+      "id": "DOOR-ADIT",
+      "building": "W-06",
+      "locked": true,
+      "reason": "Chained shut, paint still fresh on the boards. Griffiths' orders."
+    },
+    {
+      "id": "DOOR-CELLAR",
+      "building": "W-02",
+      "locked": true,
+      "reason": "The cellar flap is padlocked. Gwen keeps the archive behind the barrels."
+    }
+  ],
+  "npc_posts": [
+    {
+      "npc": "CHR-03",
+      "area": "AREA-INN",
+      "pos_m": [
+        24,
+        -6
+      ],
+      "day": 1
+    },
+    {
+      "npc": "CHR-04",
+      "area": "AREA-CHURCH",
+      "pos_m": [
+        8,
+        24
+      ],
+      "day": 1
+    },
+    {
+      "npc": "CHR-06",
+      "area": "AREA-INN",
+      "pos_m": [
+        29,
+        -2
+      ],
+      "day": 1
+    },
+    {
+      "npc": "CHR-13",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        22,
+        32
+      ],
+      "day": 1
+    },
+    {
+      "npc": "CHR-17",
+      "area": "AREA-INN",
+      "pos_m": [
+        19,
+        -9
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-01",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        -8,
+        -2
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-02",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        -5,
+        0
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-03",
+      "area": "AREA-RIVERBANK",
+      "pos_m": [
+        -20,
+        -68
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-04",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        8,
+        -6
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-05",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        12,
+        8
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-06",
+      "area": "AREA-CHURCH",
+      "pos_m": [
+        4,
+        22
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-07",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        14,
+        -2
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-08",
+      "area": "AREA-CHURCH",
+      "pos_m": [
+        2,
+        26
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-09",
+      "area": "AREA-CHURCHYARD",
+      "pos_m": [
+        28,
+        42
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-10",
+      "area": "AREA-HOUSES",
+      "pos_m": [
+        -30,
+        -14
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-11",
+      "area": "AREA-SQUARE",
+      "pos_m": [
+        0,
+        -8
+      ],
+      "day": 1
+    },
+    {
+      "npc": "T3-12",
+      "area": "AREA-COTTAGE",
+      "pos_m": [
+        -30,
+        -52
+      ],
+      "day": 1
+    }
+  ],
+  "paths": [
+    {
+      "id": "PATH-HIGH-LANE",
+      "points_m": [
+        [
+          0,
+          -52
+        ],
+        [
+          0,
+          58
+        ]
+      ],
+      "width_m": 5
+    },
+    {
+      "id": "PATH-CHURCH",
+      "points_m": [
+        [
+          0,
+          18
+        ],
+        [
+          8,
+          24
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-CHURCHYARD",
+      "points_m": [
+        [
+          8,
+          24
+        ],
+        [
+          20,
+          24
+        ]
+      ],
+      "width_m": 2.5
+    },
+    {
+      "id": "PATH-HOUSES",
+      "points_m": [
+        [
+          0,
+          -12
+        ],
+        [
+          -16,
+          -12
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-COTTAGE",
+      "points_m": [
+        [
+          0,
+          -30
+        ],
+        [
+          -16,
+          -40
+        ],
+        [
+          -32,
+          -50
+        ]
+      ],
+      "width_m": 2.5
+    },
+    {
+      "id": "PATH-MILL",
+      "points_m": [
+        [
+          0,
+          -46
+        ],
+        [
+          6,
+          -58
+        ],
+        [
+          14,
+          -62
+        ]
+      ],
+      "width_m": 3
+    },
+    {
+      "id": "PATH-BOUNDARY",
+      "points_m": [
+        [
+          0,
+          44
+        ],
+        [
+          16,
+          50
+        ],
+        [
+          36,
+          52
+        ]
+      ],
+      "width_m": 2.5
+    }
+  ],
+  "water": {
+    "river_name": "Afon Ddu",
+    "band_m": [
+      -70,
+      -78,
+      140,
+      16
+    ],
+    "material": "SBL"
+  },
+  "fog": {
+    "day1": "thick valley fog, visibility 60 m",
+    "day2": "rain haze, visibility 90 m"
+  }
+}

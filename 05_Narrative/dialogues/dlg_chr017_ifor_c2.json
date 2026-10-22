@@ -1,0 +1,63 @@
+{
+  "schema": "tls.dialogue.v1",
+  "id": "DLG-IFOR-C2",
+  "npc": "CHR-17",
+  "root": "ROOT",
+  "nodes": [
+    {
+      "id": "ROOT",
+      "speaker": "CHR-17",
+      "text": "Trefan! Heel! - Sorry, mister. Dog's got no manners and I've got no say over him. He's been odd all week, anyway. Odd near the mill, special.",
+      "on_enter": { "set_flags": { "MET_IFOR": 1 } },
+      "choices": [
+        {
+          "id": "I1",
+          "tone": "gentle",
+          "text": "Odd near the mill? How do you mean?",
+          "conditions": { "day_max": 1, "flags": { "TOP_TREFAN": 0 } },
+          "effects": { "trust_delta": 2, "set_flags": { "TOP_TREFAN": 1 } },
+          "next": "NODE_TREFAN"
+        },
+        {
+          "id": "I2",
+          "tone": "gentle",
+          "text": "Steady, Ifor. Breathe. Now - where, exactly?",
+          "conditions": { "day_min": 2 },
+          "effects": { "trust_delta": 2 },
+          "next": "NODE_MILL"
+        },
+        {
+          "id": "I3",
+          "tone": "formal",
+          "text": "I should get to the mill myself, before the path is all boots.",
+          "conditions": { "day_min": 2 },
+          "next": "NODE_END"
+        },
+        {
+          "id": "I4",
+          "tone": "formal",
+          "text": "Keep hold of him. Good dog, Trefan.",
+          "next": "NODE_END"
+        }
+      ]
+    },
+    {
+      "id": "NODE_TREFAN",
+      "speaker": "CHR-17",
+      "text": "Growls at the wheel-race like there's something IN the water, mister. Won't drink below the sluice, and that's a dog that'd drink out of a boot. Mam says dogs are daft. Dogs aren't daft. Daft things don't live as long as dogs do.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_MILL",
+      "speaker": "CHR-17",
+      "text": "It's the mill, mister! They've stopped the wheel - Father's gone ahead with the lantern, and there's folk gathering on the path, and they're saying - they're saying Nott's dead in his own flour. Mouth full of salt, they're saying. Will you come? They let grown men nearer than boys. I could hold the lantern. I hold it fine.",
+      "next": "NODE_END"
+    },
+    {
+      "id": "NODE_END",
+      "speaker": "CHR-17",
+      "text": "Trefan's already pulling toward the bridge. The boy follows the dog, and the dog, it seems, has already decided where everyone is meant to be this morning.",
+      "next": ""
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "schema": "tls.sim.v1",
+  "slice": "M1 - Blackthorne village state: trust, reputation, tension, schedules",
+  "weather_by_day": {
+    "1": "overcast_fog",
+    "2": "rain"
+  },
+  "tension_by_day": {
+    "1": 1.0,
+    "2": 3.0
+  },
+  "faction_spillover": {
+    "inn": { "church": -0.15 },
+    "church": { "chapel": -0.2 },
+    "chapel": { "church": -0.2 },
+    "moor": { "church": -0.1 }
+  },
+  "npcs": [
+    {
+      "id": "CHR-03",
+      "name": "Gwendolyn Meredith",
+      "tier": 1,
+      "faction": "inn",
+      "initial_trust": 15,
+      "relationship_bias": 0.35,
+      "tone_weights": { "gentle": 2, "formal": 1, "pressing": -3, "silent": 0 },
+      "visual_family": "T1-Gwen",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-INN", "activity": "kitchen and accounts", "bark": "The kettle's on, Mr Vale." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-SQUARE", "activity": "market orders", "bark": "Mind the wet cobbles." },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-INN", "activity": "the public room", "bark": "News travels with the brandy, cariad." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ],
+      "schedule_tension": [
+        { "from_hour": 7, "to_hour": 12, "zone": "AREA-INN", "activity": "kitchen", "bark": "Lock the shutters, Ifor." },
+        { "from_hour": 12, "to_hour": 16, "zone": "AREA-CHURCHYARD", "activity": "the burying ground", "bark": "Another box. Another." },
+        { "from_hour": 16, "to_hour": 22, "zone": "AREA-INN", "activity": "the public room", "bark": "Talk low. Walls are thin." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "CHR-04",
+      "name": "Rev. Silas Crane",
+      "tier": 1,
+      "faction": "church",
+      "initial_trust": -10,
+      "relationship_bias": 0.25,
+      "tone_weights": { "gentle": 0, "formal": 2, "pressing": -3, "silent": 1 },
+      "visual_family": "T1-Crane",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 9, "zone": "AREA-CHURCH", "activity": "morning prayer", "bark": "The parish keeps its hours." },
+        { "from_hour": 9, "to_hour": 13, "zone": "AREA-HOUSES", "activity": "visiting rounds", "bark": " Souls to look in on." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-CHURCH", "activity": "sermon preparation", "bark": "The pulpit waits for no man." },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-CHURCHYARD", "activity": "the tower stair", "bark": "From the tower the valley confesses." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-CHURCH", "activity": "sleep", "bark": "" }
+      ],
+      "schedule_tension": [
+        { "from_hour": 7, "to_hour": 10, "zone": "AREA-CHURCH", "activity": "prayer and fasting", "bark": "Pray. I say it plainly: pray." },
+        { "from_hour": 10, "to_hour": 16, "zone": "AREA-CHURCHYARD", "activity": "burial duty", "bark": "The register is a ledger of its own." },
+        { "from_hour": 16, "to_hour": 20, "zone": "AREA-SQUARE", "activity": "the frightened village", "bark": "Sin will out, neighbours." },
+        { "from_hour": 20, "to_hour": 22, "zone": "AREA-CHURCH", "activity": "sermon preparation", "bark": "" },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-CHURCH", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "CHR-06",
+      "name": "Mair Hughes",
+      "tier": 1,
+      "faction": "inn",
+      "initial_trust": 0,
+      "relationship_bias": 0.5,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -5, "silent": 2 },
+      "visual_family": "T1-Mair",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-INN", "activity": "kitchen, silent", "bark": "" },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-RIVERBANK", "activity": "errands by the water", "bark": "" },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-INN", "activity": "kitchen, silent", "bark": "" },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ],
+      "schedule_tension": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-INN", "activity": "kitchen, silent", "bark": "" },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-INN", "activity": "kitchen, silent", "bark": "" },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-INN", "activity": "kitchen, silent", "bark": "" },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "CHR-13",
+      "name": "Bedwyr Coles",
+      "tier": 2,
+      "faction": "church",
+      "initial_trust": 0,
+      "relationship_bias": 0.15,
+      "tone_weights": { "gentle": 2, "formal": 1, "pressing": -2, "silent": 0 },
+      "visual_family": "T2-Coles",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-CHURCHYARD", "activity": "the graves", "bark": "Ground's wet. Digging's slow." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-SQUARE", "activity": "odd jobs", "bark": "A nail wants hammering somewhere, always." },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-CHURCHYARD", "activity": "night watch", "bark": "Lantern low. Hunger hates the light." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ],
+      "schedule_tension": [
+        { "from_hour": 7, "to_hour": 12, "zone": "AREA-CHURCHYARD", "activity": "digging", "bark": "The second box this month..." },
+        { "from_hour": 12, "to_hour": 18, "zone": "AREA-CHURCHYARD", "activity": "the graves", "bark": "Don't come past dark, that's all." },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-SQUARE", "activity": "night watch, doubled", "bark": "Who goes there? ...Only you, is it." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "CHR-17",
+      "name": "Ifor Meredith",
+      "tier": 2,
+      "faction": "inn",
+      "initial_trust": 20,
+      "relationship_bias": 0.2,
+      "tone_weights": { "gentle": 3, "formal": 1, "pressing": -1, "silent": 0 },
+      "visual_family": "T2-Ifor",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-INN", "activity": "stables and boots", "bark": "Trefan smells the river before it rains, mister." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-RIVERBANK", "activity": "the dog and the water", "bark": "Trefan! Leave the eels!" },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-INN", "activity": "boots and brandy trays", "bark": "I can carry two trays. Three, near enough." },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ],
+      "schedule_tension": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-INN", "activity": "stables", "bark": "Mam says stay in when the fog comes down." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-INN", "activity": "boots", "bark": "They're saying things at the mill, mister." },
+        { "from_hour": 18, "to_hour": 22, "zone": "AREA-INN", "activity": "the public room", "bark": "" },
+        { "from_hour": 22, "to_hour": 24, "zone": "AREA-INN", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-01",
+      "name": "Sara Bowick",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -1, "silent": 0 },
+      "visual_family": "T3-A",
+      "schedule": [
+        { "from_hour": 6, "to_hour": 12, "zone": "AREA-SQUARE", "activity": "the bakehouse", "bark": "Bread's up a penny again. Up, up, up." },
+        { "from_hour": 12, "to_hour": 18, "zone": "AREA-SQUARE", "activity": "selling", "bark": "The preacher says the village dwells in sin. I say it dwells in debt." },
+        { "from_hour": 18, "to_hour": 21, "zone": "AREA-HOUSES", "activity": "home", "bark": "" },
+        { "from_hour": 21, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-02",
+      "name": "Tom Bowick",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -2, "silent": 0 },
+      "visual_family": "T3-B",
+      "schedule": [
+        { "from_hour": 5, "to_hour": 12, "zone": "AREA-SQUARE", "activity": "the oven fires", "bark": "County news comes with the flour sacks. Mostly lies." },
+        { "from_hour": 12, "to_hour": 17, "zone": "AREA-SQUARE", "activity": "deliveries", "bark": "" },
+        { "from_hour": 17, "to_hour": 20, "zone": "AREA-INN", "activity": "a pint", "bark": "The road's mud to the axle. Again." },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-03",
+      "name": "Mai Lewis",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 2, "formal": 0, "pressing": -1, "silent": 0 },
+      "visual_family": "T3-A",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-RIVERBANK", "activity": "the washing", "bark": "New mourning cloth on the Bowick girl. Third this year." },
+        { "from_hour": 13, "to_hour": 17, "zone": "AREA-HOUSES", "activity": "rounds with the laundry", "bark": "" },
+        { "from_hour": 17, "to_hour": 20, "zone": "AREA-SQUARE", "activity": "the gossip corner", "bark": "Who dressed in black at the burial? I'll tell you who mattered by their hats." },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-04",
+      "name": "Dwy Morgan",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 1, "pressing": -2, "silent": 0 },
+      "visual_family": "T3-B",
+      "schedule": [
+        { "from_hour": 8, "to_hour": 13, "zone": "AREA-SQUARE", "activity": "the shop", "bark": "Buy or browse, friend. The browsing's free. The watching's noticed." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-SQUARE", "activity": "the shop", "bark": "" },
+        { "from_hour": 18, "to_hour": 20, "zone": "AREA-HOUSES", "activity": "home", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-05",
+      "name": "Hugh Barry",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -1, "silent": 0 },
+      "visual_family": "T3-C",
+      "schedule": [
+        { "from_hour": 6, "to_hour": 12, "zone": "AREA-SQUARE", "activity": "wool at the market post", "bark": "Wool's down. Rain's up. October keeps its books." },
+        { "from_hour": 12, "to_hour": 18, "zone": "AREA-HOUSES", "activity": "the fields", "bark": "Guineas, my grandfather said. Guineas walked these lanes once." },
+        { "from_hour": 18, "to_hour": 20, "zone": "AREA-INN", "activity": "a pint", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-06",
+      "name": "Nest Barry",
+      "tier": 3,
+      "faction": "church",
+      "initial_trust": 5,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 2, "formal": 1, "pressing": -2, "silent": 0 },
+      "visual_family": "T3-A",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 12, "zone": "AREA-HOUSES", "activity": "the children and the goats", "bark": "The poorhouse children need their chalk. The school misses its ledger too." },
+        { "from_hour": 12, "to_hour": 17, "zone": "AREA-CHURCH", "activity": "the chapel wives' bench", "bark": "" },
+        { "from_hour": 17, "to_hour": 20, "zone": "AREA-HOUSES", "activity": "home", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-07",
+      "name": "Iwan Roberts",
+      "tier": 3,
+      "faction": "mine",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -1, "silent": 0 },
+      "visual_family": "T3-B",
+      "schedule": [
+        { "from_hour": 6, "to_hour": 14, "zone": "AREA-SQUARE", "activity": "waiting for the opening bell", "bark": "Wages for ghost-work, they promise. My father drowned on promises." },
+        { "from_hour": 14, "to_hour": 18, "zone": "AREA-INN", "activity": "the public room", "bark": "The new engine's a beast. Engines don't remember who they bury." },
+        { "from_hour": 18, "to_hour": 20, "zone": "AREA-HOUSES", "activity": "home", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-08",
+      "name": "Gwenfor Evans",
+      "tier": 3,
+      "faction": "church",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 2, "pressing": -2, "silent": 0 },
+      "visual_family": "T3-C",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 12, "zone": "AREA-CHURCH", "activity": "the verger's rounds", "bark": "The bell rope wants replacing. Everything wants replacing." },
+        { "from_hour": 12, "to_hour": 17, "zone": "AREA-SQUARE", "activity": "parish business", "bark": "The rector keeps his own hours. And his own opinions." },
+        { "from_hour": 17, "to_hour": 20, "zone": "AREA-CHURCH", "activity": "candles and lock-up", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-09",
+      "name": "Aled Wyn",
+      "tier": 3,
+      "faction": "church",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 1, "pressing": -2, "silent": 0 },
+      "visual_family": "T3-B",
+      "schedule": [
+        { "from_hour": 8, "to_hour": 13, "zone": "AREA-CHURCH", "activity": "the ringing room", "bark": "I ring the hours. The hours don't thank me." },
+        { "from_hour": 13, "to_hour": 18, "zone": "AREA-CHURCHYARD", "activity": "the tower look-out", "bark": "From up there you see the whole valley - everything that moves, moves small." },
+        { "from_hour": 18, "to_hour": 20, "zone": "AREA-HOUSES", "activity": "home", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-10",
+      "name": "Meredith Hawke",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 2, "formal": 1, "pressing": -1, "silent": 0 },
+      "visual_family": "T3-A",
+      "schedule": [
+        { "from_hour": 7, "to_hour": 13, "zone": "AREA-HOUSES", "activity": "the poorhouse", "bark": "Count the mouths at the poorhouse, sir, then count the flour sacks. The sums don't meet." },
+        { "from_hour": 13, "to_hour": 17, "zone": "AREA-SQUARE", "activity": "the parish ledger", "bark": "" },
+        { "from_hour": 17, "to_hour": 20, "zone": "AREA-HOUSES", "activity": "the poorhouse", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-11",
+      "name": "John Brook",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -1, "silent": 2 },
+      "visual_family": "T3-C",
+      "schedule": [
+        { "from_hour": 8, "to_hour": 18, "zone": "AREA-SQUARE", "activity": "his bench under the great tree", "bark": "" },
+        { "from_hour": 18, "to_hour": 20, "zone": "AREA-SQUARE", "activity": "the last light", "bark": "" },
+        { "from_hour": 20, "to_hour": 24, "zone": "AREA-HOUSES", "activity": "sleep", "bark": "" }
+      ]
+    },
+    {
+      "id": "T3-12",
+      "name": "Betti Jones",
+      "tier": 3,
+      "faction": "none",
+      "initial_trust": 0,
+      "relationship_bias": 0.1,
+      "tone_weights": { "gentle": 1, "formal": 0, "pressing": -2, "silent": 1 },
+      "visual_family": "T3-A",
+      "schedule": [
+        { "from_hour": 0, "to_hour": 6, "zone": "AREA-COTTAGE", "activity": "sleep", "bark": "" },
+        { "from_hour": 6, "to_hour": 8, "zone": "AREA-COTTAGE", "activity": "her window, first light", "bark": "" },
+        { "from_hour": 8, "to_hour": 12, "zone": "AREA-COTTAGE", "activity": "her window", "bark": "I see who passes. I see when, too." },
+        { "from_hour": 12, "to_hour": 17, "zone": "AREA-HOUSES", "activity": "the lane", "bark": "" },
+        { "from_hour": 17, "to_hour": 24, "zone": "AREA-COTTAGE", "activity": "her window at night", "bark": "Lanterns on the swamp road after dark. Not churchly lanterns." }
+      ]
+    }
+  ]
+}

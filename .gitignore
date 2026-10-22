@@ -3,3 +3,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+
+# standalone core-test build output (tools/core_tests/run_core_tests.sh)
+tools/core_tests/build/
