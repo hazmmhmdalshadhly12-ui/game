@@ -5,17 +5,42 @@
     "meshes": 5,
     "armatures": 1,
     "bones": 65,
-    "verts": 16083,
-    "tris": 27812,
+    "verts": 14191,
+    "tris": 27764,
     "materials": [
       "TLS_Edmund_Eye",
       "TLS_Edmund_Skin",
       "TLS_Edmund_Skin_InkedL"
     ],
-    "height_m": 1.764,
+    "height_m": 1.77,
     "bounds_z": [
       0.018,
-      1.782
+      1.788
+    ]
+  },
+  {
+    "file": "tls_chr_030_edmund_outfit_v001.fbx",
+    "import_ok": true,
+    "meshes": 7,
+    "armatures": 1,
+    "bones": 65,
+    "verts": 6414,
+    "tris": 11996,
+    "materials": [
+      "TLS_Edmund_BootLeather",
+      "TLS_Edmund_Brass",
+      "TLS_Edmund_CoatWool",
+      "TLS_Edmund_Neckcloth",
+      "TLS_Edmund_SatchelLeather",
+      "TLS_Edmund_ShirtLinen",
+      "TLS_Edmund_SoleLeather",
+      "TLS_Edmund_TrousersWool",
+      "TLS_Edmund_Waistcoat"
+    ],
+    "height_m": 1.515,
+    "bounds_z": [
+      -0.0,
+      1.515
     ]
   }
 ]

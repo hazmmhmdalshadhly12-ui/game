@@ -11,27 +11,6 @@
     "head",
     "eye.L",
     "eye.R",
-    "clavicle.R",
-    "upper_arm.R",
-    "upper_arm_twist.R",
-    "forearm.R",
-    "forearm_twist.R",
-    "hand.R",
-    "index_1.R",
-    "index_2.R",
-    "index_3.R",
-    "middle_1.R",
-    "middle_2.R",
-    "middle_3.R",
-    "ring_1.R",
-    "ring_2.R",
-    "ring_3.R",
-    "pinky_1.R",
-    "pinky_2.R",
-    "pinky_3.R",
-    "thumb_1.R",
-    "thumb_2.R",
-    "thumb_3.R",
     "clavicle.L",
     "upper_arm.L",
     "upper_arm_twist.L",
@@ -53,19 +32,40 @@
     "thumb_1.L",
     "thumb_2.L",
     "thumb_3.L",
+    "clavicle.R",
+    "upper_arm.R",
+    "upper_arm_twist.R",
+    "forearm.R",
+    "forearm_twist.R",
+    "hand.R",
+    "index_1.R",
+    "index_2.R",
+    "index_3.R",
+    "middle_1.R",
+    "middle_2.R",
+    "middle_3.R",
+    "ring_1.R",
+    "ring_2.R",
+    "ring_3.R",
+    "pinky_1.R",
+    "pinky_2.R",
+    "pinky_3.R",
+    "thumb_1.R",
+    "thumb_2.R",
+    "thumb_3.R",
     "satchel_anchor",
-    "thigh.R",
-    "thigh_twist.R",
-    "shin.R",
-    "shin_twist.R",
-    "foot.R",
-    "toe.R",
     "thigh.L",
     "thigh_twist.L",
     "shin.L",
     "shin_twist.L",
     "foot.L",
-    "toe.L"
+    "toe.L",
+    "thigh.R",
+    "thigh_twist.R",
+    "shin.R",
+    "shin_twist.R",
+    "foot.R",
+    "toe.R"
   ],
   "skinned_objects": [
     "Edmund_Body",
@@ -85,7 +85,28 @@
     "Edmund_Waistcoat"
   ],
   "body_zero_weight_verts": 0,
-  "body_verts": 13267,
+  "zero_weight_repaired": {
+    "Edmund_Body": 534,
+    "Edmund_Boots": 228,
+    "Edmund_Brows": 12,
+    "Edmund_Hair": 58875,
+    "Edmund_Stubble": 31200
+  },
+  "eye_weight_scrubbed": {
+    "Edmund_Body": 4999,
+    "Edmund_Brows": 5148,
+    "Edmund_Coat": 32,
+    "Edmund_Neckcloth": 50,
+    "Edmund_Shirt": 89
+  },
+  "garment_refined_verts": {
+    "coat_chest": 0,
+    "coat_hem": 0,
+    "waistcoat": 0,
+    "shirt": 0,
+    "trousers": 0
+  },
+  "body_verts": 11375,
   "tests": [
     {
       "test": "elbow_bend",
@@ -95,11 +116,12 @@
       "verts_moved_gt1mm": 48,
       "max_disp_m": 0.1789,
       "nan_verts": 0,
-      "max_edge_stretch": 1.058,
+      "max_edge_stretch": 1.072,
+      "worst_edges": [],
       "avg_disp": [
-        -6e-05,
-        0.00031,
-        7e-05
+        7e-05,
+        0.00035,
+        8e-05
       ]
     },
     {
@@ -107,14 +129,15 @@
       "bone": "head",
       "axis": "Z",
       "angle_deg": 28.6,
-      "verts_moved_gt1mm": 12053,
-      "max_disp_m": 0.1224,
+      "verts_moved_gt1mm": 10229,
+      "max_disp_m": 0.125,
       "nan_verts": 0,
       "max_edge_stretch": 1.075,
+      "worst_edges": [],
       "avg_disp": [
-        -0.05448,
+        -0.05328,
         0.0,
-        -0.01393
+        -0.01362
       ]
     },
     {
@@ -122,13 +145,14 @@
       "bone": "spine02",
       "axis": "Y",
       "angle_deg": 14.3,
-      "verts_moved_gt1mm": 13123,
+      "verts_moved_gt1mm": 11299,
       "max_disp_m": 0.0885,
       "nan_verts": 0,
       "max_edge_stretch": 1.055,
+      "worst_edges": [],
       "avg_disp": [
-        0.00705,
-        0.00088,
+        0.00427,
+        0.00053,
         0.0
       ]
     },
@@ -137,14 +161,15 @@
       "bone": "thigh.R",
       "axis": "X",
       "angle_deg": 28.6,
-      "verts_moved_gt1mm": 302,
+      "verts_moved_gt1mm": 300,
       "max_disp_m": 0.4495,
       "nan_verts": 0,
-      "max_edge_stretch": 1.265,
+      "max_edge_stretch": 1.267,
+      "worst_edges": [],
       "avg_disp": [
-        9e-05,
-        0.00431,
-        0.00075
+        -0.00011,
+        0.00498,
+        0.00086
       ]
     },
     {
@@ -155,12 +180,53 @@
       "verts_moved_gt1mm": 438,
       "max_disp_m": 0.329,
       "nan_verts": 0,
-      "max_edge_stretch": 1.251,
+      "max_edge_stretch": 1.281,
+      "worst_edges": [],
       "avg_disp": [
-        0.00019,
-        0.001,
-        0.00035
+        -0.00022,
+        0.00116,
+        0.0004
       ]
+    },
+    {
+      "test": "coat_shoulder_raise",
+      "bone": "upper_arm.R",
+      "axis": "X",
+      "angle_deg": 34.4,
+      "target": "Edmund_Coat",
+      "max_disp_m": 0.3308,
+      "nan_verts": 0,
+      "max_edge_stretch": 1.297
+    },
+    {
+      "test": "coat_thigh_raise",
+      "bone": "thigh.R",
+      "axis": "X",
+      "angle_deg": 28.6,
+      "target": "Edmund_Coat",
+      "max_disp_m": 0.1739,
+      "nan_verts": 0,
+      "max_edge_stretch": 1.346
+    },
+    {
+      "test": "walk_stride[Edmund_Body]",
+      "bone": "multi",
+      "axis": "-",
+      "angle_deg": 0.0,
+      "target": "Edmund_Body",
+      "max_disp_m": 0.3164,
+      "nan_verts": 0,
+      "max_edge_stretch": 1.202
+    },
+    {
+      "test": "walk_stride[Edmund_Coat]",
+      "bone": "multi",
+      "axis": "-",
+      "angle_deg": 0.0,
+      "target": "Edmund_Coat",
+      "max_disp_m": 0.256,
+      "nan_verts": 0,
+      "max_edge_stretch": 1.622
     }
   ]
 }

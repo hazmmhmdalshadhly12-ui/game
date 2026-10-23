@@ -20,7 +20,11 @@ def parse_args():
     opts, i = {}, 0
     while i < len(argv):
         if argv[i].startswith("--"):
-            opts[argv[i][2:]] = argv[i + 1]; i += 2
+            # M3.5: bare boolean flags (no following value) are allowed
+            if i + 1 >= len(argv) or argv[i + 1].startswith("--"):
+                opts[argv[i][2:]] = True; i += 1
+            else:
+                opts[argv[i][2:]] = argv[i + 1]; i += 2
         else: i += 1
     return opts
 
@@ -38,11 +42,14 @@ def bone_table():
     add("chest", (0, 0.0, 1.33), (0, 0.0, 1.44), "spine03", True)
     add("neck", (0, 0.0, 1.44), (0, 0.0, 1.535), "chest", True)
     add("head", (0, 0.0, 1.535), (0, 0.0, 1.70), "neck", True)
-    add("eye.L", (-EYE_C[0], EYE_C[1], EYE_C[2]), (-EYE_C[0], EYE_C[1] - 0.033, EYE_C[2]), "head")
-    add("eye.R", (EYE_C[0], EYE_C[1], EYE_C[2]), (EYE_C[0], EYE_C[1] - 0.033, EYE_C[2]), "head")
+    # M3.5: anatomical LEFT = +X for a -Y facing character (Blender/Rigify
+    # convention). The old table put .R at +X (mirrored) - wrong for UE
+    # retargeting and put the CHR-01 ink stain on the wrong hand.
+    add("eye.L", (EYE_C[0], EYE_C[1], EYE_C[2]), (EYE_C[0], EYE_C[1] - 0.033, EYE_C[2]), "head")
+    add("eye.R", (-EYE_C[0], EYE_C[1], EYE_C[2]), (-EYE_C[0], EYE_C[1] - 0.033, EYE_C[2]), "head")
     s = 1
-    for suf in (".R", ".L"):
-        sgn = 1 if suf == ".R" else -1
+    for suf in (".L", ".R"):
+        sgn = 1 if suf == ".L" else -1
         p = f"clavicle{suf}"
         add(p, (0.014 * sgn, 0.002, 1.452), (0.16 * sgn, -0.006, 1.430), "chest")
         ua = f"upper_arm{suf}"
@@ -111,7 +118,7 @@ def bone_table():
         add(ft, (0.108 * sgn, -0.014, 0.090), (0.110 * sgn, -0.10, 0.038), sh, True)
         add(f"toe{suf}", (0.110 * sgn, -0.10, 0.038), (0.112 * sgn, -0.16, 0.032),
             ft, True)
-    add("satchel_anchor", (-0.155, -0.075, 0.90), (-0.158, -0.078, 0.985), "spine01")
+    add("satchel_anchor", (0.155, -0.075, 0.90), (0.158, -0.078, 0.985), "spine01")
     return B
 
 def build_armature():
@@ -167,6 +174,156 @@ def main():
             vg = sat.vertex_groups.new(name="satchel_anchor")
         vg.add(list(range(len(sat.data.vertices))), 0.35, 'ADD')
 
+    # ---------------- M3.5 garment weight refinement ----------------
+    # ARMATURE_AUTO blended garments across hip/shoulder joints; raising the
+    # arm/thigh dragged the coat open (documented M3.4 defect). Clamp the
+    # limb-bone influence on TORSO-REGION garment verts (|x| filter keeps the
+    # sleeves/leg-tubes untouched - clamping those tore the mesh in testing)
+    # and hand the removed mass to the spine/pelvis chain.
+    def refine_garment(objname, z_lo, z_hi, arm_pat, clamp, x_max=0.13,
+                       donors=("spine01", "spine02", "spine03", "chest", "pelvis")):
+        o = bpy.data.objects.get(objname)
+        if not o:
+            return 0
+        arm_bones = [v.name for v in o.vertex_groups
+                     if any(p in v.name for p in arm_pat)]
+        donor_bones = [v.name for v in o.vertex_groups if v.name in donors]
+        changed = 0
+        for v in o.data.vertices:
+            z = v.co.z
+            if not (z_lo <= z <= z_hi):
+                continue
+            if abs(v.co.x) > x_max:
+                continue
+            gi = {g.group: g.weight for g in v.groups}
+            names = {o.vertex_groups[g.group].name: g.group for g in v.groups}
+            arm_w = sum(gi.get(names[b], 0.0) for b in arm_bones if b in names)
+            if arm_w <= clamp:
+                continue
+            excess = arm_w - clamp
+            scale = clamp / arm_w if arm_w > 1e-9 else 0.0
+            for b in arm_bones:
+                if b in names and gi.get(names[b], 0.0) > 0:
+                    # VertexGroup.add supports REPLACE/ADD/SUBTRACT only:
+                    # scale = REPLACE with the precomputed target weight
+                    o.vertex_groups[names[b]].add([v.index],
+                                                  gi[names[b]] * scale, 'REPLACE')
+            dn = [(b, gi.get(names[b], 0.0)) for b in donor_bones if b in names]
+            tot = sum(w for _, w in dn)
+            if tot > 1e-6:
+                for b, w in dn:
+                    o.vertex_groups[b].add([v.index], excess * (w / tot), 'ADD')
+            else:
+                # no donor weight yet: spread over available donors equally
+                for b in donor_bones:
+                    o.vertex_groups[b].add([v.index], excess / len(donor_bones), 'ADD')
+            changed += 1
+        return changed
+
+    n1 = n2 = n3 = n4 = n5 = 0
+    # M3.5 verdict (measured, kept honest): manual box-clamped garment weights
+    # TEAR at the clamp boundary (coat_shoulder 2.35x / coat_thigh 3.66x vs
+    # 1.30x / 1.35x for pure bone-heat). The M3.4 coat gap was geometric
+    # (open front + uncovered shoulders) and is fixed in the outfit build.
+    # Refinement stays opt-in via --refine; default = auto weights only.
+    if "--refine" in sys.argv:
+        n1 = refine_garment("Edmund_Coat", 1.30, 1.50,
+                            ("upper_arm.", "upper_arm_twist."), 0.30, x_max=0.13)
+        n2 = refine_garment("Edmund_Coat", 0.56, 0.99,
+                            ("thigh.", "thigh_twist."), 0.45, x_max=0.10,
+                            donors=("pelvis", "spine01"))
+        n3 = refine_garment("Edmund_Waistcoat", 1.30, 1.44,
+                            ("upper_arm.", "upper_arm_twist."), 0.25, x_max=0.15)
+        n4 = refine_garment("Edmund_Shirt", 1.30, 1.51,
+                            ("upper_arm.", "upper_arm_twist."), 0.25, x_max=0.13)
+        n5 = refine_garment("Edmund_Trousers", 0.92, 1.06,
+                            ("thigh.", "thigh_twist."), 0.55, x_max=0.055,
+                            donors=("pelvis", "spine01"))
+    print(f"[RIG] garment weight refinement (opt-in via --refine): coat_chest={n1} "
+          f"coat_hem={n2} waistcoat={n3} shirt={n4} trousers={n5}")
+
+    # M3.5: zero-weight repair - verts the bone-heat solver left unassigned
+    # (they would stay frozen in world space while the body moves).
+    # M3.5 v2 after measurement: closest-by-head-position wrongly sent ear
+    # verts to the eye bones (15.7x stretch on head turn). Now:
+    #   - point-to-SEGMENT distance, eye bones excluded from candidates
+    #   - anything above z=1.52 (skull/hair/ears/brows/stubble) forced to head
+    zw_fixed = {}
+    for o in bpy.data.objects:
+        if o.type != 'MESH' or o.parent is None or o.parent.type != 'ARMATURE':
+            continue
+        cand = []
+        for b in o.parent.data.bones:
+            if b.name.startswith("eye."):
+                continue
+            h = o.parent.matrix_world @ b.matrix_local.to_translation()
+            t = o.parent.matrix_world @ (b.matrix_local @ Vector((0.0, b.length, 0.0)))
+            cand.append((b.name, h, t))
+        def seg_dist(p, h, t):
+            d = t - h
+            dd = d.length
+            if dd < 1e-9:
+                return (p - h).length
+            u = max(0.0, min(1.0, (p - h).dot(d) / (dd * dd)))
+            return (p - (h + d * u)).length
+        fixed = 0
+        existing = [g.name for g in o.vertex_groups]
+        bone_names = {b.name for b in o.parent.data.bones}
+        for v in o.data.vertices:
+            # M3.5 v3 (root cause found by weight dump): the build leaves
+            # helper groups on the body ('scalp'/'beard'/'brow'/'hair_long' -
+            # hair-root sampling masks). A vertex whose ONLY groups are these
+            # non-bone groups gets ZERO armature deformation and stays frozen
+            # in world space (frozen ears on head turn - undetected in M3.4).
+            gnames = {o.vertex_groups[g.group].name for g in v.groups}
+            has_bone_group = any(n in bone_names for n in gnames)
+            if v.groups and has_bone_group:
+                continue
+            wco = o.matrix_world @ v.co
+            if wco.z > 1.52:
+                bn = "head"
+            else:
+                bn, _ = min(((n, seg_dist(wco, h, t)) for n, h, t in cand),
+                            key=lambda e: e[1])
+            if bn not in existing:
+                o.vertex_groups.new(name=bn)
+                existing.append(bn)
+            o.vertex_groups[bn].add([v.index], 1.0, 'ADD')
+            fixed += 1
+        if fixed:
+            zw_fixed[o.name] = fixed
+    print("[RIG] zero-weight verts repaired:", zw_fixed)
+
+    # M3.5: eye-bone weight scrub. Bone heat hands part of the EAR/skull
+    # weights to the tiny eye bones (they sit closer than the spine line);
+    # those verts then rotate around the eyeball center on head turn ->
+    # measured 15.7x edge stretch at the ears. The eye bones must drive ONLY
+    # the eyeball meshes. Scrub: eye weight -> 'head', everything normalized.
+    scrubbed = {}
+    for o in bpy.data.objects:
+        if o.type != 'MESH' or o.parent is None or o.parent.type != 'ARMATURE':
+            continue
+        if o.name in ("Edmund_EyeL", "Edmund_EyeR"):
+            continue
+        eye_groups = {g.name: g for g in o.vertex_groups if g.name.startswith("eye.")}
+        if not eye_groups:
+            continue
+        head_vg = o.vertex_groups.get("head")
+        if head_vg is None:
+            head_vg = o.vertex_groups.new(name="head")
+        n = 0
+        gids = {g.index for g in eye_groups.values()}
+        for v in o.data.vertices:
+            w = sum(g.weight for g in v.groups if g.group in gids)
+            if w > 1e-6:
+                head_vg.add([v.index], w, 'ADD')
+                for g in eye_groups.values():
+                    g.remove([v.index])
+                n += 1
+        if n:
+            scrubbed[o.name] = n
+    print("[RIG] eye-bone weights scrubbed to 'head':", scrubbed)
+
     # ---------------- deformation tests ----------------
     dg = bpy.context.evaluated_depsgraph_get()
     def snapshot(objname):
@@ -217,12 +374,24 @@ def main():
                 maxd = L; disp_dir = d.normalized()
             if v.co.x != v.co.x: nan += 1
             disp_sum += d
+        top_edges = []
         for (a, b) in sample_edges:
             la = (rest[a] - rest[b]).length
             lb = (posed_co[a] - posed_co[b]).length
             if la > 1e-6:
                 r = lb / la
                 if r > maxstretch: maxstretch = r
+        # M3.5: diagnose WHERE the worst stretch lives (rest length + location)
+        for (a, b) in sample_edges:
+            la = (rest[a] - rest[b]).length
+            lb = (posed_co[a] - posed_co[b]).length
+            if la > 1e-6 and lb / la > 1.5:
+                mid = (rest[a] + rest[b]) / 2
+                top_edges.append({"stretch": round(lb / la, 2),
+                                  "rest_len_m": round(la, 5),
+                                  "at": [round(mid.x, 3), round(mid.y, 3), round(mid.z, 3)]})
+        top_edges.sort(key=lambda e: -e["stretch"])
+        top_edges = top_edges[:4]
         eo.to_mesh_clear()
         # restore
         pb.rotation_euler = (0, 0, 0)
@@ -230,6 +399,7 @@ def main():
         tests.append({"test": name, "bone": bone, "axis": axis, "angle_deg": round(math.degrees(angle), 1),
                       "verts_moved_gt1mm": moved, "max_disp_m": round(maxd, 4),
                       "nan_verts": nan, "max_edge_stretch": round(maxstretch, 3),
+                      "worst_edges": top_edges,
                       "avg_disp": [round(disp_sum.x / nverts, 5),
                                     round(disp_sum.y / nverts, 5),
                                     round(disp_sum.z / nverts, 5)]})
@@ -241,6 +411,90 @@ def main():
     run_test("thigh_raise", "thigh.R", 'X', 0.5)
     run_test("shoulder_raise", "upper_arm.R", 'X', 0.6)
 
+    # M3.5: garment deformation tests (the M3.4 defect report was body-only;
+    # the visible coat gap lives on the COAT mesh)
+    coat = bpy.data.objects["Edmund_Coat"]
+    coat_rest = snapshot("Edmund_Coat")
+    coat_edges = [(e.vertices[0], e.vertices[1]) for e in coat.data.edges]
+    random.seed(5)
+    coat_sample = random.sample(coat_edges, min(4000, len(coat_edges)))
+
+    def run_garment_test(name, bone, axis, angle, target, rest, sample):
+        pb = arm.pose.bones[bone]
+        pb.rotation_mode = 'XYZ'
+        setattr_vec = [0.0, 0.0, 0.0]
+        setattr_vec[{'X': 0, 'Y': 1, 'Z': 2}[axis]] = angle
+        pb.rotation_euler = tuple(setattr_vec)
+        bpy.context.view_layer.update()
+        dg2 = bpy.context.evaluated_depsgraph_get()
+        eo = bpy.data.objects[target].evaluated_get(dg2)
+        me = eo.to_mesh()
+        maxd = 0.0; nan = 0; maxstretch = 0.0
+        posed_co = []
+        for i, v in enumerate(me.vertices):
+            posed_co.append(Vector(v.co))
+            d = Vector(v.co) - rest[i]
+            L = d.length
+            if L > maxd:
+                maxd = L
+            if v.co.x != v.co.x: nan += 1
+        for (a, b) in sample:
+            la = (rest[a] - rest[b]).length
+            lb = (posed_co[a] - posed_co[b]).length
+            if la > 1e-6:
+                r = lb / la
+                if r > maxstretch: maxstretch = r
+        eo.to_mesh_clear()
+        pb.rotation_euler = (0, 0, 0)
+        bpy.context.view_layer.update()
+        tests.append({"test": name, "bone": bone, "axis": axis,
+                      "angle_deg": round(math.degrees(angle), 1), "target": target,
+                      "max_disp_m": round(maxd, 4), "nan_verts": nan,
+                      "max_edge_stretch": round(maxstretch, 3)})
+        print("[RIG] garment test:", tests[-1])
+
+    run_garment_test("coat_shoulder_raise", "upper_arm.R", 'X', 0.6,
+                     "Edmund_Coat", coat_rest, coat_sample)
+    run_garment_test("coat_thigh_raise", "thigh.R", 'X', 0.5,
+                     "Edmund_Coat", coat_rest, coat_sample)
+
+    # M3.5: walk pose sanity (stride test, both legs + arms, no keyframes -
+    # static stride pose measured for stretch/NaN then cleared)
+    walk_pose = {"thigh.L": [0.35, 0, 0], "thigh.R": [-0.35, 0, 0],
+                 "shin.R": [0.5, 0, 0], "upper_arm.L": [-0.30, 0, 0],
+                 "upper_arm.R": [0.30, 0, 0], "forearm.R": [0.35, 0, 0]}
+    bpy.ops.object.mode_set(mode='POSE')
+    for bn, rot in walk_pose.items():
+        pb = arm.pose.bones.get(bn)
+        if pb:
+            pb.rotation_mode = 'XYZ'
+            pb.rotation_euler = rot
+    bpy.context.view_layer.update()
+    dg3 = bpy.context.evaluated_depsgraph_get()
+    for tgt, rest_map, samp in (("Edmund_Body", rest, sample_edges),
+                                ("Edmund_Coat", coat_rest, coat_sample)):
+        eo = bpy.data.objects[tgt].evaluated_get(dg3)
+        me = eo.to_mesh()
+        nan = sum(1 for v in me.vertices if v.co.x != v.co.x)
+        maxd = max((Vector(v.co) - rest_map[i]).length for i, v in enumerate(me.vertices))
+        ms = 0.0
+        posed = [Vector(v.co) for v in me.vertices]
+        for (a, b) in samp:
+            la = (rest_map[a] - rest_map[b]).length
+            lb = (posed[a] - posed[b]).length
+            if la > 1e-6:
+                ms = max(ms, lb / la)
+        eo.to_mesh_clear()
+        tests.append({"test": f"walk_stride[{tgt}]", "bone": "multi", "axis": "-",
+                      "angle_deg": 0.0, "target": tgt, "max_disp_m": round(maxd, 4),
+                      "nan_verts": nan, "max_edge_stretch": round(ms, 3)})
+        print("[RIG] walk test:", tests[-1])
+    for bn in walk_pose:
+        pb = arm.pose.bones.get(bn)
+        if pb:
+            pb.rotation_euler = (0, 0, 0)
+    bpy.context.view_layer.update()
+
     # zero-weight audit on body
     zw = 0
     for v in body.data.vertices:
@@ -250,16 +504,24 @@ def main():
                  "bone_names": [b.name for b in arm.data.bones],
                  "skinned_objects": mesh_names,
                  "body_zero_weight_verts": zw,
+                 "zero_weight_repaired": zw_fixed,
+                 "eye_weight_scrubbed": scrubbed,
+                 "garment_refined_verts": {"coat_chest": n1, "coat_hem": n2,
+                                           "waistcoat": n3, "shirt": n4,
+                                           "trousers": n5},
                  "body_verts": len(body.data.vertices),
                  "tests": tests}
     bpy.ops.object.mode_set(mode='OBJECT')
 
-    # save rig test pose for render script
+    # save rig test poses for render script (readiness pose + walk stride)
     pose = {"forearm.L": [0.7, 0, 0], "head": [0, 0, 0.5],
             "upper_arm.R": [0.6, 0, 0], "spine02": [0, 0.25, 0]}
     os.makedirs(os.path.dirname(posejson), exist_ok=True)
     with open(posejson, "w") as f:
         json.dump(pose, f, indent=2)
+    walkjson = posejson.replace("rig_test_pose", "walk_pose")
+    with open(walkjson, "w") as f:
+        json.dump(walk_pose, f, indent=2)
 
     bpy.ops.wm.save_mainfile()
     if stats_path:
