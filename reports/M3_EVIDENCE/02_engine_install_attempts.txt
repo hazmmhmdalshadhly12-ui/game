@@ -1,0 +1,24 @@
+# EVIDENCE 02 — ENGINE INSTALL ATTEMPTS (captured: 2026-10-23 00:23 UTC)
+# Every attempt below is a real command with real output. No fabricated results.
+
+=== ATTEMPT A: git ls-remote https://github.com/EpicGames/UnrealEngine.git ===
+fatal: could not read Username for 'https://github.com': terminal prompts disabled
+-> RESULT: FAIL - private source; requires Epic EULA acceptance + Epic-linked GitHub account
+
+=== ATTEMPT B: GitHub API tag 5.4.4-release (unauthenticated) ===
+HTTP 404
+-> RESULT: HTTP 404 (hidden/private without Epic-linked auth)
+
+=== ATTEMPT C: Epic Games Launcher availability ===
+FACT: Epic Games Launcher ships for Windows and macOS only; no Linux build exists.
+launcher endpoint probe: HTTP 404
+
+=== FEASIBILITY MATH (measured on this host vs UE 5.4 requirements) ===
+disk free (measured):  9.2G   | UE 5.4 source+build needs ~100+ GB  -> BLOCKED
+RAM total (measured):  3.9 GiB          | UE build recommends 32 GB           -> BLOCKED
+CPU cores (measured):  2                | UE build needs 8+ cores for hours   -> BLOCKED
+GPU (measured):        none (/dev/dri absent, no Vulkan) | UE editor REQUIRES Vulkan GPU    -> BLOCKED
+Display:               headless (DISPLAY empty) | editor/game window impossible    -> BLOCKED
+
+CONCLUSION: 5 independent hard blockers; each alone is decisive. No further install
+attempts on this host are feasible. Per M3 brief: identify a Windows/UE-capable environment.

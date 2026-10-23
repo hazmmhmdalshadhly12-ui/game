@@ -1,0 +1,11 @@
+# EVIDENCE 04 — VALIDATORS (captured: 2026-10-23 00:23 UTC)
+
+=== tools/validate_project.py ===
+========================================================
+النتيجة النهائية: ALL CHECKS PASSED (73/73)
+
+=== tools/validate_narrative.py ===
+ALL CHECKS PASSED (43/43)
+
+=== tools/validate_unreal_scaffold.py ===
+ALL CHECKS PASSED (70/70)

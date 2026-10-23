@@ -1,0 +1,92 @@
+== TLS core-logic tests ==
+repo root : /home/z/my-project/tls_game
+core dir  : /home/z/my-project/tls_game/03_Unreal/Source/TLS/Core
+compiler  : g++ (Debian 14.2.0-19) 14.2.0
+== compiling (C++17, -Wall -Wextra) ==
+build ok -> /home/z/my-project/tls_game/tools/core_tests/build/tls_core_tests
+== running ==
+THE LAST SIN - M1+M2 core-logic test harness (standalone g++ build)
+same source files as the UE module: 03_Unreal/Source/TLS/Core/*
+
+=== TLSJson - parser and serializer ===
+
+=== Welsh language layer (GAME_BIBLE 6.2.5) ===
+
+=== Rumors - data loading and invalid-data rejection ===
+
+=== Rumors - day activation and witness events ===
+
+=== Rumors - spread bound to zones, schedules, relationships, reticence ===
+
+=== Rumors - termination: daily cap, budgets, saturation, forgetting ===
+
+=== Rumors - credibility decay and testimony kinds ===
+
+=== Rumors - testimony conflicts and source tracking ===
+
+=== Rumors - content mutation hop by hop ===
+
+=== Rumors - player tools: heard, leak, public denial ===
+
+=== Rumors - state serialization and corrupt-payload rejection ===
+
+=== Evidence system - custody, gating, contradictions ===
+
+=== Village simulation - schedules, tension, trust math ===
+
+=== Quests - day windows, optional objectives, completion flags ===
+
+=== Dialogue - conditions and reactions ===
+
+=== M2.1 rumors - game integration: seeding, tools, conditions ===
+
+=== M2.3 quests - C3 advancement driven by rumors and evidence ===
+
+=== M2.3 quests - failure on expiry is a resumable consequence, not a dead end ===
+
+=== M2.3 quests - no duplicate completion, no flag re-application ===
+
+=== M2.3 quests - contradictory conditions can never complete (documented behavior) ===
+
+=== M2.3 quests - partial quest progress survives the save/load seam ===
+
+=== M2.4 settings - audio values clamp, subtitle policy is real ===
+
+=== M2.4 settings - quality tier maps to the real gossip-tick budget ===
+
+=== M2.4 settings - colorblind palettes are real token tables ===
+
+=== M2.4 settings - large text doubles as the dialogue readability scale ===
+
+=== M2.4 settings - input bindings validate, conflicts are rejected ===
+
+=== M2.4 settings - persistence round trip and corrupt rejection ===
+
+=== M2.5 world - the engine consumes the expanded districts D5-D11 ===
+
+=== M2.1 rumors - seven-day headless village simulation (NPC_SIMULATION 10) ===
+
+=== M2 save - version gate, legacy v1, and the save/load/continue seam ===
+
+=== M2.2 save - five-point save/load round trip, zero drift (NPC_SIMULATION 10.2) ===
+
+=== M2.2 save - corrupt subsystem payloads refused, session state intact ===
+
+=== DAY 1 - funeral morning ===
+
+=== DAY 1 - the Black Ram (Gwendolyn) ===
+
+=== DAY 1 - St. Cynog's (Rev. Crane) ===
+
+=== DAY 1 - the examination table and the board ===
+
+=== DAY 2 - the miller and the salt ===
+
+=== DESIGN RULE - three alternative evidence paths to INS-REFUSAL ===
+
+=== SAVE/LOAD - byte-stable round trip and continuation equivalence ===
+
+========================================================
+TLS CORE-LOGIC TESTS: 1763 passed, 0 failed
+========================================================
+RESULT: ALL CORE-LOGIC TESTS PASSED

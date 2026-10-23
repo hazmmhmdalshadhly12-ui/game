@@ -1,0 +1,43 @@
+# EVIDENCE 01 — REAL ENVIRONMENT PROBE (captured: 2026-10-23 00:22 UTC, host: c-6ada8c71-145cf406-2ca20ccf191d)
+# Method: direct command output, unedited. Headless Linux container.
+
+=== uname -a ===
+Linux c-6ada8c71-145cf406-2ca20ccf191d 5.10.134-013.15.kangaroo.al8.x86_64 #1 SMP Thu Jul 30 12:54:59 UTC 2026 x86_64 GNU/Linux
+
+=== /etc/os-release ===
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+
+=== lscpu (cores/model) ===
+CPU(s):                             2
+Model name:                         Intel(R) Xeon(R) Processor
+
+=== free -h ===
+               total        used        free      shared  buff/cache   available
+Mem:           3.9Gi       485Mi       3.2Gi        52Ki       399Mi       3.5Gi
+Swap:             0B          0B          0B
+
+=== df -h / ===
+Filesystem                               Size  Used Avail Use% Mounted on
+c-6ada8c71-145cf406-2ca20ccf191d-rootfs  9.9G   98M  9.2G   2% /
+
+=== GPU probe: lspci VGA/3D ===
+(no VGA/3D/display device found)
+=== /dev/dri ===
+ls: cannot access '/dev/dri': No such file or directory
+=== nvidia-smi ===
+/bin/bash: line 1: nvidia-smi: command not found
+
+=== DISPLAY env ===
+DISPLAY=''
+
+=== toolchain ===
+git       : git version 2.47.3
+g++       : g++ (Debian 14.2.0-19) 14.2.0
+make      : GNU Make 4.4.1
+python3   : Python 3.12.15
+clang     : NOT INSTALLED
+cmake     : NOT INSTALLED
+dotnet    : NOT INSTALLED
+wine      : NOT INSTALLED

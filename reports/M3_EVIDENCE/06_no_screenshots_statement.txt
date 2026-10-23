@@ -1,0 +1,20 @@
+EXPLICIT STATEMENT — WHY NO SCREENSHOTS EXIST IN THIS M3 RUN
+==============================================================
+Date: 2026-10-23 00:23 UTC
+
+The M3 brief requires REAL screenshots (01..07) captured from the working
+environment, and explicitly forbids AI-generated or internet images.
+
+This host is a headless Linux container:
+  - no GPU device (/dev/dri absent, lspci shows no VGA/3D/display)
+  - no display server (DISPLAY empty)
+  - Unreal Engine NOT installed and NOT installable here (see evidence 02)
+
+Therefore screenshots 02..07 (engine, project open, build, editor map,
+gameplay) CANNOT BE TAKEN — the software they would depict does not exist
+on this machine. 01_environment.png is replaced by the text capture
+01_environment_probe.txt (real command output, unedited).
+
+No image in this folder is AI-generated or downloaded. We state plainly, as
+the brief requires: screenshot capture was NOT possible in this environment.
+Real screenshots become possible only on a Windows/GPU machine running UE 5.4.

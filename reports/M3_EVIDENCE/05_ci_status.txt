@@ -1,0 +1,7 @@
+# EVIDENCE 05 — CI STATUS (captured: 2026-10-23 00:23 UTC)
+# NOTE: CI proves build+tests of headless C++/python checks ONLY.
+# Per M3 rules: CI success is NOT evidence of game running in UE.
+
+run#9 | branch=main | sha=0d14fe1 | completed/success | https://github.com/hazmmhmdalshadhly12-ui/game/actions/runs/39867425148
+run#8 | branch=feature/m2-systems | sha=0d14fe1 | completed/success | https://github.com/hazmmhmdalshadhly12-ui/game/actions/runs/39866748662
+run#7 | branch=feature/m2-systems | sha=0d14fe1 | completed/success | https://github.com/hazmmhmdalshadhly12-ui/game/actions/runs/39865770353
