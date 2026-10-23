@@ -1,3 +1,7 @@
+# M3.6 更新（2026-10-23）
+
+> **本文件以下是 M3.5 的历史报告，保留作基准。M3.6 艺术质量升级的完整实测报告见 `reports/M3_6_EDMUND_QUALITY_REPORT.md`**，测量数据在 `data/`（build_stats / rig_stats / fbx_verify / inspect_final / manifest_character 均为 M3.6 最终值：24,169 v / 46,866 t、65 骨、0 缺陷、形变 max 1.346 / walk 1.622 / 0 NaN、渲染证据 11 张全部由最终 .blend 现产）。
+
 # M3.5 — تقرير الجودة الفني والتقني — إدموند ڤيل (TLS-CHR-001) — بعد الإصلاح والتحقق
 
 > كل الأرقام أدناه قياسات فعلية من ملف Blender النهائي **بعد الحفظ وإعادة الفتح** (build_stats.json / rig_stats.json / fbx_verify.json / inspect_final.json في `data/`). لا أرقام تقديرية، ولا تعديل يدوي لأي رقم.

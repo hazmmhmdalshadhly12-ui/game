@@ -156,12 +156,18 @@ def main():
     n_beard = vgroup_from_mask(body, "beard", beard_mask)
     print(f"[M3.4] groups: scalp={n_scalp} hair_long={n_hlen} brow={n_brow} beard={n_beard}")
 
-    print("[M3.4] procedural hair (cards) / stubble / brows ...")
+    print("[M3.4] procedural hair (cards) / stubble / brows / lashes ...")
     hair = HAIR.build_hair(body, mats, fast=fast)
     stub = HAIR.build_stubble(body, mats, fast=fast)
     brows = HAIR.build_brows(body, mats)
+    lashes = HAIR.build_lashes(body, mats)
+    # M3.6: card shadows = rectangular chips on the scalp (each flat card
+    # casts its own silhouette) - disable shadow casting on all card extras
+    for o in (hair, stub, brows, lashes):
+        o.visible_shadow = False
     print(f"[M3.4] hair objects: {hair.name} {obj_stats(hair)['tris']} tris, "
-          f"{stub.name} {obj_stats(stub)['tris']} tris, {brows.name} {obj_stats(brows)['tris']} tris")
+          f"{stub.name} {obj_stats(stub)['tris']} tris, {brows.name} {obj_stats(brows)['tris']} tris, "
+          f"{lashes.name} {obj_stats(lashes)['tris']} tris")
 
     # scene stats
     print("[M3.4] collecting stats ...")
@@ -177,8 +183,8 @@ def main():
         s["modifiers"] = [(m.type, m.name) for m in o.modifiers]
         stats["objects"].append(s)
         tot_v += s["verts"]; tot_t += s["tris"]
-    # M3.5: hair/stubble/brows accounted separately (render/game-optional)
-    for o in [hair, stub, brows]:
+    # M3.5: hair/stubble/brows/lashes accounted separately (render/game-optional)
+    for o in [hair, stub, brows, lashes]:
         s = obj_stats(o)
         s.update(mesh_checks(o))
         s["materials"] = [sl.material.name if sl.material else None

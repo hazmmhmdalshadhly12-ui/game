@@ -21,7 +21,11 @@ def parse_args():
     opts, i = {}, 0
     while i < len(argv):
         if argv[i].startswith("--"):
-            opts[argv[i][2:]] = argv[i + 1]; i += 2
+            # valueless flags (e.g. --nodenoise) don't consume the next token
+            if i + 1 >= len(argv) or argv[i + 1].startswith("--"):
+                opts[argv[i][2:]] = "1"; i += 1
+            else:
+                opts[argv[i][2:]] = argv[i + 1]; i += 2
         else: i += 1
     return opts
 
@@ -144,6 +148,7 @@ CAMS = {
     "back":        ((0.0, 4.15, 0.98), (0.0, 0.0, 0.95), 55),
     "three_quarter": ((2.55, -3.15, 1.10), (0.02, 0.0, 0.98), 55),
     "face_closeup": ((0.10, -0.58, 1.688), (0.0, -0.02, 1.679), 78),
+    "face_front":  ((0.0, -0.62, 1.688), (0.0, -0.02, 1.679), 85),
     "materials":   ((0.52, -0.92, 1.34), (0.02, -0.02, 1.13), 70),
     "rig_apose":   ((1.15, -3.9, 1.35), (0.0, 0.0, 0.97), 55),
     "rig_readiness": ((0.0, -4.15, 0.98), (0.0, 0.0, 0.95), 55),
@@ -207,6 +212,8 @@ def main():
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.adaptive_threshold = 0.02
     sc.cycles.use_denoising = True
+    if "--nodenoise" in sys.argv:
+        sc.cycles.use_denoising = False
     try:
         sc.cycles.denoiser = 'OPENIMAGEDENOISE'
         sc.cycles.denoising_input_passes = 'RGB_ALBEDO_NORMAL'

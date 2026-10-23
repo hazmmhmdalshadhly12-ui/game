@@ -143,24 +143,26 @@ def head_kernels():
     k(0.0, -0.050, 0.060, (0.060, 0.030, 0.040), +0.004)     # forehead ridge
     k(0.062, 0.020, 0.030, (0.030, 0.040, 0.045), -0.006)    # temple hollows
     k(-0.062, 0.020, 0.030, (0.030, 0.040, 0.045), -0.006)
-    # brow ridge
-    k(0.033, -0.072, 0.040, (0.026, 0.016, 0.011), +0.0075)
-    k(-0.033, -0.072, 0.040, (0.026, 0.016, 0.011), +0.0075)
-    k(0.0, -0.078, 0.036, (0.014, 0.014, 0.010), -0.0025)    # glabella
+    # brow ridge (M3.6: stronger overhang so the tired eyes read in shadow)
+    k(0.033, -0.074, 0.040, (0.026, 0.016, 0.011), +0.0090)
+    k(-0.033, -0.074, 0.040, (0.026, 0.016, 0.011), +0.0090)
+    k(0.0, -0.078, 0.036, (0.014, 0.014, 0.010), -0.0050)    # glabella
+    # M3.6: nasion notch - breaks the beak-line between brow and nose bridge
+    k(0.0, -0.077, 0.026, (0.010, 0.010, 0.008), -0.0035)
     # eye sockets
     k(0.031, -0.066, 0.018, (0.022, 0.019, 0.017), -0.0090)
     k(-0.031, -0.066, 0.018, (0.022, 0.019, 0.017), -0.0090)
     # under-eye fatigue ridge (tired eyes)
     k(0.030, -0.060, 0.000, (0.018, 0.010, 0.007), +0.0020)
     k(-0.030, -0.060, 0.000, (0.018, 0.010, 0.007), +0.0020)
-    # cheekbones (M3.5: more defined)
-    k(0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0075)
-    k(-0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0075)
-    # tired cheek hollow
-    k(0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0032)
-    k(-0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0032)
+    # cheekbones (M3.6: harder projection for a lean 29-year-old)
+    k(0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0095)
+    k(-0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0095)
+    # tired cheek hollow (M3.6: deeper)
+    k(0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0048)
+    k(-0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0048)
     # nose: bridge -> tip -> wings (M3.5: stronger tip, wider wings)
-    k(0.0, -0.088, 0.020, (0.011, 0.013, 0.016), +0.010)
+    k(0.0, -0.088, 0.020, (0.011, 0.013, 0.016), +0.011)
     k(0.0, -0.098, -0.002, (0.012, 0.013, 0.016), +0.019)
     k(0.0, -0.106, -0.016, (0.013, 0.012, 0.013), +0.020)
     k(0.017, -0.090, -0.014, (0.011, 0.012, 0.011), +0.009)
@@ -168,18 +170,20 @@ def head_kernels():
     # M3.5 v2: the -0.003 under-nose kernel PINCHED the tip into a star
     # artifact on render - softened to -0.0012
     k(0.0, -0.098, -0.030, (0.014, 0.010, 0.009), -0.0012)   # under-nose
-    # mouth (M3.5: fuller lips so the mouth reads under the stubble)
-    k(0.0, -0.084, -0.036, (0.026, 0.012, 0.009), +0.0125)   # upper lip
-    k(0.0, -0.082, -0.053, (0.020, 0.012, 0.010), +0.0145)   # lower lip
-    k(0.0, -0.088, -0.044, (0.024, 0.009, 0.005), -0.0085)   # lip line
-    k(0.0, -0.079, -0.029, (0.006, 0.008, 0.008), +0.0020)   # philtrum
+    # mouth (M3.6: clearly modeled lips - cupid's bow, sharper lip line)
+    k(0.0, -0.084, -0.036, (0.026, 0.012, 0.009), +0.0145)   # upper lip
+    k(0.0075, -0.087, -0.033, (0.0065, 0.008, 0.007), +0.0032)  # cupid bow R
+    k(-0.0075, -0.087, -0.033, (0.0065, 0.008, 0.007), +0.0032)  # cupid bow L
+    k(0.0, -0.082, -0.053, (0.020, 0.012, 0.010), +0.0160)   # lower lip
+    k(0.0, -0.088, -0.044, (0.024, 0.009, 0.005), -0.0110)   # lip line
+    k(0.0, -0.079, -0.029, (0.006, 0.008, 0.008), +0.0030)   # philtrum
     k(0.021, -0.072, -0.037, (0.010, 0.011, 0.011), -0.0028) # nasolabial
     k(-0.021, -0.072, -0.037, (0.010, 0.011, 0.011), -0.0028)
-    # chin & jaw (M3.5: firmer chin)
-    k(0.0, -0.058, -0.072, (0.021, 0.019, 0.015), +0.0130)
+    # chin & jaw (M3.6: firmer chin, harder jaw corners)
+    k(0.0, -0.058, -0.072, (0.021, 0.019, 0.015), +0.0145)
     k(0.0, -0.052, -0.086, (0.014, 0.014, 0.010), -0.0025)   # under-chin
-    k(0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0060) # jaw corners
-    k(-0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0060)
+    k(0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0072) # jaw corners
+    k(-0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0072)
     k(0.070, 0.000, -0.020, (0.020, 0.024, 0.030), +0.005)   # ramus
     k(-0.070, 0.000, -0.020, (0.020, 0.024, 0.030), +0.005)
     return K
@@ -209,6 +213,18 @@ def build_head():
         if d.z < -0.02 and abs(p2.x - HEAD_C[0]) > 0.028:
             f = min(1.0, (-d.z - 0.02) / 0.10)
             p2.x = HEAD_C[0] + (p2.x - HEAD_C[0]) * (1.0 - 0.20 * f)
+        # M3.6 DESIGNED FACIAL ASYMMETRY: three subtle, documented deviations
+        # so the face stops reading as a procedurally mirrored egg:
+        #   1. nose deviates ~1.3mm toward his left (+X)
+        #   2. right brow sits ~1.8mm higher than the left
+        #   3. right mouth corner ~1.0mm lower (slight weary set)
+        if d.y < -0.030:
+            if abs(p2.x - cx) < 0.020 and d.y < -0.065 and -0.035 < d.z < 0.025:
+                p2.x += 0.0013 * math.exp(-((d.z + 0.005) / 0.022) ** 2)
+            if abs(p2.x - cx) > 0.024 and d.y < -0.055 and 0.028 < d.z < 0.056:
+                p2.z += 0.0018 * math.copysign(1.0, p2.x - cx)
+            if 0.013 < (p2.x - cx) < 0.030 and -0.052 < d.z < -0.030:
+                p2.z -= 0.0010 * math.exp(-(((p2.x - cx) - 0.021) / 0.008) ** 2)
         out.append((p2.x, p2.y, p2.z))
     # gentle relax to blend kernel seams
     out = smooth_verts(out, faces, iterations=1, factor=0.22)
@@ -247,9 +263,16 @@ def build_ear(side):
 def build_eyeball(side):
     s = side
     ex = EYE_C[0] if s > 0 else -EYE_C[0]
+    # M3.6: denser sphere (64x44, was 40x28) - smoother silhouette and a
+    # finer sampling grid against the iris texture (anti-moire)
     verts, faces, uvs = uv_sphere_grid(ex, EYE_C[1], EYE_C[2], EYE_R, EYE_R, EYE_R,
-                                       seg_u=40, seg_v=28)
+                                       seg_u=64, seg_v=44)
     # planar-front UV so iris texture maps circularly on the -Y front
+    # M3.6 CRITICAL FIX: the v1 mapping (/2.6) put the texture iris edge at
+    # 1.17*R - i.e. the iris wrapped past the eyeball limb and read as a huge
+    # glass sticker. The v2 texture concentrates its iris inside r<=0.50 of
+    # the texture half-width, and the mapping now spans exactly [-R, +R], so
+    # the visible iris lands at ~0.5R (14mm on a 28mm eye) with no wrap.
     uvs2 = []
     fwd = Vector((0, -1, 0))
     for (x, y, z) in verts:
@@ -258,9 +281,8 @@ def build_eyeball(side):
         px = d.x / EYE_R
         pz = d.z / EYE_R
         if front > 0.05:
-            # M3.5: iris covers more of the eye (was /3.4 -> tiny irises)
-            u = 0.5 + px / 2.6
-            v = 0.5 + pz / 2.6
+            u = 0.5 + px / 2.0
+            v = 0.5 + pz / 2.0
         else:
             # back hemisphere: clamp to outer ring of texture (sclera white)
             a = math.atan2(d.z, d.x) / TAU
@@ -274,13 +296,15 @@ def build_lid(side, upper=True):
     s = side
     ex = EYE_C[0] if s > 0 else -EYE_C[0]
     r = EYE_R + 0.0018
-    yoff = -0.0008
+    # M3.6: shell tucked 0.4mm deeper - kills the googly-stare silhouette
+    yoff = -0.0012
     verts, faces, uvs = uv_sphere_grid(ex, EYE_C[1] + yoff, EYE_C[2], r, r, r,
                                        seg_u=40, seg_v=24)
     keep = []
     fwd = Vector((0, -1, 0))
     up = Vector((0, 0, 1))
-    cos_open = math.cos(math.radians(46 if upper else 54))
+    # M3.6: relaxed tired aperture (was 46/54 - the eyes stared)
+    cos_open = math.cos(math.radians(41 if upper else 50))
     for f in faces:
         okf = True
         for vi in f:
