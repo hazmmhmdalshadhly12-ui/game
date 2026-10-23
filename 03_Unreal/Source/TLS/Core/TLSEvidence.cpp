@@ -450,6 +450,15 @@ bool EvidenceSystem::DeserializeState(const JsonValue& Root, std::string& OutErr
                         const JsonValue* E = Ev->At(I);
                         if (!E) { continue; }
                         const std::string Id = E->GetString("id", "");
+                        // M3.2: the load contract is strict, like village and rumors -
+                        // a payload may only reference evidence this build defines.
+                        // (Ghost runtime entries would lie to the query API and skew
+                        // CollectedIds() counts; legit saves never carry them.)
+                        if (Id.empty() || !EvidenceDefs.count(Id))
+                        {
+                                OutError = "evidence state references unknown evidence \"" + Id + "\"";
+                                return false;
+                        }
                         EvidenceRuntime R;
                         R.bObserved = E->GetBool("observed", false);
                         R.bCollected = E->GetBool("collected", false);
@@ -460,7 +469,9 @@ bool EvidenceSystem::DeserializeState(const JsonValue& Root, std::string& OutErr
                         {
                                 for (size_t K = 0; K < Chain->Size(); ++K)
                                 {
-                                        if (const JsonValue* C = Chain->At(K)) { R.ChainOfCustody.push_back(C->AsString()); }
+                                        const JsonValue* C = Chain->At(K);
+                                        if (!C || !C->IsString()) { OutError = "custody chain entry not a string"; return false; }
+                                        R.ChainOfCustody.push_back(C->AsString());
                                 }
                         }
                         Runtime[Id] = R;
@@ -478,6 +489,13 @@ bool EvidenceSystem::DeserializeState(const JsonValue& Root, std::string& OutErr
                         L.RuleId = J->GetString("rule", "");
                         L.bValid = J->GetBool("valid", false);
                         L.DayDrawn = J->GetInt("day", 1);
+                        // M3.2: an empty rule id is the recorded NoRule verdict - kept.
+                        // A NAMED rule must exist, or the payload is from another world.
+                        if (!L.RuleId.empty() && !LinkRules.count(L.RuleId))
+                        {
+                                OutError = "link references unknown rule \"" + L.RuleId + "\"";
+                                return false;
+                        }
                         const LinkRule* Rule = nullptr;
                         auto RuleIt = LinkRules.find(L.RuleId);
                         if (RuleIt != LinkRules.end()) { Rule = &RuleIt->second; }
@@ -490,7 +508,15 @@ bool EvidenceSystem::DeserializeState(const JsonValue& Root, std::string& OutErr
         {
                 for (size_t I = 0; I < Known->Size(); ++I)
                 {
-                        if (const JsonValue* K = Known->At(I)) { KnownInsights.insert(K->AsString()); }
+                        const JsonValue* K = Known->At(I);
+                        if (!K) { continue; }
+                        // M3.2: only insights this build defines may load.
+                        if (!InsightDefs.count(K->AsString()))
+                        {
+                                OutError = "insights_known references unknown insight \"" + K->AsString() + "\"";
+                                return false;
+                        }
+                        KnownInsights.insert(K->AsString());
                 }
         }
         // re-derive insight-gated evidence grants

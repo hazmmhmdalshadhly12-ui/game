@@ -339,12 +339,26 @@ bool QuestSystem::DeserializeState(const JsonValue& Root, std::string& OutError)
                 const JsonValue* Q = Arr->At(I);
                 if (!Q) { continue; }
                 const std::string Id = Q->GetString("id", "");
+                // M3.2: the load contract is strict, like village and rumors -
+                // a payload may only reference quests this build defines, and a
+                // status string this build speaks. A ghost "completed" quest
+                // would make IsQuestCompleted lie to every listener.
+                if (Id.empty() || !QuestDefs.count(Id))
+                {
+                        OutError = "quest state references unknown quest \"" + Id + "\"";
+                        return false;
+                }
                 QuestRuntime R;
                 std::string StatusStr = Q->GetString("status", "not_started");
                 if (StatusStr == "active") { R.Status = EQuestStatus::Active; }
                 else if (StatusStr == "completed") { R.Status = EQuestStatus::Completed; }
                 else if (StatusStr == "failed") { R.Status = EQuestStatus::Failed; }
-                else { R.Status = EQuestStatus::NotStarted; }
+                else if (StatusStr == "not_started") { R.Status = EQuestStatus::NotStarted; }
+                else
+                {
+                        OutError = "unknown quest status \"" + StatusStr + "\" for " + Id;
+                        return false;
+                }
                 R.DayStarted = Q->GetInt("day_started", 0);
                 R.DayCompleted = Q->GetInt("day_completed", 0);
                 if (const JsonValue* Objs = Q->Find("objectives"))

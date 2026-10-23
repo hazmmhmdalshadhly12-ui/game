@@ -234,7 +234,14 @@ RumorSystem::TickResult Game::TickVillageGossip(int Day, int Hour)
 bool Game::NotifyWitnessEvent(const std::string& RumorId, int Day, int Hour, const std::string& Zone,
         const std::vector<std::string>& WitnessNpcIds, std::string& OutError)
 {
-        return RumorSys->RegisterWitnessEvent(RumorId, Day, Hour, Zone, WitnessNpcIds, OutError);
+        // M3.2: a witness event is a WORLD CHANGE the quest layer observes -
+        // npc_rumor tasks ("a villager carries the word") must re-evaluate the
+        // same way the leak path does. Without this refresh, the any_of alibi
+        // branch that the quest data itself describes ("let a witness's word
+        // travel") could never close.
+        const bool bOk = RumorSys->RegisterWitnessEvent(RumorId, Day, Hour, Zone, WitnessNpcIds, OutError);
+        if (bOk) { RefreshAfterChange(); }
+        return bOk;
 }
 
 bool Game::NotifyPlayerHeardRumor(const std::string& RumorId, const std::string& FromNpc)
