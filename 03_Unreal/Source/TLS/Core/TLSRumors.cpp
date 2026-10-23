@@ -581,6 +581,11 @@ JsonValue RumorSystem::SerializeState() const
         JsonValue Know = JsonValue::MakeObject();
         for (const auto& NpcKV : Knowledge)
         {
+                // M3.1: gossip lookups create empty per-NPC maps as a side effect
+                // of operator[] probing. They carry no information and the loader
+                // does not rebuild them - serializing them would break the
+                // save -> load -> resave byte-stability contract. Skip them.
+                if (NpcKV.second.empty()) { continue; }
                 JsonValue Arr = JsonValue::MakeArray();
                 for (const auto& RKV : NpcKV.second)
                 {

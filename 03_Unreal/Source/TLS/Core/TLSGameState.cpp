@@ -493,7 +493,10 @@ std::string Game::SaveToString() const
         return JsonSerialize(Save(), false);
 }
 
-bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
+// M3.1: the raw load. Mutates subsystems in sequence - NOT atomic on its own
+// (a payload that corrupts a later section would leave earlier sections
+// applied). Game::LoadFromString wraps this with a snapshot-rollback guard.
+bool Game::LoadFromStringInternal(const std::string& Payload, std::string& OutError)
 {
         JsonParseResult P = JsonParse(Payload);
         if (!P.Ok) { OutError = "save payload is not valid JSON: " + P.Error; return false; }
@@ -592,6 +595,25 @@ bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
         // an interrupted dialogue is not part of a save (save happens at the desk)
         DialogueSys->EndSession();
         return true;
+}
+
+// M3.1 atomic load: a refused load must leave the running session exactly as
+// it was - no partially-applied village/evidence/quests/rumors mixture. The
+// session is snapshotted before the attempt; any rejection rolls it back from
+// that snapshot (a payload produced by SaveToString() always reloads cleanly).
+bool Game::LoadFromString(const std::string& Payload, std::string& OutError)
+{
+        const std::string Rollback = SaveToString();
+        if (LoadFromStringInternal(Payload, OutError)) { return true; }
+
+        std::string RestoreErr;
+        if (!LoadFromStringInternal(Rollback, RestoreErr))
+        {
+                // unreachable for snapshots produced by SaveToString(); if it ever
+                // fires, surface it loudly instead of silently continuing mixed.
+                OutError += " (CRITICAL: refused-load rollback failed: " + RestoreErr + ")";
+        }
+        return false;
 }
 
 } // namespace tls

@@ -128,6 +128,8 @@ public:
         // ---- save / load ----
         JsonValue Save() const;
         std::string SaveToString() const;                       // compact JSON payload
+        // M3.1: atomic. A refused load leaves the running session byte-identical
+        // (the pre-load session is snapshotted and rolled back on any rejection).
         bool LoadFromString(const std::string& Payload, std::string& OutError);
 
         // flags map (read access for UI/tests)
@@ -138,6 +140,8 @@ private:
         void ApplyQuestCompletionFlags(const std::vector<std::string>& CompletedQuestIds);
         void RefreshAfterChange();
         void EnterNodeAndApply(const std::string& NodeId, std::string& OutEnteredNodeId);
+        // M3.1: the raw (non-atomic) load used by LoadFromString's rollback guard.
+        bool LoadFromStringInternal(const std::string& Payload, std::string& OutError);
 
         EvidenceSystem* EvidenceSys = nullptr;
         QuestSystem* QuestSys = nullptr;

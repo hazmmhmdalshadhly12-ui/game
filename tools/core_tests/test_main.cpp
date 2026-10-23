@@ -33,6 +33,11 @@ namespace tls_test_settings
 void RunAll(Game& G);
 }
 
+namespace tls_test_investigation
+{
+void RunAll();
+}
+
 // Builds a Game with every 05_Narrative data file loaded (evidence, quests,
 // sim, rumors, dialogues). Declared in test_fixtures.h - shared by all test
 // translation units. The data-loading checks run through the shared framework.
@@ -949,6 +954,9 @@ int main()
         {
                 tls_test_sim::RunSaveLoadTest(*G1, *G2, *G3);
         }
+
+        // M3.1: the first investigation loop + its regression battery
+        tls_test_investigation::RunAll();
 
         delete G; delete G1; delete G2; delete G3;
         return tls_test::ReportAndExit();
