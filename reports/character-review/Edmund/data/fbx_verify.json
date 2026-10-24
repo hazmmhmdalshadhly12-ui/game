@@ -5,8 +5,8 @@
     "meshes": 5,
     "armatures": 1,
     "bones": 65,
-    "verts": 14191,
-    "tris": 27764,
+    "verts": 17601,
+    "tris": 34588,
     "materials": [
       "TLS_Edmund_Eye",
       "TLS_Edmund_Skin",
@@ -24,8 +24,8 @@
     "meshes": 7,
     "armatures": 1,
     "bones": 65,
-    "verts": 6414,
-    "tris": 11996,
+    "verts": 6568,
+    "tris": 12278,
     "materials": [
       "TLS_Edmund_BootLeather",
       "TLS_Edmund_Brass",
@@ -37,10 +37,10 @@
       "TLS_Edmund_TrousersWool",
       "TLS_Edmund_Waistcoat"
     ],
-    "height_m": 1.515,
+    "height_m": 1.512,
     "bounds_z": [
       -0.0,
-      1.515
+      1.512
     ]
   }
 ]

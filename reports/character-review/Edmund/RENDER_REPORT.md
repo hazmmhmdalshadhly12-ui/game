@@ -1,3 +1,7 @@
+# M3.6 渲染更新（2026-10-23）
+
+> **本文件以下是 M3.5 渲染报告（历史）。M3.6 的 11 张渲染全部从最终 .blend 重新产出**（Cycles CPU 56 采样 + OIDN，AgX MHC / cine 用 Punchy）：front / side / back / three_quarter / face_closeup / **face_front（M3.6 新增正面对称机位）** / materials / rig_apose / rig_readiness / walk_test / cinematic。对比 M3.5：眼睛重建（虹膜 50% 比例 + 角膜缘环 + 睫毛）、头发实心卡片分层（碎屑已灭）、深棕发色、肤色 SSS + 空腔阴影、炭黑大衣 / 棕裤 / 棕马甲 / 象牙衬衫的色彩分离。注：棚灯（key 420W）+ AgX 会把炭黑大衣提亮为中灰——资产基础色 0.034 是正确的，游戏内光照下才呈现真实暗度（UE 未测）。
+
 # M3.5 — تقرير الرندر — إدموند ڤيل (بعد الإصلاح)
 
 > 10 رندرات PNG أنتجها **Cycles CPU** (بدون GPU في البيئة) من ملف `02_Art/blender/source/chr/tls_chr_001_edmund_vale.blend` **بعد إصلاحات M3.5 وإعادة بنائه**، عبر `edmund_render.py` الذي يضيف الاستوديو/الإضاءة/الكاميرات في الذاكرة فقط ولا يحفظ الملف الأصلي.

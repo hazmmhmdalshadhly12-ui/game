@@ -511,31 +511,80 @@ def gen_skin_micro(res=512, pore=260, seed=23):
     out = np.clip(base * 0.55 + dots, 0, 1)
     return np.repeat(out[..., None], 3, axis=2).astype(np.float32)
 
-def gen_iris(res=512, seed=31, base=(0.30, 0.36, 0.42)):
-    """Gray-blue radial fiber iris, dark limbal ring, black pupil center."""
+def gen_iris(res=512, seed=31, base=(0.26, 0.29, 0.33), iris_span=0.50):
+    """M3.6 v2: tired gray iris - radial fibers + fine irregular streaks,
+    collarette ring, strong limbal ring, soft pupil edge, off-white sclera.
+    The old v1 read as a flat bright sticker under studio light.
+    SCALE CONTRACT with edmund_body.build_eyeball: the eyeball UV maps the
+    texture half-width onto the eyeball radius, so ALL iris features live
+    inside r<=iris_span (=0.50 -> ~14mm iris on the 28mm eyeball) and the
+    outer band is sclera. The v1 texture drew the iris out to r=0.9 which,
+    combined with the v1 UV mapping, wrapped a giant iris past the limb."""
     rng = np.random.default_rng(seed)
     yy, xx = np.mgrid[0:res, 0:res]
     cx = cy = res / 2
     dx, dy = xx - cx, yy - cy
     r = np.sqrt(dx * dx + dy * dy) / (res / 2)
     ang = np.arctan2(dy, dx)
-    fibers = np.sin(ang * 90 + rng.uniform(0, 6, 1)[0]) * 0.5 + 0.5
-    spokes = np.sin(ang * 26) * 0.5 + 0.5
-    iris = 0.55 + 0.25 * fibers * spokes
+    ri = r / iris_span          # normalized iris radius (1.0 = limbal edge)
+    # M3.6 v3: frequencies capped at <=20 cycles - anything finer aliases
+    # into a regular checker moire against the 40-segment eyeball grid at
+    # face-render distances (the 56-cycle v2 still moire'd; the 190-cycle
+    # v1 was worst). Iris structure = streaks + collarette + limbal ring.
+    fibers = np.sin(ang * 20 + rng.uniform(0, 6, 1)[0]) * 0.5 + 0.5
+    spokes = np.sin(ang * 10) * 0.5 + 0.5
+    fine = np.sin(ang * 14 + rng.uniform(0, 6, 1)[0]) * 0.5 + 0.5
+    iris = 0.50 + 0.20 * fibers * spokes + 0.08 * fine
+    # per-radial-line brightness irregularity (streaks, not rings)
+    streak = np.sin(ang * 11 + 2.3) * 0.5 + 0.5
+    iris *= (0.82 + 0.20 * streak)
     col = np.zeros((res, res, 3), dtype=np.float32)
     for i in range(3):
-        col[..., i] = base[i] * (0.7 + 0.55 * iris)
-    col[..., 0] *= 0.9  # cooler
-    limbal = np.clip((r - 0.82) / 0.10, 0, 1)
+        col[..., i] = base[i] * (0.62 + 0.50 * iris)
+    # collarette: subtle lighter ring near ri=0.45
+    coll = np.exp(-((ri - 0.45) / 0.07) ** 2)
     for i in range(3):
-        col[..., i] *= (1.0 - limbal * 0.85)
-    pupil = np.clip((0.30 - r) / 0.06, 0, 1)
+        col[..., i] *= (1.0 + coll * 0.22)
+    # stronger dark limbal ring at the iris edge
+    limbal = np.clip((ri - 0.76) / 0.14, 0, 1)
     for i in range(3):
-        col[..., i] = col[..., i] * (1 - pupil)
-    outside = (r > 1.0).astype(np.float32)
+        col[..., i] *= (1.0 - limbal * 0.92)
+    # pupil with soft edge
+    pupil = np.clip((0.27 - ri) / 0.07, 0, 1)
     for i in range(3):
-        col[..., i] = col[..., i] * (1 - outside) + 0.85 * outside
+        col[..., i] = col[..., i] * (1 - pupil) + 0.012 * pupil
+    # sclera: slightly warm off-white beyond the iris (and anti-alias band)
+    outside = np.clip((ri - 0.97) / 0.06, 0, 1)
+    for i, s in enumerate((0.80, 0.79, 0.775)):
+        col[..., i] = col[..., i] * (1 - outside) + s * outside
     return np.clip(col, 0, 1)
+
+def gen_hair_alpha(res=512, seed=13):
+    """M3.6: strand card texture (RGBA).
+    V axis = along the strand (root at V=0, tip at V=1):
+      - RGB: root-to-tip value gradient + streak breakup (feeds Base Color mix)
+      - A: tapered alpha so card ends never read as hard rectangles
+    U axis = across the strand: soft side edges so each card blends into the
+    next instead of showing a plastic ribbon outline.
+    M3.6 v2: purely analytic smooth streaks - the v1 per-row random noise
+    rendered as blocky horizontal banding on wide cards."""
+    yy, xx = np.mgrid[0:res, 0:res]
+    u = xx / (res - 1)
+    v = yy / (res - 1)
+    # smooth streaks along the strand direction (vertical), no random banding
+    streak = 0.5 + 0.26 * np.sin(u * 21 + 1.7 * np.sin(u * 7.0)) \
+        + 0.18 * np.sin(u * 53 + 0.9) + 0.10 * np.sin(u * 121 + 2.1)
+    streak = np.clip(streak, 0.05, 1.05)
+    # cross-card soft edge (U) - wide fade so per-card specular footprints
+    # never show as discrete chips at sparse zones (hairline, part line)
+    edge = np.clip(np.sin(u * math.pi) * 1.25, 0, 1) ** 1.0
+    # root-to-tip: value rises (tips catch light), alpha falls
+    val = 0.40 + 0.60 * (v ** 1.4) * streak
+    alpha = ((1.0 - v) ** 0.55) * (0.55 + 0.45 * streak) * (edge ** 1.2)
+    alpha[: int(res * 0.02), :] = np.maximum(alpha[: int(res * 0.02), :], 0.9)  # solid root
+    rgb = np.clip(np.repeat(val[..., None], 3, axis=2), 0, 1)
+    a = np.clip(alpha, 0, 1)[..., None]
+    return np.concatenate([rgb, a], axis=2).astype(np.float32)
 
 def gen_eyeball_base(res=256):
     out = np.ones((res, res, 3), dtype=np.float32) * 0.88

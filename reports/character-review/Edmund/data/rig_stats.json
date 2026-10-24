@@ -77,6 +77,7 @@
     "Edmund_Hair",
     "Edmund_HandL",
     "Edmund_HandR",
+    "Edmund_Lashes",
     "Edmund_Neckcloth",
     "Edmund_Satchel",
     "Edmund_Shirt",
@@ -88,16 +89,15 @@
   "zero_weight_repaired": {
     "Edmund_Body": 534,
     "Edmund_Boots": 228,
-    "Edmund_Brows": 12,
-    "Edmund_Hair": 58875,
-    "Edmund_Stubble": 31200
+    "Edmund_Hair": 46688,
+    "Edmund_Lashes": 1620,
+    "Edmund_Stubble": 26400
   },
   "eye_weight_scrubbed": {
-    "Edmund_Body": 4999,
-    "Edmund_Brows": 5148,
+    "Edmund_Body": 4992,
+    "Edmund_Brows": 4560,
     "Edmund_Coat": 32,
-    "Edmund_Neckcloth": 50,
-    "Edmund_Shirt": 89
+    "Edmund_Neckcloth": 50
   },
   "garment_refined_verts": {
     "coat_chest": 0,
@@ -106,7 +106,7 @@
     "shirt": 0,
     "trousers": 0
   },
-  "body_verts": 11375,
+  "body_verts": 11441,
   "tests": [
     {
       "test": "elbow_bend",
@@ -129,15 +129,15 @@
       "bone": "head",
       "axis": "Z",
       "angle_deg": 28.6,
-      "verts_moved_gt1mm": 10229,
+      "verts_moved_gt1mm": 10295,
       "max_disp_m": 0.125,
       "nan_verts": 0,
       "max_edge_stretch": 1.075,
       "worst_edges": [],
       "avg_disp": [
-        -0.05328,
+        -0.05338,
         0.0,
-        -0.01362
+        -0.01364
       ]
     },
     {
@@ -145,14 +145,14 @@
       "bone": "spine02",
       "axis": "Y",
       "angle_deg": 14.3,
-      "verts_moved_gt1mm": 11299,
+      "verts_moved_gt1mm": 11365,
       "max_disp_m": 0.0885,
       "nan_verts": 0,
       "max_edge_stretch": 1.055,
       "worst_edges": [],
       "avg_disp": [
-        0.00427,
-        0.00053,
+        0.00441,
+        0.00055,
         0.0
       ]
     },
@@ -167,9 +167,9 @@
       "max_edge_stretch": 1.267,
       "worst_edges": [],
       "avg_disp": [
-        -0.00011,
-        0.00498,
-        0.00086
+        -0.0001,
+        0.00495,
+        0.00085
       ]
     },
     {
@@ -184,7 +184,7 @@
       "worst_edges": [],
       "avg_disp": [
         -0.00022,
-        0.00116,
+        0.00115,
         0.0004
       ]
     },

@@ -1,13 +1,13 @@
 {
-  "blend": "/home/z/my-project/m35_out/final/tls_chr_001_edmund_vale.blend",
+  "blend": "/home/z/my-project/m36_out/tls_chr_001_edmund_vale.blend",
   "blender": "5.0.1",
   "objects": [
     {
       "name": "Edmund_Body",
-      "verts": 11375,
-      "polys": 11484,
-      "tris": 22316,
-      "boundary_edges": 396,
+      "verts": 11441,
+      "polys": 11552,
+      "tris": 22452,
+      "boundary_edges": 392,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -17,132 +17,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 42,
-          "avg_xyz": [
-            0.022,
-            -0.101,
-            1.676
-          ]
-        },
-        {
-          "edges": 42,
-          "avg_xyz": [
-            -0.022,
-            -0.101,
-            1.676
-          ]
-        },
-        {
-          "edges": 30,
-          "avg_xyz": [
-            0.044,
-            -0.099,
-            1.679
-          ]
-        },
-        {
-          "edges": 30,
-          "avg_xyz": [
-            -0.044,
-            -0.099,
-            1.679
-          ]
-        },
-        {
-          "edges": 18,
-          "avg_xyz": [
-            0.028,
-            -0.082,
-            1.681
-          ]
-        },
-        {
-          "edges": 18,
-          "avg_xyz": [
-            -0.028,
-            -0.082,
-            1.681
-          ]
-        },
-        {
-          "edges": 15,
-          "avg_xyz": [
-            0.028,
-            -0.105,
-            1.693
-          ]
-        },
-        {
-          "edges": 15,
-          "avg_xyz": [
-            -0.028,
-            -0.105,
-            1.693
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            0.041,
-            -0.084,
-            1.681
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            -0.041,
-            -0.084,
-            1.681
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            0.04,
-            -0.105,
-            1.69
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            -0.04,
-            -0.105,
-            1.69
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.052,
-            -0.002,
-            1.556
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.047,
-            0.023,
-            1.556
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 32,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 360
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Boots",
@@ -160,265 +44,23 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.049,
-            0.024,
-            0.335
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.151,
-            0.001,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.082,
-            0.028,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.065,
-            0.001,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.072,
-            -0.048,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.122,
-            -0.068,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.144,
-            -0.048,
-            0.092
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.127,
-            0.029,
-            0.016
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.078,
-            0.02,
-            0.016
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.127,
-            -0.097,
-            0.016
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.154,
-            -0.073,
-            0.016
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.127,
-            0.029,
-            0.0
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.078,
-            0.02,
-            0.0
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.127,
-            -0.097,
-            0.0
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Edmund_Brows",
-      "verts": 5160,
-      "polys": 1720,
-      "tris": 3440,
-      "boundary_edges": 5160,
-      "nonmanifold_edges": 0,
-      "loose_verts": 0,
-      "nan_verts": 0,
-      "materials": [
-        "TLS_Edmund_Brow"
-      ],
-      "uvs": [
-        "UVMap"
-      ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
-      "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 871,
-          "avg_xyz": [
-            0.045,
-            -0.097,
-            1.715
-          ]
-        },
-        {
-          "edges": 869,
-          "avg_xyz": [
-            0.053,
-            -0.094,
-            1.707
-          ]
-        },
-        {
-          "edges": 869,
-          "avg_xyz": [
-            -0.054,
-            -0.094,
-            1.707
-          ]
-        },
-        {
-          "edges": 864,
-          "avg_xyz": [
-            -0.045,
-            -0.097,
-            1.715
-          ]
-        },
-        {
-          "edges": 578,
-          "avg_xyz": [
-            -0.03,
-            -0.104,
-            1.708
-          ]
-        },
-        {
-          "edges": 550,
-          "avg_xyz": [
-            0.03,
-            -0.103,
-            1.708
-          ]
-        },
-        {
-          "edges": 224,
-          "avg_xyz": [
-            0.035,
-            -0.097,
-            1.714
-          ]
-        },
-        {
-          "edges": 204,
-          "avg_xyz": [
-            -0.035,
-            -0.096,
-            1.714
-          ]
-        },
-        {
-          "edges": 61,
-          "avg_xyz": [
-            0.064,
-            -0.098,
-            1.701
-          ]
-        },
-        {
-          "edges": 56,
-          "avg_xyz": [
-            -0.064,
-            -0.098,
-            1.7
-          ]
-        },
-        {
-          "edges": 9,
-          "avg_xyz": [
-            -0.032,
-            -0.113,
-            1.702
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            0.032,
-            -0.113,
-            1.702
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 160,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Coat",
-      "verts": 1886,
-      "polys": 1854,
-      "tris": 3532,
-      "boundary_edges": 218,
+      "verts": 2060,
+      "polys": 2050,
+      "tris": 3840,
+      "boundary_edges": 246,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -429,138 +71,22 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 5,
-          "avg_xyz": [
-            -0.076,
-            -0.048,
-            1.5
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            0.076,
-            -0.048,
-            1.5
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.075,
-            0.05,
-            1.502
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.075,
-            0.05,
-            1.502
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.046,
-            -0.078,
-            1.502
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.046,
-            -0.078,
-            1.502
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.048,
-            -0.15,
-            1.472
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.026,
-            -0.128,
-            1.16
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.048,
-            -0.15,
-            1.472
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.026,
-            -0.128,
-            1.16
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.091,
-            -0.004,
-            1.499
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            -0.091,
-            -0.004,
-            1.499
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.048,
-            -0.173,
-            1.471
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.048,
-            -0.127,
-            1.473
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 246,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_EyeL",
-      "verts": 1082,
-      "polys": 1120,
-      "tris": 2160,
+      "verts": 2754,
+      "polys": 2816,
+      "tris": 5504,
       "boundary_edges": 0,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
@@ -571,24 +97,22 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
-      "parent": "TLS_Rig_Human_Edmund"
+      "parent": "TLS_Rig_Human_Edmund",
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_EyeR",
-      "verts": 1082,
-      "polys": 1120,
-      "tris": 2160,
+      "verts": 2754,
+      "polys": 2816,
+      "tris": 5504,
       "boundary_edges": 0,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
@@ -599,160 +123,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
-      "parent": "TLS_Rig_Human_Edmund"
-    },
-    {
-      "name": "Edmund_Hair",
-      "verts": 58875,
-      "polys": 26660,
-      "tris": 53168,
-      "boundary_edges": 55376,
-      "nonmanifold_edges": 0,
-      "loose_verts": 0,
-      "nan_verts": 0,
-      "materials": [
-        "TLS_Edmund_Hair"
-      ],
-      "uvs": [
-        "UVMap"
-      ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 978,
-          "avg_xyz": [
-            0.102,
-            -0.0,
-            1.674
-          ]
-        },
-        {
-          "edges": 954,
-          "avg_xyz": [
-            -0.101,
-            -0.0,
-            1.674
-          ]
-        },
-        {
-          "edges": 776,
-          "avg_xyz": [
-            0.05,
-            -0.025,
-            1.777
-          ]
-        },
-        {
-          "edges": 760,
-          "avg_xyz": [
-            0.1,
-            -0.022,
-            1.674
-          ]
-        },
-        {
-          "edges": 733,
-          "avg_xyz": [
-            -0.099,
-            -0.022,
-            1.674
-          ]
-        },
-        {
-          "edges": 666,
-          "avg_xyz": [
-            0.075,
-            -0.025,
-            1.776
-          ]
-        },
-        {
-          "edges": 643,
-          "avg_xyz": [
-            0.025,
-            -0.025,
-            1.78
-          ]
-        },
-        {
-          "edges": 617,
-          "avg_xyz": [
-            0.099,
-            -0.001,
-            1.696
-          ]
-        },
-        {
-          "edges": 611,
-          "avg_xyz": [
-            -0.099,
-            -0.001,
-            1.696
-          ]
-        },
-        {
-          "edges": 599,
-          "avg_xyz": [
-            0.104,
-            -0.023,
-            1.652
-          ]
-        },
-        {
-          "edges": 595,
-          "avg_xyz": [
-            -0.102,
-            -0.023,
-            1.652
-          ]
-        },
-        {
-          "edges": 557,
-          "avg_xyz": [
-            -0.102,
-            -0.001,
-            1.653
-          ]
-        },
-        {
-          "edges": 534,
-          "avg_xyz": [
-            0.074,
-            -0.001,
-            1.776
-          ]
-        },
-        {
-          "edges": 530,
-          "avg_xyz": [
-            0.103,
-            -0.0,
-            1.653
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_HandL",
@@ -769,116 +149,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 12,
-          "avg_xyz": [
-            0.374,
-            -0.092,
-            0.779
-          ]
-        },
-        {
-          "edges": 12,
-          "avg_xyz": [
-            0.35,
-            -0.092,
-            0.775
-          ]
-        },
-        {
-          "edges": 10,
-          "avg_xyz": [
-            0.325,
-            -0.092,
-            0.775
-          ]
-        },
-        {
-          "edges": 8,
-          "avg_xyz": [
-            0.376,
-            -0.083,
-            0.779
-          ]
-        },
-        {
-          "edges": 7,
-          "avg_xyz": [
-            0.349,
-            -0.084,
-            0.774
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            0.326,
-            -0.084,
-            0.777
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            0.372,
-            -0.074,
-            0.827
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            0.392,
-            -0.086,
-            0.783
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            0.382,
-            -0.077,
-            0.842
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.311,
-            -0.091,
-            0.765
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.389,
-            -0.092,
-            0.781
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.375,
-            -0.089,
-            0.834
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 0,
+        "hand_finger_joints": 76,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_HandR",
@@ -895,131 +175,23 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 14,
-          "avg_xyz": [
-            -0.349,
-            -0.093,
-            0.773
-          ]
-        },
-        {
-          "edges": 12,
-          "avg_xyz": [
-            -0.326,
-            -0.093,
-            0.769
-          ]
-        },
-        {
-          "edges": 7,
-          "avg_xyz": [
-            -0.352,
-            -0.083,
-            0.773
-          ]
-        },
-        {
-          "edges": 7,
-          "avg_xyz": [
-            -0.377,
-            -0.082,
-            0.791
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            -0.371,
-            -0.091,
-            0.779
-          ]
-        },
-        {
-          "edges": 6,
-          "avg_xyz": [
-            -0.372,
-            -0.074,
-            0.827
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            -0.38,
-            -0.091,
-            0.792
-          ]
-        },
-        {
-          "edges": 5,
-          "avg_xyz": [
-            -0.382,
-            -0.077,
-            0.842
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.373,
-            -0.085,
-            0.777
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.327,
-            -0.084,
-            0.767
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            -0.393,
-            -0.087,
-            0.785
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.311,
-            -0.091,
-            0.765
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.375,
-            -0.089,
-            0.834
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 0,
+        "hand_finger_joints": 76,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Neckcloth",
-      "verts": 187,
-      "polys": 172,
-      "tris": 304,
-      "boundary_edges": 64,
+      "verts": 162,
+      "polys": 148,
+      "tris": 264,
+      "boundary_edges": 56,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -1029,132 +201,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.0,
-            -0.085,
-            1.465
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.003,
-            -0.091,
-            1.464
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.077,
-            0.0,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.048,
-            0.057,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            0.073,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.048,
-            0.057,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.077,
-            0.0,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.048,
-            -0.057,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            -0.073,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.048,
-            -0.057,
-            1.452
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.075,
-            -0.004,
-            1.515
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.068,
-            0.027,
-            1.515
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.047,
-            0.052,
-            1.515
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            0.067,
-            1.515
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 56,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Satchel",
@@ -1172,132 +228,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.152,
-            -0.053,
-            1.424
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.168,
-            -0.057,
-            1.416
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.123,
-            -0.115,
-            0.922
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.123,
-            -0.107,
-            0.924
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.279,
-            -0.075,
-            0.82
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.048,
-            -0.052,
-            0.82
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.031,
-            -0.075,
-            0.82
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.048,
-            -0.098,
-            0.82
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.11,
-            -0.107,
-            0.911
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.27,
-            -0.057,
-            0.82
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.254,
-            -0.047,
-            0.82
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.231,
-            -0.038,
-            0.82
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.203,
-            -0.032,
-            0.82
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.171,
-            -0.029,
-            0.82
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 40,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Shirt",
@@ -1314,274 +254,16 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.352,
-            -0.078,
-            0.908
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.328,
-            -0.1,
-            0.908
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.298,
-            -0.093,
-            0.903
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            0.328,
-            -0.023,
-            0.897
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.298,
-            -0.093,
-            0.903
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.328,
-            -0.1,
-            0.908
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.352,
-            -0.078,
-            0.908
-          ]
-        },
-        {
-          "edges": 4,
-          "avg_xyz": [
-            -0.328,
-            -0.023,
-            0.897
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            0.3,
-            -0.029,
-            0.896
-          ]
-        },
-        {
-          "edges": 3,
-          "avg_xyz": [
-            -0.3,
-            -0.029,
-            0.896
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.076,
-            0.004,
-            1.505
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.072,
-            0.029,
-            1.505
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.026,
-            0.072,
-            1.505
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            0.077,
-            1.505
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Edmund_Stubble",
-      "verts": 31200,
-      "polys": 10400,
-      "tris": 20800,
-      "boundary_edges": 31200,
-      "nonmanifold_edges": 0,
-      "loose_verts": 0,
-      "nan_verts": 0,
-      "materials": [
-        "TLS_Edmund_Stubble"
-      ],
-      "uvs": [
-        "UVMap"
-      ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
-      "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 1672,
-          "avg_xyz": [
-            -0.0,
-            -0.048,
-            1.557
-          ]
-        },
-        {
-          "edges": 1624,
-          "avg_xyz": [
-            0.001,
-            -0.074,
-            1.575
-          ]
-        },
-        {
-          "edges": 1526,
-          "avg_xyz": [
-            0.028,
-            -0.052,
-            1.569
-          ]
-        },
-        {
-          "edges": 1487,
-          "avg_xyz": [
-            -0.028,
-            -0.052,
-            1.569
-          ]
-        },
-        {
-          "edges": 1208,
-          "avg_xyz": [
-            0.024,
-            -0.071,
-            1.579
-          ]
-        },
-        {
-          "edges": 1165,
-          "avg_xyz": [
-            -0.023,
-            -0.071,
-            1.579
-          ]
-        },
-        {
-          "edges": 963,
-          "avg_xyz": [
-            0.021,
-            -0.044,
-            1.558
-          ]
-        },
-        {
-          "edges": 959,
-          "avg_xyz": [
-            -0.02,
-            -0.045,
-            1.559
-          ]
-        },
-        {
-          "edges": 949,
-          "avg_xyz": [
-            -0.027,
-            -0.031,
-            1.558
-          ]
-        },
-        {
-          "edges": 915,
-          "avg_xyz": [
-            0.026,
-            -0.032,
-            1.557
-          ]
-        },
-        {
-          "edges": 902,
-          "avg_xyz": [
-            -0.044,
-            -0.047,
-            1.58
-          ]
-        },
-        {
-          "edges": 892,
-          "avg_xyz": [
-            -0.047,
-            -0.072,
-            1.602
-          ]
-        },
-        {
-          "edges": 860,
-          "avg_xyz": [
-            0.047,
-            -0.072,
-            1.602
-          ]
-        },
-        {
-          "edges": 849,
-          "avg_xyz": [
-            0.029,
-            -0.081,
-            1.594
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 120,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Trousers",
@@ -1598,139 +280,23 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            -0.015,
-            0.902
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            0.027,
-            0.902
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.076,
-            -0.051,
-            0.089
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.076,
-            0.023,
-            0.091
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.076,
-            -0.051,
-            0.089
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.076,
-            0.023,
-            0.091
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.159,
-            0.023,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.154,
-            0.044,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.145,
-            0.064,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.131,
-            0.082,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.113,
-            0.098,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.092,
-            0.112,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.068,
-            0.123,
-            0.92
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.041,
-            0.13,
-            0.92
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 100,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     },
     {
       "name": "Edmund_Waistcoat",
-      "verts": 544,
-      "polys": 580,
-      "tris": 1020,
-      "boundary_edges": 52,
+      "verts": 549,
+      "polys": 588,
+      "tris": 1034,
+      "boundary_edges": 48,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -1741,154 +307,241 @@
       "uvs": [
         "UVMap"
       ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ],
-        [
-          "ARMATURE",
-          "Armature"
-        ]
-      ],
-      "particle_systems": [],
       "parent": "TLS_Rig_Human_Edmund",
-      "boundary_regions": [
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.135,
-            -0.003,
-            1.435
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            0.0,
-            0.096,
-            1.435
-          ]
-        },
-        {
-          "edges": 2,
-          "avg_xyz": [
-            -0.135,
-            -0.003,
-            1.435
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.095,
-            -0.086,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.07,
-            -0.096,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.043,
-            -0.103,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.014,
-            -0.107,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.014,
-            -0.107,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.043,
-            -0.103,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.07,
-            -0.096,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.095,
-            -0.086,
-            0.905
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.041,
-            -0.123,
-            1.26
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            -0.014,
-            -0.126,
-            1.26
-          ]
-        },
-        {
-          "edges": 1,
-          "avg_xyz": [
-            0.014,
-            -0.126,
-            1.26
-          ]
-        }
-      ]
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 48,
+        "card_edge": 0,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
     }
   ],
-  "armature": {
-    "name": "TLS_Rig_Human_Edmund",
-    "bones": 65
+  "render_extras": [
+    {
+      "name": "Edmund_Brows",
+      "verts": 4560,
+      "polys": 1520,
+      "tris": 3040,
+      "boundary_edges": 4560,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Brow"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "parent": "TLS_Rig_Human_Edmund",
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 4560,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
+    },
+    {
+      "name": "Edmund_Hair",
+      "verts": 46688,
+      "polys": 21632,
+      "tris": 43112,
+      "boundary_edges": 43102,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_HairCap",
+        "TLS_Edmund_Hair"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "parent": "TLS_Rig_Human_Edmund",
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 43102,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
+    },
+    {
+      "name": "Edmund_Lashes",
+      "verts": 1620,
+      "polys": 540,
+      "tris": 1080,
+      "boundary_edges": 1620,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Brow"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "parent": "TLS_Rig_Human_Edmund",
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 1620,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
+    },
+    {
+      "name": "Edmund_Stubble",
+      "verts": 26400,
+      "polys": 8800,
+      "tris": 17600,
+      "boundary_edges": 26400,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Stubble"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "parent": "TLS_Rig_Human_Edmund",
+      "boundary_zones": {
+        "eyelid_shell": 0,
+        "garment_aperture": 0,
+        "card_edge": 26400,
+        "hand_finger_joints": 0,
+        "unclassified": 0
+      },
+      "zero_weight_verts": 0,
+      "eye_bone_leak_verts": 0
+    }
+  ],
+  "rig": {
+    "armature": "TLS_Rig_Human_Edmund",
+    "bones": 65,
+    "bone_names": [
+      "root",
+      "pelvis",
+      "spine01",
+      "spine02",
+      "spine03",
+      "chest",
+      "neck",
+      "head",
+      "eye.L",
+      "eye.R",
+      "clavicle.L",
+      "upper_arm.L",
+      "upper_arm_twist.L",
+      "forearm.L",
+      "forearm_twist.L",
+      "hand.L",
+      "index_1.L",
+      "index_2.L",
+      "index_3.L",
+      "middle_1.L",
+      "middle_2.L",
+      "middle_3.L",
+      "ring_1.L",
+      "ring_2.L",
+      "ring_3.L",
+      "pinky_1.L",
+      "pinky_2.L",
+      "pinky_3.L",
+      "thumb_1.L",
+      "thumb_2.L",
+      "thumb_3.L",
+      "clavicle.R",
+      "upper_arm.R",
+      "upper_arm_twist.R",
+      "forearm.R",
+      "forearm_twist.R",
+      "hand.R",
+      "index_1.R",
+      "index_2.R",
+      "index_3.R",
+      "middle_1.R",
+      "middle_2.R",
+      "middle_3.R",
+      "ring_1.R",
+      "ring_2.R",
+      "ring_3.R",
+      "pinky_1.R",
+      "pinky_2.R",
+      "pinky_3.R",
+      "thumb_1.R",
+      "thumb_2.R",
+      "thumb_3.R",
+      "satchel_anchor",
+      "thigh.L",
+      "thigh_twist.L",
+      "shin.L",
+      "shin_twist.L",
+      "foot.L",
+      "toe.L",
+      "thigh.R",
+      "thigh_twist.R",
+      "shin.R",
+      "shin_twist.R",
+      "foot.R",
+      "toe.R"
+    ]
   },
-  "notes": [],
-  "zero_weight_verts": {
-    "Edmund_Body": 0,
-    "Edmund_Boots": 0,
-    "Edmund_Brows": 0,
-    "Edmund_Coat": 0,
-    "Edmund_EyeL": 0,
-    "Edmund_EyeR": 0,
-    "Edmund_Hair": 0,
-    "Edmund_HandL": 0,
-    "Edmund_HandR": 0,
-    "Edmund_Neckcloth": 0,
-    "Edmund_Satchel": 0,
-    "Edmund_Shirt": 0,
-    "Edmund_Stubble": 0,
-    "Edmund_Trousers": 0,
-    "Edmund_Waistcoat": 0
-  }
+  "textures": [
+    {
+      "file": "tls_chr_001_tex_cloth_weave.png",
+      "bytes": 388084,
+      "md5": "e8bf0c3018d37cb112840bbe0292c823"
+    },
+    {
+      "file": "tls_chr_001_tex_hair_alpha.png",
+      "bytes": 140369,
+      "md5": "7ca36b7f137769685d3f56a17a144cf5"
+    },
+    {
+      "file": "tls_chr_001_tex_iris_gray.png",
+      "bytes": 51351,
+      "md5": "ef93ebb5edd392db48412c98bfc5088f"
+    },
+    {
+      "file": "tls_chr_001_tex_leather_grain.png",
+      "bytes": 320012,
+      "md5": "45b5281147cf06cf451618df392dda47"
+    },
+    {
+      "file": "tls_chr_001_tex_skin_micro.png",
+      "bytes": 362073,
+      "md5": "b8fe3310c0b28c6dc78dfeab4c519cca"
+    }
+  ],
+  "height_m": 1.7993,
+  "totals": {
+    "character_verts": 24169,
+    "objects": 12,
+    "render_extras": 4
+  },
+  "bounds_z": [
+    0.0,
+    1.7993
+  ],
+  "bounds_min": [
+    -0.457,
+    -0.213,
+    0.0
+  ],
+  "bounds_max": [
+    0.457,
+    0.1434,
+    1.7993
+  ]
 }

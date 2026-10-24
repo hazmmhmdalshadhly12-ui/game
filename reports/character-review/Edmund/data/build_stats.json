@@ -1,13 +1,13 @@
 {
   "blender": "5.0.1",
-  "generated": "2026-10-23 18:57:13",
+  "generated": "2026-10-23 22:22:50",
   "objects": [
     {
       "name": "Edmund_Body",
-      "verts": 11375,
-      "polys": 11484,
-      "tris": 22316,
-      "boundary_edges": 396,
+      "verts": 11441,
+      "polys": 11552,
+      "tris": 22452,
+      "boundary_edges": 392,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -26,9 +26,9 @@
     },
     {
       "name": "Edmund_EyeL",
-      "verts": 1082,
-      "polys": 1120,
-      "tris": 2160,
+      "verts": 2754,
+      "polys": 2816,
+      "tris": 5504,
       "boundary_edges": 0,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
@@ -48,9 +48,9 @@
     },
     {
       "name": "Edmund_EyeR",
-      "verts": 1082,
-      "polys": 1120,
-      "tris": 2160,
+      "verts": 2754,
+      "polys": 2816,
+      "tris": 5504,
       "boundary_edges": 0,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
@@ -136,10 +136,10 @@
     },
     {
       "name": "Edmund_Waistcoat",
-      "verts": 544,
-      "polys": 580,
-      "tris": 1020,
-      "boundary_edges": 52,
+      "verts": 549,
+      "polys": 588,
+      "tris": 1034,
+      "boundary_edges": 48,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -159,10 +159,10 @@
     },
     {
       "name": "Edmund_Coat",
-      "verts": 1886,
-      "polys": 1854,
-      "tris": 3532,
-      "boundary_edges": 218,
+      "verts": 2060,
+      "polys": 2050,
+      "tris": 3840,
+      "boundary_edges": 246,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -182,10 +182,10 @@
     },
     {
       "name": "Edmund_Neckcloth",
-      "verts": 187,
-      "polys": 172,
-      "tris": 304,
-      "boundary_edges": 64,
+      "verts": 162,
+      "polys": 148,
+      "tris": 264,
+      "boundary_edges": 56,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -274,23 +274,24 @@
   "render_extras": [
     {
       "name": "Edmund_Hair",
-      "verts": 58875,
-      "polys": 26660,
-      "tris": 53168,
-      "boundary_edges": 55376,
+      "verts": 46688,
+      "polys": 21632,
+      "tris": 43112,
+      "boundary_edges": 43102,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
       "materials": [
+        "TLS_Edmund_HairCap",
         "TLS_Edmund_Hair"
       ]
     },
     {
       "name": "Edmund_Stubble",
-      "verts": 31200,
-      "polys": 10400,
-      "tris": 20800,
-      "boundary_edges": 31200,
+      "verts": 26400,
+      "polys": 8800,
+      "tris": 17600,
+      "boundary_edges": 26400,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -300,10 +301,23 @@
     },
     {
       "name": "Edmund_Brows",
-      "verts": 5160,
-      "polys": 1720,
-      "tris": 3440,
-      "boundary_edges": 5160,
+      "verts": 4560,
+      "polys": 1520,
+      "tris": 3040,
+      "boundary_edges": 4560,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Brow"
+      ]
+    },
+    {
+      "name": "Edmund_Lashes",
+      "verts": 1620,
+      "polys": 540,
+      "tris": 1080,
+      "boundary_edges": 1620,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
@@ -314,16 +328,17 @@
   ],
   "totals": {
     "objects": 12,
-    "verts": 20605,
-    "tris": 39760,
-    "materials": 15,
+    "verts": 24169,
+    "tris": 46866,
+    "materials": 16,
     "texture_files": {
-      "weave": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_cloth_weave.png",
-      "leather": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_leather_grain.png",
-      "skin": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_skin_micro.png",
-      "iris": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_iris_gray.png"
+      "weave": "/home/z/my-project/game/02_Art/Characters/Edmund/textures/tls_chr_001_tex_cloth_weave.png",
+      "leather": "/home/z/my-project/game/02_Art/Characters/Edmund/textures/tls_chr_001_tex_leather_grain.png",
+      "skin": "/home/z/my-project/game/02_Art/Characters/Edmund/textures/tls_chr_001_tex_skin_micro.png",
+      "iris": "/home/z/my-project/game/02_Art/Characters/Edmund/textures/tls_chr_001_tex_iris_gray.png",
+      "hair_alpha": "/home/z/my-project/game/02_Art/Characters/Edmund/textures/tls_chr_001_tex_hair_alpha.png"
     },
-    "build_seconds": 2.5
+    "build_seconds": 2.4
   },
   "bounds_min": [
     -0.457,
@@ -336,6 +351,6 @@
     1.7877
   ],
   "height_m": 1.7877,
-  "blend_path": "/home/z/my-project/m35_out/final/tls_chr_001_edmund_vale.blend",
-  "blend_size_mb": 3.87
+  "blend_path": "/home/z/my-project/m36_out/tls_chr_001_edmund_vale.blend",
+  "blend_size_mb": 3.51
 }

@@ -1,0 +1,51 @@
+{
+  "asset": "TLS-CHR-001 Edmund Vale (+TLS-CHR-030 outfit, TLS-SKL-001 rig)",
+  "generator": "edmund_build.py/edmund_rig.py/edmund_export.py (M3.6)",
+  "blender": "5.0.1",
+  "primary_blend": {
+    "path": "tls_chr_001_edmund_vale.blend",
+    "bytes": 4009242,
+    "md5": "eae32b5ac5897ede6cdb875d14de2e51"
+  },
+  "textures": [
+    {
+      "file": "tls_chr_001_tex_cloth_weave.png",
+      "bytes": 388084,
+      "md5": "e8bf0c3018d37cb112840bbe0292c823"
+    },
+    {
+      "file": "tls_chr_001_tex_hair_alpha.png",
+      "bytes": 140369,
+      "md5": "7ca36b7f137769685d3f56a17a144cf5"
+    },
+    {
+      "file": "tls_chr_001_tex_iris_gray.png",
+      "bytes": 51351,
+      "md5": "ef93ebb5edd392db48412c98bfc5088f"
+    },
+    {
+      "file": "tls_chr_001_tex_leather_grain.png",
+      "bytes": 320012,
+      "md5": "45b5281147cf06cf451618df392dda47"
+    },
+    {
+      "file": "tls_chr_001_tex_skin_micro.png",
+      "bytes": 362073,
+      "md5": "b8fe3310c0b28c6dc78dfeab4c519cca"
+    }
+  ],
+  "measured": {
+    "height_m": 1.7993,
+    "bounds_z": [
+      0.0,
+      1.7993
+    ],
+    "character_verts": 24169,
+    "bones": 65
+  },
+  "verification": {
+    "blend_reopened_and_measured": true,
+    "fbx_roundtrip": "see data/fbx_verify.json",
+    "unreal_import": "UNREAL IMPORT NOT TESTED (no UE 5.4 in build environment)"
+  }
+}
