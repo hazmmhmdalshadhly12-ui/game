@@ -256,6 +256,16 @@ public:
         virtual bool PlayerHeardRumor(const std::string& RumorId) const { (void)RumorId; return false; }
         // M2.3: village tension for emergent quest conditions (0..5).
         virtual double GetTension() const { return 0.0; }
+        // M3.7: deduction-board queries for the hypothesis/accusation engine.
+        // Additive with safe defaults so existing implementations keep working.
+        // Was a named CONTRADICTION link rule ever drawn on the board?
+        virtual bool ContradictionRuleDrawn(const std::string& RuleId) const { (void)RuleId; return false; }
+        // Judicial weight of a collected piece of evidence (0..1); false when
+        // the id is unknown or not collected.
+        virtual bool EvidenceReliability(const std::string& Id, double& OutReliability) const
+        {
+                (void)Id; (void)OutReliability; return false;
+        }
 };
 
 const char* ToString(EEvidenceType T);

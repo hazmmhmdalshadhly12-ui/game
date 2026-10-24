@@ -83,6 +83,8 @@ def main():
     sim = load("sim/sim_blackthorne.json")
     world = load("world/blackthorne_blockout.json")
     rumors = load("rumors/rumors_blackthorne.json")
+    case_facts = load("case_facts/case_facts_slice.json")
+    deduction = load("deduction/deduction_slice.json")
     dialogue_files = sorted((NARR / "dialogues").glob("*.json"))
     dialogues = []
     for df in dialogue_files:
@@ -561,6 +563,206 @@ def main():
                 if len(signs) < 2:
                     fail(f"topic {t}: {len(entries)} rumors share one valence sign - no real conflict")
             ok(f"conflict topics carry opposite valences: {sorted(conflict_topics)}")
+
+    # ---------------------------------------------------------------- case facts (M3.7)
+    section("7) case_facts/case_facts_slice.json — the case-fact ledger")
+    if case_facts and evidence and sim:
+        npc_ids = {n["id"] for n in sim["npcs"]}
+        ev_ids = {e["id"] for e in evidence["evidence"]}
+        facts = case_facts.get("facts", [])
+        fact_ids = [f["id"] for f in facts]
+        if len(fact_ids) == len(set(fact_ids)) and fact_ids:
+            ok(f"{len(fact_ids)} case facts, unique ids")
+        else:
+            fail("case fact ids missing or duplicated")
+
+        stances = {"affirms", "denies", "claims", "omits"}
+        origins = {"witnessed", "told", "inferred", "documented"}
+        problems = []
+        granting = {}
+        for f in facts:
+            fid = f.get("id", "?")
+            if not f.get("truth_summary"):
+                problems.append(f"{fid}: missing truth_summary")
+            if not f.get("canon_ref"):
+                problems.append(f"{fid}: missing canon_ref (no fact without a canon anchor)")
+            for ev in f.get("related_evidence", []):
+                if ev not in ev_ids:
+                    problems.append(f"{fid}: related_evidence unknown {ev}")
+            n_grant = 0
+            seen_npc = set()
+            for t in f.get("testimonies", []):
+                tn = t.get("npc", "?")
+                if tn in seen_npc:
+                    problems.append(f"{fid}: duplicate testimony for {tn}")
+                seen_npc.add(tn)
+                if tn not in npc_ids:
+                    problems.append(f"{fid}: testimony npc {tn} not a sim NPC")
+                if t.get("stance") not in stances:
+                    problems.append(f"{fid}/{tn}: bad stance {t.get('stance')}")
+                if t.get("origin") not in origins:
+                    problems.append(f"{fid}/{tn}: bad origin {t.get('origin')}")
+                if t.get("stance") == "claims" and not t.get("claim_text"):
+                    problems.append(f"{fid}/{tn}: claims without claim_text")
+                if not 0.0 <= t.get("reliability", -1) <= 1.0:
+                    problems.append(f"{fid}/{tn}: reliability out of range")
+                if t.get("deliberate") and not t.get("lie_reason"):
+                    problems.append(f"{fid}/{tn}: deliberate without lie_reason")
+                if t.get("stance") == "omits" and t.get("grants", True):
+                    problems.append(f"{fid}/{tn}: omits but grants (a silence teaches nothing)")
+                if t.get("grants", True):
+                    n_grant += 1
+                rev = t.get("reveal", {})
+                if not -100.0 <= rev.get("trust_min", -100.0) <= 100.0:
+                    problems.append(f"{fid}/{tn}: reveal trust_min out of range")
+                for ev in rev.get("requires_evidence", []):
+                    if ev not in ev_ids:
+                        problems.append(f"{fid}/{tn}: reveal requires unknown evidence {ev}")
+                if rev.get("day_min", 1) < 1:
+                    problems.append(f"{fid}/{tn}: reveal day_min < 1")
+            if f.get("truth_anchor") and n_grant > 0:
+                problems.append(f"{fid}: truth_anchor but a testimony grants it")
+            granting[fid] = n_grant
+        if problems:
+            for p in problems:
+                fail(p)
+        else:
+            ok("all facts carry truth_summary, canon_ref, valid stances/origins/reveals")
+        anchors = [f["id"] for f in facts if f.get("truth_anchor")]
+        ok(f"{len(anchors)} truth anchors (the slice cannot learn them): {anchors}") if anchors else \
+            fail("expected the slice truth anchors (LAST-TRAY, MAIR-RETURNED)")
+
+        # dossiers: canon motives + playable concealment
+        dossiers = case_facts.get("dossiers", [])
+        dossier_problems = []
+        for d in dossiers:
+            dn = d.get("npc", "?")
+            if dn not in npc_ids:
+                dossier_problems.append(f"dossier {dn}: not a sim NPC")
+            if not d.get("deep_motive") or not d.get("fear"):
+                dossier_problems.append(f"dossier {dn}: missing deep_motive/fear")
+            for secret in d.get("secret_facts", []):
+                if secret not in fact_ids:
+                    dossier_problems.append(f"dossier {dn}: secret fact unknown {secret}")
+                    continue
+                fact = next((f for f in facts if f["id"] == secret), None)
+                t = next((t for t in (fact or {}).get("testimonies", []) if t.get("npc") == dn), None)
+                if t is None:
+                    dossier_problems.append(f"dossier {dn}: secret {secret} has no testimony by this npc")
+                else:
+                    rev = t.get("reveal", {})
+                    gated = (rev.get("trust_min", -100.0) > -100.0 or rev.get("requires_evidence")
+                             or rev.get("requires_insights") or rev.get("requires_flags") or rev.get("day_min", 1) > 1)
+                    if not gated:
+                        dossier_problems.append(f"dossier {dn}: secret {secret} testimony has no reveal gate")
+        if dossier_problems:
+            for p in dossier_problems:
+                fail(p)
+        else:
+            ok(f"{len(dossiers)} dossiers: canon motives/fears; every secret is gated testimony")
+    else:
+        fail("case_facts file missing or unloadable")
+
+    # ---------------------------------------------------------------- deduction (M3.7)
+    section("8) deduction/deduction_slice.json — hypotheses and accusations")
+    if deduction and evidence and sim and case_facts:
+        npc_ids = {n["id"] for n in sim["npcs"]}
+        ev_ids = {e["id"] for e in evidence["evidence"]}
+        insight_ids = {i["id"] for i in evidence.get("insights", [])}
+        rule_ids = {r["id"] for r in evidence.get("link_rules", [])}
+        fact_ids = {f["id"] for f in case_facts.get("facts", [])}
+        rumor_ids = {r["id"] for r in rumors.get("rumors", [])} if rumors else set()
+        quest_flag_refs = set()
+        for q in quests.get("quests", []):
+            quest_flag_refs |= set((q.get("flags_on_complete") or {}).keys())
+            quest_flag_refs |= set((q.get("flags_on_fail") or {}).keys())
+
+        hyp_problems = []
+        hyps = deduction.get("hypotheses", [])
+        for h in hyps:
+            hid = h.get("id", "?")
+            if not h.get("canon_ref"):
+                hyp_problems.append(f"{hid}: missing canon_ref")
+            if not (h.get("requires_insights") or h.get("requires_evidence") or h.get("requires_facts")):
+                hyp_problems.append(f"{hid}: no support requirements")
+            for i in h.get("requires_insights", []):
+                if i not in insight_ids:
+                    hyp_problems.append(f"{hid}: requires unknown insight {i}")
+            for e in h.get("requires_evidence", []):
+                if e not in ev_ids:
+                    hyp_problems.append(f"{hid}: requires unknown evidence {e}")
+            for f in h.get("requires_facts", []):
+                if f not in fact_ids:
+                    hyp_problems.append(f"{hid}: requires unknown fact {f}")
+            for r in h.get("refuted_by", []):
+                if r.get("type") == "flag":
+                    if not (r.get("target", "").startswith("FLG_")):
+                        hyp_problems.append(f"{hid}: flag refuter not an FLG_ id")
+                elif r.get("type") == "fact":
+                    if r.get("target") not in fact_ids:
+                        hyp_problems.append(f"{hid}: fact refuter unknown {r.get('target')}")
+                elif r.get("type") == "contradiction":
+                    if r.get("target") not in rule_ids:
+                        hyp_problems.append(f"{hid}: contradiction refuter unknown rule {r.get('target')}")
+                elif r.get("type") == "player_rumor":
+                    if r.get("target") not in rumor_ids:
+                        hyp_problems.append(f"{hid}: rumor refuter unknown {r.get('target')}")
+                else:
+                    hyp_problems.append(f"{hid}: bad refuter type {r.get('type')}")
+                if not r.get("reason"):
+                    hyp_problems.append(f"{hid}: refuter without reason")
+        if hyp_problems:
+            for p in hyp_problems:
+                fail(p)
+        else:
+            ok(f"{len(hyps)} hypotheses: requirements and refuters resolve to real ids")
+
+        acc_problems = []
+        accs = deduction.get("accusations", [])
+        tier_keys = {"baseless", "partial", "grounded"}
+        for a in accs:
+            aid = a.get("id", "?")
+            if not a.get("canon_ref"):
+                acc_problems.append(f"{aid}: missing canon_ref")
+            if not a.get("target_label") or not a.get("topic"):
+                acc_problems.append(f"{aid}: missing target_label/topic")
+            tn = a.get("target_npc", "")
+            if tn and tn not in npc_ids:
+                acc_problems.append(f"{aid}: target_npc {tn} not a sim NPC")
+            if a.get("max_tier") not in tier_keys or a.get("max_tier") == "baseless":
+                acc_problems.append(f"{aid}: bad max_tier")
+            if a.get("baseless"):
+                if a.get("grounding_insight") or a.get("grounding_evidence") or a.get("grounding_fact"):
+                    acc_problems.append(f"{aid}: baseless but carries grounding fields")
+            elif not (a.get("grounding_insight") or a.get("grounding_evidence") or a.get("grounding_fact")):
+                acc_problems.append(f"{aid}: no grounding and not declared baseless")
+            if a.get("grounding_insight") and a["grounding_insight"] not in insight_ids:
+                acc_problems.append(f"{aid}: grounding insight unknown {a['grounding_insight']}")
+            for e in a.get("grounding_evidence", []):
+                if e not in ev_ids:
+                    acc_problems.append(f"{aid}: grounding evidence unknown {e}")
+            if a.get("grounding_fact") and a["grounding_fact"] not in fact_ids:
+                acc_problems.append(f"{aid}: grounding fact unknown {a['grounding_fact']}")
+            if not 0.0 <= a.get("min_reliability", 0.0) <= 1.0:
+                acc_problems.append(f"{aid}: min_reliability out of range")
+            for tier in ("on_grounded", "on_partial", "on_baseless"):
+                cons = a.get(tier, {})
+                if not isinstance(cons, dict):
+                    acc_problems.append(f"{aid}: {tier} not an object")
+                    continue
+                for flag in (cons.get("set_flags") or {}):
+                    if not flag.startswith("FLG_"):
+                        acc_problems.append(f"{aid}: {tier} flag not an FLG_ id: {flag}")
+        if acc_problems:
+            for p in acc_problems:
+                fail(p)
+        else:
+            ok(f"{len(accs)} accusations: grounding bundles, tiers and consequence flags all resolve")
+        grounded = [a["id"] for a in accs if a.get("min_reliability", 0.0) > 0]
+        ok(f"reliability bar applied on: {grounded} (QUEST_ARCHITECTURE 2.1)") if grounded else \
+            fail("no accusation uses the QUEST_ARCHITECTURE 2.1 reliability bar")
+    else:
+        fail("deduction file missing or unloadable")
 
     # ---------------------------------------------------------------- finish
     print()

@@ -43,6 +43,11 @@ namespace tls_test_m32
 void RunAll();
 }
 
+namespace tls_test_m37
+{
+void RunAll();
+}
+
 // Builds a Game with every 05_Narrative data file loaded (evidence, quests,
 // sim, rumors, dialogues). Declared in test_fixtures.h - shared by all test
 // translation units. The data-loading checks run through the shared framework.
@@ -583,11 +588,24 @@ void TestSaveVersionGate(Game& G)
                 if (G2)
                 {
                         G2->NewGame();
-                        std::string V3 = V2;
-                        V3.replace(V3.find("\"save_version\":2"), 16, "\"save_version\":3");
+                        std::string VFuture = V2;
+                        VFuture.replace(VFuture.find("\"save_version\":3"), 16, "\"save_version\":4");
                         std::string Err;
-                        TLS_CHECK_MSG(!G2->LoadFromString(V3, Err), "a save from a newer version is refused");
+                        TLS_CHECK_MSG(!G2->LoadFromString(VFuture, Err), "a save from a newer version is refused");
                         TLS_CHECK_MSG(Err.find("save_version") != std::string::npos, "the error names the version problem");
+                        delete G2;
+                }
+        }
+
+        // the CURRENT version loads (M3.7: 3 = case facts + deduction layer)
+        {
+                Game* G2 = MakeLoadedGame();
+                TLS_CHECK(G2 != nullptr);
+                if (G2)
+                {
+                        G2->NewGame();
+                        std::string Err;
+                        TLS_CHECK_MSG(G2->LoadFromString(V2, Err), "a v3 payload reloads: " + Err);
                         delete G2;
                 }
         }
@@ -617,7 +635,7 @@ void TestSaveVersionGate(Game& G)
                 {
                         G2->NewGame();
                         std::string V1 = V2;
-                        V1.replace(V1.find("\"save_version\":2"), 16, "\"save_version\":1");
+                        V1.replace(V1.find("\"save_version\":3"), 16, "\"save_version\":1");
                         // strip the v2-only payloads (rumors object, then the rng key)
                         const size_t RumorKey = V1.find("\"rumors\":");
                         TLS_CHECK(RumorKey != std::string::npos);
@@ -966,6 +984,7 @@ int main()
         // M3.2: the extended loop, decay watch, order independence,
         // save/restore expansion, no-resurrection
         tls_test_m32::RunAll();
+        tls_test_m37::RunAll();
 
         delete G; delete G1; delete G2; delete G3;
         return tls_test::ReportAndExit();

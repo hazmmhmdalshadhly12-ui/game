@@ -549,7 +549,7 @@ void RunExtendedLoop(Game& G)
         TLS_SECTION("M3.2 loop - the seam: witness, contradictions, no-rule lines all survive");
 
         const std::string S2 = G.SaveToString();
-        TLS_CHECK(S2.find("\"save_version\":2") != std::string::npos);
+        TLS_CHECK(S2.find("\"save_version\":3") != std::string::npos);
         TLS_CHECK(static_cast<int>(G.Evidence().CollectedIds().size()) == 15);
 
         {

@@ -255,7 +255,7 @@ void RunInvestigationLoop(Game& G)
         TLS_SECTION("M3.1 loop - the save/load seam: nothing of the loop is lost");
 
         const std::string S2 = G.SaveToString();
-        TLS_CHECK(S2.find("\"save_version\":2") != std::string::npos);
+        TLS_CHECK(S2.find("\"save_version\":3") != std::string::npos);
         TLS_CHECK(S2.find("\"sim_rng\":") != std::string::npos);
         TLS_CHECK(static_cast<int>(G.Evidence().CollectedIds().size()) == 12);
         const size_t JournalAtS2 = G.Journal().size();
@@ -532,7 +532,7 @@ void TestAtomicLoadRefusal(Game& G)
 
         // 3) unsupported future version
         std::string Future = Session;
-        Future.replace(Future.find("\"save_version\":2"), 16, "\"save_version\":99");
+        Future.replace(Future.find("\"save_version\":3"), 16, "\"save_version\":99");
         TLS_CHECK(!G.LoadFromString(Future, Err));
         TLS_CHECK_MSG(G.SaveToString() == Session, "future-version refusal leaves the session untouched");
 

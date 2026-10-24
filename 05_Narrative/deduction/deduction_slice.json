@@ -1,0 +1,172 @@
+{
+  "schema": "tls.deduction/1",
+  "slice": "C1-C3 (days 1-3) - Blackthorne, October 1847",
+  "notes": "Hypotheses are player constructions; the engine only grades them against real state (insights, collected evidence, learned facts, drawn board contradictions). Accusations are always speakable; the TIER decides which data-declared consequences land. ACC-COLES-RING is repeatable by declaration: the baseless whisper spreads first, the confession-grounded accusation can follow later and lands harder. Every entry carries a canon_ref - nothing here invents plot. Tier consequences are believable costs, never soft-locks: the Q-S-C3-SHONI alibi routes and FLG_SHONI_FREED/JAILED stay owned by the quest system (QUEST_ARCHITECTURE 3 C3).",
+  "hypotheses": [
+    {
+      "id": "HYP-HUNGER-RETURNED",
+      "title": "The Hunger came back for the miller",
+      "suspect_label": "the Hunger",
+      "suspect_npc": "",
+      "method": "The old devourer of 1839 woke again and took Tobias Nott where he stood, salt and all.",
+      "motive": "None needed - hunger needs no reason. (The village's own reading of the deaths.)",
+      "requires_evidence": ["EVD-COLES-HUNGER", "EVD-NOTT-BODY"],
+      "requires_insights": [],
+      "requires_facts": [],
+      "refuted_by": [
+        {
+          "type": "contradiction",
+          "target": "LNK-HUNGER-DISH",
+          "reason": "A refused sin-dish and a salt-packed mouth do not answer to a ghost - the board marks the Hunger claim against the physical record."
+        },
+        {
+          "type": "contradiction",
+          "target": "LNK-HUNGER-FOOT",
+          "reason": "The wheel-race prints were made of flesh: bare feet, small, walking out of the race. The Hunger leaves no prints."
+        }
+      ],
+      "canon_ref": "evidence_slice EVD-COLES-HUNGER ('Folk fear, not fact') + QUEST_ARCHITECTURE.md 2.2 (wrong logical links are marked as contradictions with a stated reason)"
+    },
+    {
+      "id": "HYP-NOTT-FRAUD-PATTERN",
+      "title": "The registered-sin pattern: the miller's fraud was real",
+      "suspect_label": "",
+      "suspect_npc": "",
+      "method": "The hollowed weights show the sin; the restored list shows the registration; the deaths follow the registered sins of 1839 - Nott's was first in, first answered.",
+      "motive": "The orphan's bread, taken across years - a debt the pattern collects.",
+      "requires_insights": ["INS-PATTERN"],
+      "requires_evidence": ["EVD-SCALE-WEIGHTS", "EVD-COLES-FRAUD"],
+      "requires_facts": ["FACT-NOTT-SIN"],
+      "refuted_by": [],
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-15 + insight INS-PATTERN ('The First Death Follows a Registered Sin', evidence_slice) + QUEST_ARCHITECTURE.md 3 C2 (FLG_CASE_OPENED, FLG_SIN_LIST_KNOWN)"
+    },
+    {
+      "id": "HYP-SHONI-CUTPURSE",
+      "title": "The tinker killed the miller for the salt",
+      "suspect_label": "Shoni Gwyn, the tinker",
+      "suspect_npc": "",
+      "method": "A road-knife, a missing sack, a man who was on the moor road that night - the county's theory, retold at every hearth.",
+      "motive": "Salt is money in a hunger winter.",
+      "requires_evidence": ["EVD-SALT-SACK", "EVD-NOTT-BODY"],
+      "requires_insights": [],
+      "requires_facts": [],
+      "refuted_by": [
+        {
+          "type": "flag",
+          "target": "FLG_METHOD_SHOWN",
+          "reason": "The physical record answers the county's shortcut: the prints and the salt on the mill floor fit no road-thief's hurry."
+        },
+        {
+          "type": "player_rumor",
+          "target": "RUM-SHONI-HILL",
+          "reason": "The hill-road account puts Shoni above the valley while the miller died below it."
+        }
+      ],
+      "canon_ref": "QUEST_ARCHITECTURE.md 3 C3 (the county's theory: 'the tinker did it, and the village repeats it') + quest Q-S-C3-SHONI (the alibi branches) + CHARACTER_REGISTRY.md CHR-14 (the accidental witness of 1839)"
+    }
+  ],
+  "accusations": [
+    {
+      "id": "ACC-SHONI-TINKER",
+      "target_label": "Shoni Gwyn, the tinker",
+      "target_npc": "",
+      "topic": "the death of Tobias Nott",
+      "baseless": true,
+      "min_reliability": 0.0,
+      "max_tier": "grounded",
+      "on_baseless": {
+        "tension_delta": 1.5,
+        "reputation_delta": -5.0,
+        "set_flags": { "FLG_ACCUSED_SHONI": 1 },
+        "journal_note": "I put the county's words on Shoni Gwyn, out loud, in the square. The square heard it. The square will remember it longer than the county will."
+      },
+      "canon_ref": "QUEST_ARCHITECTURE.md 3 C3 (the county's theory) + CHARACTER_REGISTRY.md CHR-14 (the accidental witness - innocent; FLG_SHONI_FREED/JAILED stay quest-owned)"
+    },
+    {
+      "id": "ACC-NOTT-FRAUD",
+      "target_label": "the memory of Tobias Nott",
+      "target_npc": "",
+      "topic": "the defrauded poorhouse sacks",
+      "grounding_insight": "INS-SINLIST",
+      "grounding_evidence": ["EVD-SCALE-WEIGHTS", "EVD-SINLIST"],
+      "min_reliability": 0.7,
+      "max_tier": "grounded",
+      "on_grounded": {
+        "tension_delta": 1.0,
+        "reputation_delta": 4.0,
+        "set_flags": { "FLG_NOTT_SIN_PUBLIC": 1 },
+        "journal_note": "I named Tobias Nott's sin from the restored list, with the weights on the table to prove it. Pritchard wrote it down like a man handed a map."
+      },
+      "on_partial": {
+        "tension_delta": 0.5,
+        "reputation_delta": 0.0,
+        "set_flags": { "FLG_NOTT_SIN_HINTED": 1 },
+        "journal_note": "I spoke of Nott's fraud with the case half-built. Half a case buys half a hearth's belief."
+      },
+      "on_baseless": {
+        "tension_delta": 0.5,
+        "reputation_delta": -4.0,
+        "set_flags": {},
+        "journal_note": "I named a dead man's sins with nothing in my hand. The square decided enough grief had been done to the Notts."
+      },
+      "canon_ref": "QUEST_ARCHITECTURE.md 2.1 (the E1 bar: a case file whose evidence is mostly reliability >= 0.7) + CHARACTER_REGISTRY.md CHR-15 + evidence EVD-SINLIST / EVD-SCALE-WEIGHTS"
+    },
+    {
+      "id": "ACC-COLES-RING",
+      "target_label": "Bedwyr Coles",
+      "target_npc": "CHR-13",
+      "topic": "the ring of 1831",
+      "grounding_fact": "FACT-COLES-RING",
+      "min_reliability": 0.0,
+      "max_tier": "grounded",
+      "repeatable": true,
+      "on_grounded": {
+        "trust_delta_target": -60.0,
+        "tension_delta": 0.5,
+        "reputation_delta": -2.0,
+        "set_flags": { "FLG_COLES_SEALED": 1 },
+        "journal_note": "I spent his confession in the open, and the square got a show and a shamed gravedigger. Coles looked at me the way men look at returned letters. He will not speak gently again."
+      },
+      "on_partial": {
+        "trust_delta_target": -15.0,
+        "tension_delta": 0.0,
+        "reputation_delta": 0.0,
+        "set_flags": { "FLG_COLES_WARY": 1 },
+        "journal_note": "Word of the ring reached Coles before any proof did. His spade kept its rhythm. His answers will not."
+      },
+      "on_baseless": {
+        "trust_delta_target": -8.0,
+        "tension_delta": 0.0,
+        "reputation_delta": 0.0,
+        "set_flags": {},
+        "journal_note": "I spoke of a ring I could not name. Coles' spade kept its rhythm. His eyes did not."
+      },
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-13 (the 1831 ring) + QUEST_ARCHITECTURE.md Q-S04 (the ring returns through kindness, not the square)"
+    },
+    {
+      "id": "ACC-CRANE-SERMON",
+      "target_label": "Rev. Silas Crane",
+      "target_npc": "CHR-04",
+      "topic": "preaching fear before any death",
+      "grounding_insight": "INS-PATTERN",
+      "grounding_evidence": ["EVD-CRANE-SERMON"],
+      "min_reliability": 0.0,
+      "max_tier": "partial",
+      "on_partial": {
+        "trust_delta_target": -10.0,
+        "tension_delta": 0.5,
+        "reputation_delta": 1.0,
+        "set_flags": { "FLG_CRANE_CHALLENGED": 1 },
+        "journal_note": "I put the sermon to him with the pattern beside it. He did not break - he preached. But the words cost him something, and I watched it leave."
+      },
+      "on_baseless": {
+        "trust_delta_target": -6.0,
+        "tension_delta": 0.5,
+        "reputation_delta": -1.0,
+        "set_flags": {},
+        "journal_note": "I accused the church of the mill with no ledger in hand. Crane forgave me out loud, which was worse."
+      },
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-04 (the sermon's true motive is tangled with fame; the real confrontation lands at C6 with FLG_CRANE_BROKEN / FLG_CRANE_FANATIC - the slice caps this at partial by design)"
+    }
+  ]
+}

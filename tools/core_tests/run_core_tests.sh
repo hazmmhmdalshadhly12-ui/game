@@ -20,7 +20,7 @@ echo "compiler  : $(g++ --version | head -1)"
 mkdir -p "$BUILD_DIR"
 
 BIN="$BUILD_DIR/tls_core_tests"
-SRC="$SCRIPT_DIR/test_main.cpp $SCRIPT_DIR/test_rumors.cpp $SCRIPT_DIR/test_quests.cpp $SCRIPT_DIR/test_settings.cpp $SCRIPT_DIR/test_investigation.cpp $SCRIPT_DIR/test_m32_extended.cpp $SCRIPT_DIR/sim_playthrough.cpp $CORE_DIR/TLSJson.cpp $CORE_DIR/TLSCoreTypes.cpp $CORE_DIR/TLSEvidence.cpp $CORE_DIR/TLSQuests.cpp $CORE_DIR/TLSVillageState.cpp $CORE_DIR/TLSDialogue.cpp $CORE_DIR/TLSRumors.cpp $CORE_DIR/TLSSettings.cpp $CORE_DIR/TLSGameState.cpp"
+SRC="$SCRIPT_DIR/test_main.cpp $SCRIPT_DIR/test_rumors.cpp $SCRIPT_DIR/test_quests.cpp $SCRIPT_DIR/test_settings.cpp $SCRIPT_DIR/test_investigation.cpp $SCRIPT_DIR/test_m32_extended.cpp $SCRIPT_DIR/test_m37_pillars.cpp $SCRIPT_DIR/sim_playthrough.cpp $CORE_DIR/TLSJson.cpp $CORE_DIR/TLSCoreTypes.cpp $CORE_DIR/TLSEvidence.cpp $CORE_DIR/TLSQuests.cpp $CORE_DIR/TLSVillageState.cpp $CORE_DIR/TLSDialogue.cpp $CORE_DIR/TLSRumors.cpp $CORE_DIR/TLSSettings.cpp $CORE_DIR/TLSGameState.cpp $CORE_DIR/TLSCaseFacts.cpp $CORE_DIR/TLSDeduction.cpp"
 
 echo "== compiling (C++17, -Wall -Wextra) =="
 g++ -std=c++17 -Wall -Wextra -Wno-unused-parameter -O1 -I "$CORE_DIR" -o "$BIN" $SRC
