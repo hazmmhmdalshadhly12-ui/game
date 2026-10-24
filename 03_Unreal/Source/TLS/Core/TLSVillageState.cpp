@@ -250,6 +250,56 @@ double VillageState::ApplyTrustDelta(const std::string& NpcId, double RawDelta, 
         return Applied;
 }
 
+// M3.7: a non-dialogue event delta (an accusation, a public scene). Same path
+// as ApplyTrustDelta but WITHOUT the tone weight - the village is not scoring
+// a conversational tone here - while keeping bias, clamping and spillover.
+double VillageState::ApplyTrustEvent(const std::string& NpcId, double RawDelta,
+        std::vector<std::string>* OutSpilloverLog)
+{
+        auto It = NpcDefs.find(NpcId);
+        if (It == NpcDefs.end()) { return 0.0; }
+        const NPCDef& Def = It->second;
+
+        double Final = RawDelta * (1.0 - Def.RelationshipBias);
+        if (Final == 0.0) { return 0.0; }
+
+        double Before = Trust[NpcId];
+        Trust[NpcId] = Before + Final;
+        if (Trust[NpcId] > 100.0) { Trust[NpcId] = 100.0; }
+        if (Trust[NpcId] < -100.0) { Trust[NpcId] = -100.0; }
+        const double Applied = Trust[NpcId] - Before;
+
+        if (Applied != 0.0)
+        {
+                auto Src = Spillover.find(Def.Faction);
+                if (Src != Spillover.end())
+                {
+                        for (const auto& KV : Src->second)
+                        {
+                                const std::string& TargetFaction = KV.first;
+                                const double Factor = KV.second;
+                                if (Factor == 0.0) { continue; }
+                                for (const auto& Np : NpcDefs)
+                                {
+                                        if (Np.second.Faction == TargetFaction && Np.first != NpcId)
+                                        {
+                                                double& T = Trust[Np.first];
+                                                const double Before2 = T;
+                                                T += Applied * Factor;
+                                                if (T > 100.0) { T = 100.0; }
+                                                if (T < -100.0) { T = -100.0; }
+                                                if (OutSpilloverLog && T != Before2)
+                                                {
+                                                        OutSpilloverLog->push_back(Np.first + " " + std::string(T > Before2 ? "+" : "") + std::to_string(T - Before2));
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
+        return Applied;
+}
+
 std::string VillageState::NpcZoneAt(const std::string& NpcId, int Hour) const
 {
         auto It = NpcDefs.find(NpcId);

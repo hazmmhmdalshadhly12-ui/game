@@ -1,0 +1,200 @@
+{
+  "schema": "tls.case_facts/1",
+  "slice": "C1-C3 (days 1-3) - Blackthorne, October 1847",
+  "notes": "Every fact and testimony below is drawn from the established canon: docs/CHARACTER_REGISTRY.md (T1/T2 motives, secrets, and the Knowledge Ledger), docs/QUEST_ARCHITECTURE.md, and the existing slice evidence in 05_Narrative/evidence/evidence_slice.json. No new plot revelations are introduced. A fact's truth_summary is validator/test-facing and is NEVER shown to the player; testimonies are what the player can actually hear.",
+  "facts": [
+    {
+      "id": "FACT-NOTT-SIN",
+      "topic": "nott-death",
+      "truth_summary": "Tobias Nott's registered 1839 sin: he took the orphan's bread - the poorhouse sacks weighed light for years through hollowed counter-weights packed with tallow. He was the first to die in the October of 1847.",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-15 (Nott's registered sin: 'ate the orphan's ration, defrauded the weights of the poorhouse') + evidence_slice EVD-SCALE-WEIGHTS / EVD-SINLIST / EVD-COLES-FRAUD",
+      "truth_anchor": false,
+      "related_evidence": ["EVD-SCALE-WEIGHTS", "EVD-COLES-FRAUD", "EVD-SINLIST"],
+      "on_learned_flags": { "FLG_NOTT_SIN_KNOWN": 1 },
+      "journal_note": "Tobias Nott's name stands beside a line of sin in Father's ledger: the orphan's sack, weighed light for years.",
+      "testimonies": [
+        {
+          "npc": "CHR-13",
+          "stance": "affirms",
+          "account": "I carried the poorhouse sacks to his scale, sir, year after year. He weighed the orphans' bread light and never blinked. The hunger years made thieves of the comfortable, and Nott was comfortable.",
+          "origin": "witnessed",
+          "reliability": 0.55,
+          "deliberate": false,
+          "grants": true,
+          "reveal": { "trust_min": 0, "requires_evidence": ["EVD-COLES-FRAUD"] }
+        }
+      ]
+    },
+    {
+      "id": "FACT-17-LIST",
+      "topic": "guinea-paper",
+      "truth_summary": "The settlement paper of '39 carries seventeen names. Gwendolyn Meredith is one of the seventeen, and she holds Josiah's true copy - the 'sure copy' - in the Black Ram's archive room behind the barrel wall.",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-03 secret 1 (the archive treasury, the seventeen-name paper, opens at trust 60) + QUEST_ARCHITECTURE.md Q-S12 (the alternative path when Gwendolyn's trust stays below 60)",
+      "truth_anchor": false,
+      "related_evidence": ["EVD-GWEN-GUINEA"],
+      "on_learned_flags": { "FLG_GWEN_ARCHIVE_KNOWN": 1 },
+      "journal_note": "Gwendolyn signed the paper of '39. Her sure copy of Josiah's list sleeps behind the barrel wall of the Black Ram.",
+      "testimonies": [
+        {
+          "npc": "CHR-03",
+          "stance": "affirms",
+          "account": "Seventeen of us signed the settlement paper of '39, cariad. Mine is not a clean name, whatever the parish thinks. Josiah kept the sure copy and when he was past caring for it, I took it - for no good purpose and no bad one, only that a name on a paper should not drown twice. It is behind my barrels, where greedy eyes do not reach.",
+          "origin": "witnessed",
+          "reliability": 0.75,
+          "deliberate": false,
+          "grants": true,
+          "reveal": { "trust_min": 60 }
+        }
+      ]
+    },
+    {
+      "id": "FACT-LAST-TRAY",
+      "topic": "josiah-death",
+      "truth_summary": "Josiah Vale's last drink was opiated on its tray. The tray passed through Griffiths' hands by Harries' arrangement; Gwendolyn prepared the brandy in innocence. This truth belongs to the day-6 canon - no slice character knows it, so no slice testimony grants it.",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-03 secret 2 (the last drink, 'unknowingly'), CHR-09 (passed the tray), CHR-10 (named the opium), Knowledge Ledger row 'Josiah's last drink' + GAME_BIBLE day-6 chapter canon",
+      "truth_anchor": true,
+      "related_evidence": ["EVD-GWEN-LASTNIGHT"],
+      "on_learned_flags": {},
+      "journal_note": "",
+      "testimonies": [
+        {
+          "npc": "CHR-03",
+          "stance": "affirms",
+          "account": "I warmed his brandy myself, four nights running - his one comfort at the end, and my one thing left to give him. The bottle came up by Griffiths' boy with the doctor's blessing on it. There was nothing in that tray but brandy and my own two hands, whatever your dreams tell you, Mr Vale.",
+          "origin": "witnessed",
+          "reliability": 0.65,
+          "deliberate": false,
+          "grants": false,
+          "reveal": { "trust_min": 0, "requires_evidence": ["EVD-GWEN-LASTNIGHT"] }
+        }
+      ]
+    },
+    {
+      "id": "FACT-MILL-SHADOW",
+      "topic": "nott-death",
+      "truth_summary": "On the night Tobias Nott died, Rev. Silas Crane watched a small shape cross the mill yard from the church tower - and said nothing at Pritchard's questioning. His account is true; his silence is the weight it carries. (What the shadow was belongs to C5 canon.)",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-04 secret ('saw from the tower the small shadow crossing the mill yard, said nothing at Pritchard's interrogation') + T3 #11 Aled Wyn's gossip topic (the shadow from the tower)",
+      "truth_anchor": false,
+      "related_evidence": ["EVD-FOOTPRINTS"],
+      "on_learned_flags": { "FLG_MILL_SHADOW_KNOWN": 1 },
+      "journal_note": "Crane watched the mill yard from the tower the night Nott died - small shape, wheel-race, gone. He told Pritchard nothing.",
+      "testimonies": [
+        {
+          "npc": "CHR-04",
+          "stance": "affirms",
+          "account": "You carry the prints from the wheel-race, so you will carry this too. I was on the tower that night - I go there to compose; the acoustics of guilt are honest from that height. A small shape crossed the yard below the wheel. Quick, bare-headed, gone toward the race. I told Pritchard nothing. My reasons were not clean, Mr Vale, and God has been keeping the receipt.",
+          "origin": "witnessed",
+          "reliability": 0.85,
+          "deliberate": false,
+          "grants": true,
+          "reveal": { "requires_evidence": ["EVD-FOOTPRINTS"], "requires_insights": ["INS-PATTERN"] }
+        }
+      ]
+    },
+    {
+      "id": "FACT-COLES-RING",
+      "topic": "coles-past",
+      "truth_summary": "Bedwyr Coles stole a ring from a 1831 grave he was digging. His guilt feeds his 'Hunger' talk - he repeats the village's name for the dark so no one looks at him.",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-13 secret ('stole a ring from a grave of 1831; saw Mair's shadow twice and said Hunger to cover his fear') + QUEST_ARCHITECTURE.md Q-S04 (Bedwyr's debt)",
+      "truth_anchor": false,
+      "related_evidence": [],
+      "on_learned_flags": { "FLG_COLES_RING_KNOWN": 1 },
+      "journal_note": "Coles confessed: a ring off a 1831 grave, kept since. His 'Hunger' talk is fear wearing a name.",
+      "testimonies": [
+        {
+          "npc": "CHR-13",
+          "stance": "affirms",
+          "account": "Since you ask kindly and the ground keeps everything anyway - in '31 I lifted a ring off a hand I was burying. Small sin, they would say. It is not small at three in the morning, sir. The Hunger talk - folk need a name for the dark, and I gave them one so their lanterns would point anywhere but at me.",
+          "origin": "witnessed",
+          "reliability": 0.9,
+          "deliberate": false,
+          "grants": true,
+          "reveal": { "trust_min": 35 }
+        }
+      ]
+    },
+    {
+      "id": "FACT-MAIR-RETURNED",
+      "topic": "mair",
+      "truth_summary": "Mair Hughes, the silent kitchen maid, is the eighteenth drowned child of 1839. The village buried a coffin of stones and believes her dead; Nan gave her a made name and lensless spectacles. Her truth opens at C5 - no slice testimony grants it.",
+      "canon_ref": "CHARACTER_REGISTRY.md CHR-06 (the eighteenth drowned child returned; 'a village never noticed that the drowned child of 1839 came back') + GAME_BIBLE C5 canon",
+      "truth_anchor": true,
+      "related_evidence": [],
+      "on_learned_flags": {},
+      "journal_note": "",
+      "testimonies": [
+        {
+          "npc": "CHR-06",
+          "stance": "omits",
+          "account": "(She sets down the plate she is cleaning. The question lands like a dropped key. She folds her hands - the rope-scarred palms turned inward - and looks at a point behind you. The silence is not empty; it is a wall she has lived inside for eight years.)",
+          "origin": "witnessed",
+          "reliability": 0.0,
+          "deliberate": false,
+          "grants": false,
+          "reveal": { "trust_min": 0, "day_min": 4 }
+        }
+      ]
+    }
+  ],
+  "dossiers": [
+    {
+      "npc": "CHR-03",
+      "public_motive": "Keep the Black Ram warm, the accounts honest, and Ifor fed and named.",
+      "deep_motive": "That her signed name on the '39 paper and her drowned husband's guinea should not outlive her kindness; that Ifor grows up neither poor nor nameless.",
+      "fear": "That the village learns the inn was built on a drowned man's settlement money - and that the last tray she carried for Josiah was not what she believes it was.",
+      "secret_facts": ["FACT-17-LIST"],
+      "relationship_notes": [
+        "Widow of Gwyn Meredith (drowning #12); took the guinea and opened the inn with it (canon CHR-03).",
+        "Trust 15 toward Edmund at the start - she wrote him news of the infant brother once (canon CHR-03).",
+        "The last-tray truth is her tragic irony: she is INSIDE a secret she does not know (canon CHR-03 secret 2)."
+      ]
+    },
+    {
+      "npc": "CHR-04",
+      "public_motive": "Save a village that dwells in sin - his sermon cry since spring 1847.",
+      "deep_motive": "To grow a name out of the ruins of the valley; his want of 'the truth' is tangled with his want of 'the scandal' (canon CHR-04).",
+      "fear": "That his sermons become the sentence handed down - that his words are what the county uses to hang someone he preached into fear.",
+      "secret_facts": ["FACT-MILL-SHADOW"],
+      "relationship_notes": [
+        "Not a killer and not an accomplice - an ideas opponent (canon CHR-04).",
+        "Read the strangeness of the 1839 burial register (Bellamy's hand) before any death (canon CHR-04).",
+        "The C6 confrontation (FLG_CRANE_BROKEN / FLG_CRANE_FANATIC) is where this silence pays off - the slice only opens the door."
+      ]
+    },
+    {
+      "npc": "CHR-06",
+      "public_motive": "The work. The plates, the pans, the unwatched corners - a maid from Cardigan, nothing more.",
+      "deep_motive": "Each name in the ledger gets a night visit: bread and salt on the threshold, a confession signed. The refusal of the rite killed Nott with his own fright (canon CHR-06).",
+      "fear": "Being seen - truly seen - before the work is done; the pump-ladder scars on her palms read at arm's length.",
+      "secret_facts": ["FACT-MAIR-RETURNED"],
+      "relationship_notes": [
+        "The eighteenth drowned child returned under a made name (canon CHR-06).",
+        "Nan is her absolute dependence (+80 canon relationship matrix).",
+        "Her rescue key (E2 mercy path) lives outside this slice: the seventeen names read aloud."
+      ]
+    },
+    {
+      "npc": "CHR-13",
+      "public_motive": "The digging done properly and the night watch kept - a trembling man's version of order.",
+      "deep_motive": "To stay beneath notice. His night bottle is a privilege of the post he is afraid to lose, and the 'Hunger' gives the dark a face that is not his.",
+      "fear": "That someone counts the graves' rings of 1831 - and that the small shape he has seen twice at the mill comes for the watcher next.",
+      "secret_facts": ["FACT-COLES-RING"],
+      "relationship_notes": [
+        "Saw 'Mair's shadow' twice and blamed the Hunger to cover his fear (canon CHR-13).",
+        "One of the three early signers of Mair's night confessions - a trembling believer of the official 'no witnesses' line (canon CHR-06).",
+        "Q-S04 (his debt) is where the ring returns - outside the slice's day window."
+      ]
+    },
+    {
+      "npc": "CHR-17",
+      "public_motive": "To be treated as a man - and to make the small, dangerous decisions men make.",
+      "deep_motive": "Someone to notice him as more than the inn's boy; Edmund's manner of listening does that (canon CHR-17 / relationship matrix).",
+      "fear": "That the village shrinks back to just him and Gwen again - and lately, that Trefan smells something at the mill that the grown-ups refuse to name.",
+      "secret_facts": [],
+      "relationship_notes": [
+        "His dog Trefan smells strange night scents at the mill - a gentle discovery tool (canon CHR-17, Q-S10).",
+        "Day-1 only Trefan topic in dialogue data (dlg_chr017_ifor_c2 day_max gate, tested in M3.2)."
+      ]
+    }
+  ]
+}

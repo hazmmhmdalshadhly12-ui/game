@@ -16,6 +16,8 @@ Game::Game()
         VillageSys = new VillageState();
         DialogueSys = new DialogueSystem();
         RumorSys = new RumorSystem();
+        CaseSys = new CaseFactSystem();
+        DeduceSys = new DeductionSystem();
 }
 
 Game::~Game()
@@ -25,6 +27,8 @@ Game::~Game()
         delete VillageSys;
         delete DialogueSys;
         delete RumorSys;
+        delete CaseSys;
+        delete DeduceSys;
 }
 
 bool Game::LoadEvidenceData(const JsonValue& Root, std::string& OutError)
@@ -54,6 +58,16 @@ bool Game::LoadRumorData(const JsonValue& Root, std::string& OutError)
         return RumorSys->Load(Root, OutError);
 }
 
+bool Game::LoadCaseFactsData(const JsonValue& Root, std::string& OutError)
+{
+        return CaseSys->Load(Root, OutError);
+}
+
+bool Game::LoadDeductionData(const JsonValue& Root, std::string& OutError)
+{
+        return DeduceSys->Load(Root, OutError);
+}
+
 void Game::NewGame()
 {
         FlagValues.clear();
@@ -68,6 +82,8 @@ void Game::NewGame()
         EvidenceSys->DeserializeState(Empty, Ignored);
         QuestSys->DeserializeState(Empty, Ignored);
         RumorSys->DeserializeState(Empty, Ignored);
+        CaseSys->DeserializeState(Empty, Ignored);
+        DeduceSys->DeserializeState(Empty, Ignored);
         VillageSys->ResetToDayOne();
         }
 
@@ -154,6 +170,9 @@ void Game::RefreshAfterChange()
                 std::vector<std::string> More = QuestSys->Refresh(*this);
                 ApplyQuestCompletionFlags(More);
         }
+        // hypothesis verdicts are re-graded AFTER quest flags land: a completed
+        // quest can fire a refuter (e.g. FLG_METHOD_SHOWN kills the county's theory)
+        DeduceSys->RecheckAll(*this, *CaseSys, VillageSys->Day());
 }
 
 void Game::NotifyReachArea(const std::string& AreaId)
@@ -448,16 +467,129 @@ bool Game::PlayerHeardRumor(const std::string& RumorId) const
         return false;
 }
 
+// ------------------------------------------------------------ M3.7 case layer
+
+bool Game::ContradictionRuleDrawn(const std::string& RuleId) const
+{
+        for (const DrawnLink& L : EvidenceSys->Links())
+        {
+                if (L.bContradiction && L.RuleId == RuleId) { return true; }
+        }
+        return false;
+}
+
+bool Game::EvidenceReliability(const std::string& Id, double& OutReliability) const
+{
+        if (!EvidenceSys->IsCollected(Id)) { return false; }
+        const EvidenceDef* Def = EvidenceSys->FindDef(Id);
+        if (!Def) { return false; }
+        OutReliability = Def->Reliability;
+        return true;
+}
+
+const TestimonyDef* Game::AvailableTestimony(const std::string& FactId, const std::string& NpcId) const
+{
+        return CaseSys->GetAvailableTestimony(FactId, NpcId, *this);
+}
+
+bool Game::HearTestimony(const std::string& FactId, const std::string& NpcId, std::string& OutError)
+{
+        if (!CaseSys->GetAvailableTestimony(FactId, NpcId, *this))
+        {
+                OutError = "no available testimony of " + FactId + " by " + NpcId
+                        + " (conditions unmet, or they know nothing they will share)";
+                return false;
+        }
+        const bool bWasLearned = CaseSys->IsLearned(FactId);
+        std::map<std::string, int> FlagsToSet;
+        if (!CaseSys->NotifyTestimonyHeard(FactId, NpcId, VillageSys->Day(), VillageSys->Hour(), FlagsToSet, OutError))
+        {
+                return false;
+        }
+        for (const auto& KV : FlagsToSet) { FlagValues[KV.first] = KV.second; }
+        const CaseFactDef* Def = CaseSys->FindFact(FactId);
+        if (Def && !bWasLearned && CaseSys->IsLearned(FactId) && !Def->JournalNote.empty())
+        {
+                AddJournalEntry(Def->JournalNote);
+        }
+        RefreshAfterChange();
+        return true;
+}
+
+bool Game::LearnFact(const std::string& FactId, const std::string& Via, const std::string& FromNpc, std::string& OutError)
+{
+        const bool bWasLearned = CaseSys->IsLearned(FactId);
+        std::map<std::string, int> FlagsToSet;
+        if (!CaseSys->NotifyFactLearned(FactId, Via, FromNpc, VillageSys->Day(), VillageSys->Hour(), FlagsToSet, OutError))
+        {
+                return false;
+        }
+        for (const auto& KV : FlagsToSet) { FlagValues[KV.first] = KV.second; }
+        const CaseFactDef* Def = CaseSys->FindFact(FactId);
+        if (Def && !bWasLearned && CaseSys->IsLearned(FactId) && !Def->JournalNote.empty())
+        {
+                AddJournalEntry(Def->JournalNote);
+        }
+        RefreshAfterChange();
+        return true;
+}
+
+bool Game::FormHypothesis(const std::string& HypId, std::string& OutError)
+{
+        if (!DeduceSys->FormHypothesis(HypId, VillageSys->Day(), OutError)) { return false; }
+        DeduceSys->RecheckAll(*this, *CaseSys, VillageSys->Day());
+        const HypothesisDef* Def = DeduceSys->FindHypothesis(HypId);
+        AddJournalEntry("A theory takes shape: " + (Def ? Def->Title : HypId));
+        return true;
+}
+
+std::vector<OpenQuestion> Game::OpenQuestions() const
+{
+        return DeduceSys->OpenQuestions(*this, *CaseSys);
+}
+
+void Game::ApplyAccusationConsequences(const AccusationConsequences& C, const std::string& NpcId)
+{
+        if (C.TrustDeltaTarget != 0.0 && !NpcId.empty())
+        {
+                VillageSys->ApplyTrustEvent(NpcId, C.TrustDeltaTarget);
+        }
+        if (C.TensionDelta != 0.0) { VillageSys->ApplyTensionDelta(C.TensionDelta); }
+        if (C.ReputationDelta != 0.0) { VillageSys->ApplyReputationDelta(C.ReputationDelta); }
+        for (const auto& KV : C.SetFlags) { FlagValues[KV.first] = KV.second; }
+        if (!C.JournalNote.empty()) { AddJournalEntry(C.JournalNote); }
+}
+
+bool Game::MakeAccusation(const std::string& AccId, EAccusationTier& OutTier, std::string& OutError)
+{
+        if (!DeduceSys->MakeAccusation(AccId, *this, *CaseSys, VillageSys->Day(), VillageSys->Hour(), OutTier, OutError))
+        {
+                return false;
+        }
+        const AccusationDef* Def = DeduceSys->FindAccusation(AccId);
+        const std::string TargetNpc = Def ? Def->TargetNpc : std::string();
+        switch (OutTier)
+        {
+                case EAccusationTier::Grounded: ApplyAccusationConsequences(Def->OnGrounded, TargetNpc); break;
+                case EAccusationTier::Partial:  ApplyAccusationConsequences(Def->OnPartial, TargetNpc);  break;
+                case EAccusationTier::Baseless: ApplyAccusationConsequences(Def->OnBaseless, TargetNpc); break;
+        }
+        RefreshAfterChange();
+        return true;
+}
+
 // ------------------------------------------------------------ save/load
 
 JsonValue Game::Save() const
 {
         JsonValue Root = JsonValue::MakeObject();
-        Root.Set("save_version", JsonValue(2));   // v2: rumors + deterministic sim RNG (M2)
+        Root.Set("save_version", JsonValue(3));   // v3: case facts + deduction layer (M3.7)
         Root.Set("village", VillageSys->SerializeState());
         Root.Set("evidence", EvidenceSys->SerializeState());
         Root.Set("quests", QuestSys->SerializeState());
         Root.Set("rumors", RumorSys->SerializeState());
+        Root.Set("case", CaseSys->SerializeState());
+        Root.Set("deduction", DeduceSys->SerializeState());
         // 64-bit RNG state travels as hex text - a double would lose bits above 2^53
         {
                 char RngBuf[32];
@@ -510,12 +642,15 @@ bool Game::LoadFromStringInternal(const std::string& Payload, std::string& OutEr
         const JsonValue& Root = P.Value;
         if (!Root.IsObject()) { OutError = "save root not an object"; return false; }
 
-        // ---- version gate: 1 = M1 legacy, 2 = M2 (rumors + sim RNG) ----
+        // ---- version gate: 1 = M1 legacy, 2 = M2 (rumors + sim RNG),
+        // 3 = M3.7 (case facts + deduction). Older payloads stay readable -
+        // their case layer simply starts clean rather than resurrecting
+        // knowledge the payload cannot name.
         const int SaveVersion = Root.Find("save_version") ? Root.Find("save_version")->AsInt() : 0;
-        if (SaveVersion <= 0 || SaveVersion > 2)
+        if (SaveVersion <= 0 || SaveVersion > 3)
         {
                 OutError = "unsupported save_version " + std::to_string(SaveVersion)
-                        + " (this build reads 1 and 2)";
+                        + " (this build reads 1, 2 and 3)";
                 return false;
         }
 
@@ -533,7 +668,7 @@ bool Game::LoadFromStringInternal(const std::string& Payload, std::string& OutEr
                 const JsonValue* R = Root.Find("rumors");
                 if (!R || !RumorSys->DeserializeState(*R, OutError)) { OutError = "rumors: " + OutError; return false; }
                 const JsonValue* RNG = Root.Find("sim_rng");
-                if (!RNG || !RNG->IsString()) { OutError = "rumors: save v2 missing sim_rng"; return false; }
+                if (!RNG || !RNG->IsString()) { OutError = "rumors: save v2/v3 missing sim_rng"; return false; }
                 SimRngStream.SetState(std::strtoull(RNG->AsString().c_str(), nullptr, 16));
         }
         else
@@ -543,6 +678,25 @@ bool Game::LoadFromStringInternal(const std::string& Payload, std::string& OutEr
                 std::string Ignored;
                 JsonValue Empty = JsonValue::MakeObject();
                 RumorSys->DeserializeState(Empty, Ignored);
+        }
+
+        // ---- M3.7 case layer: v3 must carry both sections; v1/v2 start clean
+        {
+                std::string CaseErr;
+                const JsonValue* C = Root.Find("case");
+                const JsonValue* D = Root.Find("deduction");
+                if (SaveVersion >= 3)
+                {
+                        if (!C || !CaseSys->DeserializeState(*C, CaseErr)) { OutError = "case: " + CaseErr; return false; }
+                        CaseErr.clear();
+                        if (!D || !DeduceSys->DeserializeState(*D, CaseErr)) { OutError = "deduction: " + CaseErr; return false; }
+                }
+                else
+                {
+                        JsonValue Empty = JsonValue::MakeObject();
+                        CaseSys->DeserializeState(Empty, CaseErr);
+                        DeduceSys->DeserializeState(Empty, CaseErr);
+                }
         }
 
         FlagValues.clear();

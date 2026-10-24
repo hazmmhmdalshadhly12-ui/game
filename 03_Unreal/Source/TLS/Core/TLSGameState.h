@@ -13,6 +13,8 @@
 #include "TLSDialogue.h"
 #include "TLSRumors.h"
 #include "TLSSettings.h"
+#include "TLSCaseFacts.h"
+#include "TLSDeduction.h"
 #include "TLSRng.h"
 
 #include <map>
@@ -35,6 +37,11 @@ public:
         bool LoadSimData(const JsonValue& Root, std::string& OutError);
         bool LoadDialogueData(const JsonValue& Root, std::string& OutError);
         bool LoadRumorData(const JsonValue& Root, std::string& OutError);
+        // M3.7: the case-fact ledger (facts + testimonies + dossiers) and the
+        // deduction layer (hypotheses + accusations). Both optional at load -
+        // a session without them simply has no case layer.
+        bool LoadCaseFactsData(const JsonValue& Root, std::string& OutError);
+        bool LoadDeductionData(const JsonValue& Root, std::string& OutError);
 
         // ---- session ----
         void NewGame();
@@ -51,6 +58,8 @@ public:
         const DialogueSystem& Dialogue() const { return *DialogueSys; }
         const RumorSystem& Rumors() const { return *RumorSys; }
         const SettingsModel& Settings() const { return SettingsCfg; }
+        const CaseFactSystem& Case() const { return *CaseSys; }
+        const DeductionSystem& Deduction() const { return *DeduceSys; }
         SettingsModel& SettingsMut() { return SettingsCfg; }
         EvidenceSystem& EvidenceMut() { return *EvidenceSys; }
         VillageState& VillageMut() { return *VillageSys; }
@@ -66,6 +75,18 @@ public:
         // Anonymous leak (NPC_SIMULATION 5c): feeds the rumor into a gossip zone.
         // Returns the number of NPCs that heard it, or -1 with OutError set.
         int NotifyPlayerLeakRumor(const std::string& RumorId, const std::string& Zone, std::string& OutError);
+        // M3.7: the case-fact layer. HearTestimony checks the NPC's reveal
+        // conditions against live state, records the account, learns the fact
+        // (first hearing wins) and applies its on-learned flags + journal.
+        const TestimonyDef* AvailableTestimony(const std::string& FactId, const std::string& NpcId) const;
+        bool HearTestimony(const std::string& FactId, const std::string& NpcId, std::string& OutError);
+        bool LearnFact(const std::string& FactId, const std::string& Via, const std::string& FromNpc, std::string& OutError);
+        // M3.7: the deduction layer. Forming is a player act; verdicts are
+        // re-evaluated on every state change. Accusations are always speakable;
+        // the tier decides which consequences land.
+        bool FormHypothesis(const std::string& HypId, std::string& OutError);
+        std::vector<OpenQuestion> OpenQuestions() const;
+        bool MakeAccusation(const std::string& AccId, EAccusationTier& OutTier, std::string& OutError);
         // Deterministic simulation stream for gameplay systems that must roll.
         Rng& SimRng() { return SimRngStream; }
         void SetSimRngState(std::uint64_t S) { SimRngStream.SetState(S); }
@@ -115,6 +136,9 @@ public:
         bool NpcKnowsRumor(const std::string& NpcId, const std::string& RumorId) const override { return RumorSys->NpcKnows(NpcId, RumorId); }
         bool PlayerHeardRumor(const std::string& RumorId) const override;
         double GetTension() const override { return VillageSys->Tension(); }
+        // M3.7: deduction-board queries (additive IGameContext surface)
+        bool ContradictionRuleDrawn(const std::string& RuleId) const override;
+        bool EvidenceReliability(const std::string& Id, double& OutReliability) const override;
 
         // ---- journal ----
         struct JournalEntry
@@ -139,6 +163,7 @@ private:
         void ApplyEffects(const DialogueEffects& Effects, const std::string& NpcId, ETone Tone);
         void ApplyQuestCompletionFlags(const std::vector<std::string>& CompletedQuestIds);
         void RefreshAfterChange();
+        void ApplyAccusationConsequences(const AccusationConsequences& C, const std::string& NpcId);
         void EnterNodeAndApply(const std::string& NodeId, std::string& OutEnteredNodeId);
         // M3.1: the raw (non-atomic) load used by LoadFromString's rollback guard.
         bool LoadFromStringInternal(const std::string& Payload, std::string& OutError);
@@ -148,6 +173,8 @@ private:
         VillageState* VillageSys = nullptr;
         DialogueSystem* DialogueSys = nullptr;
         RumorSystem* RumorSys = nullptr;
+        CaseFactSystem* CaseSys = nullptr;
+        DeductionSystem* DeduceSys = nullptr;
         SettingsModel SettingsCfg;
         Rng SimRngStream;
 

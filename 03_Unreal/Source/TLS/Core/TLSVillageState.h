@@ -42,6 +42,10 @@ public:
         // Returns the final applied delta for the source NPC.
         double ApplyTrustDelta(const std::string& NpcId, double RawDelta, ETone Tone,
                 std::vector<std::string>* OutSpilloverLog = nullptr);
+        // M3.7: non-dialogue event delta (accusations, public scenes) - no tone
+        // weight, keeps bias + clamp + faction spillover. Returns applied delta.
+        double ApplyTrustEvent(const std::string& NpcId, double RawDelta,
+                std::vector<std::string>* OutSpilloverLog = nullptr);
         void ApplyReputationDelta(double Delta) { ReputationValue += Delta; ClampReputation(); }
         void ApplyTensionDelta(double Delta) { TensionLevel += Delta; ClampTension(); }
 
