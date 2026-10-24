@@ -1,40 +1,18 @@
 {
   "blender": "5.0.1",
-  "generated": "2026-10-23 16:35:22",
+  "generated": "2026-10-23 18:57:13",
   "objects": [
     {
       "name": "Edmund_Body",
-      "verts": 13267,
-      "polys": 11508,
-      "tris": 22364,
-      "boundary_edges": 384,
-      "nonmanifold_edges": 0,
-      "loose_verts": 1874,
-      "nan_verts": 0,
-      "materials": [
-        "TLS_Edmund_Skin"
-      ],
-      "uvs": [
-        "UVMap"
-      ],
-      "modifiers": [
-        [
-          "EDGE_SPLIT",
-          "EdgeSplit"
-        ]
-      ]
-    },
-    {
-      "name": "Edmund_EyeR",
-      "verts": 1082,
-      "polys": 1120,
-      "tris": 2160,
-      "boundary_edges": 0,
+      "verts": 11375,
+      "polys": 11484,
+      "tris": 22316,
+      "boundary_edges": 396,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
       "materials": [
-        "TLS_Edmund_Eye"
+        "TLS_Edmund_Skin"
       ],
       "uvs": [
         "UVMap"
@@ -69,16 +47,16 @@
       ]
     },
     {
-      "name": "Edmund_HandR",
-      "verts": 326,
-      "polys": 320,
-      "tris": 564,
-      "boundary_edges": 76,
+      "name": "Edmund_EyeR",
+      "verts": 1082,
+      "polys": 1120,
+      "tris": 2160,
+      "boundary_edges": 0,
       "nonmanifold_edges": 0,
       "loose_verts": 0,
       "nan_verts": 0,
       "materials": [
-        "TLS_Edmund_Skin"
+        "TLS_Edmund_Eye"
       ],
       "uvs": [
         "UVMap"
@@ -101,6 +79,28 @@
       "nan_verts": 0,
       "materials": [
         "TLS_Edmund_Skin_InkedL"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_HandR",
+      "verts": 326,
+      "polys": 320,
+      "tris": 564,
+      "boundary_edges": 76,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Skin"
       ],
       "uvs": [
         "UVMap"
@@ -136,12 +136,12 @@
     },
     {
       "name": "Edmund_Waistcoat",
-      "verts": 557,
+      "verts": 544,
       "polys": 580,
       "tris": 1020,
       "boundary_edges": 52,
       "nonmanifold_edges": 0,
-      "loose_verts": 13,
+      "loose_verts": 0,
       "nan_verts": 0,
       "materials": [
         "TLS_Edmund_Waistcoat",
@@ -159,12 +159,12 @@
     },
     {
       "name": "Edmund_Coat",
-      "verts": 1833,
-      "polys": 1640,
-      "tris": 3132,
-      "boundary_edges": 230,
+      "verts": 1886,
+      "polys": 1854,
+      "tris": 3532,
+      "boundary_edges": 218,
       "nonmanifold_edges": 0,
-      "loose_verts": 143,
+      "loose_verts": 0,
       "nan_verts": 0,
       "materials": [
         "TLS_Edmund_CoatWool",
@@ -271,30 +271,71 @@
       ]
     }
   ],
+  "render_extras": [
+    {
+      "name": "Edmund_Hair",
+      "verts": 58875,
+      "polys": 26660,
+      "tris": 53168,
+      "boundary_edges": 55376,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Hair"
+      ]
+    },
+    {
+      "name": "Edmund_Stubble",
+      "verts": 31200,
+      "polys": 10400,
+      "tris": 20800,
+      "boundary_edges": 31200,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Stubble"
+      ]
+    },
+    {
+      "name": "Edmund_Brows",
+      "verts": 5160,
+      "polys": 1720,
+      "tris": 3440,
+      "boundary_edges": 5160,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Brow"
+      ]
+    }
+  ],
   "totals": {
     "objects": 12,
-    "verts": 22457,
-    "tris": 39408,
+    "verts": 20605,
+    "tris": 39760,
     "materials": 15,
     "texture_files": {
-      "weave": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_cloth_weave.png",
-      "leather": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_leather_grain.png",
-      "skin": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_skin_micro.png",
-      "iris": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_iris_gray.png"
+      "weave": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_cloth_weave.png",
+      "leather": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_leather_grain.png",
+      "skin": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_skin_micro.png",
+      "iris": "/home/z/my-project/m35_out/final/textures/tls_chr_001_tex_iris_gray.png"
     },
-    "build_seconds": 2.1
+    "build_seconds": 2.5
   },
   "bounds_min": [
     -0.457,
     -0.213,
-    0.014
+    0.0
   ],
   "bounds_max": [
     0.457,
     0.143,
-    1.7825
+    1.7877
   ],
-  "height_m": 1.7685,
-  "blend_path": "/home/z/my-project/m34_out/edmund_full.blend",
-  "blend_size_mb": 3.82
+  "height_m": 1.7877,
+  "blend_path": "/home/z/my-project/m35_out/final/tls_chr_001_edmund_vale.blend",
+  "blend_size_mb": 3.87
 }

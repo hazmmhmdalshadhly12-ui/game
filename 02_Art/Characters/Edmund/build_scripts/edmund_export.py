@@ -42,7 +42,9 @@ def export(outdir):
             add_leaf_bones=False,
             bake_anim=False,
             path_mode='AUTO',
-            mesh_smooth_type='FACE')
+            # M3.5: TECHNICAL_PIPELINE.md pins mesh_smooth_type='OFF'
+            # (normals baked as stored); M3.4 silently used 'FACE'.
+            mesh_smooth_type='OFF')
         sz = os.path.getsize(path) / 1e6
         print(f"[FBX] exported {path} ({sz:.1f} MB) objects={n}")
         return sz
@@ -59,6 +61,24 @@ def export(outdir):
     print("[FBX] export done")
     return {"body": {"path": p1, "mb": round(s1, 2)},
             "outfit": {"path": p2, "mb": round(s2, 2)}}
+
+def outfit_blend(out_path):
+    """M3.5: regenerate TLS-CHR-030 (.blend) from the current session:
+    outfit meshes + armature only (character body/eyes/hands/hair removed)."""
+    keep = {"Edmund_Shirt", "Edmund_Waistcoat", "Edmund_Coat",
+            "Edmund_Neckcloth", "Edmund_Trousers", "Edmund_Boots",
+            "Edmund_Satchel"}
+    for o in list(bpy.data.objects):
+        if o.type == 'MESH' and o.name not in keep:
+            bpy.data.objects.remove(o, do_unlink=True)
+    for coll in (bpy.data.meshes, bpy.data.images):
+        for item in list(coll):
+            if item.users == 0:
+                coll.remove(item)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    bpy.ops.wm.save_as_mainfile(filepath=out_path, compress=True)
+    print("[FBX] outfit blend saved", out_path,
+          os.path.getsize(out_path) / 1e6, "MB")
 
 def verify(files):
     out = []
@@ -107,6 +127,9 @@ def main():
         with open(os.path.join(opts.get("dir", "/home/z/my-project/m34_out/fbx"),
                                "_export_log.json"), "w") as fj:
             json.dump(r, fj, indent=2)
+    elif opts.get("mode") == "outfit_blend":
+        outfit_blend(opts.get("out",
+                     "/home/z/my-project/m34_out/tls_chr_030_edmund_outfit.blend"))
     else:
         files = opts.get("files", "").split(",")
         res = verify([f for f in files if f])

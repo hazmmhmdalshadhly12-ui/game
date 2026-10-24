@@ -166,7 +166,7 @@ def main():
     # scene stats
     print("[M3.4] collecting stats ...")
     stats = {"blender": bpy.app.version_string, "generated": time.strftime("%Y-%m-%d %H:%M:%S"),
-             "objects": [], "totals": {}}
+             "objects": [], "render_extras": [], "totals": {}}
     tot_v = tot_t = 0
     for o in [body] + eyes + hands + list(outfit.values()):
         s = obj_stats(o)
@@ -177,6 +177,13 @@ def main():
         s["modifiers"] = [(m.type, m.name) for m in o.modifiers]
         stats["objects"].append(s)
         tot_v += s["verts"]; tot_t += s["tris"]
+    # M3.5: hair/stubble/brows accounted separately (render/game-optional)
+    for o in [hair, stub, brows]:
+        s = obj_stats(o)
+        s.update(mesh_checks(o))
+        s["materials"] = [sl.material.name if sl.material else None
+                          for sl in o.material_slots]
+        stats["render_extras"].append(s)
     stats["totals"] = {"objects": len(stats["objects"]), "verts": tot_v, "tris": tot_t,
                        "materials": len([m for m in bpy.data.materials
                                          if not m.name.startswith("TLS_Studio")

@@ -44,7 +44,8 @@ def build_materials(texs):
                 sss_weight=0.14, sss_radius=(0.011, 0.0035, 0.0022),
                 sss_scale=0.016, spec=0.35)
     img = bpy.data.images.load(texs["skin"], check_existing=True)
-    add_bump(m, img, scale=0.22, distance=0.0012)
+    # M3.5: bump 0.22->0.15 - the old pores read as dark speckle on hands
+    add_bump(m, img, scale=0.15, distance=0.0009)
     # subtle roughness breakup
     nt = m.node_tree
     bsdf = next(n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED')
@@ -88,14 +89,14 @@ def build_materials(texs):
     # mask around back of left hand (object coords == world, object at origin)
     sub = nt.nodes.new('ShaderNodeVectorMath')
     sub.operation = 'SUBTRACT'
-    sub.inputs[1].default_value = (-0.338, -0.108, 0.862)
+    sub.inputs[1].default_value = (0.338, -0.108, 0.862)  # M3.5: LEFT hand is +X
     nt.links.new(tc.outputs['Object'], sub.inputs[0])
     ln = nt.nodes.new('ShaderNodeVectorMath')
     ln.operation = 'LENGTH'
     nt.links.new(sub.outputs['Vector'], ln.inputs[0])
     mr2 = nt.nodes.new('ShaderNodeMapRange')
-    mr2.inputs['From Min'].default_value = 0.030
-    mr2.inputs['From Max'].default_value = 0.055
+    mr2.inputs['From Min'].default_value = 0.012
+    mr2.inputs['From Max'].default_value = 0.038
     mr2.inputs['To Min'].default_value = 1.0
     mr2.inputs['To Max'].default_value = 0.0
     nt.links.new(ln.outputs['Value'], mr2.inputs['Value'])
@@ -127,8 +128,9 @@ def build_materials(texs):
     # ink areas less rough/glossy
     M["skin_ink"] = m2
 
-    # ---- eyes
-    m = new_mat("TLS_Edmund_Eye", base=(0.85, 0.85, 0.85), rough=0.08, spec=0.6)
+    # ---- eyes (M3.5: wetter cornea - lower roughness + light clearcoat)
+    m = new_mat("TLS_Edmund_Eye", base=(0.85, 0.85, 0.85), rough=0.06, spec=0.7,
+                coat=0.35, coat_rough=0.15)
     img = bpy.data.images.load(texs["iris"], check_existing=True)
     try:
         img.colorspace_settings.name = 'sRGB'
@@ -144,7 +146,9 @@ def build_materials(texs):
     M["eye"] = m
 
     # ---- hair (dark unkempt brown per CHR-01)
-    m = new_mat("TLS_Edmund_Hair", base=(0.026, 0.0155, 0.0095), rough=0.45, spec=0.25)
+    # M3.5: slight sheen so the cards read as hair, not plastic
+    m = new_mat("TLS_Edmund_Hair", base=(0.026, 0.0155, 0.0095), rough=0.38,
+                spec=0.35, sheen=0.25, sheen_rough=0.35)
     M["hair"] = m
     M["brow"] = m.copy(); M["brow"].name = "TLS_Edmund_Brow"
     set_p = None
@@ -152,7 +156,7 @@ def build_materials(texs):
     # stubble slightly lighter than scalp hair (2-week beard shadow)
     st_bsdf = next(n for n in M["stubble"].node_tree.nodes
                    if n.type == 'BSDF_PRINCIPLED')
-    set_principled(st_bsdf, base_color=(0.045, 0.028, 0.018))
+    set_principled(st_bsdf, base_color=(0.058, 0.037, 0.024))
 
     # ---- wool coat (London gray)
     m = new_mat("TLS_Edmund_CoatWool", base=(0.148, 0.155, 0.168), rough=0.88,
@@ -189,8 +193,9 @@ def build_materials(texs):
     M["trousers"] = m
 
     # ---- boots (black-brown leather)
-    m = new_mat("TLS_Edmund_BootLeather", base=(0.032, 0.024, 0.018), rough=0.42,
-                coat=0.15, coat_rough=0.3)
+    # M3.5: more polished (coat 0.15->0.28, rough 0.42->0.38)
+    m = new_mat("TLS_Edmund_BootLeather", base=(0.032, 0.024, 0.018), rough=0.38,
+                coat=0.28, coat_rough=0.25)
     img = bpy.data.images.load(texs["leather"], check_existing=True)
     add_bump(m, img, scale=0.30, distance=0.0022)
     M["boot"] = m

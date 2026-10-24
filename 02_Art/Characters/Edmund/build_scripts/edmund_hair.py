@@ -38,6 +38,10 @@ def beard_mask_d(d):
     # exclude the nose volume
     if abs(d.x) < 0.017 and d.y < -0.075 and d.z > -0.040:
         return False
+    # M3.5: exclude the LIPS so the mouth reads clearly (old build grew
+    # stubble across both lips and the mouth vanished at mid distance)
+    if abs(d.x) < 0.028 and d.y < -0.070 and -0.064 < d.z < -0.024:
+        return False
     return True
 
 def brow_mask_d(d):
@@ -99,12 +103,13 @@ def _strand_points(root, n, rng, length, flow_fn, npts=6, noise=0.006,
         raw = flow_fn(root, t)
         if hug:
             # blend tangent-hugging into free fall as the strand leaves the scalp
+            # M3.5 v2: release later (t-0.5)/0.4 - strands lie on the head
             nrm = _head_normal(p)
             tang = raw - raw.dot(nrm) * nrm
             if tang.length < 1e-5:
                 tang = Vector((0, 0, -1))
             tang.normalize()
-            release = min(1.0, max(0.0, (t - 0.25) / 0.6))
+            release = min(1.0, max(0.0, (t - 0.50) / 0.4))
             tgt = (tang * (1.0 - release) + raw * release).normalized()
         else:
             tgt = raw
@@ -119,15 +124,17 @@ def _strand_points(root, n, rng, length, flow_fn, npts=6, noise=0.006,
 def _hair_flow(root, t):
     """1847 style: forehead swept BACK, side part (his left), falling down.
     The RAW comb vector is projected onto the scalp tangent plane by the caller
-    so strands hug the skull; near t=1 gravity takes over."""
+    so strands hug the skull; near t=1 gravity takes over.
+    M3.5 v2: side/back flow mostly DOWNWARD (was +-1.0 outward which made the
+    silhouette explode on render)."""
     p = root - _head_frame()
     # forehead + top-front: sweep back
     if p.y < -0.030 and p.z > -0.01:
-        base = Vector((math.copysign(0.45, p.x + 0.012), 0.95, -0.45))
+        base = Vector((math.copysign(0.30, p.x + 0.012), 0.95, -0.45))
     elif p.x < -0.012:
-        base = Vector((-1.0, -0.30, -0.9))
+        base = Vector((-0.35, -0.20, -1.0))
     else:
-        base = Vector((1.0, -0.30, -0.9))
+        base = Vector((0.35, -0.20, -1.0))
     return base
 
 def _head_normal(root):
@@ -215,13 +222,16 @@ def build_hair(body, mats, seed=42, strand_count=3800, fast=False):
         horiz = math.sqrt(d.x * d.x + d.y * d.y)
         L = 0.095 + 0.045 * max(0.0, d.z / 0.12) + rng.uniform(-0.012, 0.018)
         if d.z < 0.03 and horiz > 0.075:
-            L *= 0.50   # above ears short
+            L *= 0.42   # above ears short (M3.5: was 0.50, still poked out)
         if abs(d.x) < 0.03 and d.y < -0.06 and d.z > 0.02:
             L *= 0.62   # forehead fringe shorter
+        if d.y > 0.045 and d.z < 0.05:
+            L *= 0.60   # M3.5: nape/back-hair shorter so it hugs the skull
         pts = _strand_points(root, nrm, rng, L, _hair_flow, npts=6,
                              noise=0.0015, flat=0.85)
         strands.append(pts)
-    objs.append(_ribbons(strands, width=0.0009, mat=mats["hair"],
+    # M3.5: slightly wider cards (0.0009 -> 0.0011) for denser coverage
+    objs.append(_ribbons(strands, width=0.0011, mat=mats["hair"],
                          name="Edm_HairStrands"))
     return join_list(objs, "Edmund_Hair")
 
@@ -244,10 +254,11 @@ def build_brows(body, mats, seed=99):
     hc = _head_frame()
     rng = random.Random(seed)
     # place along brow ridge arcs (radius outside the ridge bump)
+    # M3.5: denser (300->430 per side), slightly wider cards
     for sgn in (1, -1):
-        for _ in range(300):
+        for _ in range(430):
             u = rng.uniform(-1.0, 1.0)            # along brow
-            v = rng.uniform(-0.35, 0.35)          # across brow
+            v = rng.uniform(-0.45, 0.45)          # across brow
             bx = sgn * (0.033 + 0.016 * u)
             bz = 0.040 - 0.010 * (u * u) + 0.006 * v
             by = -(0.070 + 0.008 * (u * u)) - 0.004 * v
@@ -256,7 +267,7 @@ def build_brows(body, mats, seed=99):
             d.normalize()
             surf = hc + d * (0.1085)
             n = d
-            L = rng.uniform(0.012, 0.017)
+            L = rng.uniform(0.011, 0.016)
             flow_dir = Vector((sgn * 0.8, -0.25, -0.35)).normalized()
             pts = [surf - n * 0.001]
             dd = (n + flow_dir * 0.6).normalized()
@@ -266,7 +277,7 @@ def build_brows(body, mats, seed=99):
                 dd = (dd * 0.7 + flow_dir * 0.5).normalized()
                 pts.append(q)
             strands.append(pts)
-    return _ribbons(strands, width=0.0012, mat=mats["brow"],
+    return _ribbons(strands, width=0.0015, mat=mats["brow"],
                     name="Edmund_Brows")
 
 def join_list(objs, name):

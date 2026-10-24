@@ -147,12 +147,13 @@ CAMS = {
     "materials":   ((0.52, -0.92, 1.34), (0.02, -0.02, 1.13), 70),
     "rig_apose":   ((1.15, -3.9, 1.35), (0.0, 0.0, 0.97), 55),
     "rig_readiness": ((0.0, -4.15, 0.98), (0.0, 0.0, 0.95), 55),
+    "walk_test":   ((2.2, -3.5, 1.05), (0.05, 0.0, 0.90), 55),
     "head_side":   ((-0.62, 0.05, 1.672), (0.0, -0.03, 1.663), 60),
     "cinematic":   ((1.55, -2.75, 1.42), (-0.05, 0.05, 1.28), 35),
 }
 
-def apply_test_pose():
-    pj = "/home/z/my-project/m34_out/rig_test_pose.json"
+def apply_test_pose(posefile=None):
+    pj = posefile or "/home/z/my-project/m34_out/rig_test_pose.json"
     if not os.path.exists(pj):
         return False
     arm = bpy.data.objects.get("TLS_Rig_Human_Edmund")
@@ -194,6 +195,8 @@ def main():
     outdir = opts.get("out", "/home/z/my-project/m34_out/renders")
     samples = int(opts.get("samples", "96"))
     res = opts.get("res", "1280x720")
+    posejson = opts.get("posejson", "/home/z/my-project/m34_out/rig_test_pose.json")
+    walkjson = opts.get("walkjson", posejson.replace("rig_test_pose", "walk_pose"))
     square = {"face_closeup", "materials"}
 
     os.makedirs(outdir, exist_ok=True)
@@ -237,7 +240,10 @@ def main():
         sc.camera = cam
         if shot == "rig_readiness" and not posed:
             clear_pose()
-            posed = apply_test_pose()
+            posed = apply_test_pose(posejson)
+        elif shot == "walk_test":
+            clear_pose()
+            posed = apply_test_pose(walkjson)
         elif shot == "rig_apose" and posed:
             clear_pose()
             posed = False

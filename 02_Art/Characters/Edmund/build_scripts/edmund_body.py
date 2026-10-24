@@ -15,8 +15,10 @@ from edmund_lib import (uv_sphere_grid, gauss, loft_rings, ellipse_ring,
 H = 1.78  # total height
 
 # head center (relative world) - tuned so total height with crown lands at 1.78m
+# M3.5: crown +6mm (rz 0.126->0.132) so measured height lands at ~1.775m with
+# grounded boots (M3.5 fixes the 14mm float of the old build)
 HEAD_C = (0.0, -0.004, 1.665)
-HEAD_R = (0.094, 0.109, 0.126)
+HEAD_R = (0.094, 0.109, 0.132)
 
 # ---------------------------------------------------------------- helpers
 def tube_along(path, radii, n_side=14, up_hint=(1, 0, 0), u_close=True,
@@ -126,8 +128,9 @@ def build_foot(side):
 # ---------------------------------------------------------------- head
 BROW_Z = HEAD_C[2] + 0.036
 # eyeball pushed near the surface so it shows through the socket
+# M3.5: eyes 11% larger (0.0126->0.0140) - the old eyes read too small at any range
 EYE_C = (HEAD_C[0] + 0.031, HEAD_C[1] - 0.091, HEAD_C[2] + 0.017)
-EYE_R = 0.0126
+EYE_R = 0.0140
 
 def head_kernels():
     cx, cy, cz = HEAD_C
@@ -150,28 +153,30 @@ def head_kernels():
     # under-eye fatigue ridge (tired eyes)
     k(0.030, -0.060, 0.000, (0.018, 0.010, 0.007), +0.0020)
     k(-0.030, -0.060, 0.000, (0.018, 0.010, 0.007), +0.0020)
-    # cheekbones
-    k(0.049, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0060)
-    k(-0.049, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0060)
+    # cheekbones (M3.5: more defined)
+    k(0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0075)
+    k(-0.051, -0.034, 0.006, (0.019, 0.017, 0.014), +0.0075)
     # tired cheek hollow
     k(0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0032)
     k(-0.042, -0.048, -0.026, (0.015, 0.013, 0.012), -0.0032)
-    # nose: bridge -> tip -> wings
-    k(0.0, -0.088, 0.020, (0.011, 0.013, 0.016), +0.009)
-    k(0.0, -0.098, -0.002, (0.012, 0.013, 0.016), +0.017)
+    # nose: bridge -> tip -> wings (M3.5: stronger tip, wider wings)
+    k(0.0, -0.088, 0.020, (0.011, 0.013, 0.016), +0.010)
+    k(0.0, -0.098, -0.002, (0.012, 0.013, 0.016), +0.019)
     k(0.0, -0.106, -0.016, (0.013, 0.012, 0.013), +0.020)
-    k(0.014, -0.090, -0.018, (0.009, 0.010, 0.009), +0.007)
-    k(-0.014, -0.090, -0.018, (0.009, 0.010, 0.009), +0.007)
-    k(0.0, -0.098, -0.030, (0.014, 0.012, 0.009), -0.0015)   # under-nose
-    # mouth
-    k(0.0, -0.084, -0.036, (0.026, 0.012, 0.009), +0.0100)   # upper lip
-    k(0.0, -0.082, -0.053, (0.020, 0.012, 0.010), +0.0120)   # lower lip
-    k(0.0, -0.088, -0.044, (0.024, 0.009, 0.005), -0.0060)   # lip line
+    k(0.017, -0.090, -0.014, (0.011, 0.012, 0.011), +0.009)
+    k(-0.017, -0.090, -0.014, (0.011, 0.012, 0.011), +0.009)
+    # M3.5 v2: the -0.003 under-nose kernel PINCHED the tip into a star
+    # artifact on render - softened to -0.0012
+    k(0.0, -0.098, -0.030, (0.014, 0.010, 0.009), -0.0012)   # under-nose
+    # mouth (M3.5: fuller lips so the mouth reads under the stubble)
+    k(0.0, -0.084, -0.036, (0.026, 0.012, 0.009), +0.0125)   # upper lip
+    k(0.0, -0.082, -0.053, (0.020, 0.012, 0.010), +0.0145)   # lower lip
+    k(0.0, -0.088, -0.044, (0.024, 0.009, 0.005), -0.0085)   # lip line
     k(0.0, -0.079, -0.029, (0.006, 0.008, 0.008), +0.0020)   # philtrum
     k(0.021, -0.072, -0.037, (0.010, 0.011, 0.011), -0.0028) # nasolabial
     k(-0.021, -0.072, -0.037, (0.010, 0.011, 0.011), -0.0028)
-    # chin & jaw
-    k(0.0, -0.058, -0.072, (0.021, 0.019, 0.015), +0.0110)
+    # chin & jaw (M3.5: firmer chin)
+    k(0.0, -0.058, -0.072, (0.021, 0.019, 0.015), +0.0130)
     k(0.0, -0.052, -0.086, (0.014, 0.014, 0.010), -0.0025)   # under-chin
     k(0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0060) # jaw corners
     k(-0.049, -0.012, -0.048, (0.018, 0.017, 0.015), +0.0060)
@@ -200,9 +205,10 @@ def build_head():
             disp += gauss((x, y, z), c, s, amp)
         p2 = Vector(HEAD_C) + d + n * disp
         # jaw width narrowing below cheekbone level (adult male lower face)
+        # M3.5: slightly stronger taper (0.16->0.20) for a leaner 29-year-old face
         if d.z < -0.02 and abs(p2.x - HEAD_C[0]) > 0.028:
             f = min(1.0, (-d.z - 0.02) / 0.10)
-            p2.x = HEAD_C[0] + (p2.x - HEAD_C[0]) * (1.0 - 0.16 * f)
+            p2.x = HEAD_C[0] + (p2.x - HEAD_C[0]) * (1.0 - 0.20 * f)
         out.append((p2.x, p2.y, p2.z))
     # gentle relax to blend kernel seams
     out = smooth_verts(out, faces, iterations=1, factor=0.22)
@@ -210,10 +216,11 @@ def build_head():
 
 def build_ear(side):
     s = side
-    ecx = HEAD_C[0] + s * 0.093
+    ecx = HEAD_C[0] + s * 0.096
     ecy = HEAD_C[1] + 0.004
     ecz = HEAD_C[2] + 0.004
-    verts, faces, uvs = uv_sphere_grid(ecx, ecy, ecz, 0.013, 0.020, 0.030,
+    # M3.5: slightly larger ears (was 0.013/0.020/0.030)
+    verts, faces, uvs = uv_sphere_grid(ecx, ecy, ecz, 0.015, 0.023, 0.034,
                                        seg_u=28, seg_v=20, u_off=0.25)
     out = []
     for (x, y, z) in verts:
@@ -251,8 +258,9 @@ def build_eyeball(side):
         px = d.x / EYE_R
         pz = d.z / EYE_R
         if front > 0.05:
-            u = 0.5 + px / 3.4
-            v = 0.5 + pz / 3.4
+            # M3.5: iris covers more of the eye (was /3.4 -> tiny irises)
+            u = 0.5 + px / 2.6
+            v = 0.5 + pz / 2.6
         else:
             # back hemisphere: clamp to outer ring of texture (sclera white)
             a = math.atan2(d.z, d.x) / TAU
@@ -272,7 +280,7 @@ def build_lid(side, upper=True):
     keep = []
     fwd = Vector((0, -1, 0))
     up = Vector((0, 0, 1))
-    cos_open = math.cos(math.radians(40 if upper else 48))
+    cos_open = math.cos(math.radians(46 if upper else 54))
     for f in faces:
         okf = True
         for vi in f:
@@ -281,10 +289,10 @@ def build_lid(side, upper=True):
             if d.dot(fwd) > cos_open:
                 okf = False
                 break
-            if upper and d.dot(up) < -0.25:
+            if upper and d.dot(up) < -0.30:
                 okf = False
                 break
-            if not upper and d.dot(up) > 0.18:
+            if not upper and d.dot(up) > 0.22:
                 okf = False
                 break
         if okf:
@@ -396,11 +404,15 @@ def build_hand(side):
     return verts, faces, uvs
 
 # ---------------------------------------------------------------- assembly
+# M3.5 SIDE-NAMING FIX: the character faces -Y, so anatomical LEFT = +X
+# (Blender/Rigify convention). The old build named s=+1 "R" which put every
+# .R label on the character's left - wrong for UE retargeting and put the
+# CHR-01 ink stain on the wrong hand. Now: s=+1 -> ".L", s=-1 -> ".R".
 def build_body(mats):
     objs = []
     torso = new_mesh_obj("Edm_Torso", *build_torso(), mat=mats["skin"])
     objs.append(torso)
-    for s, nm in ((1, "R"), (-1, "L")):
+    for s, nm in ((1, "L"), (-1, "R")):
         a = new_mesh_obj(f"Edm_Arm{nm}", *build_arm(s), mat=mats["skin"])
         l = new_mesh_obj(f"Edm_Leg{nm}", *build_leg(s), mat=mats["skin"])
         f = new_mesh_obj(f"Edm_Foot{nm}", *build_foot(s), mat=mats["skin"])
@@ -425,15 +437,16 @@ def build_body(mats):
 
 def build_eyes(mats):
     eyes = []
-    for s, nm in ((1, "R"), (-1, "L")):
+    for s, nm in ((1, "L"), (-1, "R")):
         e = new_mesh_obj(f"Edmund_Eye{nm}", *build_eyeball(s), mat=mats["eye"])
         eyes.append(e)
     return eyes
 
 def build_hands(mats):
     hands = []
-    for s, nm in ((1, "R"), (-1, "L")):
-        m = mats["skin_ink"] if s < 0 else mats["skin"]
+    # M3.5: ink stain follows the anatomical LEFT hand (CHR-01: "يسار يده")
+    for s, nm in ((1, "L"), (-1, "R")):
+        m = mats["skin_ink"] if s > 0 else mats["skin"]
         h = new_mesh_obj(f"Edmund_Hand{nm}", *build_hand(s), mat=m)
         hands.append(h)
     return hands

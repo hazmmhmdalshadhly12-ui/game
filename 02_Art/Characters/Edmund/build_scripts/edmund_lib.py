@@ -55,8 +55,31 @@ def new_mesh_obj(name, verts, faces, uvs=None, mat=None, coll="Edmund"):
         bm.to_mesh(mesh)
         bm.free()
         mesh.update()
+    # M3.5: callers may pass verts not referenced by kept faces (e.g. lids);
+    # drop them here so no object ever ships loose verts.
+    if faces:
+        used = set()
+        for f in faces:
+            used.update(f)
+        if len(used) < len(verts):
+            remap = {}
+            v2 = []
+            for i, v in enumerate(verts):
+                if i in used:
+                    remap[i] = len(v2)
+                    v2.append(v)
+            verts = v2
+            uvs2 = None
+            if uvs is not None:
+                uvs2 = []
+                for f in faces:
+                    for vi in f:
+                        uvs2.append(uvs[vi])
+            faces = [tuple(remap[i] for i in f) for f in faces]
+            if uvs is not None:
+                uvs = uvs2
     obj = bpy.data.objects.new(name, mesh)
-    link_obj(obj, coll)
+    link_obj(obj)
     if uvs is not None:
         uv = mesh.uv_layers.new(name="UVMap")
         flat = []
@@ -69,6 +92,26 @@ def new_mesh_obj(name, verts, faces, uvs=None, mat=None, coll="Edmund"):
         obj.data.materials.append(mat)
     smooth_all(obj)
     return obj
+
+def delete_loose_verts(obj):
+    """M3.5: remove vertices not used by any face (construction leftovers).
+    Loose verts have no loops, so faces/UVs/materials are untouched."""
+    mesh = obj.data
+    used = set()
+    for p in mesh.polygons:
+        used.update(p.vertices)
+    loose = [v.index for v in mesh.vertices if v.index not in used]
+    if not loose:
+        return 0
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+    verts = [v for v in bm.verts if not v.link_faces]
+    n = len(verts)
+    bmesh.ops.delete(bm, geom=verts, context='VERTS')
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+    return n
 
 def smooth_all(obj, angle_deg=40.0):
     for p in obj.data.polygons:
@@ -103,6 +146,9 @@ def join_objects(objs, name):
         tmp.free()
         bm.from_mesh(me2)
         bpy.data.meshes.remove(me2)
+    # M3.5: drop loose verts from the joined result (defensive)
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces],
+                     context='VERTS')
     out = bpy.data.meshes.new(name)
     bm.to_mesh(out)
     bm.free()

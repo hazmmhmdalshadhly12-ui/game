@@ -101,22 +101,33 @@ def leg_tube(off, z_from=1.14, z_to=0.095, n=16, side=1, flare=0.0):
 def front_angle_delete(verts, faces, rings_n, verts_per_ring, a_lo, a_hi,
                        z_lo=None, z_hi=None):
     """Delete quad faces whose ring-center angle falls inside [a_lo,a_hi] (front=-Y at 270deg).
-    Loft-generated side faces only; lofted cap fans (appended at the end) are kept."""
+    M3.5 rewrite: index-shift-proof so the function can be applied in several
+    passes (chest V + button slit). Ring identity comes from the face's own
+    first vertex against the ORIGINAL vert list, cap fan faces always kept."""
     keep = []
-    n_side_faces = max(0, rings_n - 1) * verts_per_ring
-    for fi, f in enumerate(faces):
-        if fi >= n_side_faces:      # cap fan face -> keep
+    nv = verts_per_ring
+    n_side_verts = rings_n * nv
+    # ring centers + lower-ring z, from the original (unfiltered) vert list
+    ring_c, ring_z = [], []
+    for ri in range(rings_n):
+        base = ri * nv
+        ring_c.append((sum(verts[base + j][0] for j in range(nv)) / nv,
+                       sum(verts[base + j][1] for j in range(nv)) / nv))
+        ring_z.append(verts[base][2])
+    for f in faces:
+        if any(vi >= n_side_verts for vi in f):   # loft cap fan face -> keep
             keep.append(f)
             continue
-        ri = fi // verts_per_ring
-        vi = fi % verts_per_ring
-        a = TAU * (vi + 0.5) / verts_per_ring
+        ri = f[0] // nv
+        cx, cy = ring_c[ri]
+        vi = f[0] % nv
+        a = TAU * (vi + 0.5) / nv
         deg = math.degrees(a) % 360
-        ring_z = verts[ri * verts_per_ring][2] if ri * verts_per_ring < len(verts) else 0
+        z = ring_z[ri]
         okz = True
-        if z_lo is not None and ring_z < z_lo:
+        if z_lo is not None and z < z_lo:
             okz = False
-        if z_hi is not None and ring_z > z_hi:
+        if z_hi is not None and z > z_hi:
             okz = False
         inzone = (a_lo <= deg <= a_hi)
         if inzone and okz:
@@ -180,15 +191,20 @@ def build_waistcoat(mats):
 
 def build_coat(mats):
     objs = []
-    # main body: hem 0.56 -> collar 1.495, front open 213..327deg
-    # upper section uses a shoulder-yoke profile that covers the deltoids
+    # main body: hem 0.56 -> collar 1.495
+    # M3.5 COAT REPAIR (was: shoulders uncovered - deltoids poked out above
+    # the yoke - and a 114deg front slit that read as an open bathrobe):
+    #   1. shoulder yoke widened to cover the deltoid caps (outer x 0.240)
+    #   2. front closed below z=1.16 (thin button slit), open V above to show
+    #      waistcoat/shirt/neckcloth like a properly worn 1847 coat
     zs = [0.56, 0.64, 0.74, 0.84, 0.92, 1.00, 1.10, 1.20, 1.30, 1.38,
-          1.42, 1.45, 1.475, 1.495]
+          1.42, 1.45, 1.47, 1.485, 1.495]
     YOKE = {  # z: (wx, wy) absolute half-extents at the shoulders
-        1.42: (0.205, 0.130),
-        1.45: (0.185, 0.122),
-        1.475: (0.130, 0.100),
-        1.495: (0.082, 0.076),
+        1.42: (0.250, 0.132),
+        1.45: (0.243, 0.128),
+        1.47: (0.232, 0.120),
+        1.485: (0.185, 0.105),
+        1.495: (0.090, 0.080),
     }
     rings = []
     for z in zs:
@@ -212,12 +228,15 @@ def build_coat(mats):
             rings.append(torso_ring(z, off=off, off_back=0.004))
     verts, faces, uvs = loft_rings(rings, closed_loop=True, cap_bottom=True)
     nv = 36
-    faces = front_angle_delete(verts, faces, len(zs), nv, 213, 327, z_lo=0.30, z_hi=1.51)
+    # open chest V above z=1.16 (front = -Y ~ 250..290 deg)
+    faces = front_angle_delete(verts, faces, len(zs), nv, 250, 290, z_lo=1.16, z_hi=1.51)
+    # closed below: only a thin button slit (267..273 deg) so the coat reads worn
+    faces = front_angle_delete(verts, faces, len(zs), nv, 266, 274, z_lo=0.30, z_hi=1.16)
     coat = new_mesh_obj("Edm_Coat", verts, faces, uvs=uvs, mat=mats["coat"])
     objs.append(coat)
-    # sleeves
-    for s, nm in ((1, "R"), (-1, "L")):
-        sv, sf, su = arm_tube(0.016, z_from=1.425, z_to=0.905, taper_extra=0.001,
+    # sleeves (M3.5: top tucked up to z=1.44 under the yoke - no more gap)
+    for s, nm in ((1, "L"), (-1, "R")):
+        sv, sf, su = arm_tube(0.016, z_from=1.44, z_to=0.905, taper_extra=0.001,
                               side=s)
         c = new_mesh_obj(f"Edm_CoatSleeve{nm}", sv, sf, uvs=su, mat=mats["coat"])
         objs.append(c)
@@ -226,21 +245,20 @@ def build_coat(mats):
     cv, cf, cu = loft_rings(cr, closed_loop=True)
     col = new_mesh_obj("Edm_CoatCollar", cv, cf, uvs=cu, mat=mats["coat"])
     objs.append(col)
-    # lapels (rolled strips along opening edges)
-    for s, nm in ((1, "R"), (-1, "L")):
-        path = [(s * 0.062, -0.118, 1.475), (s * 0.078, -0.124, 1.38),
-                (s * 0.090, -0.120, 1.26), (s * 0.098, -0.108, 1.14),
-                (s * 0.100, -0.090, 1.05)]
-        radii = [(0.008, 0.026), (0.010, 0.030), (0.011, 0.032), (0.011, 0.030), (0.010, 0.026)]
+    # lapels (rolled strips along the chest V edges)
+    for s, nm in ((1, "L"), (-1, "R")):
+        path = [(s * 0.048, -0.150, 1.472), (s * 0.052, -0.146, 1.38),
+                (s * 0.044, -0.138, 1.26), (s * 0.026, -0.128, 1.16)]
+        radii = [(0.008, 0.028), (0.009, 0.030), (0.009, 0.030), (0.008, 0.026)]
         lv, lf, lu = tube_along(path, radii, n_side=10)
         lp = new_mesh_obj(f"Edm_Lapel{nm}", lv, lf, uvs=lu, mat=mats["coat"])
         objs.append(lp)
-    # coat buttons (right front edge)
+    # coat buttons along the closed front line (M3.5: on the slit edge)
     metal = []
-    for z in (1.34, 1.22, 1.10, 0.98):
+    for z in (1.30, 1.18, 1.06, 0.94, 0.82):
         _, cx, cy, wx, wy = _interp(TORSO, z)
-        x = cx + (wx + 0.024) * 0.80
-        y = cy - (wy + 0.024) * 0.55
+        x = cx + 0.014
+        y = cy - (wy + 0.026)
         metal.append(brass_button(f"Edm_CoatBtn{int(z*100)}", (x, y, z), 0.012, 0.005,
                                   mats["brass"]))
     objs += metal
@@ -248,28 +266,30 @@ def build_coat(mats):
 
 def build_neckcloth(mats):
     objs = []
+    # M3.5: the old neckcloth (0.058/0.056) sat INSIDE the shirt collar
+    # (outer ~0.077) and vanished. Radii raised to sit over the collar.
     rings = [
-        (1.455, 0.0, 0.0, 0.058, 0.056), (1.475, 0.0, -0.002, 0.061, 0.058),
-        (1.500, 0.0, -0.004, 0.059, 0.056), (1.515, 0.0, -0.004, 0.055, 0.052),
+        (1.452, 0.0, 0.0, 0.078, 0.074), (1.472, 0.0, -0.002, 0.082, 0.078),
+        (1.496, 0.0, -0.004, 0.080, 0.076), (1.515, 0.0, -0.004, 0.076, 0.072),
     ]
     rr = [{"verts": [(cx + wx * math.cos(TAU * i / 28), cy + wy * math.sin(TAU * i / 28), z)
                      for i in range(28)]} for z, cx, cy, wx, wy in rings]
     v, f, u = loft_rings(rr, closed_loop=True)
     objs.append(new_mesh_obj("Edm_NeckBand", v, f, uvs=u, mat=mats["neckcloth"]))
-    # knot at front
-    kx, ky = 0.0, -0.062
+    # knot at front (over the collar band)
+    kx, ky = 0.0, -0.084
     rings2 = [
-        (1.472, kx, ky, 0.013, 0.010), (1.490, kx, ky - 0.002, 0.015, 0.012),
-        (1.504, kx, ky - 0.004, 0.013, 0.011),
+        (1.468, kx, ky, 0.015, 0.012), (1.488, kx, ky - 0.002, 0.017, 0.014),
+        (1.504, kx, ky - 0.004, 0.015, 0.012),
     ]
     rr2 = [{"verts": [(cx + wx * math.cos(TAU * i / 16), cy + wy * math.sin(TAU * i / 16), z)
                       for i in range(16)]} for z, cx, cy, wx, wy in rings2]
     v, f, u = loft_rings(rr2, closed_loop=True, cap_top=True, cap_bottom=True)
     objs.append(new_mesh_obj("Edm_NeckKnot", v, f, uvs=u, mat=mats["neckcloth"]))
     # hanging tails
-    tv, tf, tu = tube_along([(0.0, -0.062, 1.468), (0.005, -0.058, 1.442),
-                             (0.004, -0.054, 1.420)],
-                            [(0.008, 0.004), (0.009, 0.004), (0.008, 0.003)],
+    tv, tf, tu = tube_along([(0.0, -0.088, 1.464), (0.005, -0.083, 1.436),
+                             (0.004, -0.078, 1.412)],
+                            [(0.009, 0.005), (0.010, 0.005), (0.009, 0.004)],
                             n_side=8, cap_end=True)
     objs.append(new_mesh_obj("Edm_NeckTail", tv, tf, uvs=tu, mat=mats["neckcloth"]))
     return join_objects(objs, "Edmund_Neckcloth")
@@ -321,8 +341,9 @@ def build_boots(mats):
         fv, ff, fu = loft_rings(rr, closed_loop=True, cap_top=True)
         objs.append(new_mesh_obj(f"Edm_BootFoot{nm}", fv, ff, uvs=fu, mat=mats["boot"]))
         # sole: closed band following the footprint perimeter
+        # M3.5: grounded (z -0.014) - the old build floated 14mm above z=0
         sole_rings = []
-        for z, src in ((0.030, fr[1]), (0.030, fr[-1]), (0.014, fr[-1]), (0.014, fr[1])):
+        for z, src in ((0.016, fr[1]), (0.016, fr[-1]), (0.000, fr[-1]), (0.000, fr[1])):
             _, cx, cy, wx, wy = src
             sole_rings.append({"verts": [(cx + (wx + 0.007) * math.cos(TAU * i / 20),
                                           cy + (wy + 0.007) * math.sin(TAU * i / 20), z)
@@ -330,10 +351,10 @@ def build_boots(mats):
         sov, sof, sou = loft_rings(sole_rings, closed_loop=True)
         objs.append(new_mesh_obj(f"Edm_BootSole{nm}", sov, sof, uvs=sou, mat=mats["sole"]))
         # heel block (rear)
-        hz = 0.030
+        hz = 0.016
         heel = [
             (hz, s * 0.108, 0.018, 0.034, 0.042),
-            (0.014, s * 0.108, 0.014, 0.032, 0.040),
+            (0.000, s * 0.108, 0.014, 0.032, 0.040),
         ]
         hr = [{"verts": [(cx + wx * math.cos(TAU * i / 16), cy + wy * math.sin(TAU * i / 16), z)
                          for i in range(16)]} for z, cx, cy, wx, wy in heel]
@@ -359,8 +380,10 @@ def brass_button(name, loc, r=0.01, h=0.004, mat=None, axis="y"):
 
 def build_satchel(mats):
     objs = []
-    # bag at left hip (strap over right shoulder)
-    bx, by, bz = -0.155, -0.075, 0.86
+    # M3.5 side fix: bag on the anatomical LEFT hip (+X), strap over the
+    # anatomical RIGHT shoulder (-X) - matches the script's own doc comment;
+    # the old build had it mirrored.
+    bx, by, bz = 0.155, -0.075, 0.86
     rings = []
     for z, wx, wy in ((bz - 0.095, 0.115, 0.042), (bz - 0.055, 0.125, 0.046),
                       (bz - 0.010, 0.128, 0.048), (bz + 0.030, 0.125, 0.045),
@@ -382,9 +405,9 @@ def build_satchel(mats):
     # buckle
     objs.append(brass_button("Edm_SatchelBuckle", (bx, by - 0.052, bz - 0.02),
                              0.014, 0.006, mats["brass"]))
-    # strap: right shoulder -> left hip, diagonal across chest
-    path = [(0.16, -0.055, 1.42), (0.09, -0.10, 1.30), (0.03, -0.13, 1.14),
-            (-0.05, -0.13, 0.99), (-0.12, -0.11, 0.92)]
+    # strap: right shoulder (-X) -> left hip (+X), diagonal across chest
+    path = [(-0.16, -0.055, 1.42), (-0.09, -0.10, 1.30), (-0.03, -0.13, 1.14),
+            (0.05, -0.13, 0.99), (0.12, -0.11, 0.92)]
     radii = [(0.016, 0.006)] * len(path)
     sv, sf, su = tube_along(path, radii, n_side=8)
     objs.append(new_mesh_obj("Edm_SatchelStrap", sv, sf, uvs=su, mat=mats["satchel"]))
