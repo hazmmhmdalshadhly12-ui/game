@@ -149,6 +149,12 @@ public:
         std::vector<OpenQuestion> OpenQuestions(const IGameContext& Ctx, const CaseFactSystem& Facts) const;
 
         // ---- accusations ----
+        // M3.8: the accusation UI's strength readout - the tier the
+        // accusation WOULD land at right now, from live state, WITHOUT
+        // recording it or applying consequences. Same evaluation
+        // MakeAccusation uses, so the preview never lies.
+        EAccusationTier PreviewTier(const std::string& AccId, const IGameContext& Ctx,
+                const CaseFactSystem& Facts) const;
         // Evaluates the tier from current state, records it, and returns the
         // tier so the caller (Game) applies the matching consequences.
         bool MakeAccusation(const std::string& AccId, const IGameContext& Ctx, const CaseFactSystem& Facts,
@@ -163,6 +169,10 @@ public:
 private:
         EHypothesisVerdict Evaluate(const HypothesisDef& Hyp, const IGameContext& Ctx,
                 const CaseFactSystem& Facts, std::string& OutRefuteReason) const;
+        // The deterministic tier function shared by PreviewTier and
+        // MakeAccusation (one evaluation, two consumers - they cannot drift).
+        EAccusationTier EvaluateTier(const AccusationDef& Def, const IGameContext& Ctx,
+                const CaseFactSystem& Facts) const;
 
         std::map<std::string, HypothesisDef> HypDefs;
         std::map<std::string, AccusationDef> AccDefs;

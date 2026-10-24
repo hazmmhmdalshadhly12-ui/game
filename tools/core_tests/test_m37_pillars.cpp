@@ -210,16 +210,22 @@ void RunAll()
                 const TestimonyDef* Gwen = G->AvailableTestimony("FACT-17-LIST", "CHR-03");
                 TLS_CHECK(Gwen != nullptr);
                 TLS_CHECK(Gwen->NpcId == "CHR-03" && Gwen->Stance == ETestimonyStance::Affirms);
+                // M3.8: the trust drive itself may cross the sworn-list node on
+                // the pass where trust crosses 60 - the dialogue bridge then
+                // teaches the fact FIRST. The direct hearing below becomes the
+                // idempotent second telling: same fact, no second journal line.
+                const bool bAlreadyTaughtByDialogue = G->Case().IsLearned("FACT-17-LIST");
                 const size_t JournalBefore = G->Journal().size();
                 TLS_CHECK(G->HearTestimony("FACT-17-LIST", "CHR-03", Err));
                 TLS_CHECK(G->Case().IsLearned("FACT-17-LIST"));
                 TLS_CHECK(G->GetFlag("FLG_GWEN_ARCHIVE_KNOWN") == 1);
-                TLS_CHECK(G->Journal().size() == JournalBefore + 1);
+                TLS_CHECK(G->Journal().size() == JournalBefore + (bAlreadyTaughtByDialogue ? 0 : 1));
                 const LearnedFact* Rec = G->Case().LearnRecord("FACT-17-LIST");
                 TLS_CHECK(Rec && Rec->FromNpc == "CHR-03" && Rec->Via == "testimony");
-                // idempotent: hearing again changes nothing
+                // idempotent: hearing again changes nothing (no second journal
+                // line, whichever path taught it first)
                 TLS_CHECK(G->HearTestimony("FACT-17-LIST", "CHR-03", Err));
-                TLS_CHECK(G->Journal().size() == JournalBefore + 1);
+                TLS_CHECK(G->Journal().size() == JournalBefore + (bAlreadyTaughtByDialogue ? 0 : 1));
 
                 // Mair's wall: her truth opens at C5 (day 4) - the slice cannot buy it
                 TLS_CHECK(G->AvailableTestimony("FACT-MAIR-RETURNED", "CHR-06") == nullptr);
@@ -590,7 +596,11 @@ void RunAll()
                         TLS_CHECK(G2->Case().LearnedCount() == 3);   // 17-LIST + MILL-SHADOW + NOTT-SIN
                         TLS_CHECK(G2->Case().IsLearned("FACT-17-LIST"));
                         TLS_CHECK(G2->Case().IsLearned("FACT-MILL-SHADOW"));
-                        TLS_CHECK(static_cast<int>(G2->Case().HeardList().size()) == 2);
+                        // M3.8: the trust drive now crosses Gwen's NODE_LASTNIGHT
+                        // once, so the tray account is HEARD through the dialogue
+                        // bridge as well (deduped). It teaches nothing - the count
+                        // of learned facts above is unchanged by it (truth anchor).
+                        TLS_CHECK(static_cast<int>(G2->Case().HeardList().size()) == 3);
                         TLS_CHECK(G2->GetFlag("FLG_MILL_SHADOW_KNOWN") == 1);
                         const FormedHypothesis* H = G2->Deduction().Formed("HYP-NOTT-FRAUD-PATTERN");
                         TLS_CHECK(H && H->Verdict == EHypothesisVerdict::Supported);

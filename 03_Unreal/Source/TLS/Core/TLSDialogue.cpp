@@ -36,6 +36,7 @@ namespace
                 }
                 Out.GiveEvidence = V->GetStringList("give_evidence");
                 Out.GiveInsight = V->GetStringList("give_insight");
+                Out.RevealFacts = V->GetStringList("reveal_facts");
                 Out.ReputationDelta = V->GetNumber("reputation_delta", 0.0);
                 Out.TensionDelta = V->GetNumber("tension_delta", 0.0);
                 Out.bAdvanceToEvening = V->GetBool("advance_to_evening", false);

@@ -299,6 +299,42 @@ def main():
         fail(f"no dialogue for story NPCs: {sorted(missing_story)}")
     ok("dialogue graphs are closed (every next/choice target exists)")
 
+    # M3.8: the dialogue -> case-fact bridge. Every reveal_facts target must
+    # name an existing fact AND the speaking NPC must own a testimony for it -
+    # a line that could never teach (or belongs to a different witness) would
+    # blur the knowledge boundary the ledger is built on. Mirrors
+    # tls::Game::ValidateDialogueCaseLinks (the engine-side gate at load).
+    case_doc = load("case_facts/case_facts_slice.json")
+    fact_ids = {f["id"] for f in case_doc["facts"]} if case_doc else set()
+    fact_owners = {}
+    if case_doc:
+        for f in case_doc["facts"]:
+            for t in f.get("testimonies", []):
+                fact_owners.setdefault(f["id"], set()).add(t["npc"])
+    bridge_points = 0
+    bridge_problems = []
+    for d in dialogues:
+        for node in d["nodes"]:
+            targets = list(node.get("on_enter", {}).get("reveal_facts", []))
+            for choice in node.get("choices", []):
+                targets += choice.get("effects", {}).get("reveal_facts", [])
+            for fid in targets:
+                bridge_points += 1
+                if fid not in fact_ids:
+                    bridge_problems.append(f"{d['id']}/{node['id']}: reveals unknown fact {fid}")
+                elif d.get("npc") not in fact_owners.get(fid, set()):
+                    bridge_problems.append(
+                        f"{d['id']}/{node['id']}: npc {d.get('npc')} owns no testimony for {fid}")
+    if bridge_problems:
+        for p in bridge_problems:
+            fail(p)
+    else:
+        ok("reveal_facts bridge resolves (every target exists and is owned by its speaker)")
+    if bridge_points > 0:
+        ok(f"the testimony bridge is wired into shipped dialogue ({bridge_points} reveal points)")
+    else:
+        fail("no reveal_facts anywhere in the dialogue data - the case layer is unreachable in play")
+
     # ---------------------------------------------------------------- sim
     section("5) sim_blackthorne.json")
     if sim:

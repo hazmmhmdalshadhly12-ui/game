@@ -65,6 +65,13 @@ protected:
 	UPROPERTY(Transient)
 	UInputAction* CrouchAction;
 
+	// --- M3.8 case-layer actions ---
+	UPROPERTY(Transient)
+	UInputAction* CaseFileAction;
+
+	UPROPERTY(Transient)
+	UInputAction* BoardAction;
+
 	// --- movement tuning (M0 test values, cm/s) ---
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float WalkSpeed = 250.0f;
@@ -92,4 +99,6 @@ private:
 	void Input_RunEnd(const FInputActionValue& Value);
 	void Input_CrouchStart(const FInputActionValue& Value);
 	void Input_CrouchEnd(const FInputActionValue& Value);
+	void Input_CaseFile(const FInputActionValue& Value);
+	void Input_Board(const FInputActionValue& Value);
 };

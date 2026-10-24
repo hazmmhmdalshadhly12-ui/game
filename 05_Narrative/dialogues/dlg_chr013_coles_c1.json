@@ -103,6 +103,14 @@
           "next": "NODE_FRAUD"
         },
         {
+          "id": "BH5",
+          "tone": "gentle",
+          "text": "Whatever weight a man carries at three in the morning, Mr Coles - here is as good a place as any to set it down.",
+          "conditions": { "trust_min": 35 },
+          "effects": { "trust_delta": 2 },
+          "next": "NODE_RING"
+        },
+        {
           "id": "BH4",
           "tone": "formal",
           "text": "Nothing else. Thank you, Mr Coles.",
@@ -126,7 +134,15 @@
       "id": "NODE_FRAUD",
       "speaker": "CHR-13",
       "text": "Honest as a fox at a hen count, sir. I carried the poorhouse sacks to his floor this year past - light as widows' promises, every one. Missus Hawke counted the mouths, Nott counted the flour, and only one of them was counting true. I'd not swear it - I carried sacks, I didn't read the scale. But there it is.",
+      "on_enter": { "reveal_facts": ["FACT-NOTT-SIN"] },
       "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_RING",
+      "speaker": "CHR-13",
+      "text": "Since you ask kindly, and the ground keeps everything anyway... in '31 I lifted a ring off a hand I was burying. Small sin, they would say. It is not small at three in the morning, sir. The Hunger talk - folk need a name for the dark, and I gave them one so they would stop looking at the gate-keeper's hands.",
+      "on_enter": { "reveal_facts": ["FACT-COLES-RING"] },
+      "next": "NODE_END"
     },
     {
       "id": "NODE_END",

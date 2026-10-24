@@ -112,3 +112,56 @@ protected:
         UPROPERTY(Transient)
         UTextBlock* DiaryText;
 };
+
+/** M3.8 case file: the testimonies Edmund holds, and the villagers' dossiers. */
+UCLASS()
+class TLS_API UTLSCaseFileWidget : public UUserWidget
+{
+        GENERATED_BODY()
+
+public:
+        void SetCaseFile(const TArray<FString>& TestimonyLines, const TArray<FString>& DossierLines,
+                const FString& HintLine);
+
+protected:
+        virtual void NativeConstruct() override;
+
+        UPROPERTY(Transient)
+        UTextBlock* TestimoniesText;
+
+        UPROPERTY(Transient)
+        UTextBlock* DossiersText;
+
+        UPROPERTY(Transient)
+        UTextBlock* HintText;
+};
+
+/** M3.8 deduction board: hypotheses, open questions, contradictions, accusations. */
+UCLASS()
+class TLS_API UTLSBoardWidget : public UUserWidget
+{
+        GENERATED_BODY()
+
+public:
+        void SetBoard(const TArray<FString>& HypothesisLines, const TArray<FString>& QuestionLines,
+                const TArray<FString>& ConflictLines, const TArray<FString>& AccusationLines,
+                const FString& StatusLine);
+
+protected:
+        virtual void NativeConstruct() override;
+
+        UPROPERTY(Transient)
+        UTextBlock* HypothesesText;
+
+        UPROPERTY(Transient)
+        UTextBlock* QuestionsText;
+
+        UPROPERTY(Transient)
+        UTextBlock* ConflictsText;
+
+        UPROPERTY(Transient)
+        UTextBlock* AccusationsText;
+
+        UPROPERTY(Transient)
+        UTextBlock* StatusText;
+};

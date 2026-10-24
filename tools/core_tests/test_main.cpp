@@ -48,6 +48,11 @@ namespace tls_test_m37
 void RunAll();
 }
 
+namespace tls_test_m38
+{
+void RunAll();
+}
+
 // Builds a Game with every 05_Narrative data file loaded (evidence, quests,
 // sim, rumors, dialogues). Declared in test_fixtures.h - shared by all test
 // translation units. The data-loading checks run through the shared framework.
@@ -985,6 +990,7 @@ int main()
         // save/restore expansion, no-resurrection
         tls_test_m32::RunAll();
         tls_test_m37::RunAll();
+        tls_test_m38::RunAll();
 
         delete G; delete G1; delete G2; delete G3;
         return tls_test::ReportAndExit();

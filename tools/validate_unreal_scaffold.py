@@ -330,7 +330,11 @@ def main():
     core_files = ["TLSJson.h", "TLSJson.cpp", "TLSCoreTypes.h", "TLSCoreTypes.cpp",
                   "TLSEvidence.h", "TLSEvidence.cpp", "TLSQuests.h", "TLSQuests.cpp",
                   "TLSVillageState.h", "TLSVillageState.cpp",
-                  "TLSDialogue.h", "TLSDialogue.cpp", "TLSGameState.h", "TLSGameState.cpp"]
+                  "TLSDialogue.h", "TLSDialogue.cpp", "TLSGameState.h", "TLSGameState.cpp",
+                  "TLSRng.h", "TLSSettings.h", "TLSSettings.cpp",
+                  "TLSRumors.h", "TLSRumors.cpp",
+                  "TLSCaseFacts.h", "TLSCaseFacts.cpp",
+                  "TLSDeduction.h", "TLSDeduction.cpp"]
     missing_core = [f for f in core_files if not (core_dir / f).is_file()]
     if not missing_core:
         ok(f"core: all {len(core_files)} files present")
@@ -376,7 +380,8 @@ def main():
         "TLSNPC.h": ["ATLSNPC", "GENERATED_BODY", "TLS_API", "DialogueId"],
         "TLSInteractable.h": ["ATLSInteractable", "ETLSInteractKind", "Bed"],
         "TLSWidgets.h": ["UTLSHUDWidget", "UTLSDialogueWidget", "UTLSLedgerWidget",
-                         "UTLSJournalWidget", "GENERATED_BODY"],
+                         "UTLSJournalWidget", "UTLSCaseFileWidget", "UTLSBoardWidget",
+                         "GENERATED_BODY"],
         "TLSSaveGame.h": ["UTLSSaveGame", "Payload"],
         "TLSProceduralAudio.h": ["UTLSProceduralAudioComponent", "SetWeatherBlend"],
     }
@@ -514,6 +519,67 @@ def main():
         ok("audio generator script tracked (reproducible assets)")
     else:
         fail("audio generator script missing")
+
+    # ------------------------------------------------------ M3.8: case layer
+    section("13) M3.8 case layer in the gameplay shell")
+    # the UE shell must load the case-fact + deduction data BEFORE the
+    # dialogues and refuse a session whose reveal_facts do not resolve -
+    # the same contract the core tests enforce (no parallel implementation).
+    if "case_facts/case_facts_slice.json" in gm_src and "LoadCaseFactsData" in gm_src:
+        ok("TLSVillageGameMode: loads the case-fact ledger")
+    else:
+        fail("TLSVillageGameMode: case-fact ledger not loaded")
+    if "deduction/deduction_slice.json" in gm_src and "LoadDeductionData" in gm_src:
+        ok("TLSVillageGameMode: loads the deduction layer")
+    else:
+        fail("TLSVillageGameMode: deduction layer not loaded")
+    core_state_hdr = (UE_DIR / "Source" / "TLS" / "Core" / "TLSGameState.h").read_text(encoding="utf-8")
+    if "ValidateDialogueCaseLinks" in gm_src and "ValidateDialogueCaseLinks" in core_state_hdr:
+        ok("dialogue -> case-fact bridge validated at load (engine + shell)")
+    else:
+        fail("dialogue -> case-fact bridge validation missing")
+    if "rumors/rumors_blackthorne.json" in gm_src and "LoadRumorData" in gm_src:
+        ok("TLSVillageGameMode: loads the rumor defs (village gossip in play)")
+    else:
+        fail("TLSVillageGameMode: rumor defs not loaded")
+    if "OnCaseFileToggle" in gm_hdr and "OnBoardToggle" in gm_hdr and "ConfirmAccusation" in gm_hdr:
+        ok("TLSVillageGameMode: case-file / board / accusation entry points declared")
+    else:
+        fail("TLSVillageGameMode: M3.8 UI entry points missing")
+    ded_hdr = (UE_DIR / "Source" / "TLS" / "Core" / "TLSDeduction.h").read_text(encoding="utf-8")
+    if "PreviewTier" in ded_hdr:
+        ok("DeductionSystem: PreviewTier declared (the honest strength readout)")
+    else:
+        fail("DeductionSystem: PreviewTier missing")
+    core_types_hdr = (UE_DIR / "Source" / "TLS" / "Core" / "TLSCoreTypes.h").read_text(encoding="utf-8")
+    if "RevealFacts" in core_types_hdr:
+        ok("DialogueEffects: RevealFacts declared (the data-driven bridge)")
+    else:
+        fail("DialogueEffects: RevealFacts missing")
+    dial_dir = ROOT / "05_Narrative" / "dialogues"
+    reveal_files = 0
+    reveal_points = 0
+    for jf in sorted(dial_dir.glob("dlg_*.json")):
+        t = jf.read_text(encoding="utf-8")
+        n = t.count("reveal_facts")
+        if n:
+            reveal_files += 1
+            reveal_points += n
+    if reveal_files >= 3 and reveal_points >= 5:
+        ok(f"dialogue data carries the bridge ({reveal_points} reveal points in {reveal_files} files)")
+    else:
+        fail(f"dialogue reveal wiring thin ({reveal_points} points in {reveal_files} files)")
+    case_json = ROOT / "05_Narrative" / "case_facts" / "case_facts_slice.json"
+    ded_json = ROOT / "05_Narrative" / "deduction" / "deduction_slice.json"
+    if case_json.is_file() and ded_json.is_file():
+        ok("case-layer data files present (05_Narrative)")
+    else:
+        fail("case-layer data files missing")
+    char_src = (UE_DIR / "Source" / "TLS" / "TLSCharacter.cpp").read_text(encoding="utf-8")
+    if "EKeys::N" in char_src and "EKeys::B" in char_src and "CaseFileAction" in char_src and "BoardAction" in char_src:
+        ok("TLSCharacter: case-file (N) and board (B) input mapped (KB+M)")
+    else:
+        fail("TLSCharacter: M3.8 input mapping missing")
 
     return finish()
 

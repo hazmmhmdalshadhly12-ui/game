@@ -28,6 +28,8 @@ class UTLSHUDWidget;
 class UTLSDialogueWidget;
 class UTLSLedgerWidget;
 class UTLSJournalWidget;
+class UTLSCaseFileWidget;
+class UTLSBoardWidget;
 class UTLSProceduralAudioComponent;
 
 UCLASS()
@@ -49,6 +51,10 @@ public:
         void OnCancelPressed();
         void OnDigitPressed(int32 Digit);
         void OnRestorePressed();
+        // M3.8: the case file (testimonies + dossiers) and the deduction
+        // board (hypotheses / open questions / contradictions / accusations).
+        void OnCaseFileToggle();
+        void OnBoardToggle();
 
         UFUNCTION(Exec)
         void TLSNewGame();
@@ -98,6 +104,12 @@ private:
         void RefreshDialogueUI();
         void RefreshLedgerUI();
         void RefreshJournalUI();
+        // M3.8: the case-layer panels. Lines are rebuilt from the authoritative
+        // core state on every open/act - the widgets hold no state of their own.
+        void RefreshCaseFileUI();
+        void RefreshBoardUI();
+        void ConfirmAccusation();
+        FString NpcDisplayName(const std::string& NpcId) const;
 
         // ---- day / weather ----
         void ApplyDayPresentation();
@@ -145,13 +157,25 @@ private:
         UPROPERTY(Transient)
         UTLSJournalWidget* JournalWidget;
 
+        UPROPERTY(Transient)
+        UTLSCaseFileWidget* CaseFileWidget;
+
+        UPROPERTY(Transient)
+        UTLSBoardWidget* BoardWidget;
+
         // ---- UI mode ----
-        enum class EPanelMode : uint8 { None, Dialogue, Table, Board, Journal };
+        enum class EPanelMode : uint8 { None, Dialogue, Table, Board, Journal, CaseFile, Deduction };
         EPanelMode PanelMode = EPanelMode::None;
 
         // ledger/table selection state
         TArray<FString> SelectableEvidenceIds;
         int32 FirstSelectedIndex = INDEX_NONE;
+
+        // M3.8: deduction-board selection state (accusations + hypothesis forming)
+        TArray<FString> AccusableIds;          // accusation ids in displayed order
+        int32 SelectedAccusationIndex = INDEX_NONE;
+        bool bAccusationConfirmPending = false;
+        TArray<FString> FormableHypothesisIds; // hypothesis ids in displayed order
 
         // area rects (core area id -> rect in cm)
         struct FAreaRect { FString Id; float MinX; float MinY; float MaxX; float MaxY; };

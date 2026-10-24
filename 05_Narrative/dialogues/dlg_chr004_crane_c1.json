@@ -105,6 +105,14 @@
           "next": "NODE_TOWER_NIGHT"
         },
         {
+          "id": "CH5",
+          "tone": "pressing",
+          "text": "[ Lay the wheel-race prints before him. ] You see everything from that tower, Rev. Crane. So tell me what moved in the mill yard that night.",
+          "conditions": { "day_min": 2, "flags": { "TOP_TOWERSHADOW": 0 }, "has_evidence": ["EVD-FOOTPRINTS"], "knows_insight": ["INS-PATTERN"] },
+          "effects": { "trust_delta": 1, "set_flags": { "TOP_TOWERSHADOW": 1 } },
+          "next": "NODE_SHADOW_TOLD"
+        },
+        {
           "id": "CH4",
           "tone": "formal",
           "text": "Nothing further, Reverend.",
@@ -129,6 +137,13 @@
       "speaker": "CHR-04",
       "text": "You have your father's ledger-voice, sir, and I'll thank you to leave my tower out of your arithmetic. I keep the tower's hours... to myself. The tower and I keep the valley's hours between us. Is that all?",
       "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_SHADOW_TOLD",
+      "speaker": "CHR-04",
+      "text": "You carry the prints from the wheel-race, so you will carry this too. I was on the tower that night - I go there to compose; the acoustics of guilt are honest from that height. A small shape crossed the yard below the wheel. Quick, bare-headed, gone toward the water. And when Pritchard asked his questions the next morning, I said nothing, because the shape I saw did not fit the sermon I had already written about this village.",
+      "on_enter": { "reveal_facts": ["FACT-MILL-SHADOW"] },
+      "next": "NODE_END"
     },
     {
       "id": "NODE_END",
