@@ -309,6 +309,59 @@ std::vector<OpenQuestion> DeductionSystem::OpenQuestions(const IGameContext& Ctx
 
 // ------------------------------------------------------------ accusations
 
+EAccusationTier DeductionSystem::EvaluateTier(const AccusationDef& Def, const IGameContext& Ctx,
+        const CaseFactSystem& Facts) const
+{
+        if (Def.bAlwaysBaseless)
+        {
+                return EAccusationTier::Baseless;
+        }
+
+        const bool bInsight = Def.GroundingInsight.empty() || Ctx.InsightKnown(Def.GroundingInsight);
+        const bool bHasInsightField = !Def.GroundingInsight.empty();
+        size_t EvHave = 0;
+        double RelSum = 0.0;
+        for (const std::string& Ev : Def.GroundingEvidence)
+        {
+                double Rel = 0.0;
+                if (Ctx.EvidenceCollected(Ev) && Ctx.EvidenceReliability(Ev, Rel)) { ++EvHave; RelSum += Rel; }
+        }
+        const bool bBundle = EvHave == Def.GroundingEvidence.size();
+        const bool bHasBundleField = !Def.GroundingEvidence.empty();
+        const bool bReliability = !bHasBundleField
+                || (EvHave == Def.GroundingEvidence.size()
+                        && (RelSum / static_cast<double>(Def.GroundingEvidence.size())) >= Def.MinReliability);
+        const bool bFact = Def.GroundingFact.empty() || Facts.IsLearned(Def.GroundingFact);
+        const bool bHasFactField = !Def.GroundingFact.empty();
+
+        const bool bAll = bInsight && bBundle && bReliability && bFact;
+        const bool bAny = (bHasInsightField && bInsight) || (bHasBundleField && bBundle && bReliability) || (bHasFactField && bFact);
+
+        EAccusationTier Tier = EAccusationTier::Baseless;
+        if (bAll)
+        {
+                Tier = EAccusationTier::Grounded;
+        }
+        else if (bAny)
+        {
+                Tier = EAccusationTier::Partial;
+        }
+        if (Tier > Def.MaxTier) { Tier = Def.MaxTier; }
+        return Tier;
+}
+
+EAccusationTier DeductionSystem::PreviewTier(const std::string& AccId, const IGameContext& Ctx,
+        const CaseFactSystem& Facts) const
+{
+        // The accusation UI's honest strength readout: the exact tier the
+        // accusation WOULD land at, computed from live state - without
+        // recording anything and without any consequence. Unknown ids fall
+        // back to Baseless; the UI refuses those before display.
+        const AccusationDef* Def = FindAccusation(AccId);
+        if (!Def) { return EAccusationTier::Baseless; }
+        return EvaluateTier(*Def, Ctx, Facts);
+}
+
 bool DeductionSystem::MakeAccusation(const std::string& AccId, const IGameContext& Ctx, const CaseFactSystem& Facts,
         int Day, int Hour, EAccusationTier& OutTier, std::string& OutError)
 {
@@ -320,46 +373,7 @@ bool DeductionSystem::MakeAccusation(const std::string& AccId, const IGameContex
                 return false;
         }
 
-        if (Def->bAlwaysBaseless)
-        {
-                OutTier = EAccusationTier::Baseless;
-        }
-        else
-        {
-        const bool bInsight = Def->GroundingInsight.empty() || Ctx.InsightKnown(Def->GroundingInsight);
-        const bool bHasInsightField = !Def->GroundingInsight.empty();
-        size_t EvHave = 0;
-        double RelSum = 0.0;
-        for (const std::string& Ev : Def->GroundingEvidence)
-        {
-                double Rel = 0.0;
-                if (Ctx.EvidenceCollected(Ev) && Ctx.EvidenceReliability(Ev, Rel)) { ++EvHave; RelSum += Rel; }
-        }
-        const bool bBundle = EvHave == Def->GroundingEvidence.size();
-        const bool bHasBundleField = !Def->GroundingEvidence.empty();
-        const bool bReliability = !bHasBundleField
-                || (EvHave == Def->GroundingEvidence.size()
-                        && (RelSum / static_cast<double>(Def->GroundingEvidence.size())) >= Def->MinReliability);
-        const bool bFact = Def->GroundingFact.empty() || Facts.IsLearned(Def->GroundingFact);
-        const bool bHasFactField = !Def->GroundingFact.empty();
-
-        const bool bAll = bInsight && bBundle && bReliability && bFact;
-        const bool bAny = (bHasInsightField && bInsight) || (bHasBundleField && bBundle && bReliability) || (bHasFactField && bFact);
-
-        if (bAll)
-        {
-                OutTier = EAccusationTier::Grounded;
-        }
-        else if (bAny)
-        {
-                OutTier = EAccusationTier::Partial;
-        }
-        else
-        {
-                OutTier = EAccusationTier::Baseless;
-        }
-        if (OutTier > Def->MaxTier) { OutTier = Def->MaxTier; }
-        }
+        OutTier = EvaluateTier(*Def, Ctx, Facts);
 
         AccusationRecord Rec;
         Rec.AccId = AccId;

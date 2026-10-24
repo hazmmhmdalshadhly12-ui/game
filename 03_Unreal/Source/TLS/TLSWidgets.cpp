@@ -223,3 +223,103 @@ void UTLSJournalWidget::SetJournal(const TArray<FString>& QuestLines, const TArr
                 DiaryText->SetText(FText::FromString(FString::Join(DiaryLines, TEXT("\n"))));
         }
 }
+
+// ---------------------------------------------------------------- Case file (M3.8)
+
+void UTLSCaseFileWidget::NativeConstruct()
+{
+        Super::NativeConstruct();
+
+        UCanvasPanel* Canvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
+        WidgetTree->RootWidget = Canvas;
+
+        UVerticalBox* Panel = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
+        TLSUI::PlaceOnCanvas(Canvas, Panel, FAnchors(0.5f, 0.5f), FVector2D(-490.0f, -320.0f), FVector2D(980.0f, 640.0f));
+
+        TestimoniesText = TLSUI::MakeText(WidgetTree, TLSUI::Paper(), 14);
+        UVerticalBoxSlot* TestimonySlot = Panel->AddChildToVerticalBox(TestimoniesText);
+        TestimonySlot->SetPadding(FMargin(12.0f, 8.0f, 12.0f, 6.0f));
+
+        DossiersText = TLSUI::MakeText(WidgetTree, TLSUI::SinBlue(), 14);
+        UVerticalBoxSlot* DossierSlot = Panel->AddChildToVerticalBox(DossiersText);
+        DossierSlot->SetPadding(FMargin(12.0f, 2.0f, 12.0f, 6.0f));
+
+        HintText = TLSUI::MakeText(WidgetTree, TLSUI::Candle(), 13);
+        UVerticalBoxSlot* HintSlot = Panel->AddChildToVerticalBox(HintText);
+        HintSlot->SetPadding(FMargin(12.0f, 4.0f, 12.0f, 8.0f));
+}
+
+void UTLSCaseFileWidget::SetCaseFile(const TArray<FString>& TestimonyLines, const TArray<FString>& DossierLines,
+        const FString& HintLine)
+{
+        if (TestimoniesText)
+        {
+                TestimoniesText->SetText(FText::FromString(FString::Join(TestimonyLines, TEXT("\n"))));
+        }
+        if (DossiersText)
+        {
+                DossiersText->SetText(FText::FromString(FString::Join(DossierLines, TEXT("\n"))));
+        }
+        if (HintText)
+        {
+                HintText->SetText(FText::FromString(HintLine));
+        }
+}
+
+// ---------------------------------------------------------------- Deduction board (M3.8)
+
+void UTLSBoardWidget::NativeConstruct()
+{
+        Super::NativeConstruct();
+
+        UCanvasPanel* Canvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
+        WidgetTree->RootWidget = Canvas;
+
+        UVerticalBox* Panel = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass());
+        TLSUI::PlaceOnCanvas(Canvas, Panel, FAnchors(0.5f, 0.5f), FVector2D(-500.0f, -330.0f), FVector2D(1000.0f, 660.0f));
+
+        HypothesesText = TLSUI::MakeText(WidgetTree, TLSUI::Paper(), 14);
+        UVerticalBoxSlot* HypSlot = Panel->AddChildToVerticalBox(HypothesesText);
+        HypSlot->SetPadding(FMargin(12.0f, 8.0f, 12.0f, 6.0f));
+
+        QuestionsText = TLSUI::MakeText(WidgetTree, TLSUI::Candle(), 14);
+        UVerticalBoxSlot* QuestionSlot = Panel->AddChildToVerticalBox(QuestionsText);
+        QuestionSlot->SetPadding(FMargin(12.0f, 2.0f, 12.0f, 6.0f));
+
+        ConflictsText = TLSUI::MakeText(WidgetTree, TLSUI::SinBlue(), 14);
+        UVerticalBoxSlot* ConflictSlot = Panel->AddChildToVerticalBox(ConflictsText);
+        ConflictSlot->SetPadding(FMargin(12.0f, 2.0f, 12.0f, 6.0f));
+
+        AccusationsText = TLSUI::MakeText(WidgetTree, TLSUI::Paper(), 14);
+        UVerticalBoxSlot* AccusationSlot = Panel->AddChildToVerticalBox(AccusationsText);
+        AccusationSlot->SetPadding(FMargin(12.0f, 2.0f, 12.0f, 6.0f));
+
+        StatusText = TLSUI::MakeText(WidgetTree, TLSUI::Candle(), 15);
+        UVerticalBoxSlot* StatusSlot = Panel->AddChildToVerticalBox(StatusText);
+        StatusSlot->SetPadding(FMargin(12.0f, 4.0f, 12.0f, 8.0f));
+}
+
+void UTLSBoardWidget::SetBoard(const TArray<FString>& HypothesisLines, const TArray<FString>& QuestionLines,
+        const TArray<FString>& ConflictLines, const TArray<FString>& AccusationLines, const FString& StatusLine)
+{
+        if (HypothesesText)
+        {
+                HypothesesText->SetText(FText::FromString(FString::Join(HypothesisLines, TEXT("\n"))));
+        }
+        if (QuestionsText)
+        {
+                QuestionsText->SetText(FText::FromString(FString::Join(QuestionLines, TEXT("\n"))));
+        }
+        if (ConflictsText)
+        {
+                ConflictsText->SetText(FText::FromString(FString::Join(ConflictLines, TEXT("\n"))));
+        }
+        if (AccusationsText)
+        {
+                AccusationsText->SetText(FText::FromString(FString::Join(AccusationLines, TEXT("\n"))));
+        }
+        if (StatusText)
+        {
+                StatusText->SetText(FText::FromString(StatusLine));
+        }
+}

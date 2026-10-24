@@ -144,6 +144,18 @@ void Game::ApplyEffects(const DialogueEffects& Effects, const std::string& NpcId
         if (Effects.ReputationDelta != 0.0) { VillageSys->ApplyReputationDelta(Effects.ReputationDelta); }
         if (Effects.TensionDelta != 0.0) { VillageSys->ApplyTensionDelta(Effects.TensionDelta); }
         if (Effects.bAdvanceToEvening) { VillageSys->AdvanceToEvening(); }
+        // M3.8: the data-driven dialogue -> case-fact bridge. The SPEAKING
+        // NPC is the testimony's owner (Def->NpcId - the callers pass it).
+        // The knowledge boundary is the testimony's reveal gate, NOT the
+        // dialogue: a line whose gate has not passed may still play, but it
+        // teaches nothing. Unknown fact ids are refused at load time
+        // (ValidateDialogueCaseLinks), so a silent failure here can only be
+        // "conditions unmet" - by design, never a typo.
+        for (const std::string& FactId : Effects.RevealFacts)
+        {
+                std::string RevealErr;
+                HearTestimony(FactId, NpcId, RevealErr);
+        }
 }
 
 void Game::ApplyQuestCompletionFlags(const std::vector<std::string>& CompletedQuestIds)
@@ -578,6 +590,67 @@ bool Game::MakeAccusation(const std::string& AccId, EAccusationTier& OutTier, st
         return true;
 }
 
+namespace
+{
+        // M3.8: one reveal_facts target = the fact exists AND the speaking
+        // NPC owns a testimony for it. Anything else is a data bug: a line
+        // that looks like testimony but can never teach (or belongs to a
+        // different speaker) would blur the knowledge boundary the ledger
+        // is built on.
+        bool CheckRevealTargets(const CaseFactSystem& Case, const DialogueDef& Def,
+                const std::vector<std::string>& FactIds, std::string& OutError)
+        {
+                for (const std::string& FactId : FactIds)
+                {
+                        if (!Case.FindFact(FactId))
+                        {
+                                OutError = "dialogue " + Def.Id + " reveals unknown fact " + FactId;
+                                return false;
+                        }
+                        if (!Case.FindTestimony(FactId, Def.NpcId))
+                        {
+                                OutError = "dialogue " + Def.Id + " (npc " + Def.NpcId
+                                        + ") reveals " + FactId + " but owns no testimony for it";
+                                return false;
+                        }
+                }
+                return true;
+        }
+}
+
+bool Game::PreviewAccusationTier(const std::string& AccId, EAccusationTier& OutTier) const
+{
+        if (!DeduceSys->FindAccusation(AccId))
+        {
+                return false;
+        }
+        OutTier = DeduceSys->PreviewTier(AccId, *this, *CaseSys);
+        return true;
+}
+
+bool Game::ValidateDialogueCaseLinks(std::string& OutError) const
+{
+        // Without the case layer there is nothing to bridge to - the session
+        // is the pre-M3.7 shape and is valid by definition.
+        if (!CaseSys || CaseSys->Facts().empty())
+        {
+                return true;
+        }
+        for (const auto& DlgKV : DialogueSys->Defs())
+        {
+                const DialogueDef& Def = DlgKV.second;
+                for (const auto& NodeKV : Def.Nodes)
+                {
+                        const DialogueNode& Node = NodeKV.second;
+                        if (!CheckRevealTargets(*CaseSys, Def, Node.OnEnter.RevealFacts, OutError)) { return false; }
+                        for (const DialogueChoice& Ch : Node.Choices)
+                        {
+                                if (!CheckRevealTargets(*CaseSys, Def, Ch.Effects.RevealFacts, OutError)) { return false; }
+                        }
+                }
+        }
+        return true;
+}
 // ------------------------------------------------------------ save/load
 
 JsonValue Game::Save() const

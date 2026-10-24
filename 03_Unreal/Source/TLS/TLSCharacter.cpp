@@ -121,6 +121,13 @@ void ATLSCharacter::BuildInputAssets()
         RestoreAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Restore"));
         RestoreAction->ValueType = EInputActionValueType::Boolean;
 
+        // --- M3.8 case-layer actions ---
+        CaseFileAction = NewObject<UInputAction>(this, TEXT("IA_TLS_CaseFile"));
+        CaseFileAction->ValueType = EInputActionValueType::Boolean;
+
+        BoardAction = NewObject<UInputAction>(this, TEXT("IA_TLS_Board"));
+        BoardAction->ValueType = EInputActionValueType::Boolean;
+
         const FKey DigitKeys[9] = {
                 EKeys::One, EKeys::Two, EKeys::Three, EKeys::Four, EKeys::Five,
                 EKeys::Six, EKeys::Seven, EKeys::Eight, EKeys::Nine
@@ -149,10 +156,13 @@ void ATLSCharacter::BuildInputAssets()
         DefaultContext->MapKey(CrouchAction, EKeys::C);
 
         // M1: E interact, J journal, Esc cancel, R restore, 1-9 select.
+        // M3.8: N case file, B deduction board.
         DefaultContext->MapKey(InteractAction, EKeys::E);
         DefaultContext->MapKey(JournalAction, EKeys::J);
         DefaultContext->MapKey(CancelAction, EKeys::Escape);
         DefaultContext->MapKey(RestoreAction, EKeys::R);
+        DefaultContext->MapKey(CaseFileAction, EKeys::N);
+        DefaultContext->MapKey(BoardAction, EKeys::B);
         for (int32 I = 0; I < 9; ++I)
         {
                 DefaultContext->MapKey(DigitActions[I], DigitKeys[I]);
@@ -169,6 +179,9 @@ void ATLSCharacter::BuildInputAssets()
         DefaultContext->MapKey(InteractAction, EKeys::Gamepad_FaceButton_Right);
         DefaultContext->MapKey(JournalAction, EKeys::Gamepad_FaceButton_Left);
         DefaultContext->MapKey(CancelAction, EKeys::Gamepad_Special_Right);
+        // M3.8: Y opens the case file, right bumper the deduction board.
+        DefaultContext->MapKey(CaseFileAction, EKeys::Gamepad_FaceButton_Top);
+        DefaultContext->MapKey(BoardAction, EKeys::Gamepad_RightShoulder);
 
         UE_LOG(LogTemp, Log, TEXT("[M0] TLSCharacter: Enhanced Input context built (KB+M and gamepad)."));
 }
@@ -237,6 +250,8 @@ void ATLSCharacter::BindInputActions()
         EnhancedInput->BindAction(JournalAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Journal);
         EnhancedInput->BindAction(CancelAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Cancel);
         EnhancedInput->BindAction(RestoreAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Restore);
+        EnhancedInput->BindAction(CaseFileAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_CaseFile);
+        EnhancedInput->BindAction(BoardAction, ETriggerEvent::Started, this, &ATLSCharacter::Input_Board);
 
         void (ATLSCharacter::*DigitHandlers[9])(const FInputActionValue&) = {
                 &ATLSCharacter::Input_Digit1, &ATLSCharacter::Input_Digit2, &ATLSCharacter::Input_Digit3,
@@ -328,6 +343,22 @@ void ATLSCharacter::Input_Interact(const FInputActionValue& Value)
         if (ATLSVillageGameMode* GM = GetVillageGameMode())
         {
                 GM->OnInteractPressed();
+        }
+}
+
+void ATLSCharacter::Input_CaseFile(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnCaseFileToggle();
+        }
+}
+
+void ATLSCharacter::Input_Board(const FInputActionValue& Value)
+{
+        if (ATLSVillageGameMode* GM = GetVillageGameMode())
+        {
+                GM->OnBoardToggle();
         }
 }
 

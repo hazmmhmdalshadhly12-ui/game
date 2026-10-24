@@ -215,6 +215,25 @@ bool ATLSVillageGameMode::LoadCoreData()
                 TEXT("dialogues/dlg_chr006_mair_c1.json"),
                 TEXT("dialogues/dlg_chr017_ifor_c2.json"),
         };
+        // M3.8: the case layer must be loaded BEFORE the dialogues so the
+        // dialogue -> case-fact bridge can be validated against the testimony
+        // registry at load time (bad reveal_facts refuse the session).
+        tls::JsonValue CaseFacts;
+        if (!LoadJson(TEXT("case_facts/case_facts_slice.json"), CaseFacts)) { return false; }
+        if (!Core->LoadCaseFactsData(CaseFacts, Err))
+        {
+                UE_LOG(LogTemp, Error, TEXT("[TLS] case_facts_slice load failed: %s"), UTF8_TO_TCHAR(Err.c_str()));
+                return false;
+        }
+
+        tls::JsonValue Deduction;
+        if (!LoadJson(TEXT("deduction/deduction_slice.json"), Deduction)) { return false; }
+        if (!Core->LoadDeductionData(Deduction, Err))
+        {
+                UE_LOG(LogTemp, Error, TEXT("[TLS] deduction_slice load failed: %s"), UTF8_TO_TCHAR(Err.c_str()));
+                return false;
+        }
+
         for (const TCHAR* Relative : Dialogues)
         {
                 tls::JsonValue Dlg;
@@ -224,6 +243,25 @@ bool ATLSVillageGameMode::LoadCoreData()
                         UE_LOG(LogTemp, Error, TEXT("[TLS] dialogue load failed (%s): %s"), Relative, UTF8_TO_TCHAR(Err.c_str()));
                         return false;
                 }
+        }
+
+        // M3.8: refuse a session whose dialogue reveal_facts do not resolve
+        // against the case-fact ledger (unknown fact, or a speaker who owns
+        // no testimony for it).
+        if (!Core->ValidateDialogueCaseLinks(Err))
+        {
+                UE_LOG(LogTemp, Error, TEXT("[TLS] dialogue/case-fact bridge invalid: %s"), UTF8_TO_TCHAR(Err.c_str()));
+                return false;
+        }
+
+        // M2.1 rumor defs - the UE slice shares the same village gossip the
+        // core tests run on (witness events, player hearings, leaks).
+        tls::JsonValue Rumors;
+        if (!LoadJson(TEXT("rumors/rumors_blackthorne.json"), Rumors)) { return false; }
+        if (!Core->LoadRumorData(Rumors, Err))
+        {
+                UE_LOG(LogTemp, Error, TEXT("[TLS] rumors_blackthorne load failed: %s"), UTF8_TO_TCHAR(Err.c_str()));
+                return false;
         }
         return true;
 }
@@ -892,6 +930,15 @@ ATLSInteractable* ATLSVillageGameMode::FindNearestInteractable(float MaxDistance
 void ATLSVillageGameMode::OnInteractPressed()
 {
         if (PanelMode == EPanelMode::Dialogue) { return; }
+        // M3.8: on the deduction board, E is the deliberate act - speak the
+        // selected accusation (with its confirm step). The world interaction
+        // path stays exactly as it was.
+        if (PanelMode == EPanelMode::Deduction)
+        {
+                ConfirmAccusation();
+                return;
+        }
+        if (PanelMode != EPanelMode::None) { return; }
         TryInteract();
 }
 
@@ -1018,18 +1065,49 @@ void ATLSVillageGameMode::OnJournalToggle()
                 OnCancelPressed();
                 return;
         }
-        if (PanelMode == EPanelMode::Dialogue) { return; }
+        if (PanelMode != EPanelMode::None) { return; }
         PanelMode = EPanelMode::Journal;
         if (JournalWidget) { JournalWidget->SetVisibility(ESlateVisibility::Visible); }
         RefreshJournalUI();
 }
 
+void ATLSVillageGameMode::OnCaseFileToggle()
+{
+        if (PanelMode == EPanelMode::CaseFile)
+        {
+                OnCancelPressed();
+                return;
+        }
+        if (PanelMode != EPanelMode::None) { return; }
+        PanelMode = EPanelMode::CaseFile;
+        if (CaseFileWidget) { CaseFileWidget->SetVisibility(ESlateVisibility::Visible); }
+        RefreshCaseFileUI();
+}
+
+void ATLSVillageGameMode::OnBoardToggle()
+{
+        if (PanelMode == EPanelMode::Deduction)
+        {
+                OnCancelPressed();
+                return;
+        }
+        if (PanelMode != EPanelMode::None) { return; }
+        PanelMode = EPanelMode::Deduction;
+        SelectedAccusationIndex = INDEX_NONE;
+        bAccusationConfirmPending = false;
+        if (BoardWidget) { BoardWidget->SetVisibility(ESlateVisibility::Visible); }
+        RefreshBoardUI();
+}
+
 void ATLSVillageGameMode::OnCancelPressed()
 {
         PanelMode = EPanelMode::None;
+        bAccusationConfirmPending = false;
         if (DialogueWidget) { DialogueWidget->SetVisibility(ESlateVisibility::Hidden); }
         if (LedgerWidget) { LedgerWidget->SetVisibility(ESlateVisibility::Hidden); }
         if (JournalWidget) { JournalWidget->SetVisibility(ESlateVisibility::Hidden); }
+        if (CaseFileWidget) { CaseFileWidget->SetVisibility(ESlateVisibility::Hidden); }
+        if (BoardWidget) { BoardWidget->SetVisibility(ESlateVisibility::Hidden); }
 }
 
 void ATLSVillageGameMode::OnDigitPressed(int32 Digit)
@@ -1039,13 +1117,49 @@ void ATLSVillageGameMode::OnDigitPressed(int32 Digit)
 
         if (PanelMode == EPanelMode::Dialogue)
         {
+                // M3.8: a testimony may land inside this choice (reveal_facts
+                // bridge). Snapshot the ledger so the player gets told.
+                const size_t LearnedBefore = Core->Case().LearnedCount();
                 std::string Entered, Err;
                 if (Core->PickDialogueChoice(static_cast<size_t>(Index), Entered, Err))
                 {
+                        if (Core->Case().LearnedCount() > LearnedBefore && HUDWidget)
+                        {
+                                HUDWidget->SetToast(TEXT("Casebook: new testimony noted (press N)"));
+                        }
                         if (Core->DialogueRunning()) { RefreshDialogueUI(); }
                         else { OnCancelPressed(); }
                 }
                 else if (HUDWidget) { HUDWidget->SetToast(UTF8_TO_TCHAR(Err.c_str())); }
+                return;
+        }
+
+        // M3.8: the case file is read-only - nothing is selectable there.
+        if (PanelMode == EPanelMode::CaseFile) { return; }
+
+        // M3.8: deduction-board selection. Digits choose an accusation (or
+        // form a hypothesis); E then speaks it - with the confirm step.
+        if (PanelMode == EPanelMode::Deduction)
+        {
+                bAccusationConfirmPending = false;
+                if (Index < AccusableIds.Num())
+                {
+                        SelectedAccusationIndex = Index;
+                        bAccusationConfirmPending = true;
+                        RefreshBoardUI();
+                        return;
+                }
+                const int32 HypIndex = Index - AccusableIds.Num();
+                if (HypIndex >= 0 && HypIndex < FormableHypothesisIds.Num())
+                {
+                        std::string Err;
+                        if (Core->FormHypothesis(std::string(TCHAR_TO_UTF8(*FormableHypothesisIds[HypIndex])), Err))
+                        {
+                                if (HUDWidget) { HUDWidget->SetToast(TEXT("Theory pinned to the board.")); }
+                        }
+                        else if (HUDWidget) { HUDWidget->SetToast(UTF8_TO_TCHAR(Err.c_str())); }
+                        RefreshBoardUI();
+                }
                 return;
         }
 
@@ -1122,6 +1236,8 @@ void ATLSVillageGameMode::CreateWidgets()
         DialogueWidget = CreateWidget<UTLSDialogueWidget>(PC, UTLSDialogueWidget::StaticClass());
         LedgerWidget = CreateWidget<UTLSLedgerWidget>(PC, UTLSLedgerWidget::StaticClass());
         JournalWidget = CreateWidget<UTLSJournalWidget>(PC, UTLSJournalWidget::StaticClass());
+        CaseFileWidget = CreateWidget<UTLSCaseFileWidget>(PC, UTLSCaseFileWidget::StaticClass());
+        BoardWidget = CreateWidget<UTLSBoardWidget>(PC, UTLSBoardWidget::StaticClass());
 
         if (HUDWidget)
         {
@@ -1143,6 +1259,16 @@ void ATLSVillageGameMode::CreateWidgets()
                 JournalWidget->AddToViewport(5);
                 JournalWidget->SetVisibility(ESlateVisibility::Hidden);
         }
+        if (CaseFileWidget)
+        {
+                CaseFileWidget->AddToViewport(5);
+                CaseFileWidget->SetVisibility(ESlateVisibility::Hidden);
+        }
+        if (BoardWidget)
+        {
+                BoardWidget->AddToViewport(5);
+                BoardWidget->SetVisibility(ESlateVisibility::Hidden);
+        }
 }
 
 void ATLSVillageGameMode::RefreshHUD()
@@ -1151,7 +1277,9 @@ void ATLSVillageGameMode::RefreshHUD()
 
         const FString Weather = Core->GetWeather() == tls::EWeather::Rain ? TEXT("Rain") : TEXT("Fog");
         const FString Time = UTF8_TO_TCHAR(tls::ToString(Core->GetTimeOfDay()));
-        HUDWidget->SetStatusLine(FString::Printf(TEXT("Blackthorne - Day %d, %s | %s | tension %.1f"),
+        // M3.8: the case-layer keys are always discoverable on the HUD -
+        // deduction-first never means interface-hidden.
+        HUDWidget->SetStatusLine(FString::Printf(TEXT("Blackthorne - Day %d, %s | %s | tension %.1f | [N] case file  [B] board"),
                 Core->CurrentDay(), *Time, *Weather, Core->Village().Tension()));
 
         // first open required objective of an active quest
@@ -1325,6 +1453,251 @@ void ATLSVillageGameMode::RefreshJournalUI()
         }
 
         JournalWidget->SetJournal(QuestLines, DiaryLines);
+}
+
+// ------------------------------------------------------------------ M3.8 case layer
+
+FString ATLSVillageGameMode::NpcDisplayName(const std::string& NpcId) const
+{
+        // Schedule/sim names are canon (sim_blackthorne); the raw id is the
+        // honest fallback for any dossier entry outside the sim registry.
+        if (const tls::NPCDef* Npc = Core->Village().FindNpc(NpcId))
+        {
+                return ToFString(Npc->Name);
+        }
+        return ToFString(NpcId);
+}
+
+void ATLSVillageGameMode::RefreshCaseFileUI()
+{
+        if (!CaseFileWidget) { return; }
+
+        // --- testimonies: only what Edmund actually heard, in the order
+        // heard. Stance/origin/reliability come from the heard account; the
+        // canonical truth summaries are NEVER shown (pillar B).
+        TArray<FString> TestimonyLines;
+        TestimonyLines.Add(TEXT("THE CASE FILE (what you have been told):"));
+        const std::vector<tls::HeardTestimony> Heard = Core->Case().HeardList();
+        if (Heard.empty())
+        {
+                TestimonyLines.Add(TEXT("  (no testimony yet - the village has not spoken to you)"));
+        }
+        for (const tls::HeardTestimony& H : Heard)
+        {
+                const tls::CaseFactDef* Fact = Core->Case().FindFact(H.FactId);
+                const tls::TestimonyDef* T = Core->Case().FindTestimony(H.FactId, H.NpcId);
+                if (!Fact || !T) { continue; }
+                FString Line = FString::Printf(TEXT("  Day %d, %02d:00 - %s on %s (%s, %s, weight %.2f): %s"),
+                        H.Day, H.Hour,
+                        *NpcDisplayName(H.NpcId), *ToFString(Fact->Topic),
+                        UTF8_TO_TCHAR(tls::ToString(T->Stance)),
+                        UTF8_TO_TCHAR(tls::ToString(T->Origin)),
+                        T->Reliability,
+                        *ToFString(T->Stance == tls::ETestimonyStance::Claims ? T->ClaimText : T->Account));
+                TestimonyLines.Add(Line);
+                if (T->bDeliberate && !T->LieReason.empty())
+                {
+                        TestimonyLines.Add(FString::Printf(TEXT("      (a lie - and you can feel it: %s)"), *ToFString(T->LieReason)));
+                }
+        }
+
+        // --- dossiers: public motive and fear are always shown; the deep
+        // motive only once every secret the NPC keeps has been earned;
+        // unlearned secrets read as "keeps something back" - never the truth.
+        TArray<FString> DossierLines;
+        DossierLines.Add(TEXT("THE PARISH (what you know of its people):"));
+        for (const auto& KV : Core->Case().Dossiers())
+        {
+                const tls::DossierDef& D = KV.second;
+                bool bAllSecretsEarned = !D.SecretFacts.empty();
+                for (const std::string& F : D.SecretFacts)
+                {
+                        if (!Core->Case().IsLearned(F)) { bAllSecretsEarned = false; break; }
+                }
+                DossierLines.Add(FString::Printf(TEXT("  %s - motive: %s | fears: %s"),
+                        *NpcDisplayName(D.NpcId),
+                        *ToFString(D.PublicMotive), *ToFString(D.Fear)));
+                for (const std::string& F : D.SecretFacts)
+                {
+                        DossierLines.Add(Core->Case().IsLearned(F)
+                                ? FString::Printf(TEXT("      secret learned: %s"), *ToFString(F))
+                                : TEXT("      keeps something back..."));
+                }
+                if (bAllSecretsEarned && !D.DeepMotive.empty())
+                {
+                        DossierLines.Add(FString::Printf(TEXT("      what truly drives them: %s"), *ToFString(D.DeepMotive)));
+                }
+        }
+
+        CaseFileWidget->SetCaseFile(TestimonyLines, DossierLines,
+                TEXT("N - close the case file   |   B - the deduction board   |   Esc - back to the street"));
+}
+
+void ATLSVillageGameMode::RefreshBoardUI()
+{
+        if (!BoardWidget) { return; }
+
+        // Accusation ids are computed FIRST so the formable-theory digits
+        // always start after them (the arrays are rebuilt on every refresh -
+        // no stale digit layout from the previous open).
+        AccusableIds.Reset();
+        for (const auto& AccKV : Core->Deduction().Accusations())
+        {
+                AccusableIds.Add(ToFString(AccKV.second.Id));
+        }
+
+        // --- hypotheses: formed ones with their live verdict; unformed ones
+        // are listed as formable theories. Requirements are NEVER listed -
+        // the open-questions shelf is the fair signal, not a checklist.
+        TArray<FString> HypothesisLines;
+        HypothesisLines.Add(TEXT("HYPOTHESES (your own constructions):"));
+        FormableHypothesisIds.Reset();
+        const int32 HypDigitBase = AccusableIds.Num();
+        for (const auto& KV : Core->Deduction().Hypotheses())
+        {
+                const tls::HypothesisDef& Def = KV.second;
+                const tls::FormedHypothesis* Formed = Core->Deduction().Formed(Def.Id);
+                if (Formed)
+                {
+                        const TCHAR* Verdict = nullptr;
+                        switch (Formed->Verdict)
+                        {
+                        case tls::EHypothesisVerdict::Supported: Verdict = TEXT("SUPPORTED by the evidence"); break;
+                        case tls::EHypothesisVerdict::Partial:   Verdict = TEXT("PARTIAL - some weight, not enough"); break;
+                        case tls::EHypothesisVerdict::Refuted:   Verdict = TEXT("REFUTED - and it stays refuted"); break;
+                        default:                                 Verdict = TEXT("unsupported so far"); break;
+                        }
+                        HypothesisLines.Add(FString::Printf(TEXT("  %s - %s"), *ToFString(Def.Title), Verdict));
+                        if (Formed->Verdict == tls::EHypothesisVerdict::Refuted && !Formed->RefuteReason.empty())
+                        {
+                                HypothesisLines.Add(FString::Printf(TEXT("      why it fell: %s"), *ToFString(Formed->RefuteReason)));
+                        }
+                }
+                else
+                {
+                        FormableHypothesisIds.Add(ToFString(Def.Id));
+                        HypothesisLines.Add(FString::Printf(TEXT("  [pin as theory: %d]  %s"), HypDigitBase + FormableHypothesisIds.Num(), *ToFString(Def.Title)));
+                }
+        }
+
+        // --- open questions: the shelf of what is still missing
+        TArray<FString> QuestionLines;
+        QuestionLines.Add(TEXT("OPEN QUESTIONS (what the board still lacks):"));
+        const std::vector<tls::OpenQuestion> Questions = Core->OpenQuestions();
+        if (Questions.empty())
+        {
+                QuestionLines.Add(TEXT("  (none pinned - form a theory to see what it needs)"));
+        }
+        for (const tls::OpenQuestion& Q : Questions)
+        {
+                QuestionLines.Add(FString::Printf(TEXT("  ? %s"), *ToFString(Q.Question)));
+        }
+
+        // --- contradictions: only among accounts the player could have heard
+        TArray<FString> ConflictLines;
+        ConflictLines.Add(TEXT("CONTRADICTIONS (accounts that cannot both stand):"));
+        bool bAnyConflict = false;
+        for (const auto& KV : Core->Case().Facts())
+        {
+                if (!Core->Case().IsLearned(KV.first)) { continue; }
+                for (const tls::CaseFactSystem::FactConflict& C : Core->Case().FindConflicts(KV.first, *Core))
+                {
+                        bAnyConflict = true;
+                        ConflictLines.Add(FString::Printf(TEXT("  %s vs %s on %s - %s"),
+                                *NpcDisplayName(C.NpcA), *NpcDisplayName(C.NpcB), *ToFString(C.FactId), *ToFString(C.Reason)));
+                }
+        }
+        if (!bAnyConflict)
+        {
+                ConflictLines.Add(TEXT("  (no contradiction has surfaced yet)"));
+        }
+
+        // --- accusations: speakable always; the tier preview is the honest
+        // strength of the player's own case, never the hidden truth
+        TArray<FString> AccusationLines;
+        AccusationLines.Add(TEXT("ACCUSATIONS (words, once said, cannot be unsaid):"));
+        for (const auto& KV : Core->Deduction().Accusations())
+        {
+                const tls::AccusationDef& Def = KV.second;
+                AccusableIds.Add(ToFString(Def.Id));
+                const int32 Digit = AccusableIds.Num();
+                const bool bSpoken = Core->Deduction().AccusedBefore(Def.Id) && !Def.bRepeatable;
+                tls::EAccusationTier Tier;
+                const bool bKnown = Core->PreviewAccusationTier(Def.Id, Tier);
+                const TCHAR* TierText = !bKnown ? TEXT("?")
+                        : Tier == tls::EAccusationTier::Grounded ? TEXT("your case STANDS firmly (grounded)")
+                        : Tier == tls::EAccusationTier::Partial ? TEXT("your case is THIN (partial)")
+                        : TEXT("your case has NO ground (baseless)");
+                AccusationLines.Add(FString::Printf(TEXT("  [select: %d]  %s - %s%s"), Digit,
+                        *ToFString(Def.TargetLabel), TierText,
+                        bSpoken ? TEXT("  (already said)") : TEXT("")));
+        }
+
+        // --- status line: selection / confirm / result feedback
+        FString Status;
+        if (bAccusationConfirmPending && AccusableIds.IsValidIndex(SelectedAccusationIndex))
+        {
+                // the ids were built from the live defs this refresh, so the
+                // lookup cannot miss - the guard keeps a stale index honest
+                if (const tls::AccusationDef* Pending =
+                        Core->Deduction().FindAccusation(std::string(TCHAR_TO_UTF8(*AccusableIds[SelectedAccusationIndex]))))
+                {
+                        Status = FString::Printf(TEXT("Speak it?  \"%s\"   E - say it   Esc or another digit - hold your tongue"),
+                                *ToFString(Pending->TargetLabel));
+                }
+        }
+        else if (!LastVerdictLine.IsEmpty())
+        {
+                Status = LastVerdictLine;
+        }
+        else
+        {
+                Status = TEXT("digits - select an accusation or pin a theory   |   E - speak the selected accusation   |   Esc - back");
+        }
+
+        BoardWidget->SetBoard(HypothesisLines, QuestionLines, ConflictLines, AccusationLines, Status);
+}
+
+void ATLSVillageGameMode::ConfirmAccusation()
+{
+        if (PanelMode != EPanelMode::Deduction) { return; }
+        if (!bAccusationConfirmPending || !AccusableIds.IsValidIndex(SelectedAccusationIndex))
+        {
+                LastVerdictLine = TEXT("Nothing chosen to say. Digits select; E speaks.");
+                RefreshBoardUI();
+                return;
+        }
+
+        const std::string AccId = std::string(TCHAR_TO_UTF8(*AccusableIds[SelectedAccusationIndex]));
+        tls::EAccusationTier Tier;
+        std::string Err;
+        if (!Core->MakeAccusation(AccId, Tier, Err))
+        {
+                LastVerdictLine = FString::Printf(TEXT("The words will not come: %s"), UTF8_TO_TCHAR(Err.c_str()));
+                bAccusationConfirmPending = false;
+                RefreshBoardUI();
+                return;
+        }
+
+        // The tier decides the village's answer - shown plainly, kept in the
+        // journal by the core. Consequences (trust/tension/reputation) have
+        // already landed inside MakeAccusation.
+        const tls::AccusationDef* Def = Core->Deduction().FindAccusation(AccId);
+        const TCHAR* TierText = Tier == tls::EAccusationTier::Grounded ? TEXT("GROUNDED")
+                : Tier == tls::EAccusationTier::Partial ? TEXT("PARTIAL") : TEXT("BASELESS");
+        LastVerdictLine = FString::Printf(TEXT("Said aloud (%s): "%s""), TierText,
+                Def ? *ToFString(Def->TargetLabel) : TEXT("?"));
+        if (HUDWidget)
+        {
+                HUDWidget->SetToast(LastVerdictLine);
+                if (Def && !Def->OnGrounded.JournalNote.empty() && Tier == tls::EAccusationTier::Grounded)
+                {
+                        HUDWidget->SetToast(ToFString(Def->OnGrounded.JournalNote));
+                }
+        }
+        bAccusationConfirmPending = false;
+        SelectedAccusationIndex = INDEX_NONE;
+        RefreshBoardUI();
 }
 
 // ------------------------------------------------------------------ day / weather

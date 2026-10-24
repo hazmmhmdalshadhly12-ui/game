@@ -87,6 +87,16 @@ public:
         bool FormHypothesis(const std::string& HypId, std::string& OutError);
         std::vector<OpenQuestion> OpenQuestions() const;
         bool MakeAccusation(const std::string& AccId, EAccusationTier& OutTier, std::string& OutError);
+        // M3.8: the accusation UI's strength readout - the tier the accusation
+        // WOULD land at right now, from live state, without recording it or
+        // applying any consequence. False only when the id is unknown.
+        bool PreviewAccusationTier(const std::string& AccId, EAccusationTier& OutTier) const;
+        // M3.8: data-driven dialogue -> case-fact bridge checks. Every
+        // reveal_facts target in every loaded dialogue must name an existing
+        // fact AND the speaking NPC must own a testimony for it (a line that
+        // could never teach anything is a data bug, caught at load time).
+        // Sessions without the case layer pass trivially.
+        bool ValidateDialogueCaseLinks(std::string& OutError) const;
         // Deterministic simulation stream for gameplay systems that must roll.
         Rng& SimRng() { return SimRngStream; }
         void SetSimRngState(std::uint64_t S) { SimRngStream.SetState(S); }

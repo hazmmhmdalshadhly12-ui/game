@@ -134,6 +134,11 @@ struct DialogueEffects
         std::map<std::string, int> SetFlags;
         std::vector<std::string> GiveEvidence;
         std::vector<std::string> GiveInsight;
+        // M3.8: facts the SPEAKING NPC's own testimony makes hearable in this
+        // line (data-driven dialogue -> case-fact bridge). The knowledge
+        // boundary stays with the testimony's reveal conditions: the line may
+        // play, but the fact is learned only when the speaker's gate passes.
+        std::vector<std::string> RevealFacts;
         double ReputationDelta = 0.0;
         double TensionDelta = 0.0;
         bool bAdvanceToEvening = false;

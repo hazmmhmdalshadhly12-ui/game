@@ -121,6 +121,14 @@
           "next": "NODE_MILL2"
         },
         {
+          "id": "GU1",
+          "tone": "gentle",
+          "text": "Say it as testimony, Mrs Meredith - the seventeen names, and your own among them.",
+          "conditions": { "flags": { "TOP_GUINEA": 1 }, "trust_min": 60 },
+          "effects": { "trust_delta": 2, "set_flags": { "TOP_LIST_SWORN": 1 } },
+          "next": "NODE_LIST_TOLD"
+        },
+        {
           "id": "H6",
           "tone": "formal",
           "text": "Nothing else. Thank you, Mrs Meredith.",
@@ -132,12 +140,20 @@
       "id": "NODE_LASTNIGHT",
       "speaker": "CHR-03",
       "text": "I poured it myself - his custom, four nights running, a small brandy with the laudanum the doctor allows old bones. But the bottle wasn't mine. Griffiths' boy carried it in with the coal, said it came by the doctor's instruction... and I remember thinking the boy's gloves were too fine for a miner's son.",
+      "on_enter": { "reveal_facts": ["FACT-LAST-TRAY"] },
       "next": "NODE_HUB"
     },
     {
       "id": "NODE_GUINEA",
       "speaker": "CHR-03",
       "text": "You've a right to ask - you've his eyes and you ask like a man counting. There was a paper, October of '39. Seventeen names, seventeen guineas, one quiet night after the water went down. Mine's on it - Gwendolyn Meredith, and God help me, Ifor's schooling came out of it. The paper still exists. That's all I'll swear to you tonight.",
+      "next": "NODE_HUB"
+    },
+    {
+      "id": "NODE_LIST_TOLD",
+      "speaker": "CHR-03",
+      "text": "Seventeen of us signed the settlement paper of '39, cariad. Mine is not a clean name, whatever the parish thinks. Josiah kept the sure copy, and when he was past caring for it, I took it - for no good purpose and no bad one, only that a name on a paper should not outlive its asking. You may weigh that with the scales he kept, and let God do the arithmetic.",
+      "on_enter": { "reveal_facts": ["FACT-17-LIST"] },
       "next": "NODE_HUB"
     },
     {
