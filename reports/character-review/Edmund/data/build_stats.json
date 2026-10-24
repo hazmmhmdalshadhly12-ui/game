@@ -1,0 +1,300 @@
+{
+  "blender": "5.0.1",
+  "generated": "2026-10-23 16:35:22",
+  "objects": [
+    {
+      "name": "Edmund_Body",
+      "verts": 13267,
+      "polys": 11508,
+      "tris": 22364,
+      "boundary_edges": 384,
+      "nonmanifold_edges": 0,
+      "loose_verts": 1874,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Skin"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_EyeR",
+      "verts": 1082,
+      "polys": 1120,
+      "tris": 2160,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Eye"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_EyeL",
+      "verts": 1082,
+      "polys": 1120,
+      "tris": 2160,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Eye"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_HandR",
+      "verts": 326,
+      "polys": 320,
+      "tris": 564,
+      "boundary_edges": 76,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Skin"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_HandL",
+      "verts": 326,
+      "polys": 320,
+      "tris": 564,
+      "boundary_edges": 76,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Skin_InkedL"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Shirt",
+      "verts": 1415,
+      "polys": 1384,
+      "tris": 2704,
+      "boundary_edges": 120,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_ShirtLinen"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Waistcoat",
+      "verts": 557,
+      "polys": 580,
+      "tris": 1020,
+      "boundary_edges": 52,
+      "nonmanifold_edges": 0,
+      "loose_verts": 13,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Waistcoat",
+        "TLS_Edmund_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Coat",
+      "verts": 1833,
+      "polys": 1640,
+      "tris": 3132,
+      "boundary_edges": 230,
+      "nonmanifold_edges": 0,
+      "loose_verts": 143,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_CoatWool",
+        "TLS_Edmund_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Neckcloth",
+      "verts": 187,
+      "polys": 172,
+      "tris": 304,
+      "boundary_edges": 64,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_Neckcloth"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Trousers",
+      "verts": 1457,
+      "polys": 1424,
+      "tris": 2812,
+      "boundary_edges": 100,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_TrousersWool"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Boots",
+      "verts": 632,
+      "polys": 616,
+      "tris": 1088,
+      "boundary_edges": 160,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_BootLeather",
+        "TLS_Edmund_SoleLeather"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    },
+    {
+      "name": "Edmund_Satchel",
+      "verts": 293,
+      "polys": 318,
+      "tris": 536,
+      "boundary_edges": 40,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Edmund_SatchelLeather",
+        "TLS_Edmund_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "modifiers": [
+        [
+          "EDGE_SPLIT",
+          "EdgeSplit"
+        ]
+      ]
+    }
+  ],
+  "totals": {
+    "objects": 12,
+    "verts": 22457,
+    "tris": 39408,
+    "materials": 15,
+    "texture_files": {
+      "weave": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_cloth_weave.png",
+      "leather": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_leather_grain.png",
+      "skin": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_skin_micro.png",
+      "iris": "/home/z/my-project/m34_out/textures/tls_chr_001_tex_iris_gray.png"
+    },
+    "build_seconds": 2.1
+  },
+  "bounds_min": [
+    -0.457,
+    -0.213,
+    0.014
+  ],
+  "bounds_max": [
+    0.457,
+    0.143,
+    1.7825
+  ],
+  "height_m": 1.7685,
+  "blend_path": "/home/z/my-project/m34_out/edmund_full.blend",
+  "blend_size_mb": 3.82
+}

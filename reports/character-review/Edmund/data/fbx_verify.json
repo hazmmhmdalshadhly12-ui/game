@@ -1,0 +1,21 @@
+[
+  {
+    "file": "tls_chr_001_edmund_vale_v001.fbx",
+    "import_ok": true,
+    "meshes": 5,
+    "armatures": 1,
+    "bones": 65,
+    "verts": 16083,
+    "tris": 27812,
+    "materials": [
+      "TLS_Edmund_Eye",
+      "TLS_Edmund_Skin",
+      "TLS_Edmund_Skin_InkedL"
+    ],
+    "height_m": 1.764,
+    "bounds_z": [
+      0.018,
+      1.782
+    ]
+  }
+]

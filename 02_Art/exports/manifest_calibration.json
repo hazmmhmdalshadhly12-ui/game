@@ -79,6 +79,87 @@
           1.75
         ]
       }
+    },
+    {
+      "asset_id": "TLS-CHR-001",
+      "name": "Edmund Vale (full character)",
+      "source": "02_Art/blender/source/chr/tls_chr_001_edmund_vale.blend",
+      "export": "02_Art/exports/fbx/tls_chr_001_edmund_vale_v001.fbx",
+      "geometry": {
+        "verts": 22457,
+        "tris": 39408,
+        "dimensions_m": [
+          0.87,
+          0.62,
+          1.781
+        ]
+      },
+      "rig": {
+        "bones": 65,
+        "pose": "A 15deg",
+        "skinning": "ARMATURE_AUTO, 0 zero-weight verts"
+      },
+      "materials": 15,
+      "textures": [
+        "cloth_weave",
+        "leather_grain",
+        "skin_micro",
+        "iris_gray"
+      ],
+      "note": "M3.4 procedural build in Blender 5.0.1; FBX reimport height 1.764m; UNREAL IMPORT NOT TESTED",
+      "fbx_info": {
+        "magic_ok": true,
+        "version": 7400,
+        "checked": "Kaydara FBX Binary header + version bytes"
+      }
+    },
+    {
+      "asset_id": "TLS-CHR-030",
+      "name": "Edmund Daily Outfit",
+      "source": "02_Art/blender/source/chr/tls_chr_030_edmund_outfit.blend",
+      "export": "02_Art/exports/fbx/tls_chr_030_edmund_outfit_v001.fbx",
+      "geometry": {
+        "verts": 2496,
+        "tris": 4666
+      },
+      "rig": {
+        "bones": 65,
+        "pose": "A 15deg"
+      },
+      "materials": 9,
+      "note": "7 garment pieces fit over TLS-CHR-001; no cloth sim",
+      "fbx_info": {
+        "magic_ok": true,
+        "version": 7400,
+        "checked": "Kaydara FBX Binary header + version bytes"
+      }
+    },
+    {
+      "asset_id": "TLS-SKL-001",
+      "name": "TLS_Rig_Human v1 (65 bones)",
+      "source": "02_Art/blender/source/rig/tls_skl_001_rig_human.blend",
+      "export": "02_Art/exports/fbx/tls_skl_001_rig_human_v001.fbx",
+      "geometry": {
+        "bones": 65,
+        "pose": "A 15deg"
+      },
+      "rig": {
+        "twist_bones": [
+          "upper_arm",
+          "forearm",
+          "thigh",
+          "shin"
+        ],
+        "fingers": "15 bones/hand",
+        "props_anchor": "satchel_anchor"
+      },
+      "note": "deformation tests: 5/5 clean, max edge stretch 1.265 (thigh raise)",
+      "fbx_info": {
+        "magic_ok": true,
+        "version": 7400,
+        "checked": "Kaydara FBX Binary header + version bytes"
+      }
     }
-  ]
+  ],
+  "m3_4_note": "Edmund character batch added; all EXPORTED rows have real .blend + binary FBX v7400 on disk"
 }
