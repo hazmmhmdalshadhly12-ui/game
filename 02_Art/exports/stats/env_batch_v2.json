@@ -1,0 +1,47 @@
+{
+ "tls_env_101_kit_cottage_v2": {
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/env/tls_env_101_kit_cottage_v2.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_env_101_kit_cottage_v2.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_env_101_kit_cottage_v2.fbx",
+  "tris": 249850,
+  "verts": 125016,
+  "objects": 46,
+  "note": "modular stone kit v2: walls/corners/door/window/roof/chimney"
+ },
+ "tls_env_010_sin_eater_cottage": {
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/env/tls_env_010_sin_eater_cottage.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_env_010_sin_eater_cottage.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_env_010_sin_eater_cottage.fbx",
+  "tris": 254654,
+  "verts": 127436,
+  "objects": 55,
+  "note": "Josiah cottage: walls/roof/gables/chimney/interior + UCX"
+ },
+ "tls_env_020_church": {
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/env/tls_env_020_church.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_env_020_church.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_env_020_church.fbx",
+  "tris": 193040,
+  "verts": 96672,
+  "objects": 77,
+  "note": "St Cynog: nave+tower+buttresses+interior (pews/altar/pulpit/font)"
+ },
+ "tls_env_106_kit_graveyard_v2": {
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/env/tls_env_106_kit_graveyard_v2.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_env_106_kit_graveyard_v2.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_env_106_kit_graveyard_v2.fbx",
+  "tris": 25520,
+  "verts": 13004,
+  "objects": 59,
+  "note": "cemetery: 6 grave styles + wall + iron gate + path + yew"
+ },
+ "tls_env_107_kit_nature_v2": {
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/env/tls_env_107_kit_nature_v2.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_env_107_kit_nature_v2.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_env_107_kit_nature_v2.fbx",
+  "tris": 14656,
+  "verts": 7966,
+  "objects": 88,
+  "note": "nature: 3 rocks + 2 trees + grass tufts"
+ }
+}
