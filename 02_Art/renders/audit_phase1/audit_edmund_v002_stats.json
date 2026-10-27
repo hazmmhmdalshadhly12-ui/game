@@ -1,0 +1,777 @@
+{
+ "tag": "edmund_v002",
+ "objects": [
+  {
+   "name": "TLS_Edmund_BodyBase_v2",
+   "verts": 5480,
+   "tris": 10040,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Edmund_HeadSculpt_v2",
+   "verts": 110976,
+   "tris": 221184,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Edmund_Ear_L",
+   "verts": 1240,
+   "tris": 2320,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Ear_R",
+   "verts": 1240,
+   "tris": 2320,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Eyeball_L",
+   "verts": 408,
+   "tris": 720,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Iris_L",
+   "verts": 21,
+   "tris": 38,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Pupil_L",
+   "verts": 17,
+   "tris": 30,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Eyeball_R",
+   "verts": 408,
+   "tris": 720,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Iris_R",
+   "verts": 21,
+   "tris": 38,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Edmund_Pupil_R",
+   "verts": 17,
+   "tris": 30,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Hair_Brow_-1",
+   "verts": 12,
+   "tris": 10,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Brow_1",
+   "verts": 12,
+   "tris": 10,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Cap",
+   "verts": 104976,
+   "tris": 194048,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_000",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_001",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_002",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_003",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_004",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_005",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_006",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_007",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_008",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_009",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_010",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_011",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_012",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_013",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_014",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_015",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_016",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_017",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_018",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_019",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_020",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_021",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_022",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_023",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_024",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_025",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_026",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_027",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_028",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_029",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_030",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_031",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_032",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_033",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_034",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_035",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_036",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_037",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_038",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_039",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_040",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_041",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_042",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_043",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_044",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_045",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_046",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_047",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_048",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_049",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_050",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_051",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_052",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_053",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_054",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_055",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_056",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_057",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_058",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_059",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_060",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_061",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_062",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_063",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_064",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_065",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_066",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_067",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_068",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Card_069",
+   "verts": 14,
+   "tris": 12,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Hair_Stubble",
+   "verts": 6601,
+   "tris": 12702,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Edmund_InkSpot",
+   "verts": 15,
+   "tris": 26,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Coat",
+   "verts": 4404,
+   "tris": 8692,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtUnder",
+   "verts": 2120,
+   "tris": 4232,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatCollar",
+   "verts": 72,
+   "tris": 96,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Waistcoat",
+   "verts": 354,
+   "tris": 704,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtCollar",
+   "verts": 48,
+   "tris": 96,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtPlacket",
+   "verts": 16,
+   "tris": 28,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cuff_L",
+   "verts": 24,
+   "tris": 24,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cuff_R",
+   "verts": 24,
+   "tris": 24,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cravat",
+   "verts": 120,
+   "tris": 240,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Trousers",
+   "verts": 1856,
+   "tris": 3704,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_Waistband",
+   "verts": 56,
+   "tris": 56,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Boots",
+   "verts": 776,
+   "tris": 1552,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_Sole_L",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Heel_L",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Sole_R",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Heel_R",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_0",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_1",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_2",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_3",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_4",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_0",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_1",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_2",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_3",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg00",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg01",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg02",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg03",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg04",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg05",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg06",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg07",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg08",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg09",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg10",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg11",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg12",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg13",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Satchel",
+   "verts": 48,
+   "tris": 92,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_SatchelFlap",
+   "verts": 8,
+   "tris": 8,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Gloves",
+   "verts": 5728,
+   "tris": 11456,
+   "uvs": true
+  }
+ ],
+ "bb_min": [
+  -0.4660916328430176,
+  -0.1850000023841858,
+  0.0020000000949949026
+ ],
+ "bb_max": [
+  0.46607348322868347,
+  0.15547102689743042,
+  1.7969179153442383
+ ]
+}
