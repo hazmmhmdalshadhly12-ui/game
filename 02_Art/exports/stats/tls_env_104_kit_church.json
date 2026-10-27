@@ -1,0 +1,187 @@
+{
+  "asset": "TLS-ENV-104",
+  "objects": [
+    {
+      "name": "Church_Pew",
+      "verts": 48,
+      "polys": 36,
+      "tris": 72,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_PewKneeler",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_Pulpit",
+      "verts": 104,
+      "polys": 96,
+      "tris": 160,
+      "boundary_edges": 12,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Oak",
+        "TLS_Mat_Church_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_Font",
+      "verts": 72,
+      "polys": 96,
+      "tris": 128,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Stone",
+        "TLS_Mat_FontWater"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_Column",
+      "verts": 78,
+      "polys": 108,
+      "tris": 144,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_Altar",
+      "verts": 48,
+      "polys": 36,
+      "tris": 72,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Church_Lectern",
+      "verts": 52,
+      "polys": 60,
+      "tris": 88,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Church_Stone",
+        "TLS_Mat_Church_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 410,
+    "tris": 676
+  },
+  "bbox_m": {
+    "min": [
+      -1.225,
+      -0.5748,
+      0.0
+    ],
+    "max": [
+      1.225,
+      0.5748,
+      3.1
+    ],
+    "dims": [
+      2.45,
+      1.1497,
+      3.1
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    2.5,
+    2.3,
+    3.3
+  ],
+  "note": "pew+desk rail, hex pulpit, octagonal font, gothic column, altar, lectern",
+  "fbx_expected_objects": 9,
+  "blend_mb": 6.14,
+  "fbx_mb": 0.06,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_104_kit_church_v001.fbx"
+}

@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_030_edmund_outfit_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_030_edmund_outfit_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 7,
+  "ucx_objects": 0,
+  "armatures": 1,
+  "bones": 53,
+  "verts": 6374,
+  "tris": 11596,
+  "dims_m": [
+    0.7306,
+    0.356,
+    1.501
+  ],
+  "materials": 9,
+  "header_ok": true,
+  "status": "PASS"
+}

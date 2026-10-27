@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_020_body_kit_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_020_body_kit_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 3,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 2172,
+  "tris": 2034,
+  "dims_m": [
+    2.7991,
+    0.299,
+    1.5429
+  ],
+  "materials": 2,
+  "header_ok": true,
+  "status": "PASS"
+}

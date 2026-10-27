@@ -1,0 +1,436 @@
+{
+  "asset": "TLS-PRP-001",
+  "objects": [
+    {
+      "name": "Lantern_Base",
+      "verts": 50,
+      "polys": 72,
+      "tris": 96,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_BaseRim",
+      "verts": 280,
+      "polys": 270,
+      "tris": 540,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Rod0",
+      "verts": 22,
+      "polys": 30,
+      "tris": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Rod1",
+      "verts": 22,
+      "polys": 30,
+      "tris": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Rod2",
+      "verts": 22,
+      "polys": 30,
+      "tris": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Rod3",
+      "verts": 22,
+      "polys": 30,
+      "tris": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_RingBot",
+      "verts": 320,
+      "polys": 310,
+      "tris": 620,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_RingTop",
+      "verts": 320,
+      "polys": 310,
+      "tris": 620,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Glass",
+      "verts": 56,
+      "polys": 28,
+      "tris": 56,
+      "boundary_edges": 56,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Glass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Cap",
+      "verts": 141,
+      "polys": 140,
+      "tris": 252,
+      "boundary_edges": 28,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Fin0",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Fin1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Fin2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Fin3",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_HangRing",
+      "verts": 192,
+      "polys": 184,
+      "tris": 368,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_HangPost",
+      "verts": 22,
+      "polys": 30,
+      "tris": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Candle",
+      "verts": 34,
+      "polys": 48,
+      "tris": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Candle"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Wick",
+      "verts": 14,
+      "polys": 18,
+      "tris": 24,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Lantern_Shade",
+      "verts": 40,
+      "polys": 10,
+      "tris": 20,
+      "boundary_edges": 22,
+      "nonmanifold_edges": 0,
+      "loose_verts": 18,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Lantern_Iron"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 1589,
+    "tris": 2908
+  },
+  "bbox_m": {
+    "min": [
+      -0.063,
+      -0.063,
+      0.012
+    ],
+    "max": [
+      0.063,
+      0.063,
+      0.206
+    ],
+    "dims": [
+      0.126,
+      0.126,
+      0.194
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.12,
+    0.12,
+    0.2
+  ],
+  "note": "handle ring top; shade half-cylinder interior (light gameplay key)",
+  "fbx_expected_objects": 20,
+  "blend_mb": 5.26,
+  "fbx_mb": 0.13,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_001_lantern_v001.fbx"
+}

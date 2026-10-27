@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_024_heads_youth_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_024_heads_youth_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 4,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 4566,
+  "tris": 7324,
+  "dims_m": [
+    0.9256,
+    0.1704,
+    0.2264
+  ],
+  "materials": 12,
+  "header_ok": true,
+  "status": "PASS"
+}

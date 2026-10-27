@@ -1,0 +1,310 @@
+{
+  "asset": "TLS-PRP-015",
+  "objects": [
+    {
+      "name": "LedgerO_CoverL",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Leather"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_CoverR",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Leather"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages-1_0",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages-1_1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages-1_2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages-1_3",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages1_0",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages1_1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages1_2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Pages1_3",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_TurningPage",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_Spine",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Leather"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "LedgerO_TornPage",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Ledger_Paper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 104,
+    "tris": 156
+  },
+  "bbox_m": {
+    "min": [
+      -0.2396,
+      -0.1791,
+      -0.002
+    ],
+    "max": [
+      0.2745,
+      0.161,
+      0.1598
+    ],
+    "dims": [
+      0.5142,
+      0.3401,
+      0.1618
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.5,
+    0.33,
+    0.17
+  ],
+  "note": "open-on-table variant + turning page + loose torn page (restoration mechanic)",
+  "fbx_expected_objects": 14,
+  "blend_mb": 4.66,
+  "fbx_mb": 0.06,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_015_ledger_open_v001.fbx"
+}

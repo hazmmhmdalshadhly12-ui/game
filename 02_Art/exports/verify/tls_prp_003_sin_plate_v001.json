@@ -1,0 +1,22 @@
+{
+  "asset": "tls_prp_003_sin_plate_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_003_sin_plate_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 9,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 1538,
+  "tris": 2492,
+  "dims_m": [
+    0.28,
+    0.28,
+    0.066
+  ],
+  "materials": 3,
+  "header_ok": true,
+  "status": "PASS"
+}

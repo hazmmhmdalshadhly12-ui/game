@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_107_kit_nature_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_107_kit_nature_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 32,
+  "ucx_objects": 2,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 6199,
+  "tris": 5100,
+  "dims_m": [
+    29.1082,
+    5.9,
+    5.9767
+  ],
+  "materials": 7,
+  "header_ok": true,
+  "status": "PASS"
+}

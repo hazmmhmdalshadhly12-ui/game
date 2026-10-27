@@ -1,0 +1,800 @@
+{
+  "asset": "TLS-ENV-040",
+  "objects": [
+    {
+      "name": "Green_MarketCross",
+      "verts": 94,
+      "polys": 116,
+      "tris": 160,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf0_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf0_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf0_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf1_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf1_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf1_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf2_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf2_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf2_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf3_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf3_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf3_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf4_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf4_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf4_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf5_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf5_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf5_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf6_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf6_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf6_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf7_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf7_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf7_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf8_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf8_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf8_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf9_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf9_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HawLeaf9_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_LeafCard"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_Hawthorn",
+      "verts": 866,
+      "polys": 1292,
+      "tris": 1424,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_Bark",
+        "TLS_Mat_HawthornBerry"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_Well",
+      "verts": 266,
+      "polys": 300,
+      "tris": 472,
+      "boundary_edges": 12,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_Stone",
+        "TLS_Mat_WellWater",
+        "TLS_Mat_Green_Oak",
+        "TLS_Mat_Green_Slate",
+        "TLS_Mat_Green_Iron",
+        "TLS_Mat_Rope",
+        "TLS_Mat_Green_WoodOld"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_Bench0",
+      "verts": 32,
+      "polys": 24,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_Bench1",
+      "verts": 32,
+      "polys": 24,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_Oak"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Green_HandCart",
+      "verts": 496,
+      "polys": 492,
+      "tris": 904,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Green_WoodOld"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 1906,
+    "tris": 3116
+  },
+  "bbox_m": {
+    "min": [
+      -3.973,
+      -2.75,
+      -0.0116
+    ],
+    "max": [
+      5.4014,
+      4.1593,
+      3.4863
+    ],
+    "dims": [
+      9.3744,
+      6.9093,
+      3.4979
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    7.0,
+    6.5,
+    4.4
+  ],
+  "note": "market cross + hawthorn (village tree, sparse leaves + berries) + well w/ windlass + 2 benches + hand cart",
+  "fbx_expected_objects": 38,
+  "blend_mb": 9.93,
+  "fbx_mb": 0.23,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_040_green_v001.fbx"
+}

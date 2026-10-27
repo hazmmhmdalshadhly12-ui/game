@@ -1,22 +1,23 @@
 {
   "project": "THE LAST SIN: The Sin-Eater",
-  "stage": "M0 calibration assets (Blender-side)",
+  "stage": "M0 calibration + M3.4 Edmund + M4-B1 batch (Blender-side exports)",
   "blender_version": "5.0.1",
-  "generated_at": "2026-10-21T23:25:00.306347+00:00",
-  "duration_sec": 0.3,
+  "generated_at": "2026-10-27T16:09:01.296156+00:00",
   "export_settings": {
     "axis_forward": "-Y",
     "axis_up": "Z",
-    "apply_scale_options": "FBX_UNITS_SCALE",
+    "apply_scale_options": "FBX_SCALE_UNITS",
     "global_scale": 1.0,
+    "mesh_smooth_type": "FACE",
+    "add_leaf_bones": false,
     "note": "1 m في Blender = 100 uu في Unreal Engine؛ استيراد UE معلق حتى M0 (لا يوجد UE في هذه البيئة)"
   },
   "assets": [
     {
       "asset_id": "TLS-ENV-001",
       "object_name": "tls_env_001_calibration_gnomon",
-      "blend_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/blender/source/env/tls_env_001_calibration_gnomon.blend",
-      "fbx_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/exports/fbx/tls_env_001_calibration_gnomon_v001.fbx",
+      "blend_path": "02_Art/blender/source/env/tls_env_001_calibration_gnomon.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_001_calibration_gnomon_v001.fbx",
       "fbx_info": {
         "magic_ok": true,
         "fbx_version": 7400
@@ -46,13 +47,20 @@
           0.5,
           0.77
         ]
-      }
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 21244,
+      "fbx_md5": "284d300927bf51e0d53ba47fc81acdf7",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M0"
     },
     {
       "asset_id": "TLS-ENV-002",
       "object_name": "tls_env_002_reference_figure",
-      "blend_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/blender/source/env/tls_env_002_reference_figure.blend",
-      "fbx_path": "/home/z/my-project/download/THE_LAST_SIN/02_Art/exports/fbx/tls_env_002_reference_figure_v001.fbx",
+      "blend_path": "02_Art/blender/source/env/tls_env_002_reference_figure.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_002_reference_figure_v001.fbx",
       "fbx_info": {
         "magic_ok": true,
         "fbx_version": 7400
@@ -78,88 +86,795 @@
           0.125,
           1.75
         ]
-      }
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 41804,
+      "fbx_md5": "5b45729ea3dc0207778e00a5ecd0ed7c",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M0"
+    },
+    {
+      "asset_id": "TLS-SKL-001",
+      "object_name": "tls_skl_001_rig_human",
+      "blend_path": "02_Art/blender/source/rig/tls_skl_001_rig_human.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_skl_001_rig_human_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": null,
+        "polygons": null,
+        "material_slots": [],
+        "dimensions_m": null,
+        "bones": 65,
+        "pose": "A 15deg"
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 69260,
+      "fbx_md5": "0b066c87700c66339b6667b65a342099",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M0"
+    },
+    {
+      "asset_id": "TLS-ANM-001",
+      "object_name": "tls_anm_001_idle",
+      "blend_path": "02_Art/blender/source/anim/tls_anm_001_idle.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_anm_001_idle_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": null,
+        "polygons": 0,
+        "material_slots": [],
+        "dimensions_m": [
+          0,
+          0,
+          0
+        ]
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 1084348,
+      "fbx_md5": "7590dcadaf4ed17dfc33ee5af16b2ade",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-ANM-002",
+      "object_name": "tls_anm_002_walk",
+      "blend_path": "02_Art/blender/source/anim/tls_anm_002_walk.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_anm_002_walk_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": null,
+        "polygons": 0,
+        "material_slots": [],
+        "dimensions_m": [
+          0,
+          0,
+          0
+        ]
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 855916,
+      "fbx_md5": "cd5cbccea6fd8e59ac468dc886700f4f",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
     },
     {
       "asset_id": "TLS-CHR-001",
-      "name": "Edmund Vale (full character)",
-      "source": "02_Art/blender/source/chr/tls_chr_001_edmund_vale.blend",
-      "export": "02_Art/exports/fbx/tls_chr_001_edmund_vale_v001.fbx",
+      "object_name": "tls_chr_001_edmund_vale",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_001_edmund_vale.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_001_edmund_vale_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
       "geometry": {
-        "verts": 22457,
-        "tris": 39408,
+        "vertices": 22457,
+        "polygons": null,
+        "material_slots": [],
         "dimensions_m": [
           0.87,
           0.62,
           1.781
         ]
       },
-      "rig": {
-        "bones": 65,
-        "pose": "A 15deg",
-        "skinning": "ARMATURE_AUTO, 0 zero-weight verts"
-      },
-      "materials": 15,
-      "textures": [
-        "cloth_weave",
-        "leather_grain",
-        "skin_micro",
-        "iris_gray"
-      ],
-      "note": "M3.4 procedural build in Blender 5.0.1; FBX reimport height 1.764m; UNREAL IMPORT NOT TESTED",
-      "fbx_info": {
-        "magic_ok": true,
-        "version": 7400,
-        "checked": "Kaydara FBX Binary header + version bytes"
-      }
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 1149068,
+      "fbx_md5": "2b8ab68699469f4296548108576e22c4",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
     },
     {
       "asset_id": "TLS-CHR-030",
-      "name": "Edmund Daily Outfit",
-      "source": "02_Art/blender/source/chr/tls_chr_030_edmund_outfit.blend",
-      "export": "02_Art/exports/fbx/tls_chr_030_edmund_outfit_v001.fbx",
-      "geometry": {
-        "verts": 2496,
-        "tris": 4666
-      },
-      "rig": {
-        "bones": 65,
-        "pose": "A 15deg"
-      },
-      "materials": 9,
-      "note": "7 garment pieces fit over TLS-CHR-001; no cloth sim",
+      "object_name": "tls_chr_030_edmund_outfit",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_030_edmund_outfit.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_030_edmund_outfit_v001.fbx",
       "fbx_info": {
         "magic_ok": true,
-        "version": 7400,
-        "checked": "Kaydara FBX Binary header + version bytes"
-      }
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 2496,
+        "polygons": null,
+        "material_slots": [],
+        "dimensions_m": null
+      },
+      "verts": null,
+      "tris": null,
+      "fbx_bytes": 889916,
+      "fbx_md5": "39fbc4fd4a2fd2f8f85aae92fc4c7ac9",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
     },
     {
-      "asset_id": "TLS-SKL-001",
-      "name": "TLS_Rig_Human v1 (65 bones)",
-      "source": "02_Art/blender/source/rig/tls_skl_001_rig_human.blend",
-      "export": "02_Art/exports/fbx/tls_skl_001_rig_human_v001.fbx",
-      "geometry": {
-        "bones": 65,
-        "pose": "A 15deg"
-      },
-      "rig": {
-        "twist_bones": [
-          "upper_arm",
-          "forearm",
-          "thigh",
-          "shin"
-        ],
-        "fingers": "15 bones/hand",
-        "props_anchor": "satchel_anchor"
-      },
-      "note": "deformation tests: 5/5 clean, max edge stretch 1.265 (thigh raise)",
+      "asset_id": "TLS-ENV-040",
+      "object_name": "tls_env_040_green",
+      "blend_path": "02_Art/blender/source/env/tls_env_040_green.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_040_green_v001.fbx",
       "fbx_info": {
         "magic_ok": true,
-        "version": 7400,
-        "checked": "Kaydara FBX Binary header + version bytes"
-      }
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1906,
+        "polygons": 2278,
+        "material_slots": [
+          "TLS_Mat_Green_Stone",
+          "TLS_Mat_LeafCard",
+          "TLS_Mat_Green_Bark",
+          "TLS_Mat_HawthornBerry",
+          "TLS_Mat_WellWater",
+          "TLS_Mat_Green_Oak",
+          "TLS_Mat_Green_Slate",
+          "TLS_Mat_Green_Iron",
+          "TLS_Mat_Rope",
+          "TLS_Mat_Green_WoodOld"
+        ],
+        "dimensions_m": [
+          9.3744,
+          6.9093,
+          3.4979
+        ]
+      },
+      "verts": 1906,
+      "tris": 3116,
+      "fbx_bytes": 227980,
+      "fbx_md5": "e212ec39dbd3b3efee92f1a0fb2b34e3",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-ENV-081",
+      "object_name": "tls_env_081_boundary_stone",
+      "blend_path": "02_Art/blender/source/env/tls_env_081_boundary_stone.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_081_boundary_stone_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 58,
+        "polygons": 52,
+        "material_slots": [
+          "TLS_Mat_Boundary_Stone"
+        ],
+        "dimensions_m": [
+          0.5495,
+          0.5495,
+          1.42
+        ]
+      },
+      "verts": 58,
+      "tris": 96,
+      "fbx_bytes": 33836,
+      "fbx_md5": "40a765d851a781f8eaedacfa8606cdf1",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-ENV-101",
+      "object_name": "tls_env_101_kit_cottage",
+      "blend_path": "02_Art/blender/source/env/tls_env_101_kit_cottage.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_101_kit_cottage_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 464,
+        "polygons": 348,
+        "material_slots": [
+          "TLS_Mat_KitA_Rubble",
+          "TLS_Mat_KitA_Lime",
+          "TLS_Mat_KitA_Oak",
+          "TLS_Mat_KitA_Iron",
+          "TLS_Mat_KitA_SlateRoof"
+        ],
+        "dimensions_m": [
+          7.3,
+          5.35,
+          5.35
+        ]
+      },
+      "verts": 464,
+      "tris": 696,
+      "fbx_bytes": 159164,
+      "fbx_md5": "55bb35cf2d7390b1095aa0cd90f37101",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-001",
+      "object_name": "tls_prp_001_lantern",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_001_lantern.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_001_lantern_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1589,
+        "polygons": 1564,
+        "material_slots": [
+          "TLS_Mat_Lantern_Brass",
+          "TLS_Mat_Glass",
+          "TLS_Mat_Lantern_Iron",
+          "TLS_Mat_Candle"
+        ],
+        "dimensions_m": [
+          0.126,
+          0.126,
+          0.194
+        ]
+      },
+      "verts": 1589,
+      "tris": 2908,
+      "fbx_bytes": 133836,
+      "fbx_md5": "ca155674311ad40e13fc51936e33390d",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-002",
+      "object_name": "tls_prp_002_ledger",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_002_ledger.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_002_ledger_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1440,
+        "polygons": 1284,
+        "material_slots": [
+          "TLS_Mat_Ledger_Leather",
+          "TLS_Mat_Ledger_Paper",
+          "TLS_Mat_Ledger_Iron",
+          "TLS_Mat_Ledger_Brass"
+        ],
+        "dimensions_m": [
+          0.326,
+          0.248,
+          0.068
+        ]
+      },
+      "verts": 1440,
+      "tris": 2568,
+      "fbx_bytes": 204780,
+      "fbx_md5": "6a6368c0bc3dedf9767ba20c9fb95965",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-003",
+      "object_name": "tls_prp_003_sin_plate",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_003_sin_plate.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_003_sin_plate_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1349,
+        "polygons": 1258,
+        "material_slots": [
+          "TLS_Mat_SinPlate_Stone",
+          "TLS_Mat_Bread",
+          "TLS_Mat_Salt"
+        ],
+        "dimensions_m": [
+          0.28,
+          0.28,
+          0.066
+        ]
+      },
+      "verts": 1349,
+      "tris": 2492,
+      "fbx_bytes": 96252,
+      "fbx_md5": "a54e43cb90c614d8464421d3fd6e8500",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-004",
+      "object_name": "tls_prp_004_gate_key",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_004_gate_key.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_004_gate_key_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 474,
+        "polygons": 456,
+        "material_slots": [
+          "TLS_Mat_Key_Rust"
+        ],
+        "dimensions_m": [
+          0.049,
+          0.1805,
+          0.021
+        ]
+      },
+      "verts": 474,
+      "tris": 888,
+      "fbx_bytes": 57452,
+      "fbx_md5": "ad53621be66512ec8c9a612675485039",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-011",
+      "object_name": "tls_prp_011_tableware",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_011_tableware.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_011_tableware_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 2364,
+        "polygons": 2313,
+        "material_slots": [
+          "TLS_Mat_Tw_Brass",
+          "TLS_Mat_Pewter",
+          "TLS_Mat_Tw_Wax"
+        ],
+        "dimensions_m": [
+          0.518,
+          0.4195,
+          0.176
+        ]
+      },
+      "verts": 2364,
+      "tris": 4286,
+      "fbx_bytes": 162476,
+      "fbx_md5": "47298fe8cf7c143d05f70a8739281712",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-014",
+      "object_name": "tls_prp_014_evidence_a",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_014_evidence_a.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_014_evidence_a_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1299,
+        "polygons": 1250,
+        "material_slots": [
+          "TLS_Mat_BottleGlass",
+          "TLS_Mat_Cork",
+          "TLS_Mat_EvPaper",
+          "TLS_Mat_EvWax",
+          "TLS_Mat_EvRing"
+        ],
+        "dimensions_m": [
+          0.2692,
+          0.2249,
+          0.0964
+        ]
+      },
+      "verts": 1299,
+      "tris": 2448,
+      "fbx_bytes": 102300,
+      "fbx_md5": "41f283f7cbdaffd385efd7198f7c79df",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-PRP-015",
+      "object_name": "tls_prp_015_ledger_open",
+      "blend_path": "02_Art/blender/source/prp/tls_prp_015_ledger_open.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_prp_015_ledger_open_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 104,
+        "polygons": 78,
+        "material_slots": [
+          "TLS_Mat_Ledger_Leather",
+          "TLS_Mat_Ledger_Paper"
+        ],
+        "dimensions_m": [
+          0.5142,
+          0.3401,
+          0.1618
+        ]
+      },
+      "verts": 104,
+      "tris": 156,
+      "fbx_bytes": 59420,
+      "fbx_md5": "04c0f367edc77f75e2d22e6e4948e34e",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M1"
+    },
+    {
+      "asset_id": "TLS-CHR-020",
+      "object_name": "tls_chr_020_body_kit",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_020_body_kit.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_020_body_kit_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1110,
+        "polygons": 1326,
+        "material_slots": [
+          "TLS_Mat_Crowd_Skin",
+          "TLS_Mat_Crowd_Boot"
+        ],
+        "dimensions_m": [
+          2.7991,
+          0.299,
+          1.5429
+        ]
+      },
+      "verts": 1110,
+      "tris": 2034,
+      "fbx_bytes": 75916,
+      "fbx_md5": "530bb456812f1a52be853e8d91b3812b",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-CHR-021",
+      "object_name": "tls_chr_021_heads_male",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_021_heads_male.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_021_heads_male_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 4596,
+        "polygons": 4764,
+        "material_slots": [
+          "TLS_Mat_Head_Skin0",
+          "TLS_Mat_Head_Eye0",
+          "TLS_Mat_Head_Hair0",
+          "TLS_Mat_Head_Skin1",
+          "TLS_Mat_Head_Eye1",
+          "TLS_Mat_Head_Hair1",
+          "TLS_Mat_Head_Skin2",
+          "TLS_Mat_Head_Eye2",
+          "TLS_Mat_Head_Hair2",
+          "TLS_Mat_Head_Skin3",
+          "TLS_Mat_Head_Eye3",
+          "TLS_Mat_Head_Hair3",
+          "TLS_Mat_Head_Skin4",
+          "TLS_Mat_Head_Eye4",
+          "TLS_Mat_Head_Hair4"
+        ],
+        "dimensions_m": [
+          1.371,
+          0.1995,
+          0.2218
+        ]
+      },
+      "verts": 4596,
+      "tris": 8732,
+      "fbx_bytes": 233772,
+      "fbx_md5": "f41136b6e3b5b5a2390c68f2a3d86464",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-CHR-022",
+      "object_name": "tls_chr_022_heads_female",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_022_heads_female.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_022_heads_female_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 5246,
+        "polygons": 5356,
+        "material_slots": [
+          "TLS_Mat_Head_Skin10",
+          "TLS_Mat_Head_Eye10",
+          "TLS_Mat_Head_Hair10",
+          "TLS_Mat_Head_Skin11",
+          "TLS_Mat_Head_Eye11",
+          "TLS_Mat_Head_Hair11",
+          "TLS_Mat_Head_Cloth11",
+          "TLS_Mat_Head_Skin12",
+          "TLS_Mat_Head_Eye12",
+          "TLS_Mat_Head_Hair12",
+          "TLS_Mat_Head_Skin13",
+          "TLS_Mat_Head_Eye13",
+          "TLS_Mat_Head_Hair13",
+          "TLS_Mat_Head_Cloth13",
+          "TLS_Mat_Head_Skin14",
+          "TLS_Mat_Head_Eye14",
+          "TLS_Mat_Head_Hair14"
+        ],
+        "dimensions_m": [
+          1.3512,
+          0.2327,
+          0.2905
+        ]
+      },
+      "verts": 5246,
+      "tris": 9914,
+      "fbx_bytes": 259612,
+      "fbx_md5": "8816110c17b86fe4a4f58f81dafee2ce",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-CHR-023",
+      "object_name": "tls_chr_023_heads_elder",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_023_heads_elder.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_023_heads_elder_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 2661,
+        "polygons": 2775,
+        "material_slots": [
+          "TLS_Mat_Head_Skin20",
+          "TLS_Mat_Head_Eye20",
+          "TLS_Mat_Head_Hair20",
+          "TLS_Mat_Head_Skin21",
+          "TLS_Mat_Head_Eye21",
+          "TLS_Mat_Head_Hair21",
+          "TLS_Mat_Head_Skin22",
+          "TLS_Mat_Head_Eye22",
+          "TLS_Mat_Head_Hair22"
+        ],
+        "dimensions_m": [
+          0.768,
+          0.1891,
+          0.2215
+        ]
+      },
+      "verts": 2661,
+      "tris": 5053,
+      "fbx_bytes": 145052,
+      "fbx_md5": "7e02fe2592362be4787199a7829526c5",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-CHR-024",
+      "object_name": "tls_chr_024_heads_youth",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_024_heads_youth.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_024_heads_youth_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 3846,
+        "polygons": 3966,
+        "material_slots": [
+          "TLS_Mat_Head_Skin30",
+          "TLS_Mat_Head_Eye30",
+          "TLS_Mat_Head_Hair30",
+          "TLS_Mat_Head_Skin31",
+          "TLS_Mat_Head_Eye31",
+          "TLS_Mat_Head_Hair31",
+          "TLS_Mat_Head_Skin32",
+          "TLS_Mat_Head_Eye32",
+          "TLS_Mat_Head_Hair32",
+          "TLS_Mat_Head_Skin33",
+          "TLS_Mat_Head_Eye33",
+          "TLS_Mat_Head_Hair33"
+        ],
+        "dimensions_m": [
+          0.9256,
+          0.1704,
+          0.2264
+        ]
+      },
+      "verts": 3846,
+      "tris": 7324,
+      "fbx_bytes": 188844,
+      "fbx_md5": "f36573eef5a53c4ca29d742293fcf61c",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-CHR-025",
+      "object_name": "tls_chr_025_garments",
+      "blend_path": "02_Art/blender/source/chr/tls_chr_025_garments.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_chr_025_garments_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 1388,
+        "polygons": 1322,
+        "material_slots": [
+          "TLS_Mat_Gar_WoolA",
+          "TLS_Mat_Gar_WoolB",
+          "TLS_Mat_Gar_WoolC",
+          "TLS_Mat_Gar_Linen",
+          "TLS_Mat_Gar_Leather"
+        ],
+        "dimensions_m": [
+          0.8011,
+          0.44,
+          1.415
+        ]
+      },
+      "verts": 1388,
+      "tris": 2396,
+      "fbx_bytes": 144844,
+      "fbx_md5": "0bb8b45b55c8e49c5386aa88357c32c3",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-ENV-104",
+      "object_name": "tls_env_104_kit_church",
+      "blend_path": "02_Art/blender/source/env/tls_env_104_kit_church.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_104_kit_church_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 410,
+        "polygons": 438,
+        "material_slots": [
+          "TLS_Mat_Church_Oak",
+          "TLS_Mat_Church_Stone",
+          "TLS_Mat_FontWater"
+        ],
+        "dimensions_m": [
+          2.45,
+          1.1497,
+          3.1
+        ]
+      },
+      "verts": 410,
+      "tris": 676,
+      "fbx_bytes": 57660,
+      "fbx_md5": "19acf99fad0150d335af28bc2801ad07",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-ENV-106",
+      "object_name": "tls_env_106_kit_graveyard",
+      "blend_path": "02_Art/blender/source/env/tls_env_106_kit_graveyard.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_106_kit_graveyard_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 723,
+        "polygons": 629,
+        "material_slots": [
+          "TLS_Mat_Grave_Slate",
+          "TLS_Mat_Grave_Rubble",
+          "TLS_Mat_Grave_Earth",
+          "TLS_Mat_Grave_Iron",
+          "TLS_Mat_Grave_Oak"
+        ],
+        "dimensions_m": [
+          3.1037,
+          2.1,
+          2.88
+        ]
+      },
+      "verts": 723,
+      "tris": 1228,
+      "fbx_bytes": 133804,
+      "fbx_md5": "88adcf130d7fd16d75bb20132f022df4",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
+    },
+    {
+      "asset_id": "TLS-ENV-107",
+      "object_name": "tls_env_107_kit_nature",
+      "blend_path": "02_Art/blender/source/env/tls_env_107_kit_nature.blend",
+      "fbx_path": "02_Art/exports/fbx/tls_env_107_kit_nature_v001.fbx",
+      "fbx_info": {
+        "magic_ok": true,
+        "fbx_version": 7400
+      },
+      "geometry": {
+        "vertices": 2846,
+        "polygons": 3273,
+        "material_slots": [
+          "TLS_Mat_Nat_Bark",
+          "TLS_Mat_Nat_DeadWood",
+          "TLS_Mat_Nat_Grass",
+          "TLS_Mat_Nat_Fern",
+          "TLS_Mat_Nat_Rock",
+          "TLS_Mat_Nat_Peat",
+          "TLS_Mat_Nat_PoolWater"
+        ],
+        "dimensions_m": [
+          29.1082,
+          5.9,
+          5.9767
+        ]
+      },
+      "verts": 2846,
+      "tris": 5100,
+      "fbx_bytes": 272396,
+      "fbx_md5": "e8e52b6f4eab2d462f3c6e06e5e84adc",
+      "fbx_version": 7400,
+      "roundtrip_verify": "PASS",
+      "milestone": "M2"
     }
   ],
-  "m3_4_note": "Edmund character batch added; all EXPORTED rows have real .blend + binary FBX v7400 on disk"
+  "summary": {
+    "exported_art_assets": 26,
+    "all_fbx_binary_v7400": true,
+    "all_roundtrip_verified": true,
+    "verify_evidence_dir": "02_Art/exports/verify/",
+    "renders_evidence_dir": "reports/M4_BATCH1_EVIDENCE/renders/"
+  }
 }

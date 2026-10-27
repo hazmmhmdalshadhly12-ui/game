@@ -1,0 +1,205 @@
+{
+  "asset": "TLS-PRP-004",
+  "objects": [
+    {
+      "name": "Key_Shaft",
+      "verts": 26,
+      "polys": 36,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_Bit1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_Bit2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_Bit3",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_BowRing",
+      "verts": 280,
+      "polys": 270,
+      "tris": 540,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_BowCross1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_BowCross2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Key_Collar",
+      "verts": 128,
+      "polys": 120,
+      "tris": 240,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Key_Rust"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 474,
+    "tris": 888
+  },
+  "bbox_m": {
+    "min": [
+      -0.0245,
+      -0.132,
+      0.002
+    ],
+    "max": [
+      0.0245,
+      0.0485,
+      0.023
+    ],
+    "dims": [
+      0.049,
+      0.1805,
+      0.021
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.05,
+    0.17,
+    0.03
+  ],
+  "note": "Ifan's rusted Y Porth key - central evidence",
+  "fbx_expected_objects": 9,
+  "blend_mb": 2.23,
+  "fbx_mb": 0.06,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_004_gate_key_v001.fbx"
+}

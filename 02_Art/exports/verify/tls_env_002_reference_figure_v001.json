@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_002_reference_figure_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_002_reference_figure_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 1,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 802,
+  "tris": 1580,
+  "dims_m": [
+    0.57,
+    0.25,
+    1.75
+  ],
+  "materials": 1,
+  "header_ok": true,
+  "status": "PASS"
+}

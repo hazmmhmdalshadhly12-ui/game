@@ -1,0 +1,106 @@
+{
+  "asset": "TLS-CHR-023",
+  "objects": [
+    {
+      "name": "Head_E1",
+      "verts": 844,
+      "polys": 885,
+      "tris": 1604,
+      "boundary_edges": 52,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin20",
+        "TLS_Mat_Head_Eye20",
+        "TLS_Mat_Head_Hair20"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_E2",
+      "verts": 964,
+      "polys": 996,
+      "tris": 1834,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin21",
+        "TLS_Mat_Head_Eye21",
+        "TLS_Mat_Head_Hair21"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_E3",
+      "verts": 853,
+      "polys": 894,
+      "tris": 1615,
+      "boundary_edges": 59,
+      "nonmanifold_edges": 4,
+      "loose_verts": 1,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin22",
+        "TLS_Mat_Head_Eye22",
+        "TLS_Mat_Head_Hair22"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 2661,
+    "tris": 5053
+  },
+  "bbox_m": {
+    "min": [
+      -0.0825,
+      -0.0958,
+      -0.1269
+    ],
+    "max": [
+      0.6855,
+      0.0933,
+      0.0946
+    ],
+    "dims": [
+      0.768,
+      0.1891,
+      0.2215
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.9,
+    0.25,
+    0.28
+  ],
+  "note": "3 aged heads - gaunt hollows + nasolabial creases in geometry",
+  "fbx_expected_objects": 3,
+  "blend_mb": 4.81,
+  "fbx_mb": 0.15,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_023_heads_elder_v001.fbx"
+}

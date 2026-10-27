@@ -1,0 +1,22 @@
+{
+  "asset": "tls_prp_011_tableware_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_011_tableware_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 17,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 3456,
+  "tris": 4286,
+  "dims_m": [
+    0.518,
+    0.4195,
+    0.176
+  ],
+  "materials": 3,
+  "header_ok": true,
+  "status": "PASS"
+}

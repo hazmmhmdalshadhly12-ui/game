@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_022_heads_female_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_022_heads_female_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 5,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 6560,
+  "tris": 9914,
+  "dims_m": [
+    1.3512,
+    0.2327,
+    0.2905
+  ],
+  "materials": 17,
+  "header_ok": true,
+  "status": "PASS"
+}

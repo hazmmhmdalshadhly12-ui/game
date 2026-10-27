@@ -1,0 +1,42 @@
+{
+  "generated": "2026-10-27 15:56:07",
+  "seconds": 0.9,
+  "assets": [
+    {
+      "asset": "TLS-CHR-020",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_020_body_kit.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_020_body_kit_v001.fbx",
+      "tris": 2034
+    },
+    {
+      "asset": "TLS-CHR-021",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_021_heads_male.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_021_heads_male_v001.fbx",
+      "tris": 8732
+    },
+    {
+      "asset": "TLS-CHR-022",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_022_heads_female.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_022_heads_female_v001.fbx",
+      "tris": 9914
+    },
+    {
+      "asset": "TLS-CHR-023",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_023_heads_elder.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_023_heads_elder_v001.fbx",
+      "tris": 5053
+    },
+    {
+      "asset": "TLS-CHR-024",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_024_heads_youth.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_024_heads_youth_v001.fbx",
+      "tris": 7324
+    },
+    {
+      "asset": "TLS-CHR-025",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/chr/tls_chr_025_garments.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_025_garments_v001.fbx",
+      "tris": 2396
+    }
+  ]
+}

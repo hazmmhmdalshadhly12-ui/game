@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_106_kit_graveyard_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_106_kit_graveyard_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 29,
+  "ucx_objects": 2,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 1149,
+  "tris": 1228,
+  "dims_m": [
+    3.1037,
+    2.1,
+    2.88
+  ],
+  "materials": 5,
+  "header_ok": true,
+  "status": "PASS"
+}

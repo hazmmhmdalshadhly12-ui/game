@@ -1,0 +1,13 @@
+{
+  "asset": "TLS-ANM-001",
+  "action": "tls_anm_001_idle",
+  "frames": 97,
+  "fps": 30,
+  "loop": "96f",
+  "bones_animated": 14,
+  "loop_closure_error_mm": 0.0,
+  "spine03_breath_pitch_deg": 1.5,
+  "head_world_z_travel_mm": 0.01,
+  "blender": "5.0.1",
+  "fbx_mb": 1.08
+}

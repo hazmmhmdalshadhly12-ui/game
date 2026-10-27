@@ -1,0 +1,22 @@
+{
+  "asset": "tls_prp_004_gate_key_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_004_gate_key_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 8,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 626,
+  "tris": 888,
+  "dims_m": [
+    0.049,
+    0.1805,
+    0.021
+  ],
+  "materials": 1,
+  "header_ok": true,
+  "status": "PASS"
+}

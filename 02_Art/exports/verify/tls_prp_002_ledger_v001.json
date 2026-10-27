@@ -1,0 +1,22 @@
+{
+  "asset": "tls_prp_002_ledger_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_002_ledger_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 44,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 2664,
+  "tris": 2568,
+  "dims_m": [
+    0.326,
+    0.248,
+    0.068
+  ],
+  "materials": 4,
+  "header_ok": true,
+  "status": "PASS"
+}

@@ -1,0 +1,268 @@
+{
+  "asset": "TLS-PRP-014",
+  "objects": [
+    {
+      "name": "Ev_Bottle",
+      "verts": 241,
+      "polys": 240,
+      "tris": 456,
+      "boundary_edges": 24,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_BottleGlass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_Cork",
+      "verts": 30,
+      "polys": 42,
+      "tris": 56,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Cork"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_Label",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvPaper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_Letter",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvPaper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_LetterFold",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvPaper"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_Seal",
+      "verts": 266,
+      "polys": 252,
+      "tris": 504,
+      "boundary_edges": 28,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvWax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_Ring",
+      "verts": 160,
+      "polys": 152,
+      "tris": 304,
+      "boundary_edges": 16,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvRing"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_RingBezel",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvRing"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_WaxDrop0",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvWax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_WaxDrop1",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvWax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Ev_WaxDrop2",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_EvWax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 1299,
+    "tris": 2448
+  },
+  "bbox_m": {
+    "min": [
+      -0.0713,
+      -0.1029,
+      -0.0004
+    ],
+    "max": [
+      0.1979,
+      0.1221,
+      0.096
+    ],
+    "dims": [
+      0.2692,
+      0.2249,
+      0.0964
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.3,
+    0.26,
+    0.1
+  ],
+  "note": "day1-3 evidence: laudanum bottle, collector letter+seal, grave ring, wax drops",
+  "fbx_expected_objects": 12,
+  "blend_mb": 5.3,
+  "fbx_mb": 0.1,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_014_evidence_a_v001.fbx"
+}

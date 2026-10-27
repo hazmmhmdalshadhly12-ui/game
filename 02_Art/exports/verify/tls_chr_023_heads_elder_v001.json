@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_023_heads_elder_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_023_heads_elder_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 3,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 3532,
+  "tris": 5053,
+  "dims_m": [
+    0.768,
+    0.1891,
+    0.2215
+  ],
+  "materials": 9,
+  "header_ok": true,
+  "status": "PASS"
+}

@@ -1,0 +1,394 @@
+{
+  "asset": "TLS-PRP-011",
+  "objects": [
+    {
+      "name": "Tw_Jug",
+      "verts": 281,
+      "polys": 280,
+      "tris": 532,
+      "boundary_edges": 28,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_JugSpout",
+      "verts": 26,
+      "polys": 36,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_JugHandle",
+      "verts": 282,
+      "polys": 263,
+      "tris": 506,
+      "boundary_edges": 56,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_JugKnob",
+      "verts": 26,
+      "polys": 36,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Mug0",
+      "verts": 155,
+      "polys": 154,
+      "tris": 286,
+      "boundary_edges": 22,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_MugHandle0",
+      "verts": 178,
+      "polys": 163,
+      "tris": 310,
+      "boundary_edges": 44,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Mug1",
+      "verts": 155,
+      "polys": 154,
+      "tris": 286,
+      "boundary_edges": 22,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_MugHandle1",
+      "verts": 178,
+      "polys": 163,
+      "tris": 310,
+      "boundary_edges": 44,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Plate0",
+      "verts": 156,
+      "polys": 130,
+      "tris": 260,
+      "boundary_edges": 52,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Plate1",
+      "verts": 156,
+      "polys": 130,
+      "tris": 260,
+      "boundary_edges": 52,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Candlestick0",
+      "verts": 241,
+      "polys": 240,
+      "tris": 456,
+      "boundary_edges": 24,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Candle0",
+      "verts": 34,
+      "polys": 48,
+      "tris": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Wax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Wick0",
+      "verts": 14,
+      "polys": 18,
+      "tris": 24,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Candlestick1",
+      "verts": 241,
+      "polys": 240,
+      "tris": 456,
+      "boundary_edges": 24,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Candle1",
+      "verts": 34,
+      "polys": 48,
+      "tris": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Wax"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Wick1",
+      "verts": 14,
+      "polys": 18,
+      "tris": 24,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Pewter"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Tw_Tray",
+      "verts": 193,
+      "polys": 192,
+      "tris": 352,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Tw_Brass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 2364,
+    "tris": 4286
+  },
+  "bbox_m": {
+    "min": [
+      -0.22,
+      -0.1855,
+      0.0
+    ],
+    "max": [
+      0.298,
+      0.234,
+      0.176
+    ],
+    "dims": [
+      0.518,
+      0.4195,
+      0.176
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.42,
+    0.36,
+    0.23
+  ],
+  "note": "jug+2 mugs+2 plates+2 candlesticks+tray arrangement",
+  "fbx_expected_objects": 18,
+  "blend_mb": 3.15,
+  "fbx_mb": 0.16,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_011_tableware_v001.fbx"
+}

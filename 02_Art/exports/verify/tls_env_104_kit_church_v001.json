@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_104_kit_church_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_104_kit_church_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 7,
+  "ucx_objects": 2,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 1070,
+  "tris": 676,
+  "dims_m": [
+    2.45,
+    1.1497,
+    3.1
+  ],
+  "materials": 3,
+  "header_ok": true,
+  "status": "PASS"
+}

@@ -1,0 +1,22 @@
+{
+  "asset": "tls_prp_001_lantern_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_001_lantern_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 19,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 2068,
+  "tris": 2908,
+  "dims_m": [
+    0.126,
+    0.126,
+    0.194
+  ],
+  "materials": 4,
+  "header_ok": true,
+  "status": "PASS"
+}

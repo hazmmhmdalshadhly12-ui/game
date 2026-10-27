@@ -1,0 +1,154 @@
+{
+  "asset": "TLS-CHR-022",
+  "objects": [
+    {
+      "name": "Head_F1",
+      "verts": 964,
+      "polys": 996,
+      "tris": 1834,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin10",
+        "TLS_Mat_Head_Eye10",
+        "TLS_Mat_Head_Hair10"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_F2",
+      "verts": 1176,
+      "polys": 1185,
+      "tris": 2204,
+      "boundary_edges": 112,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin11",
+        "TLS_Mat_Head_Eye11",
+        "TLS_Mat_Head_Hair11",
+        "TLS_Mat_Head_Cloth11"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_F3",
+      "verts": 966,
+      "polys": 994,
+      "tris": 1838,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin12",
+        "TLS_Mat_Head_Eye12",
+        "TLS_Mat_Head_Hair12"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_F4",
+      "verts": 1176,
+      "polys": 1185,
+      "tris": 2204,
+      "boundary_edges": 112,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin13",
+        "TLS_Mat_Head_Eye13",
+        "TLS_Mat_Head_Hair13",
+        "TLS_Mat_Head_Cloth13"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_F5",
+      "verts": 964,
+      "polys": 996,
+      "tris": 1834,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin14",
+        "TLS_Mat_Head_Eye14",
+        "TLS_Mat_Head_Hair14"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 5246,
+    "tris": 9914
+  },
+  "bbox_m": {
+    "min": [
+      -0.0762,
+      -0.1164,
+      -0.1786
+    ],
+    "max": [
+      1.275,
+      0.1164,
+      0.1119
+    ],
+    "dims": [
+      1.3512,
+      0.2327,
+      0.2905
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    1.5,
+    0.3,
+    0.3
+  ],
+  "note": "5 female heads incl. 2 Welsh capot hoods; bun/long variations",
+  "fbx_expected_objects": 5,
+  "blend_mb": 4.84,
+  "fbx_mb": 0.26,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_022_heads_female_v001.fbx"
+}

@@ -1,0 +1,129 @@
+{
+  "asset": "TLS-CHR-024",
+  "objects": [
+    {
+      "name": "Head_Y1",
+      "verts": 958,
+      "polys": 988,
+      "tris": 1826,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin30",
+        "TLS_Mat_Head_Eye30",
+        "TLS_Mat_Head_Hair30"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_Y2",
+      "verts": 966,
+      "polys": 994,
+      "tris": 1838,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin31",
+        "TLS_Mat_Head_Eye31",
+        "TLS_Mat_Head_Hair31"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_Y3",
+      "verts": 958,
+      "polys": 988,
+      "tris": 1826,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin32",
+        "TLS_Mat_Head_Eye32",
+        "TLS_Mat_Head_Hair32"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_Y4",
+      "verts": 964,
+      "polys": 996,
+      "tris": 1834,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin33",
+        "TLS_Mat_Head_Eye33",
+        "TLS_Mat_Head_Hair33"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 3846,
+    "tris": 7324
+  },
+  "bbox_m": {
+    "min": [
+      -0.0739,
+      -0.0856,
+      -0.1269
+    ],
+    "max": [
+      0.8517,
+      0.0848,
+      0.0995
+    ],
+    "dims": [
+      0.9256,
+      0.1704,
+      0.2264
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    1.05,
+    0.24,
+    0.26
+  ],
+  "note": "4 youth heads incl. 2 child-scale (58-62mm skulls)",
+  "fbx_expected_objects": 4,
+  "blend_mb": 4.82,
+  "fbx_mb": 0.19,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_024_heads_youth_v001.fbx"
+}

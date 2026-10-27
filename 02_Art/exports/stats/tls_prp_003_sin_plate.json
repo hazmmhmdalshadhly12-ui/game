@@ -1,0 +1,226 @@
+{
+  "asset": "TLS-PRP-003",
+  "objects": [
+    {
+      "name": "SinPlate_Body",
+      "verts": 192,
+      "polys": 160,
+      "tris": 320,
+      "boundary_edges": 64,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_SinPlate_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Bread",
+      "verts": 418,
+      "polys": 396,
+      "tris": 792,
+      "boundary_edges": 44,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Score0",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Score1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Score2",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Salt",
+      "verts": 145,
+      "polys": 144,
+      "tris": 264,
+      "boundary_edges": 24,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Salt"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.065,
+        -0.035,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Crumb0",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Crumb1",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SinPlate_Crumb2",
+      "verts": 190,
+      "polys": 180,
+      "tris": 360,
+      "boundary_edges": 20,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Bread"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 1349,
+    "tris": 2492
+  },
+  "bbox_m": {
+    "min": [
+      -0.14,
+      -0.14,
+      0.0
+    ],
+    "max": [
+      0.14,
+      0.14,
+      0.066
+    ],
+    "dims": [
+      0.28,
+      0.28,
+      0.066
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.29,
+    0.29,
+    0.09
+  ],
+  "note": "bread + salt ritual plate - recurring key item (11 scenes)",
+  "fbx_expected_objects": 10,
+  "blend_mb": 1.82,
+  "fbx_mb": 0.1,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_prp_003_sin_plate_v001.fbx"
+}

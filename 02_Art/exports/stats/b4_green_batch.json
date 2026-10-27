@@ -1,0 +1,18 @@
+{
+  "generated": "2026-10-27 15:52:04",
+  "seconds": 0.4,
+  "assets": [
+    {
+      "asset": "TLS-ENV-040",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_040_green.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_040_green_v001.fbx",
+      "tris": 3116
+    },
+    {
+      "asset": "TLS-ENV-107",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_107_kit_nature.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_107_kit_nature_v001.fbx",
+      "tris": 5100
+    }
+  ]
+}

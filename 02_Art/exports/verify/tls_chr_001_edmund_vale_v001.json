@@ -1,0 +1,22 @@
+{
+  "asset": "tls_chr_001_edmund_vale_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_001_edmund_vale_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 5,
+  "ucx_objects": 0,
+  "armatures": 1,
+  "bones": 53,
+  "verts": 16083,
+  "tris": 27812,
+  "dims_m": [
+    0.914,
+    0.3151,
+    1.7645
+  ],
+  "materials": 3,
+  "header_ok": true,
+  "status": "PASS"
+}

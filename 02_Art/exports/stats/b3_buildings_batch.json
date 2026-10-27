@@ -1,0 +1,30 @@
+{
+  "generated": "2026-10-27 15:48:41",
+  "seconds": 0.3,
+  "assets": [
+    {
+      "asset": "TLS-ENV-101",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_101_kit_cottage.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_101_kit_cottage_v001.fbx",
+      "tris": 696
+    },
+    {
+      "asset": "TLS-ENV-081",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_081_boundary_stone.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_081_boundary_stone_v001.fbx",
+      "tris": 96
+    },
+    {
+      "asset": "TLS-ENV-106",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_106_kit_graveyard.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_106_kit_graveyard_v001.fbx",
+      "tris": 1228
+    },
+    {
+      "asset": "TLS-ENV-104",
+      "blend": "/home/z/my-project/work/lastsin-repo/02_Art/blender/source/env/tls_env_104_kit_church.blend",
+      "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_104_kit_church_v001.fbx",
+      "tris": 676
+    }
+  ]
+}

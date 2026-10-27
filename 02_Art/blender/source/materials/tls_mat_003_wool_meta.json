@@ -1,0 +1,10 @@
+{
+  "asset": "TLS-MAT-003",
+  "material": "TLS_Mat_Wool_Work",
+  "textures": {
+    "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_BaseColor.png",
+    "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_Normal.png",
+    "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_ORM.png"
+  },
+  "slab": "Slab_TLS_Mat_Wool_Work"
+}

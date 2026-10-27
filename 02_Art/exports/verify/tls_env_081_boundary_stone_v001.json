@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_081_boundary_stone_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_081_boundary_stone_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 5,
+  "ucx_objects": 1,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 90,
+  "tris": 96,
+  "dims_m": [
+    0.5495,
+    0.5495,
+    1.42
+  ],
+  "materials": 1,
+  "header_ok": true,
+  "status": "PASS"
+}

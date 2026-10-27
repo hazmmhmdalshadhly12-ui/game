@@ -1,0 +1,710 @@
+{
+  "asset": "TLS-ENV-107",
+  "objects": [
+    {
+      "name": "Nat_OakBare",
+      "verts": 768,
+      "polys": 990,
+      "tris": 1320,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Bark"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Ash",
+      "verts": 264,
+      "polys": 342,
+      "tris": 456,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Bark"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Snag",
+      "verts": 110,
+      "polys": 144,
+      "tris": 192,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_DeadWood"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Hazel",
+      "verts": 378,
+      "polys": 504,
+      "tris": 672,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Bark"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass0_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass0_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass0_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass1_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass1_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass1_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass2_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass2_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass2_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass3_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass3_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Grass3_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken0_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken0_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken0_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken1_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken1_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Bracken1_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Fern"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds0_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds0_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds0_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds1_a",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds1_b",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_Reeds1_c",
+      "verts": 4,
+      "polys": 1,
+      "tris": 2,
+      "boundary_edges": 4,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Grass"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_RockS",
+      "verts": 272,
+      "polys": 288,
+      "tris": 540,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Rock"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_RockM",
+      "verts": 380,
+      "polys": 399,
+      "tris": 756,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Rock"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_RockL",
+      "verts": 506,
+      "polys": 528,
+      "tris": 1008,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Rock"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Nat_PeatBank",
+      "verts": 72,
+      "polys": 54,
+      "tris": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Nat_Peat",
+        "TLS_Mat_Nat_PoolWater"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 2846,
+    "tris": 5100
+  },
+  "bbox_m": {
+    "min": [
+      -2.8082,
+      -2.75,
+      -0.5444
+    ],
+    "max": [
+      26.3,
+      3.15,
+      5.4323
+    ],
+    "dims": [
+      29.1082,
+      5.9,
+      5.9767
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    27.0,
+    3.6,
+    6.5
+  ],
+  "note": "bare oak + ash + snag + hazel + grass/bracken/reed cards + rocks x3 + peat bank w/ standing water",
+  "fbx_expected_objects": 34,
+  "blend_mb": 8.63,
+  "fbx_mb": 0.27,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_107_kit_nature_v001.fbx"
+}

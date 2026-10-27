@@ -1,0 +1,103 @@
+{
+  "asset": "TLS-CHR-020",
+  "objects": [
+    {
+      "name": "Crowd_Body_Slim",
+      "verts": 370,
+      "polys": 442,
+      "tris": 678,
+      "boundary_edges": 6,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Crowd_Skin",
+        "TLS_Mat_Crowd_Boot"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Crowd_Body_Medium",
+      "verts": 370,
+      "polys": 442,
+      "tris": 678,
+      "boundary_edges": 6,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Crowd_Skin",
+        "TLS_Mat_Crowd_Boot"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Crowd_Body_Heavy",
+      "verts": 370,
+      "polys": 442,
+      "tris": 678,
+      "boundary_edges": 6,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Crowd_Skin",
+        "TLS_Mat_Crowd_Boot"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 1110,
+    "tris": 2034
+  },
+  "bbox_m": {
+    "min": [
+      -0.3591,
+      -0.1725,
+      0.0
+    ],
+    "max": [
+      2.4399,
+      0.1265,
+      1.5429
+    ],
+    "dims": [
+      2.7991,
+      0.299,
+      1.5429
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    2.5,
+    0.6,
+    1.9
+  ],
+  "note": "3 builds (slim 1.68/medium 1.75/heavy 1.80) A-pose 15; mitten hands; rig at M2",
+  "fbx_expected_objects": 3,
+  "blend_mb": 2.51,
+  "fbx_mb": 0.08,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_020_body_kit_v001.fbx"
+}

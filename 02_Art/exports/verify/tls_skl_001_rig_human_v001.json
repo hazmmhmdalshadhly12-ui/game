@@ -1,0 +1,22 @@
+{
+  "asset": "tls_skl_001_rig_human_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_skl_001_rig_human_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 0,
+  "ucx_objects": 0,
+  "armatures": 1,
+  "bones": 53,
+  "verts": 0,
+  "tris": 0,
+  "dims_m": [
+    0,
+    0,
+    0
+  ],
+  "materials": 0,
+  "header_ok": true,
+  "status": "PASS"
+}

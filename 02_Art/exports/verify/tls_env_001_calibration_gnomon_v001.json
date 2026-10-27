@@ -1,0 +1,22 @@
+{
+  "asset": "tls_env_001_calibration_gnomon_v001",
+  "fbx": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_001_calibration_gnomon_v001.fbx",
+  "header": {
+    "binary": true,
+    "version": 7400
+  },
+  "mesh_objects": 1,
+  "ucx_objects": 0,
+  "armatures": 0,
+  "bones": 0,
+  "verts": 65,
+  "tris": 110,
+  "dims_m": [
+    1.35,
+    1.0,
+    0.77
+  ],
+  "materials": 5,
+  "header_ok": true,
+  "status": "PASS"
+}

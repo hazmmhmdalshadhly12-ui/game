@@ -1,0 +1,142 @@
+{
+  "asset": "TLS-ENV-081",
+  "objects": [
+    {
+      "name": "Boundary_Pillar",
+      "verts": 26,
+      "polys": 28,
+      "tris": 48,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Boundary_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Boundary_Cap",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Boundary_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Boundary_Letter0",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Boundary_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Boundary_Letter1",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Boundary_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Boundary_Base",
+      "verts": 8,
+      "polys": 6,
+      "tris": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Boundary_Stone"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 58,
+    "tris": 96
+  },
+  "bbox_m": {
+    "min": [
+      -0.2748,
+      -0.2748,
+      0.0
+    ],
+    "max": [
+      0.2748,
+      0.2748,
+      1.42
+    ],
+    "dims": [
+      0.5495,
+      0.5495,
+      1.42
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    0.52,
+    0.52,
+    1.46
+  ],
+  "note": "Tŷ Uchel - Josiah's death spot, opening scene; 2 weathered letter panels",
+  "fbx_expected_objects": 6,
+  "blend_mb": 1.6,
+  "fbx_mb": 0.03,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_env_081_boundary_stone_v001.fbx"
+}

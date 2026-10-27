@@ -1,0 +1,122 @@
+{
+  "generated": "2026-10-27 15:35:34",
+  "blender": "5.0.1",
+  "seconds": 44.1,
+  "results": [
+    {
+      "asset": "TLS-TEX-001",
+      "file": "/home/z/my-project/work/lastsin-repo/02_Art/textures/debug/tls_tex_001_uv_checker.png",
+      "bytes": 19060,
+      "res": 1024
+    },
+    {
+      "asset": "TLS-MAT-001",
+      "textures": {
+        "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_BaseColor.png",
+        "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_Normal.png",
+        "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_ORM.png"
+      },
+      "blend_bytes": 1789726
+    },
+    {
+      "asset": "TLS-MAT-002",
+      "textures": {
+        "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_BaseColor.png",
+        "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_Normal.png",
+        "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_ORM.png"
+      },
+      "blend_bytes": 2919545
+    },
+    {
+      "asset": "TLS-MAT-003",
+      "textures": {
+        "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_BaseColor.png",
+        "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_Normal.png",
+        "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wool/tls_tex_wool_ORM.png"
+      },
+      "blend_bytes": 4755539
+    },
+    {
+      "asset": "TLS-MAT-004",
+      "textures": {
+        "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_BaseColor.png",
+        "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_Normal.png",
+        "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_ORM.png"
+      },
+      "blend_bytes": 2543750
+    },
+    {
+      "asset": "TLS-MAT-005",
+      "textures": {
+        "peat": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_peat/tls_tex_moor_peat_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_peat/tls_tex_moor_peat_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_peat/tls_tex_moor_peat_ORM.png"
+        },
+        "heather": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_heather/tls_tex_moor_heather_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_heather/tls_tex_moor_heather_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_heather/tls_tex_moor_heather_ORM.png"
+        },
+        "bark": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/bark/tls_tex_bark_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/bark/tls_tex_bark_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/bark/tls_tex_bark_ORM.png"
+        },
+        "mud": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_mud/tls_tex_moor_mud_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_mud/tls_tex_moor_mud_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/moor_mud/tls_tex_moor_mud_ORM.png"
+        }
+      },
+      "blend_bytes": 8341018,
+      "layers": [
+        "TLS_Mat_Moor_Peat",
+        "TLS_Mat_Moor_Heather",
+        "TLS_Mat_Bark_Oak",
+        "TLS_Mat_Mud_Wet"
+      ]
+    },
+    {
+      "support": {
+        "stone_wall": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/stone_wall/tls_tex_stone_wall_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/stone_wall/tls_tex_stone_wall_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/stone_wall/tls_tex_stone_wall_ORM.png"
+        },
+        "slate_roof": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate_roof/tls_tex_slate_roof_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate_roof/tls_tex_slate_roof_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate_roof/tls_tex_slate_roof_ORM.png"
+        },
+        "iron": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/iron/tls_tex_iron_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/iron/tls_tex_iron_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/iron/tls_tex_iron_ORM.png"
+        },
+        "paper": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/paper/tls_tex_paper_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/paper/tls_tex_paper_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/paper/tls_tex_paper_ORM.png"
+        },
+        "thatch": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/thatch/tls_tex_thatch_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/thatch/tls_tex_thatch_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/thatch/tls_tex_thatch_ORM.png"
+        },
+        "wax": {
+          "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wax/tls_tex_wax_BaseColor.png",
+          "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wax/tls_tex_wax_Normal.png",
+          "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/wax/tls_tex_wax_ORM.png"
+        }
+      }
+    },
+    {
+      "cards": {
+        "leaf": "/home/z/my-project/work/lastsin-repo/02_Art/textures/nature/tls_tex_card_leaf.png",
+        "grass": "/home/z/my-project/work/lastsin-repo/02_Art/textures/nature/tls_tex_card_grass.png",
+        "fern": "/home/z/my-project/work/lastsin-repo/02_Art/textures/nature/tls_tex_card_fern.png"
+      }
+    }
+  ]
+}

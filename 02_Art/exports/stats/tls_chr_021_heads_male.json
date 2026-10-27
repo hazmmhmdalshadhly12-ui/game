@@ -1,0 +1,152 @@
+{
+  "asset": "TLS-CHR-021",
+  "objects": [
+    {
+      "name": "Head_M1",
+      "verts": 853,
+      "polys": 894,
+      "tris": 1615,
+      "boundary_edges": 59,
+      "nonmanifold_edges": 4,
+      "loose_verts": 1,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin0",
+        "TLS_Mat_Head_Eye0",
+        "TLS_Mat_Head_Hair0"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_M2",
+      "verts": 966,
+      "polys": 994,
+      "tris": 1838,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin1",
+        "TLS_Mat_Head_Eye1",
+        "TLS_Mat_Head_Hair1"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_M3",
+      "verts": 967,
+      "polys": 997,
+      "tris": 1837,
+      "boundary_edges": 67,
+      "nonmanifold_edges": 4,
+      "loose_verts": 1,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin2",
+        "TLS_Mat_Head_Eye2",
+        "TLS_Mat_Head_Hair2"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_M4",
+      "verts": 958,
+      "polys": 988,
+      "tris": 1826,
+      "boundary_edges": 60,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin3",
+        "TLS_Mat_Head_Eye3",
+        "TLS_Mat_Head_Hair3"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Head_M5",
+      "verts": 852,
+      "polys": 891,
+      "tris": 1616,
+      "boundary_edges": 52,
+      "nonmanifold_edges": 2,
+      "loose_verts": 0,
+      "nan_verts": 0,
+      "materials": [
+        "TLS_Mat_Head_Skin4",
+        "TLS_Mat_Head_Eye4",
+        "TLS_Mat_Head_Hair4"
+      ],
+      "uvs": [
+        "UVMap"
+      ],
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "totals": {
+    "verts": 4596,
+    "tris": 8732
+  },
+  "bbox_m": {
+    "min": [
+      -0.0845,
+      -0.0999,
+      -0.1269
+    ],
+    "max": [
+      1.2865,
+      0.0996,
+      0.0949
+    ],
+    "dims": [
+      1.371,
+      0.1995,
+      0.2218
+    ]
+  },
+  "pivot_ok": true,
+  "expected_dims_m": [
+    1.5,
+    0.25,
+    0.28
+  ],
+  "note": "5 parametric male heads - real geometric variation (skull/jaw/nose/brow/cheek)",
+  "fbx_expected_objects": 5,
+  "blend_mb": 4.83,
+  "fbx_mb": 0.23,
+  "fbx_path": "/home/z/my-project/work/lastsin-repo/02_Art/exports/fbx/tls_chr_021_heads_male_v001.fbx"
+}

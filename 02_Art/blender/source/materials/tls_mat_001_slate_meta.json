@@ -1,0 +1,10 @@
+{
+  "asset": "TLS-MAT-001",
+  "material": "TLS_Mat_Slate_Wall",
+  "textures": {
+    "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_BaseColor.png",
+    "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_Normal.png",
+    "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/slate/tls_tex_slate_ORM.png"
+  },
+  "slab": "Slab_TLS_Mat_Slate_Wall"
+}

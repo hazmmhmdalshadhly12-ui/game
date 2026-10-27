@@ -1,0 +1,10 @@
+{
+  "asset": "TLS-MAT-002",
+  "material": "TLS_Mat_Oak_Plank",
+  "textures": {
+    "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_BaseColor.png",
+    "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_Normal.png",
+    "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/oak/tls_tex_oak_ORM.png"
+  },
+  "slab": "Slab_TLS_Mat_Oak_Plank"
+}

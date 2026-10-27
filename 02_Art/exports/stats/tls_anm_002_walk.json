@@ -1,0 +1,14 @@
+{
+  "asset": "TLS-ANM-002",
+  "action": "tls_anm_002_walk",
+  "frames": 35,
+  "fps": 30,
+  "loop": "34f (~1.13s, ~1.4m/s)",
+  "bones_animated": 16,
+  "loop_closure_error_mm": 0.0,
+  "toe_R_stride_excursion_mm": 702.3,
+  "pelvis_bob_mm": 17.9,
+  "thigh_swing_deg": 23.9,
+  "blender": "5.0.1",
+  "fbx_mb": 0.86
+}

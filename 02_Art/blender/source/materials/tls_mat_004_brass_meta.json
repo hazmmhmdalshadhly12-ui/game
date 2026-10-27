@@ -1,0 +1,10 @@
+{
+  "asset": "TLS-MAT-004",
+  "material": "TLS_Mat_Brass_Aged",
+  "textures": {
+    "basecolor": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_BaseColor.png",
+    "normal": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_Normal.png",
+    "orm": "/home/z/my-project/work/lastsin-repo/02_Art/textures/materials/brass/tls_tex_brass_ORM.png"
+  },
+  "slab": "Slab_TLS_Mat_Brass_Aged"
+}
