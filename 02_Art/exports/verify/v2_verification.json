@@ -1,0 +1,225 @@
+{
+ "trimesh_glb": [
+  {
+   "status": "trimesh unavailable"
+  }
+ ],
+ "blender_reimport": [
+  {
+   "label": "blend",
+   "file": "tls_chr_001_edmund_vale_game_v002.blend",
+   "meshes": 1,
+   "verts": 85966,
+   "tris": 152199,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 19,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_chr_001_edmund_vale_v002.blend",
+   "meshes": 127,
+   "verts": 249630,
+   "tris": 478908,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": false,
+   "material_slots": 127,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_chr_003_gwendolyn.blend",
+   "meshes": 52,
+   "verts": 175858,
+   "tris": 337888,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": false,
+   "material_slots": 52,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_chr_004_crane.blend",
+   "meshes": 52,
+   "verts": 180270,
+   "tris": 346356,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": false,
+   "material_slots": 52,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_chr_006_mair.blend",
+   "meshes": 52,
+   "verts": 175918,
+   "tris": 338016,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": false,
+   "material_slots": 52,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_chr_007_tom.blend",
+   "meshes": 54,
+   "verts": 180593,
+   "tris": 346850,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": false,
+   "material_slots": 54,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_001_edmund_vale_v002.fbx",
+   "meshes": 1,
+   "verts": 85966,
+   "tris": 152199,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 19,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_001_edmund_vale_v001.fbx",
+   "meshes": 5,
+   "verts": 16083,
+   "tris": 27812,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 5,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_001_edmund_vale_v002.fbx",
+   "meshes": 1,
+   "verts": 85966,
+   "tris": 152199,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 19,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_003_gwendolyn.fbx",
+   "meshes": 1,
+   "verts": 44351,
+   "tris": 75160,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 16,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_004_crane.fbx",
+   "meshes": 1,
+   "verts": 48827,
+   "tris": 83750,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 17,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_006_mair.fbx",
+   "meshes": 1,
+   "verts": 44350,
+   "tris": 75168,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 16,
+   "status": "PASS"
+  },
+  {
+   "label": "fbx_reimport",
+   "file": "tls_chr_007_tom.fbx",
+   "meshes": 1,
+   "verts": 49267,
+   "tris": 84488,
+   "armatures": 1,
+   "bones": 65,
+   "all_meshes_have_uv": true,
+   "material_slots": 17,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_env_101_kit_cottage_v2.blend",
+   "meshes": 46,
+   "verts": 125016,
+   "tris": 249850,
+   "armatures": 0,
+   "bones": 0,
+   "all_meshes_have_uv": true,
+   "material_slots": 46,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_env_106_kit_graveyard_v2.blend",
+   "meshes": 59,
+   "verts": 13004,
+   "tris": 25520,
+   "armatures": 0,
+   "bones": 0,
+   "all_meshes_have_uv": false,
+   "material_slots": 59,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_env_107_kit_nature_v2.blend",
+   "meshes": 88,
+   "verts": 7966,
+   "tris": 14656,
+   "armatures": 0,
+   "bones": 0,
+   "all_meshes_have_uv": false,
+   "material_slots": 88,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_env_020_church.blend",
+   "meshes": 77,
+   "verts": 96672,
+   "tris": 193040,
+   "armatures": 0,
+   "bones": 0,
+   "all_meshes_have_uv": true,
+   "material_slots": 76,
+   "status": "PASS"
+  },
+  {
+   "label": "blend",
+   "file": "tls_prp_030_investigation_set_v2.blend",
+   "meshes": 58,
+   "verts": 18152,
+   "tris": 60460,
+   "armatures": 0,
+   "bones": 0,
+   "all_meshes_have_uv": false,
+   "material_slots": 58,
+   "status": "PASS"
+  }
+ ]
+}
