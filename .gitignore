@@ -7,3 +7,5 @@ Thumbs.db
 # standalone core-test build output (tools/core_tests/run_core_tests.sh)
 tools/core_tests/build/
 *.blend1
+*.blend1
+__pycache__/
