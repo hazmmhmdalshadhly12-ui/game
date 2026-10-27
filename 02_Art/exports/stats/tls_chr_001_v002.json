@@ -1,0 +1,42 @@
+{
+ "head_sculpt": {
+  "verts": 110976,
+  "faces": 110592,
+  "tris": 221184
+ },
+ "deform_tests": [
+  {
+   "test": "arm_raise_R",
+   "bone": "upper_arm.R",
+   "deg": 30,
+   "vertex_groups": 53,
+   "moved_verts": 5988,
+   "max_disp_mm": 384.17
+  },
+  {
+   "test": "leg_swing_L",
+   "bone": "thigh.L",
+   "deg": -25,
+   "vertex_groups": 53,
+   "moved_verts": 3549,
+   "max_disp_mm": 398.16
+  },
+  {
+   "test": "spine_bend",
+   "bone": "spine02",
+   "deg": 12,
+   "vertex_groups": 53,
+   "moved_verts": 82554,
+   "max_disp_mm": 99.02
+  }
+ ],
+ "asset": "TLS-CHR-001 Edmund Vale v002 (AAA sculpt upgrade)",
+ "hi_blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_001_edmund_vale_v002.blend",
+ "glb_hi": "/home/z/my-project/repo/02_Art/exports/glb/tls_chr_001_edmund_vale_v002.glb",
+ "fbx_game": "/home/z/my-project/repo/02_Art/exports/fbx/tls_chr_001_edmund_vale_v002.fbx",
+ "game_blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_001_edmund_vale_game_v002.blend",
+ "hi_total_tris": 478908,
+ "game_tris": 152199,
+ "objects": 2,
+ "elapsed_s": 39.5
+}
