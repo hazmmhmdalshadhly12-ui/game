@@ -1,0 +1,62 @@
+{
+ "TLS-CHR-003": {
+  "name": "Gwendolyn Meredith",
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_003_gwendolyn.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_chr_003_gwendolyn.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_chr_003_gwendolyn.fbx",
+  "hi_tris": 337888,
+  "game_tris": 75160,
+  "head": {
+   "verts": 77120,
+   "faces": 76800,
+   "tris": 153600
+  },
+  "bones": 65,
+  "skin_bones": 53
+ },
+ "TLS-CHR-004": {
+  "name": "Rev. Silas Crane",
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_004_crane.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_chr_004_crane.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_chr_004_crane.fbx",
+  "hi_tris": 346356,
+  "game_tris": 83750,
+  "head": {
+   "verts": 77120,
+   "faces": 76800,
+   "tris": 153600
+  },
+  "bones": 65,
+  "skin_bones": 53
+ },
+ "TLS-CHR-006": {
+  "name": "Mair Hughes",
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_006_mair.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_chr_006_mair.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_chr_006_mair.fbx",
+  "hi_tris": 338016,
+  "game_tris": 75168,
+  "head": {
+   "verts": 77120,
+   "faces": 76800,
+   "tris": 153600
+  },
+  "bones": 65,
+  "skin_bones": 53
+ },
+ "TLS-CHR-007": {
+  "name": "Tom Bevan",
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/chr/tls_chr_007_tom.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_chr_007_tom.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_chr_007_tom.fbx",
+  "hi_tris": 346850,
+  "game_tris": 84488,
+  "head": {
+   "verts": 77120,
+   "faces": 76800,
+   "tris": 153600
+  },
+  "bones": 65,
+  "skin_bones": 53
+ }
+}
