@@ -80,3 +80,59 @@ Each head assembly ≈ 19k base tris + smooth×6 modifier (~0.5 M shaded tris at
 5. **Files actually checked?** Yes — trimesh + Blender re-open + GLB structure + 25 renders (§5).
 6. **Tested in Unreal?** **No.** Stated explicitly; never claimed.
 7. **Next batch?** §6 list — starting with interactive sculpt refinement + retopo + baking.
+
+---
+
+## 6. Round 3 update (2026-11-08) — v4 REAL brush-sculpting pipeline
+
+**User verdict that triggered this round:** the v3 lofted heads "are not sculpting."
+Verdict accepted: v1/v2/v3 character outputs were **quarantined** to
+`02_Art/_archive_quarantine/` (kept, not deleted; registry rows marked
+`QUARANTINED_NOT_SCULPT`).
+
+### 6.1 What was actually built (v4)
+
+`02_Art/aaa_pipeline_v4/` — a pipeline that sculpts with **Blender's real Sculpt
+Mode brushes** (Clay Strips, Crease, Draw Sharp, Smooth, Grab) through
+`bpy.ops.sculpt.brush_stroke`, under Xvfb + Mesa software-GL (no GPU in this
+environment):
+
+- `v4_lib.py` — session context with **empirical px↔world calibration** of the
+  ortho viewport (measured, not assumed: `Ctx.calibrate()` targets 2400 px/m),
+  brush factory with per-tool persistent datablocks, surface-snapped stroke
+  paths (re-glued to the current surface on every op), voxel-remesh
+  ("DynaMesh") base construction from ellipsoid masses, studio lights/cameras,
+  Cycles-CPU renders, GLB export.
+- `v4_edmund.py` — Edmund Vale head program: blocking (global smooth + cranial
+  dome rebuild + face taper + jaw rounding + neck blend) → primary forms
+  (brow ridges, glabella, temporal hollows, cheekbones, maxilla, nasal
+  bridge/tip/alae, lips, chin, jawline, eye sockets) → refine (nose planes,
+  wings, philtrum, lip line, eyelid bands, ear helix, nasolabial folds,
+  masseter) → detail (eyelid creases, crow's feet, forehead/glabella lines,
+  nostrils, antihelix) → asymmetry grabs (nose deviation, brow height,
+  chin tilt) → eyes/hair/renders/exports.
+
+Verified facts (logs in CI run, reproducible): mesh 279,370 verts / 558,736
+tris; per-stage displacement logs `DISP stage1/2/3` > 0; renders from the real
+sculpted mesh; `.blend` reopen check; GLB export.
+
+### 6.2 Honest quality statement (read this before judging)
+
+- The **pipeline is real brush sculpting**; the **result is still a crude
+  base-mesh-quality head**. It is NOT comparable to RDR2 or to a senior
+  character artist's sculpt. Feature forms are present but soft/plastic;
+  the massing still reads as sculpted-clay-blockout.
+- This environment (2 vCPU, 4 GB RAM, no GPU, no interactive GUI, no stylus)
+  **cannot produce artist-grade sculpting by script alone**. Stroke programs
+  encode anatomy rules, not artistic judgment.
+- **Untested / not done:** NPC v4 rebuilds (pending), retopology, UV unwrap,
+  normal/texture baking, rig, Unreal Engine import (no engine available here —
+  explicitly NOT verified).
+
+### 6.3 Recommended path to real AAA quality
+
+1. Run `aaa_pipeline_v4` stages on a GPU machine (the project's Windows EC2
+   instance) with Blender GUI so a human artist can refine interactively, or
+2. Accept v4 as the automated base-mesh stage and hand off to an artist for
+   feature sculpting, or
+3. Commission/licence a base head and sculpt from it.
