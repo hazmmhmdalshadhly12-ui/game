@@ -1,0 +1,122 @@
+[
+ {
+  "file": "tls_chr_001_edmund_vale_v002.glb",
+  "nodes": 127,
+  "tris": 478908,
+  "verts": 242198,
+  "extents": [
+   0.932,
+   1.795,
+   0.34
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_chr_001_head_sculpt_v002.glb",
+  "nodes": 1,
+  "tris": 221184,
+  "verts": 110976,
+  "extents": [
+   0.158,
+   0.247,
+   0.228
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_chr_003_gwendolyn.glb",
+  "nodes": 52,
+  "tris": 337888,
+  "verts": 170816,
+  "extents": [
+   0.932,
+   1.759,
+   0.34
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_chr_004_crane.glb",
+  "nodes": 52,
+  "tris": 346356,
+  "verts": 175224,
+  "extents": [
+   0.932,
+   1.787,
+   0.34
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_chr_006_mair.glb",
+  "nodes": 52,
+  "tris": 338016,
+  "verts": 170880,
+  "extents": [
+   0.932,
+   1.749,
+   0.34
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_chr_007_tom.glb",
+  "nodes": 54,
+  "tris": 346850,
+  "verts": 175537,
+  "extents": [
+   0.932,
+   1.774,
+   0.34
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_env_101_kit_cottage_v2.glb",
+  "nodes": 46,
+  "tris": 249850,
+  "verts": 130896,
+  "extents": [
+   118.952,
+   2.241,
+   2.853
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_env_106_kit_graveyard_v2.glb",
+  "nodes": 59,
+  "tris": 25520,
+  "verts": 21114,
+  "extents": [
+   14.483,
+   8.129,
+   11.54
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_env_107_kit_nature_v2.glb",
+  "nodes": 88,
+  "tris": 14656,
+  "verts": 16660,
+  "extents": [
+   14.265,
+   14.366,
+   10.529
+  ],
+  "status": "PASS"
+ },
+ {
+  "file": "tls_prp_030_investigation_set_v2.glb",
+  "nodes": 58,
+  "tris": 60460,
+  "verts": 26264,
+  "extents": [
+   1.989,
+   0.307,
+   1.473
+  ],
+  "status": "PASS"
+ }
+]

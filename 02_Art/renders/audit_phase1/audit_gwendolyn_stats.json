@@ -1,0 +1,327 @@
+{
+ "tag": "gwendolyn",
+ "objects": [
+  {
+   "name": "TLS_gwendolyn_BodyBase",
+   "verts": 5480,
+   "tris": 10040,
+   "uvs": true
+  },
+  {
+   "name": "TLS_gwendolyn_HeadSculpt",
+   "verts": 77120,
+   "tris": 153600,
+   "uvs": true
+  },
+  {
+   "name": "TLS_gwendolyn_Ear_L",
+   "verts": 1240,
+   "tris": 2320,
+   "uvs": false
+  },
+  {
+   "name": "TLS_gwendolyn_Ear_R",
+   "verts": 1240,
+   "tris": 2320,
+   "uvs": false
+  },
+  {
+   "name": "TLS_gwendolyn_Eyeball_L",
+   "verts": 300,
+   "tris": 520,
+   "uvs": false
+  },
+  {
+   "name": "TLS_gwendolyn_Iris_L",
+   "verts": 19,
+   "tris": 34,
+   "uvs": false
+  },
+  {
+   "name": "TLS_gwendolyn_Eyeball_R",
+   "verts": 300,
+   "tris": 520,
+   "uvs": false
+  },
+  {
+   "name": "TLS_gwendolyn_Iris_R",
+   "verts": 19,
+   "tris": 34,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Hair_Cap",
+   "verts": 72700,
+   "tris": 134272,
+   "uvs": true
+  },
+  {
+   "name": "TLS_gwendolyn_HairBun",
+   "verts": 234,
+   "tris": 396,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Coat",
+   "verts": 4404,
+   "tris": 8692,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtUnder",
+   "verts": 2120,
+   "tris": 4232,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatCollar",
+   "verts": 72,
+   "tris": 96,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Waistcoat",
+   "verts": 354,
+   "tris": 704,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtCollar",
+   "verts": 48,
+   "tris": 96,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_ShirtPlacket",
+   "verts": 16,
+   "tris": 28,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cuff_L",
+   "verts": 24,
+   "tris": 24,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cuff_R",
+   "verts": 24,
+   "tris": 24,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Cravat",
+   "verts": 120,
+   "tris": 240,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Trousers",
+   "verts": 1856,
+   "tris": 3704,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_Waistband",
+   "verts": 56,
+   "tris": 56,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Boots",
+   "verts": 776,
+   "tris": 1552,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_Sole_L",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Heel_L",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Sole_R",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Heel_R",
+   "verts": 8,
+   "tris": 12,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_0",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_1",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_2",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_3",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_CoatBtn_4",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_0",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_1",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_2",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_WCBtn_3",
+   "verts": 32,
+   "tris": 60,
+   "uvs": true
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg00",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg01",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg02",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg03",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg04",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg05",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg06",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg07",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg08",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg09",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg10",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg11",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg12",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_StrapSeg13",
+   "verts": 88,
+   "tris": 160,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Satchel",
+   "verts": 48,
+   "tris": 92,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_SatchelFlap",
+   "verts": 8,
+   "tris": 8,
+   "uvs": false
+  },
+  {
+   "name": "TLS_Outfit_Gloves",
+   "verts": 5728,
+   "tris": 11456,
+   "uvs": true
+  }
+ ],
+ "bb_min": [
+  -0.4660916328430176,
+  -0.1850000023841858,
+  0.0020000000949949026
+ ],
+ "bb_max": [
+  0.46607348322868347,
+  0.15547102689743042,
+  1.7609245777130127
+ ]
+}

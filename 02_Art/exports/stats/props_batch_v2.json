@@ -1,0 +1,22 @@
+{
+ "tls_prp_030_investigation_set_v2": {
+  "tris": 60460,
+  "objects": 58,
+  "blend": "/home/z/my-project/repo/02_Art/blender/source/prp/tls_prp_030_investigation_set_v2.blend",
+  "glb": "/home/z/my-project/repo/02_Art/exports/glb/tls_prp_030_investigation_set_v2.glb",
+  "fbx": "/home/z/my-project/repo/02_Art/exports/fbx/tls_prp_030_investigation_set_v2.fbx",
+  "items": [
+   "tls_prp_001_lantern_v2",
+   "tls_prp_002_ledger_v2",
+   "tls_prp_015_ledger_open_v2",
+   "tls_prp_016_letters",
+   "tls_prp_017_candlestick",
+   "tls_prp_004_gate_key_v2",
+   "tls_prp_018_church_lock",
+   "tls_prp_019_coins",
+   "tls_prp_020_rope",
+   "tls_prp_021_quill_inkwell",
+   "tls_prp_022_bible"
+  ]
+ }
+}
